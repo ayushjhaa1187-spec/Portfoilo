@@ -23,10 +23,14 @@ app.get('/', (req, res) => {
 // Import Routes
 const projectRoutes = require('./routes/projects');
 const contactRoutes = require('./routes/contact');
+const achievementRoutes = require('./routes/achievements');
+const blogRoutes = require('./routes/blog');
 
 // Use Routes
 app.use('/api/projects', projectRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/achievements', achievementRoutes);
+app.use('/api/blog', blogRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

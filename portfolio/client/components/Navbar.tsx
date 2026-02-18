@@ -11,6 +11,8 @@ const Navbar = () => {
   const navLinks = [
     { name: 'About', href: '/about' },
     { name: 'Projects', href: '/projects' },
+    { name: 'Case Studies', href: '/case-studies' },
+    { name: 'Research', href: '/research' },
     { name: 'Experience', href: '/experience' },
     { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' },
@@ -26,8 +28,8 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+          <div className="hidden lg:block">
+            <div className="ml-10 flex items-baseline space-x-6">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -40,7 +42,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-700 focus:outline-none"
@@ -57,7 +59,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-b border-gray-100"
+            className="lg:hidden bg-white border-b border-gray-100 overflow-hidden"
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navLinks.map((link) => (

@@ -15,6 +15,22 @@ router.get('/', async (req, res) => {
   }
 });
 
+// @route   GET /api/projects/:slug
+// @desc    Get project by slug
+// @access  Public
+router.get('/:slug', async (req, res) => {
+  try {
+    const project = await Project.findOne({ slug: req.params.slug });
+    if (!project) {
+      return res.status(404).json({ msg: 'Project not found' });
+    }
+    res.json(project);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // @route   POST /api/projects
 // @desc    Create a project
 // @access  Private (TODO: Add Auth)

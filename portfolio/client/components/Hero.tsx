@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 const Hero = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 to-slate-900 text-white pt-16">
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 to-slate-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
 
         <motion.div

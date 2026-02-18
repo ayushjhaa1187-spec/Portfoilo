@@ -17,23 +17,39 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm text-slate-400">
-              <li><Link href="/projects" className="hover:text-orange-500 transition-colors">Projects</Link></li>
-              <li><Link href="/about" className="hover:text-orange-500 transition-colors">About</Link></li>
-              <li><Link href="/blog" className="hover:text-orange-500 transition-colors">Blog</Link></li>
-              <li><Link href="/contact" className="hover:text-orange-500 transition-colors">Contact</Link></li>
+              <li><Link href="/projects" className="hover:text-orange-500 focus:text-orange-500 focus:outline-none transition-colors">Projects</Link></li>
+              <li><Link href="/about" className="hover:text-orange-500 focus:text-orange-500 focus:outline-none transition-colors">About</Link></li>
+              <li><Link href="/blog" className="hover:text-orange-500 focus:text-orange-500 focus:outline-none transition-colors">Blog</Link></li>
+              <li><Link href="/contact" className="hover:text-orange-500 focus:text-orange-500 focus:outline-none transition-colors">Contact</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-lg font-semibold mb-4">Connect</h4>
             <div className="flex space-x-4">
-              <a href="https://github.com/ayushjhaa1187-spec" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+              <a
+                href="https://github.com/ayushjhaa1187-spec"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-400 hover:text-white focus:text-white focus:outline-none focus:ring-2 focus:ring-white rounded-sm transition-colors"
+                aria-label="GitHub Profile"
+              >
                 <Github size={24} />
               </a>
-              <a href="https://www.linkedin.com/in/ayush-kumar-jha-5960a3362/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+              <a
+                href="https://www.linkedin.com/in/ayush-kumar-jha-5960a3362/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-400 hover:text-white focus:text-white focus:outline-none focus:ring-2 focus:ring-white rounded-sm transition-colors"
+                aria-label="LinkedIn Profile"
+              >
                 <Linkedin size={24} />
               </a>
-              <a href="mailto:ayushjhaa1187@gmail.com" className="text-slate-400 hover:text-white transition-colors">
+              <a
+                href="mailto:ayushjhaa1187@gmail.com"
+                className="text-slate-400 hover:text-white focus:text-white focus:outline-none focus:ring-2 focus:ring-white rounded-sm transition-colors"
+                aria-label="Email Me"
+              >
                 <Mail size={24} />
               </a>
             </div>

@@ -22,7 +22,8 @@ app.get('/', (req, res) => {
 
 // Import Routes
 const projectRoutes = require('./routes/projects');
-const contactRoutes = require('./routes/contact');
+const Contact = require('./models/Contact');
+const contactRoutes = require('./routes/contact')(Contact);
 const achievementRoutes = require('./routes/achievements');
 const blogRoutes = require('./routes/blog');
 

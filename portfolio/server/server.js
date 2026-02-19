@@ -12,9 +12,6 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Connect to Database
-connectDB();
-
 // Basic Route
 app.get('/', (req, res) => {
   res.send('API is running...');
@@ -32,6 +29,14 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/achievements', achievementRoutes);
 app.use('/api/blog', blogRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Only connect to DB and start server if this file is run directly
+if (require.main === module) {
+  // Connect to Database
+  connectDB();
+
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;

@@ -5,68 +5,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
-
-// Mock data (replace with API call later)
-const projectsData = [
-  {
-    slug: 'satellite-data-analysis',
-    title: 'Satellite Data Analysis System',
-    category: 'ML/AI',
-    shortDescription: 'ML models to classify satellite imagery for environmental monitoring.',
-    techStack: ['Python', 'TensorFlow', 'OpenCV', 'Satellite APIs', 'PostgreSQL'],
-    metrics: { accuracy: '92%', impact: 'Automated monitoring' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: true
-  },
-  {
-    slug: 'predictive-analytics-dashboard',
-    title: 'Predictive Analytics Dashboard',
-    category: 'ML/AI',
-    shortDescription: 'End-to-end ML pipeline with business insights and interactive visualizations.',
-    techStack: ['Python', 'Scikit-learn', 'Streamlit', 'PostgreSQL'],
-    metrics: { accuracy: '89%', impact: 'Improved decision making' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: true
-  },
-  {
-    slug: 'startup-idea-validator',
-    title: 'Startup Idea Validator',
-    category: 'Business',
-    shortDescription: 'Validated startup ideas using data-driven market research.',
-    techStack: ['Python', 'Pandas', 'Market Research', 'Business Modeling'],
-    metrics: { accuracy: 'N/A', impact: 'Validated 3 ideas' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: true
-  },
-  {
-    slug: 'market-analysis-tool',
-    title: 'Market Analysis Tool',
-    category: 'Business',
-    shortDescription: 'Data-driven business intelligence solution combining ML with strategy.',
-    techStack: ['Python', 'BeautifulSoup', 'NLP', 'Tableau'],
-    metrics: { accuracy: 'N/A', impact: 'Strategic insights' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: false
-  },
-  {
-    slug: 'healthcare-prediction',
-    title: 'Healthcare Prediction Model',
-    category: 'ML/AI',
-    shortDescription: 'Disease prediction using patient data and ML classification.',
-    techStack: ['Python', 'Scikit-learn', 'Pandas'],
-    metrics: { accuracy: '94%', impact: 'Early detection' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: false
-  }
-];
+import { projects } from '@/data/projects';
 
 const ProjectsPage = () => {
   const [filter, setFilter] = useState('All');
   const categories = ['All', 'ML/AI', 'Business'];
 
   const filteredProjects = filter === 'All'
-    ? projectsData
-    : projectsData.filter(p => p.category === filter);
+    ? projects
+    : projects.filter(p => p.category === filter);
 
   return (
     <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16">

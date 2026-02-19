@@ -1,4 +1,29 @@
-export const projects = [
+export interface Project {
+  slug: string;
+  title: string;
+  category: string;
+  shortDescription: string;
+  fullDescription: string;
+  techStack: string[];
+  metrics: {
+    accuracy: string;
+    impact: string;
+  };
+  githubUrl: string;
+  featured: boolean;
+}
+
+export interface CaseStudy {
+  slug: string;
+  title: string;
+  projectSlug: string;
+  challenge: string;
+  solution: string;
+  results: string;
+  learnings: string;
+}
+
+export const projects: Project[] = [
   {
     slug: 'satellite-data-analysis',
     title: 'Satellite Data Analysis System',
@@ -56,7 +81,7 @@ export const projects = [
   }
 ];
 
-export const caseStudies = [
+export const caseStudies: CaseStudy[] = [
   {
     slug: 'satellite-environmental-monitoring',
     title: 'How Satellite Data + ML Can Transform Environmental Monitoring',

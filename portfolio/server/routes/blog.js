@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 // @access  Public
 router.get('/:slug', async (req, res) => {
   try {
-    const post = await BlogPost.findOne({ slug: req.params.slug });
+    const post = await BlogPost.findOne({ slug: req.params.slug }).lean();
     if (!post) {
       return res.status(404).json({ msg: 'Post not found' });
     }

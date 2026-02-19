@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -64,9 +64,11 @@ const ProjectsPage = () => {
   const [filter, setFilter] = useState('All');
   const categories = ['All', 'ML/AI', 'Business'];
 
-  const filteredProjects = filter === 'All'
-    ? projectsData
-    : projectsData.filter(p => p.category === filter);
+  const filteredProjects = useMemo(() => {
+    return filter === 'All'
+      ? projectsData
+      : projectsData.filter(p => p.category === filter);
+  }, [filter]);
 
   return (
     <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16">

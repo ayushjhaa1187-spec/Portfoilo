@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Project = require('../models/Project');
+const { getProjectBySlug } = require('../controllers/projectController');
 
 // @route   GET /api/projects
 // @desc    Get all projects
@@ -18,18 +19,7 @@ router.get('/', async (req, res) => {
 // @route   GET /api/projects/:slug
 // @desc    Get project by slug
 // @access  Public
-router.get('/:slug', async (req, res) => {
-  try {
-    const project = await Project.findOne({ slug: req.params.slug });
-    if (!project) {
-      return res.status(404).json({ msg: 'Project not found' });
-    }
-    res.json(project);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
+router.get('/:slug', getProjectBySlug(Project));
 
 // @route   POST /api/projects
 // @desc    Create a project

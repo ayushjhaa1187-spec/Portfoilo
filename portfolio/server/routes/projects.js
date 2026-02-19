@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Project = require('../models/Project');
+const { createProjectFactory } = require('../controllers/projectController');
+
+// Create the controller instance by injecting the model
+const createProject = createProjectFactory(Project);
 
 // @route   GET /api/projects
 // @desc    Get all projects
@@ -34,15 +38,6 @@ router.get('/:slug', async (req, res) => {
 // @route   POST /api/projects
 // @desc    Create a project
 // @access  Private (TODO: Add Auth)
-router.post('/', async (req, res) => {
-  try {
-    const newProject = new Project(req.body);
-    const project = await newProject.save();
-    res.json(project);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
+router.post('/', createProject);
 
 module.exports = router;

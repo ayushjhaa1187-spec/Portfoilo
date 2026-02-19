@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -64,9 +64,16 @@ const ProjectsPage = () => {
   const [filter, setFilter] = useState('All');
   const categories = ['All', 'ML/AI', 'Business'];
 
-  const filteredProjects = filter === 'All'
+const filteredProjects = filter === 'All'
     ? projectsData
     : projectsData.filter(p => p.category === filter);
+
+  const handleFilterClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    const category = e.currentTarget.dataset.category;
+    if (category) {
+      setFilter(category);
+    }
+  }, []);
 
   return (
     <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16">
@@ -85,7 +92,8 @@ const ProjectsPage = () => {
         {categories.map((cat) => (
           <Button
             key={cat}
-            onClick={() => setFilter(cat)}
+            data-category={cat}
+            onClick={handleFilterClick}
             variant={filter === cat ? 'primary' : 'outline'}
             className={filter === cat ? 'bg-blue-600 text-white' : ''}
           >

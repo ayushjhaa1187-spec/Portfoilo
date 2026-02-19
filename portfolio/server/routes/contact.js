@@ -7,7 +7,13 @@ const Contact = require('../models/Contact');
 // @access  Public
 router.post('/', async (req, res) => {
   try {
-    const newContact = new Contact(req.body);
+    const { name, email, subject, message } = req.body;
+    const newContact = new Contact({
+      name,
+      email,
+      subject,
+      message
+    });
     const contact = await newContact.save();
     res.json({ msg: 'Message sent successfully', contact });
   } catch (err) {

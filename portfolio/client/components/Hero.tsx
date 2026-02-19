@@ -3,7 +3,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/Button';
-import Link from 'next/link';
 
 const Hero = () => {
   return (
@@ -23,14 +22,10 @@ const Hero = () => {
             IIT Madras Data Scientist | ML/AI Researcher | Entrepreneurial Innovator
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <Link href="/projects">
-              <Button size="lg" variant="primary">View Projects</Button>
-            </Link>
-            <Link href="/contact">
-              <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10">
-                Contact Me
-              </Button>
-            </Link>
+            <Button href="/projects" size="lg" variant="primary">View Projects</Button>
+            <Button href="/contact" size="lg" variant="outline" className="text-white border-white hover:bg-white/10">
+              Contact Me
+            </Button>
           </div>
         </motion.div>
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const BlogPost = require('../models/BlogPost');
+const logger = require('../utils/logger');
 
 // @route   GET /api/blog
 // @desc    Get all blog posts
@@ -10,7 +11,7 @@ router.get('/', async (req, res) => {
     const posts = await BlogPost.find();
     res.json(posts);
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server Error');
   }
 });
@@ -26,7 +27,7 @@ router.get('/:slug', async (req, res) => {
     }
     res.json(post);
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server Error');
   }
 });

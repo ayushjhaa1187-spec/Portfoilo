@@ -7,8 +7,27 @@ const BlogPost = require('../models/BlogPost');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const posts = await BlogPost.find();
-    res.json(posts);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const posts = await BlogPost.find()
+      .select('-content')
+      .sort({ date: -1 })
+      .skip(skip)
+      .limit(limit)
+      .lean();
+
+    const total = await BlogPost.countDocuments();
+
+    res.json({
+      success: true,
+      count: posts.length,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
+      data: posts
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

@@ -6,6 +6,14 @@ const rateLimit = require('./middleware/rateLimiter');
 
 dotenv.config();
 
+// Validate required environment variables in production
+if (process.env.NODE_ENV === 'production') {
+  if (!process.env.MONGO_URI) {
+    console.error('ERROR: MONGO_URI environment variable is not set in production');
+    process.exit(1);
+  }
+}
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 

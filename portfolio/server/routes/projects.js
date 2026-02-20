@@ -7,8 +7,20 @@ const Project = require('../models/Project');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const projects = await Project.find();
-    res.json(projects);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const projects = await Project.find().skip(skip).limit(limit);
+    const total = await Project.countDocuments();
+
+    res.json({
+      projects,
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+      totalProjects: total,
+      limit
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

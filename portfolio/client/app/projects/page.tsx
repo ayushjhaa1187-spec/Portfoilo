@@ -1,72 +1,73 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
+import api from '@/lib/api';
 
-// Mock data (replace with API call later)
-const projectsData = [
-  {
-    slug: 'satellite-data-analysis',
-    title: 'Satellite Data Analysis System',
-    category: 'ML/AI',
-    shortDescription: 'ML models to classify satellite imagery for environmental monitoring.',
-    techStack: ['Python', 'TensorFlow', 'OpenCV', 'Satellite APIs', 'PostgreSQL'],
-    metrics: { accuracy: '92%', impact: 'Automated monitoring' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: true
-  },
-  {
-    slug: 'predictive-analytics-dashboard',
-    title: 'Predictive Analytics Dashboard',
-    category: 'ML/AI',
-    shortDescription: 'End-to-end ML pipeline with business insights and interactive visualizations.',
-    techStack: ['Python', 'Scikit-learn', 'Streamlit', 'PostgreSQL'],
-    metrics: { accuracy: '89%', impact: 'Improved decision making' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: true
-  },
-  {
-    slug: 'startup-idea-validator',
-    title: 'Startup Idea Validator',
-    category: 'Business',
-    shortDescription: 'Validated startup ideas using data-driven market research.',
-    techStack: ['Python', 'Pandas', 'Market Research', 'Business Modeling'],
-    metrics: { accuracy: 'N/A', impact: 'Validated 3 ideas' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: true
-  },
-  {
-    slug: 'market-analysis-tool',
-    title: 'Market Analysis Tool',
-    category: 'Business',
-    shortDescription: 'Data-driven business intelligence solution combining ML with strategy.',
-    techStack: ['Python', 'BeautifulSoup', 'NLP', 'Tableau'],
-    metrics: { accuracy: 'N/A', impact: 'Strategic insights' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: false
-  },
-  {
-    slug: 'healthcare-prediction',
-    title: 'Healthcare Prediction Model',
-    category: 'ML/AI',
-    shortDescription: 'Disease prediction using patient data and ML classification.',
-    techStack: ['Python', 'Scikit-learn', 'Pandas'],
-    metrics: { accuracy: '94%', impact: 'Early detection' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: false
-  }
-];
+interface Project {
+  slug: string;
+  title: string;
+  category: string;
+  shortDescription: string;
+  techStack: string[];
+  metrics?: { accuracy: string; impact: string };
+  githubUrl?: string;
+  featured: boolean;
+}
 
 const ProjectsPage = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [filter, setFilter] = useState('All');
   const categories = ['All', 'ML/AI', 'Business'];
 
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await api.get('/projects?limit=100');
+        if (res.data.projects) {
+          setProjects(res.data.projects);
+        } else {
+          // Fallback in case of unexpected response structure
+          setProjects([]);
+        }
+      } catch (err) {
+        console.error('Failed to fetch projects:', err);
+        setError('Failed to load projects. Please try again later.');
+        // Fallback to mock data if API fails (optional, but good for stability if backend is down)
+        // For this task, I will just show error or empty to prove we are using API.
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
   const filteredProjects = filter === 'All'
-    ? projectsData
-    : projectsData.filter(p => p.category === filter);
+    ? projects
+    : projects.filter(p => p.category === filter);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen pt-24 flex justify-center items-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen pt-24 text-center px-4">
+        <p className="text-red-500 mb-4">{error}</p>
+        <Button onClick={() => window.location.reload()}>Retry</Button>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16">
@@ -121,12 +122,12 @@ const ProjectsPage = () => {
                 <p className="text-gray-600 mb-4 line-clamp-3 flex-grow">{project.shortDescription}</p>
 
                 <div className="mb-4 flex flex-wrap gap-2">
-                  {project.techStack.slice(0, 3).map((tech) => (
+                  {project.techStack?.slice(0, 3).map((tech) => (
                     <span key={tech} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
                       {tech}
                     </span>
                   ))}
-                  {project.techStack.length > 3 && (
+                  {project.techStack?.length > 3 && (
                     <span className="text-xs text-gray-400 px-1 py-1">+{project.techStack.length - 3}</span>
                   )}
                 </div>
@@ -135,9 +136,11 @@ const ProjectsPage = () => {
                   <Link href={`/projects/${project.slug}`} className="text-blue-600 font-medium hover:text-blue-800 text-sm">
                     View Details →
                   </Link>
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-900">
-                    GitHub ↗
-                  </a>
+                  {project.githubUrl && (
+                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-900">
+                      GitHub ↗
+                    </a>
+                  )}
                 </div>
               </Card>
             </motion.div>

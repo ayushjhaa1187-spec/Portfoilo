@@ -21,12 +21,14 @@ app.get('/', (req, res) => {
 });
 
 // Import Routes
+const authRoutes = require('./routes/auth');
 const projectRoutes = require('./routes/projects');
 const contactRoutes = require('./routes/contact');
 const achievementRoutes = require('./routes/achievements');
 const blogRoutes = require('./routes/blog');
 
 // Use Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/achievements', achievementRoutes);

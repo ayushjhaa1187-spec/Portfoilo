@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
+const rateLimit = require('./middleware/rateLimiter');
 
 dotenv.config();
 
@@ -11,6 +12,22 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Rate Limiting
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
+  message: 'Too many requests from this IP, please try again after 15 minutes'
+});
+
+const contactLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 5,
+  message: 'Too many contact form submissions from this IP, please try again after an hour'
+});
+
+app.use('/api/', apiLimiter);
+app.use('/api/contact', contactLimiter);
 
 // Connect to Database
 connectDB();

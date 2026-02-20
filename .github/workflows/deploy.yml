@@ -1,0 +1,73 @@
+name: Deploy Portfolio
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
+
+    # Frontend build
+    - name: Install client dependencies
+      run: cd portfolio/client && npm ci
+
+    - name: Build Next.js client
+      run: cd portfolio/client && npm run build
+
+    # Backend checks
+    - name: Install server dependencies
+      run: cd portfolio/server && npm ci
+
+    - name: Run server tests
+      run: cd portfolio/server && npm test
+
+  deploy-frontend:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Deploy to Vercel
+      run: |
+        npm install -g vercel
+        cd portfolio/client
+        vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
+      env:
+        VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+        VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+  deploy-backend:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Deploy to Railway
+      run: |
+        npm install -g @railway/cli
+        railway link ${{ secrets.RAILWAY_PROJECT_ID }}
+        cd portfolio/server
+        railway up
+      env:
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Project = require('../models/Project');
+const logger = require('../utils/logger');
 
 // @route   GET /api/projects
 // @desc    Get all projects
@@ -10,7 +11,7 @@ router.get('/', async (req, res) => {
     const projects = await Project.find();
     res.json(projects);
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server Error');
   }
 });
@@ -26,7 +27,7 @@ router.get('/:slug', async (req, res) => {
     }
     res.json(project);
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server Error');
   }
 });
@@ -40,7 +41,7 @@ router.post('/', async (req, res) => {
     const project = await newProject.save();
     res.json(project);
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server Error');
   }
 });

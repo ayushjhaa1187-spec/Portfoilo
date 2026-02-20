@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Contact = require('../models/Contact');
+const logger = require('../utils/logger');
 
 // @route   POST /api/contact
 // @desc    Submit contact form
@@ -11,7 +12,7 @@ router.post('/', async (req, res) => {
     const contact = await newContact.save();
     res.json({ msg: 'Message sent successfully', contact });
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server Error');
   }
 });

@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
+const logger = require('./utils/logger');
 
 dotenv.config();
 
@@ -33,5 +34,5 @@ app.use('/api/achievements', achievementRoutes);
 app.use('/api/blog', blogRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  logger.info(`Server running on port ${PORT}`);
 });

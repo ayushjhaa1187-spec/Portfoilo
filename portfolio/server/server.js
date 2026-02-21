@@ -25,12 +25,14 @@ const projectRoutes = require('./routes/projects');
 const contactRoutes = require('./routes/contact');
 const achievementRoutes = require('./routes/achievements');
 const blogRoutes = require('./routes/blog');
+const authRoutes = require('./routes/auth');
 
 // Use Routes
 app.use('/api/projects', projectRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/achievements', achievementRoutes);
 app.use('/api/blog', blogRoutes);
+app.use('/api/auth', authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

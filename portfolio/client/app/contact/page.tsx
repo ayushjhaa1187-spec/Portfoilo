@@ -50,9 +50,9 @@ const ContactPage = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">Let's Build Something Together</h2>
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">Let&apos;s Build Something Together</h2>
           <p className="text-gray-600 mb-8 text-lg">
-            I'm always interested in ML/AI collaboration projects, startup opportunities, and research partnerships.
+            I&apos;m always interested in ML/AI collaboration projects, startup opportunities, and research partnerships.
           </p>
 
           <div className="space-y-6">

@@ -7,7 +7,8 @@ const Project = require('../models/Project');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const projects = await Project.find();
+    // Optimization: Exclude fullDescription to reduce payload size for list view
+    const projects = await Project.find().select('-fullDescription');
     res.json(projects);
   } catch (err) {
     console.error(err.message);

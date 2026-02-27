@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import ResumeClient from './ResumeClient';
 
 export const metadata: Metadata = {
-    title: 'Resume | Ayush Kumar Jha',
+    title: 'Resume',
     description: 'Download my resume containing my experience, education, and skills.',
 };
 

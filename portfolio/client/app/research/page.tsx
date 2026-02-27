@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import ResearchClient from './ResearchClient';
 
 export const metadata: Metadata = {
-    title: 'Research | Ayush Kumar Jha',
+    title: 'Research',
     description: 'Exploring the frontiers of ML/AI, with a focus on Satellite Data and Earth Observation.',
 };
 

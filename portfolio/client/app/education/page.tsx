@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import EducationClient from './EducationClient';
 
 export const metadata: Metadata = {
-    title: 'Education | Ayush Kumar Jha',
+    title: 'Education',
     description: 'Building a strong foundation in data science, ML/AI, and entrepreneurship.',
 };
 

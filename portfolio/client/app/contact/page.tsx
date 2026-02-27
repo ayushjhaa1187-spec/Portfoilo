@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import ContactClient from './ContactClient';
 
 export const metadata: Metadata = {
-    title: 'Contact | Ayush Kumar Jha',
+    title: 'Contact',
     description: 'Get in touch for ML/AI projects, startups, or research opportunities.',
 };
 

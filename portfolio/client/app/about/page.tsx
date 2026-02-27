@@ -7,7 +7,7 @@ import { timeline, currentFocus, personalInfo } from '@/data/portfolio';
 import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 
 export const metadata: Metadata = {
-  title: 'About | Ayush Kumar Jha',
+  title: 'About',
   description: 'From Commerce to Cutting-Edge Data Science at IIT Madras',
 };
 
@@ -64,23 +64,43 @@ export default function AboutPage() {
 
           {/* Right Column */}
           <div>
-            {/* Photo Placeholder */}
+            {/* Avatar Card */}
             <AnimatedReveal
               direction="none"
-              className="w-full aspect-square max-w-sm mx-auto mb-10 rounded-2xl flex items-center justify-center transition-transform hover:scale-105"
-              style={{
-                background: 'linear-gradient(135deg, rgba(59,130,246,0.1), rgba(249,115,22,0.1))',
-                border: '2px dashed var(--border-color)',
-              }}
+              className="w-full max-w-sm mx-auto mb-10"
             >
-              <div className="text-center p-6">
-                <div className="text-6xl mb-4">👨‍💻</div>
-                <p className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
-                  Professional Photo
-                </p>
-                <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
-                  Coming Soon
-                </p>
+              <div className="relative group">
+                {/* Animated gradient border */}
+                <div
+                  className="absolute -inset-1 rounded-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-500 blur-sm"
+                  style={{ background: 'linear-gradient(135deg, var(--primary-light), var(--accent), var(--success))' }}
+                />
+                <div
+                  className="relative aspect-square rounded-2xl flex flex-col items-center justify-center gap-4 overflow-hidden"
+                  style={{ background: 'var(--bg-card)', border: '2px solid var(--border-color)' }}
+                >
+                  {/* Large Initials */}
+                  <div
+                    className="w-28 h-28 rounded-full flex items-center justify-center text-4xl font-extrabold text-white shadow-lg"
+                    style={{ background: 'linear-gradient(135deg, var(--primary), var(--accent))' }}
+                  >
+                    AJ
+                  </div>
+                  <div className="text-center px-6">
+                    <h3 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                      Ayush Kumar Jha
+                    </h3>
+                    <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
+                      Data Scientist | IIT Madras
+                    </p>
+                  </div>
+                  {/* Role tags */}
+                  <div className="flex flex-wrap justify-center gap-2 px-4 pb-2">
+                    {['ML/AI', 'Remote Sensing', 'Entrepreneur'].map(tag => (
+                      <span key={tag} className="badge badge-primary text-xs">{tag}</span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </AnimatedReveal>
 

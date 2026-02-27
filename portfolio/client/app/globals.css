@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* ===== DESIGN SYSTEM ===== */
 :root {
   --primary: #1E40AF;

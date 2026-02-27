@@ -26,6 +26,10 @@ const ParticleField = () => {
     resize();
     window.addEventListener('resize', resize);
 
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
     for (let i = 0; i < 60; i++) {
       particles.push({
         x: Math.random() * canvas.width,
@@ -76,7 +80,7 @@ const ParticleField = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 z-0" />;
+  return <canvas ref={canvasRef} className="absolute inset-0 z-0" aria-hidden="true" />;
 };
 
 const Hero = () => {
@@ -194,8 +198,8 @@ const Hero = () => {
               whileHover={{ y: -4, boxShadow: '0 0 30px rgba(59, 130, 246, 0.15)' }}
               className="stat-card"
               style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-glass)',
+                border: '1px solid var(--border-glass)',
               }}
             >
               <div className="text-3xl mb-1">{stat.value}</div>

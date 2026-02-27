@@ -20,6 +20,8 @@ const moreLinks = [
   { name: 'Case Studies', href: '/case-studies' },
   { name: 'Research', href: '/research' },
   { name: 'Blog', href: '/blog' },
+  { name: 'Education', href: '/education' },
+  { name: 'Resume', href: '/resume' },
 ];
 
 const Navbar = () => {

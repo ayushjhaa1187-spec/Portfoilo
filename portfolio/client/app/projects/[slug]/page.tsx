@@ -96,7 +96,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
                   <FiGithub size={18} />
                   <span className="font-medium text-sm">View Source Code</span>
                 </a>
-                <a href="#" className="flex items-center gap-3 p-3 rounded-lg transition-colors border opactiy-50 cursor-not-allowed"
+                <a href="#" className="flex items-center gap-3 p-3 rounded-lg transition-colors border opacity-50 cursor-not-allowed"
                   style={{ borderColor: 'var(--border-color)', color: 'var(--text-muted)' }}>
                   <FiExternalLink size={18} />
                   <span className="font-medium text-sm">Live Demo (Coming Soon)</span>

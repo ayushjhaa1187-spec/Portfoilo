@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import Section from '@/components/Section';
 import { personalInfo } from '@/data/portfolio';
@@ -9,35 +9,6 @@ import { FiMail, FiLinkedin, FiGithub, FiMapPin, FiSend } from 'react-icons/fi';
 import PageHero from '@/components/PageHero';
 
 export default function ContactClient() {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-  const [status, setStatus] = useState('');
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus('sending');
-
-    try {
-      // Direct to mailto link instead of fake backend API
-      const mailtoLink = `mailto:${personalInfo.email}?subject=${encodeURIComponent(formData.subject || 'Portfolio Contact')}&body=${encodeURIComponent(formData.message + '\n\nFrom: ' + formData.name + ' (' + formData.email + ')')}`;
-
-      window.location.href = mailtoLink;
-
-      // Briefly show success before navigation takes over
-      setStatus('success');
-      setTimeout(() => {
-        setFormData({ name: '', email: '', subject: '', message: '' });
-        setStatus('idle');
-      }, 3000);
-    } catch (error) {
-      console.error(error);
-      setStatus('error');
-    }
-  };
-
   return (
     <>
       <PageHero
@@ -95,56 +66,35 @@ export default function ContactClient() {
             </div>
           </motion.div>
 
-          {/* Right Column - Form */}
+          {/* Right Column - Direct Contact */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="card p-8"
+            className="flex flex-col justify-center"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Your Name</label>
-                  <input type="text" id="name" name="name" required value={formData.name} onChange={handleChange}
-                    className="input" placeholder="John Doe" />
+            <div className="card p-8 sm:p-10 text-center relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-orange-500/5 z-0" />
+              <div className="relative z-10 flex flex-col items-center">
+                <div className="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <FiMail size={28} />
                 </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Your Email</label>
-                  <input type="email" id="email" name="email" required value={formData.email} onChange={handleChange}
-                    className="input" placeholder="john@example.com" />
-                </div>
+                <h3 className="text-2xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>
+                  Send an Email
+                </h3>
+                <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>
+                  The fastest way to reach me is directly via email. I check my inbox regularly and try to respond within 24 hours.
+                </p>
+                <a
+                  href={`mailto:${personalInfo.email}`}
+                  className="btn-primary w-full max-w-sm flex items-center justify-center gap-2 group-hover:shadow-lg transition-all"
+                  style={{ padding: '16px 24px', fontSize: '1rem' }}
+                >
+                  <FiSend size={18} />
+                  Write Message
+                </a>
               </div>
-
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Subject</label>
-                <input type="text" id="subject" name="subject" required value={formData.subject} onChange={handleChange}
-                  className="input" placeholder="Collaboration Opportunity" />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Message</label>
-                <textarea id="message" name="message" rows={5} required value={formData.message} onChange={handleChange}
-                  className="input resize-none" placeholder="Hi Ayush, I&apos;d like to talk about..." />
-              </div>
-
-              <button type="submit" disabled={status === 'sending'} className="btn-primary w-full justify-center">
-                {status === 'sending' ? 'Sending...' : (
-                  <>Send Message <FiSend size={16} /></>
-                )}
-              </button>
-
-              {status === 'success' && (
-                <div className="p-4 rounded-md bg-green-50 text-green-700 text-sm text-center border border-green-200">
-                  Thanks for reaching out! I&apos;ll get back to you soon.
-                </div>
-              )}
-              {status === 'error' && (
-                <div className="p-4 rounded-md bg-red-50 text-red-700 text-sm text-center border border-red-200">
-                  Oops! Something went wrong. Please try emailing me directly.
-                </div>
-              )}
-            </form>
+            </div>
           </motion.div>
         </div>
       </Section>

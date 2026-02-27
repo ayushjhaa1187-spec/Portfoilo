@@ -109,7 +109,27 @@ export const skillCategories = [
     },
 ];
 
-export const projects = [
+export interface SkillCategory {
+    title: string;
+    icon: string;
+    color: string;
+    skills: { name: string; level: number }[];
+}
+
+export interface Project {
+    slug: string;
+    title: string;
+    category: string;
+    shortDescription: string;
+    fullDescription: string;
+    techStack: string[];
+    metrics: { accuracy: string; impact: string; speed: string };
+    githubUrl: string;
+    featured: boolean;
+    icon: string;
+}
+
+export const projects: Project[] = [
     {
         slug: 'satellite-data-analysis',
         title: 'Satellite Data Analysis System',
@@ -118,7 +138,7 @@ export const projects = [
         fullDescription: 'Developed a comprehensive system using computer vision to analyze satellite imagery. The system detects environmental changes, deforestation patterns, and urban expansion with high accuracy. Uses U-Net architecture for semantic segmentation with a sliding window approach for processing large geotiff images.',
         techStack: ['Python', 'TensorFlow', 'OpenCV', 'Satellite APIs', 'PostgreSQL'],
         metrics: { accuracy: '92%', impact: 'Automated monitoring', speed: '60% faster' },
-        githubUrl: 'https://github.com/ayushjhaa1187-spec',
+        githubUrl: 'https://github.com/ayushjhaa1187-spec/satellite-data-analysis',
         featured: true,
         icon: '🛰️',
     },
@@ -130,7 +150,7 @@ export const projects = [
         fullDescription: 'Built a predictive analytics platform that processes historical data to forecast trends. Features an interactive dashboard for stakeholders with real-time predictions, data exploration, and customizable reports.',
         techStack: ['Python', 'Scikit-learn', 'Streamlit', 'PostgreSQL', 'Plotly'],
         metrics: { accuracy: '89%', impact: 'Better decisions', speed: '3x faster' },
-        githubUrl: 'https://github.com/ayushjhaa1187-spec',
+        githubUrl: 'https://github.com/ayushjhaa1187-spec/predictive-analytics-dashboard',
         featured: true,
         icon: '📊',
     },
@@ -142,7 +162,7 @@ export const projects = [
         fullDescription: 'A comprehensive tool and methodology developed during IREU internship to validate business hypotheses using real-world data. Features automated market analysis, competitor benchmarking, and opportunity scoring.',
         techStack: ['Python', 'Pandas', 'Market Research', 'Business Modeling', 'NLP'],
         metrics: { accuracy: 'N/A', impact: 'Validated 3 ideas', speed: '5x faster' },
-        githubUrl: 'https://github.com/ayushjhaa1187-spec',
+        githubUrl: 'https://github.com/ayushjhaa1187-spec/startup-idea-validator',
         featured: true,
         icon: '🚀',
     },
@@ -154,7 +174,7 @@ export const projects = [
         fullDescription: 'Automated tool for scraping and analyzing market data to identify gaps and opportunities. Combines web scraping with NLP to extract insights from competitor data and market signals.',
         techStack: ['Python', 'BeautifulSoup', 'NLP', 'Tableau', 'Selenium'],
         metrics: { accuracy: 'N/A', impact: 'Strategic insights', speed: 'Automated' },
-        githubUrl: 'https://github.com/ayushjhaa1187-spec',
+        githubUrl: 'https://github.com/ayushjhaa1187-spec/market-analysis-tool',
         featured: false,
         icon: '💼',
     },
@@ -166,7 +186,7 @@ export const projects = [
         fullDescription: 'Machine learning model to predict disease likelihood based on patient history and symptoms. Uses ensemble methods (Random Forest + XGBoost) with careful feature engineering and cross-validation.',
         techStack: ['Python', 'Scikit-learn', 'Pandas', 'XGBoost', 'Flask'],
         metrics: { accuracy: '94%', impact: 'Early detection', speed: '<100ms' },
-        githubUrl: 'https://github.com/ayushjhaa1187-spec',
+        githubUrl: 'https://github.com/ayushjhaa1187-spec/healthcare-prediction',
         featured: false,
         icon: '🏥',
     },
@@ -178,7 +198,7 @@ export const projects = [
         fullDescription: 'Research project at IIT Madras exploring CNNs for agricultural monitoring. Uses transfer learning from ResNet50 with custom classification heads for multi-spectral bands including NIR and SWIR.',
         techStack: ['PyTorch', 'Rasterio', 'GDAL', 'Weights & Biases', 'NumPy'],
         metrics: { accuracy: '88%', impact: 'Research contribution', speed: 'Batch processing' },
-        githubUrl: 'https://github.com/ayushjhaa1187-spec',
+        githubUrl: 'https://github.com/ayushjhaa1187-spec/deep-learning-research',
         featured: false,
         icon: '🧠',
     },

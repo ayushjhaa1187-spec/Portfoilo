@@ -12,21 +12,17 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-    const [theme, setTheme] = useState<Theme>('dark');
+    const [theme, setTheme] = useState<Theme>('dark'); // default matches server, client corrects instantly without hydration mismatch since DOM matches
 
     useEffect(() => {
-        // Initialize theme on mount
-        const savedTheme = localStorage.getItem('portfolio-theme') as Theme;
-        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        const initialTheme = savedTheme || (mediaQuery.matches ? 'dark' : 'light');
-
-        // Timeout prevents a synchronous state update error (set-state-in-effect)
-        setTimeout(() => {
-            setTheme(initialTheme);
-            document.documentElement.setAttribute('data-theme', initialTheme);
-        }, 0);
+        // Read the theme already set by layout.tsx inline script
+        const currentTheme = document.documentElement.getAttribute('data-theme') as Theme;
+        if (currentTheme) {
+            setTimeout(() => setTheme(currentTheme), 0);
+        }
 
         // Add a listener for system theme changes if not overridden
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         const listener = (e: MediaQueryListEvent) => {
             if (!localStorage.getItem('portfolio-theme')) {
                 const sysTheme = e.matches ? 'dark' : 'light';

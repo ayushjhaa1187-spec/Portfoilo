@@ -2,9 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  images: {
-    unoptimized: true,
-  },
+
   // Compress responses for faster load times
   compress: true,
   // Optimise package imports to reduce bundle size
@@ -25,7 +23,7 @@ const nextConfig: NextConfig = {
       },
       {
         // Cache static assets aggressively
-        source: '/(.*)\\.(js|css|svg|png|jpg|jpeg|gif|ico|woff|woff2)',
+        source: '/(.*).(js|css|svg|png|jpg|jpeg|gif|ico|woff|woff2)',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],

@@ -1,47 +1,130 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { FiGithub, FiLinkedin, FiMail, FiArrowUp, FiHeart } from 'react-icons/fi';
+
+const footerLinks = [
+  { label: 'About', href: '/about' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Skills', href: '/skills' },
+  { label: 'Experience', href: '/experience' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const socialLinks = [
+  { icon: FiGithub, href: 'https://github.com/ayushjhaa1187-spec', label: 'GitHub' },
+  { icon: FiLinkedin, href: 'https://www.linkedin.com/in/ayush-kumar-jha-5960a3362/', label: 'LinkedIn' },
+  { icon: FiMail, href: 'mailto:ayushjhaa1187@gmail.com', label: 'Email' },
+];
 
 const Footer = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer className="bg-slate-900 text-white py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 className="text-xl font-bold mb-4">Ayush Kumar Jha</h3>
-            <p className="text-slate-400 text-sm max-w-xs">
-              Data Scientist & Entrepreneur combining technical expertise with business strategy.
+    <footer className="relative" style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-color)' }}>
+      {/* Gradient Line */}
+      <div className="w-full h-px" style={{ background: 'linear-gradient(90deg, transparent, var(--primary-light), var(--accent), transparent)' }} />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+          {/* Brand */}
+          <div className="md:col-span-2">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-sm"
+                style={{ background: 'linear-gradient(135deg, var(--primary), var(--accent))' }}>
+                AJ
+              </div>
+              <span className="font-bold text-lg" style={{ color: 'var(--text-primary)' }}>
+                Ayush Kumar Jha
+              </span>
+            </div>
+            <p className="text-sm leading-relaxed max-w-md mb-6" style={{ color: 'var(--text-secondary)' }}>
+              IIT Madras Data Science Scholar building AI solutions at the intersection of science & business.
+              Combining technical depth with entrepreneurial vision to create impactful solutions.
             </p>
+            <div className="flex gap-3">
+              {socialLinks.map(({ icon: Icon, href, label }) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target={href.startsWith('http') ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -3, scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-10 h-10 rounded-lg flex items-center justify-center transition-colors"
+                  style={{
+                    background: 'var(--bg-card)',
+                    border: '1px solid var(--border-color)',
+                    color: 'var(--text-secondary)',
+                  }}
+                  aria-label={label}
+                >
+                  <Icon size={18} />
+                </motion.a>
+              ))}
+            </div>
           </div>
 
+          {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm text-slate-400">
-              <li><Link href="/projects" className="hover:text-orange-500 transition-colors">Projects</Link></li>
-              <li><Link href="/about" className="hover:text-orange-500 transition-colors">About</Link></li>
-              <li><Link href="/blog" className="hover:text-orange-500 transition-colors">Blog</Link></li>
-              <li><Link href="/contact" className="hover:text-orange-500 transition-colors">Contact</Link></li>
+            <h4 className="font-semibold text-sm uppercase tracking-wider mb-4" style={{ color: 'var(--text-muted)' }}>
+              Quick Links
+            </h4>
+            <ul className="space-y-3">
+              {footerLinks.map(({ label, href }) => (
+                <li key={label}>
+                  <Link
+                    href={href}
+                    className="text-sm transition-colors hover:translate-x-1 inline-block"
+                    style={{ color: 'var(--text-secondary)' }}
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
+          {/* Contact */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Connect</h4>
-            <div className="flex space-x-4">
-              <a href="https://github.com/ayushjhaa1187-spec" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
-                <Github size={24} />
-              </a>
-              <a href="https://www.linkedin.com/in/ayush-kumar-jha-5960a3362/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
-                <Linkedin size={24} />
-              </a>
-              <a href="mailto:ayushjhaa1187@gmail.com" className="text-slate-400 hover:text-white transition-colors">
-                <Mail size={24} />
-              </a>
+            <h4 className="font-semibold text-sm uppercase tracking-wider mb-4" style={{ color: 'var(--text-muted)' }}>
+              Get in Touch
+            </h4>
+            <div className="space-y-3 text-sm" style={{ color: 'var(--text-secondary)' }}>
+              <p>📧 ayushjhaa1187@gmail.com</p>
+              <p>📍 Ghaziabad, Uttar Pradesh, India</p>
+              <p>🎓 IIT Madras (BS Data Science)</p>
             </div>
+            <Link href="/contact" className="btn-primary text-xs mt-4 inline-flex" style={{ padding: '8px 16px' }}>
+              <FiMail size={14} />
+              Let&apos;s Connect
+            </Link>
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-slate-800 text-center text-slate-500 text-sm">
-          <p>&copy; {new Date().getFullYear()} Ayush Kumar Jha. All rights reserved.</p>
+        {/* Bottom Bar */}
+        <div className="mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
+          style={{ borderTop: '1px solid var(--border-color)' }}>
+          <p className="text-xs flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
+            © {new Date().getFullYear()} Ayush Kumar Jha. Built with <FiHeart size={12} style={{ color: 'var(--accent)' }} /> using Next.js
+          </p>
+          <button
+            onClick={scrollToTop}
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:shadow-md"
+            style={{
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-color)',
+              color: 'var(--text-secondary)',
+            }}
+            aria-label="Scroll to top"
+          >
+            <FiArrowUp size={18} />
+          </button>
         </div>
       </div>
     </footer>

@@ -1,82 +1,228 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { HiMenu, HiX } from 'react-icons/hi';
+import { FiSun, FiMoon } from 'react-icons/fi';
+import { useTheme } from './ThemeProvider';
+
+const mainLinks = [
+  { name: 'About', href: '/about' },
+  { name: 'Skills', href: '/skills' },
+  { name: 'Experience', href: '/experience' },
+  { name: 'Projects', href: '/projects' },
+];
+
+const moreLinks = [
+  { name: 'Achievements', href: '/achievements' },
+  { name: 'Case Studies', href: '/case-studies' },
+  { name: 'Research', href: '/research' },
+  { name: 'Blog', href: '/blog' },
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
 
-  const navLinks = [
-    { name: 'About', href: '/about' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'Case Studies', href: '/case-studies' },
-    { name: 'Research', href: '/research' },
-    { name: 'Experience', href: '/experience' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Contact', href: '/contact' },
-  ];
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    // Just reset scroll instead of toggling menu to avoid cascading renders
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsDropdownOpen(false);
+  }, [pathname]);
 
   return (
-    <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      className={`fixed w-full z-50 transition-all duration-300 ${scrolled
+        ? 'glass shadow-md'
+        : 'bg-transparent'
+        }`}
+      style={{ borderBottom: scrolled ? '1px solid var(--border-color)' : 'none' }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="text-xl font-bold text-blue-900">
-              Ayush Kumar Jha
-            </Link>
-          </div>
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-sm"
+              style={{ background: 'linear-gradient(135deg, var(--primary), var(--accent))' }}>
+              AJ
+            </div>
+            <span className="font-bold text-lg hidden sm:block" style={{ color: 'var(--text-primary)' }}>
+              Ayush<span style={{ color: 'var(--primary-light)' }}>.dev</span>
+            </span>
+          </Link>
 
-          <div className="hidden lg:block">
-            <div className="ml-10 flex items-baseline space-x-6">
-              {navLinks.map((link) => (
+          {/* Desktop Links */}
+          <div className="hidden lg:flex items-center gap-3 xl:gap-5">
+            {mainLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-gray-700 hover:text-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="relative px-2 xl:px-3 py-2 text-sm font-medium rounded-lg transition-colors"
+                  style={{
+                    color: isActive ? 'var(--primary-light)' : 'var(--text-secondary)',
+                  }}
                 >
                   {link.name}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeNav"
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-0.5 rounded-full"
+                      style={{ background: 'var(--primary-light)' }}
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
                 </Link>
-              ))}
+              );
+            })}
+
+            {/* Dropdown for More Links */}
+            <div
+              className="relative"
+              onMouseEnter={() => setIsDropdownOpen(true)}
+              onMouseLeave={() => setIsDropdownOpen(false)}
+            >
+              <button
+                className="px-2 xl:px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1"
+                style={{ color: moreLinks.some(l => l.href === pathname) ? 'var(--primary-light)' : 'var(--text-secondary)' }}
+              >
+                More <span className="text-[0.6rem]">▼</span>
+              </button>
+
+              <AnimatePresence>
+                {isDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full right-0 mt-1 w-48 rounded-xl shadow-xl overflow-hidden glass"
+                    style={{ border: '1px solid var(--border-color)' }}
+                  >
+                    <div className="py-2">
+                      {moreLinks.map(link => (
+                        <Link
+                          key={link.name}
+                          href={link.href}
+                          className="block px-4 py-2.5 text-sm transition-colors hover:bg-black/5 dark:hover:bg-white/5"
+                          style={{ color: pathname === link.href ? 'var(--primary-light)' : 'var(--text-secondary)' }}
+                        >
+                          {link.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
+
+            <Link
+              key="Contact"
+              href="/contact"
+              className="relative px-2 xl:px-3 py-2 text-sm font-medium rounded-lg transition-colors"
+              style={{
+                color: pathname === '/contact' ? 'var(--primary-light)' : 'var(--text-secondary)',
+              }}
+            >
+              Contact
+            </Link>
+
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="ml-2 xl:ml-4 p-2.5 rounded-full transition-colors hover:bg-black/5 dark:hover:bg-white/5"
+              style={{ color: 'var(--text-secondary)' }}
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <FiSun size={18} /> : <FiMoon size={18} />}
+            </button>
+
+            {/* Resume Button */}
+            <Link
+              href="/resume"
+              className="ml-2 btn-primary text-sm shadow-md"
+              style={{ padding: '8px 24px' }}
+            >
+              Resume
+            </Link>
           </div>
 
-          <div className="lg:hidden">
+          {/* Mobile Controls */}
+          <div className="lg:hidden flex items-center gap-3">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full transition-colors hover:bg-black/5 dark:hover:bg-white/5"
+              style={{ color: 'var(--text-secondary)' }}
+            >
+              {theme === 'dark' ? <FiSun size={18} /> : <FiMoon size={18} />}
+            </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-700 focus:outline-none"
+              className="p-2 rounded-lg"
+              style={{ color: 'var(--text-primary)' }}
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <HiX size={24} /> : <HiMenu size={24} />}
             </button>
           </div>
         </div>
       </div>
 
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white border-b border-gray-100 overflow-hidden"
+            transition={{ duration: 0.3 }}
+            className="lg:hidden overflow-hidden glass shadow-xl"
+            style={{ borderTop: '1px solid var(--border-color)' }}
           >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50"
-                >
-                  {link.name}
-                </Link>
-              ))}
+            <div className="px-4 py-4 space-y-1 max-h-[70vh] overflow-y-auto">
+              {[...mainLinks, ...moreLinks, { name: 'Contact', href: '/contact' }].map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="block px-4 py-3 rounded-lg text-base font-medium transition-colors"
+                    style={{
+                      color: isActive ? 'var(--primary-light)' : 'var(--text-secondary)',
+                      background: isActive ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
+                    }}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
+              <Link
+                href="/resume"
+                className="block text-center btn-primary mt-2"
+                style={{ marginTop: '12px' }}
+              >
+                Resume
+              </Link>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 };
 

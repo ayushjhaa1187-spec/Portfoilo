@@ -2,82 +2,166 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Card } from '@/components/ui/Card';
+import Section from '@/components/Section';
+import { timeline, currentFocus, personalInfo } from '@/data/portfolio';
+import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 
-const AboutPage = () => {
-  const timeline = [
-    { year: '2020', title: 'Commerce Background', desc: 'Started with economics, discovered passion for data and technology.' },
-    { year: '2023', title: 'Self-Taught Journey', desc: 'Learned Python, ML fundamentals, statistics independently.' },
-    { year: '2025', title: 'IIT Madras Admission', desc: 'Accepted into BS Data Science & Applications program.' },
-    { year: '2025', title: 'IREU Entrepreneurship', desc: 'Startup Ideation Track - validated business ideas with data.' },
-    { year: '2026', title: 'IIT Competition Finalist', desc: 'Top 10 at [Competition] among 500+ teams.' },
-    { year: 'Present', title: 'Building & Learning', desc: 'Focusing on ML/AI for satellite data and business applications.' },
-  ];
-
+export default function AboutPage() {
   return (
-    <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="text-4xl font-bold mb-8 text-blue-900">About Me</h1>
-
-        {/* Philosophy Section */}
-        <div className="bg-blue-50 border-l-4 border-blue-600 p-8 mb-12 rounded-r-lg">
-          <h2 className="text-2xl font-bold mb-4 text-blue-800">My Philosophy</h2>
-          <p className="text-xl italic text-gray-700">
-            "I don't just build models - I build solutions that matter. My unique combination of IIT-level data science and entrepreneurial thinking lets me create AI systems that are both technically robust and commercially viable."
-          </p>
+    <div style={{ paddingTop: '80px' }}>
+      {/* Hero Banner */}
+      <div className="relative py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0B1120 0%, #1E3A8A 100%)' }}>
+        <div className="absolute inset-0 grid-bg opacity-20" />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl sm:text-5xl font-extrabold mb-4"
+            style={{ color: '#F1F5F9' }}
+          >
+            About <span className="gradient-text">Me</span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-lg"
+            style={{ color: '#94A3B8' }}
+          >
+            From Commerce to Cutting-Edge Data Science at IIT Madras
+          </motion.p>
         </div>
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-12 mb-16">
+      {/* Philosophy */}
+      <Section>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="card p-8 sm:p-10 mb-16 relative overflow-hidden group"
+          style={{ background: 'var(--bg-card)' }}
+        >
+          <div className="absolute top-0 left-0 w-2 h-full" style={{ background: 'linear-gradient(180deg, var(--primary), var(--accent))' }} />
+          <p className="text-xl sm:text-2xl font-medium italic leading-relaxed text-center sm:text-left relative z-10" style={{ color: 'var(--text-primary)' }}>
+            &ldquo;{personalInfo.philosophy}&rdquo;
+          </p>
+        </motion.div>
+
+        {/* Two Column */}
+        <div className="grid lg:grid-cols-2 gap-16">
+          {/* Timeline */}
           <div>
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">The Story</h2>
-            <div className="space-y-8 relative border-l-2 border-blue-200 ml-3 pl-8 pb-4">
-              {timeline.map((item, index) => (
+            <h2 className="text-2xl font-bold mb-8" style={{ color: 'var(--text-primary)' }}>
+              My Journey
+            </h2>
+            <div className="timeline space-y-10">
+              {timeline.map((item, i) => (
                 <motion.div
-                  key={index}
+                  key={i}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="relative"
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                  className="relative pl-8"
                 >
-                  <span className="absolute -left-[41px] top-1 bg-blue-600 w-4 h-4 rounded-full border-4 border-white shadow-sm"></span>
-                  <h3 className="text-lg font-bold text-blue-900">{item.year}: {item.title}</h3>
-                  <p className="text-gray-600 mt-1">{item.desc}</p>
+                  <div className="timeline-dot" />
+                  <span className="badge badge-primary text-xs mb-2">{item.year}</span>
+                  <h3 className="text-lg font-bold mt-1" style={{ color: 'var(--text-primary)' }}>
+                    {item.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed mt-1" style={{ color: 'var(--text-secondary)' }}>
+                    {item.desc}
+                  </p>
                 </motion.div>
               ))}
             </div>
           </div>
 
+          {/* Right Column */}
           <div>
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">Current Focus</h2>
-            <div className="grid gap-4">
-              {[
-                '🛰️ ML Applications in Satellite Data',
-                '🧠 Deep Learning & Computer Vision',
-                '💼 Data-Driven Business Strategy',
-                '🚀 Building Startup-Ready AI Products'
-              ].map((focus, idx) => (
-                <Card key={idx} className="p-4 flex items-center bg-white border border-gray-100 shadow-sm">
-                  <span className="text-lg font-medium text-gray-800">{focus}</span>
-                </Card>
+            {/* Photo Placeholder */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="w-full aspect-square max-w-sm mx-auto mb-10 rounded-2xl flex items-center justify-center"
+              style={{
+                background: 'linear-gradient(135deg, rgba(59,130,246,0.1), rgba(249,115,22,0.1))',
+                border: '2px dashed var(--border-color)',
+              }}
+            >
+              <div className="text-center p-6">
+                <div className="text-6xl mb-4">👨‍💻</div>
+                <p className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
+                  Professional Photo
+                </p>
+                <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
+                  Coming Soon
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Current Focus */}
+            <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
+              Current Focus
+            </h2>
+            <div className="space-y-3 mb-10">
+              {currentFocus.map((focus, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="card p-4"
+                >
+                  <span className="text-base font-medium" style={{ color: 'var(--text-primary)' }}>{focus}</span>
+                </motion.div>
               ))}
             </div>
 
-            <div className="mt-8">
-              <h3 className="text-xl font-bold mb-4 text-gray-800">The Vision</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Building AI solutions that solve real-world problems with business impact. Bridging the gap between cutting-edge data science and practical entrepreneurial innovation.
-              </p>
+            {/* Social Links */}
+            <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
+              Connect
+            </h2>
+            <div className="flex gap-3">
+              {[
+                { icon: FiGithub, href: personalInfo.github, label: 'GitHub' },
+                { icon: FiLinkedin, href: personalInfo.linkedin, label: 'LinkedIn' },
+                { icon: FiMail, href: `mailto:${personalInfo.email}`, label: 'Email' },
+              ].map(({ icon: Icon, href, label }) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target={href.startsWith('http') ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -3 }}
+                  className="card p-3 flex items-center gap-2 cursor-pointer"
+                >
+                  <Icon size={18} style={{ color: 'var(--primary-light)' }} />
+                  <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{label}</span>
+                </motion.a>
+              ))}
             </div>
           </div>
         </div>
-      </motion.div>
+
+        {/* Bio */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16 card p-8"
+        >
+          <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
+            The Vision
+          </h2>
+          <p className="text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            {personalInfo.bio}
+          </p>
+        </motion.div>
+      </Section>
     </div>
   );
-};
-
-export default AboutPage;
+}

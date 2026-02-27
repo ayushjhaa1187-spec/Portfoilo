@@ -2,92 +2,111 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Card } from '@/components/ui/Card';
+import Section from '@/components/Section';
+import { education } from '@/data/portfolio';
 
-const EducationPage = () => {
+export default function EducationPage() {
   return (
-    <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16">
-      <motion.h1
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-4xl font-bold mb-12 text-blue-900"
-      >
-        Education & Learning
-      </motion.h1>
-
-      <div className="grid md:grid-cols-2 gap-12">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1 }}
-        >
-          <Card className="p-8 h-full border-l-4 border-blue-600 shadow-lg">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Indian Institute of Technology Madras</h2>
-            <p className="text-xl font-medium text-blue-700 mb-4">BS in Data Science & Applications</p>
-            <p className="text-gray-500 mb-6">2025 - 2029</p>
-
-            <h3 className="font-semibold text-lg mb-3 text-gray-800">Focus Areas:</h3>
-            <ul className="list-disc list-inside space-y-2 text-gray-600 mb-6">
-              <li>Machine Learning & AI</li>
-              <li>Satellite Data Analysis</li>
-              <li>Statistical Modeling</li>
-              <li>Business Applications of DS</li>
-            </ul>
-
-            <h3 className="font-semibold text-lg mb-3 text-gray-800">Key Coursework:</h3>
-            <div className="flex flex-wrap gap-2">
-              {['ML Foundations', 'Deep Learning', 'Neural Networks', 'Statistical Methods', 'Data Structures', 'Business Analytics'].map((course) => (
-                <span key={course} className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
-                  {course}
-                </span>
-              ))}
-            </div>
-          </Card>
-        </motion.div>
-
-        <div className="space-y-8">
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            <Card className="p-8 border-l-4 border-orange-500 shadow-md">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">IREU School for Startups</h2>
-              <p className="text-xl font-medium text-orange-600 mb-4">Entrepreneurship Intern</p>
-              <p className="text-gray-500 mb-6">Startup Ideation Track</p>
-
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-start">
-                  <span className="mr-2 text-orange-500">✓</span> Validated 3+ startup ideas with data-driven research
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-2 text-orange-500">✓</span> Developed detailed business models and pitch decks
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-2 text-orange-500">✓</span> Gained hands-on experience in market analysis
-                </li>
-              </ul>
-            </Card>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <Card className="p-8 border-l-4 border-green-500 shadow-sm bg-gray-50">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Additional Learning</h2>
-              <ul className="space-y-2 text-gray-600">
-                <li>• Self-taught Python & Data Science stack</li>
-                <li>• Online certifications in Deep Learning</li>
-                <li>• Research papers on Remote Sensing applications</li>
-              </ul>
-            </Card>
-          </motion.div>
+    <div style={{ paddingTop: '80px' }}>
+      <div className="relative py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0B1120 0%, #1E3A8A 100%)' }}>
+        <div className="absolute inset-0 grid-bg opacity-20" />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#F1F5F9' }}>
+            Education & <span className="gradient-text">Learning</span>
+          </motion.h1>
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+            className="text-lg" style={{ color: '#94A3B8' }}>
+            Building a strong foundation in data science, ML/AI, and entrepreneurship
+          </motion.p>
         </div>
       </div>
+
+      <Section>
+        <div className="grid lg:grid-cols-2 gap-8 mb-12">
+          {education.map((edu, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.15 }}
+              className="card p-8 relative overflow-hidden"
+            >
+              {/* Accent bar */}
+              <div className="absolute top-0 left-0 w-full h-1" style={{ background: edu.color }} />
+
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                    {edu.institution}
+                  </h2>
+                  <p className="text-base font-medium mt-1" style={{ color: edu.color }}>
+                    {edu.degree}
+                  </p>
+                </div>
+                <span className="badge badge-primary text-xs whitespace-nowrap">{edu.period}</span>
+              </div>
+
+              {edu.focusAreas.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--text-muted)' }}>
+                    Focus Areas
+                  </h3>
+                  <ul className="space-y-2">
+                    {edu.focusAreas.map((area, j) => (
+                      <li key={j} className="flex items-start gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                        <span style={{ color: edu.color, marginTop: '2px' }}>▸</span>
+                        {area}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {edu.coursework.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--text-muted)' }}>
+                    Key Coursework
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {edu.coursework.map((course) => (
+                      <span key={course} className="tag text-xs" style={{ borderColor: `${edu.color}30`, color: edu.color }}>
+                        {course}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Additional Learning */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="card p-8"
+        >
+          <h2 className="text-xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
+            Continuous Learning
+          </h2>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {[
+              { icon: '📚', title: 'Self-Taught Skills', desc: 'Python, ML, statistics, and data science learned independently through projects and courses.' },
+              { icon: '🏅', title: 'Online Certifications', desc: 'Completed courses in Deep Learning, NLP, and business analytics from top platforms.' },
+              { icon: '📄', title: 'Research Papers', desc: 'Studying and implementing state-of-the-art papers in remote sensing and computer vision.' },
+            ].map((item, i) => (
+              <div key={i} className="text-center">
+                <div className="text-3xl mb-3">{item.icon}</div>
+                <h3 className="font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>{item.title}</h3>
+                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </Section>
     </div>
   );
-};
-
-export default EducationPage;
+}

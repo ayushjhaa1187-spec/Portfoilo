@@ -1,59 +1,245 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from './ui/Button';
 import Link from 'next/link';
+import { TypeAnimation } from 'react-type-animation';
+import { FiArrowDown, FiGithub, FiLinkedin, FiDownload } from 'react-icons/fi';
+import { personalInfo, animatedTaglines, stats } from '@/data/portfolio';
+
+const ParticleField = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animationId: number;
+    const particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number }[] = [];
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    for (let i = 0; i < 60; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 2 + 0.5,
+        opacity: Math.random() * 0.5 + 0.1,
+      });
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(59, 130, 246, ${p.opacity})`;
+        ctx.fill();
+
+        // Draw connections
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = p.x - particles[j].x;
+          const dy = p.y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(59, 130, 246, ${0.05 * (1 - dist / 150)})`;
+            ctx.stroke();
+          }
+        }
+      });
+
+      animationId = requestAnimationFrame(animate);
+    };
+    animate();
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      window.removeEventListener('resize', resize);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="absolute inset-0 z-0" />;
+};
 
 const Hero = () => {
-  return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 to-slate-900 text-white pt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+  const typeSequence = animatedTaglines.flatMap((t) => [t, 2500]);
 
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
+      {/* Particle Background */}
+      <ParticleField />
+
+      {/* Gradient Orbs */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-20 blur-3xl animate-float"
+        style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.4) 0%, transparent 70%)' }} />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-15 blur-3xl animate-float-slow"
+        style={{ background: 'radial-gradient(circle, rgba(249,115,22,0.4) 0%, transparent 70%)' }} />
+
+      {/* Grid Overlay */}
+      <div className="absolute inset-0 grid-bg opacity-30" />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-8"
+          transition={{ duration: 0.6 }}
+          className="mb-6"
         >
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
-            AYUSH KUMAR JHA
-          </h1>
-          <p className="text-xl md:text-2xl text-blue-200 font-light mb-6">
-            IIT Madras Data Scientist | ML/AI Researcher | Entrepreneurial Innovator
-          </p>
-          <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <Link href="/projects">
-              <Button size="lg" variant="primary">View Projects</Button>
-            </Link>
-            <Link href="/contact">
-              <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10">
-                Contact Me
-              </Button>
-            </Link>
-          </div>
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border"
+            style={{
+              background: 'rgba(59, 130, 246, 0.1)',
+              borderColor: 'rgba(59, 130, 246, 0.3)',
+              color: '#93C5FD',
+            }}>
+            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            Open to collaborations & opportunities
+          </span>
         </motion.div>
 
+        {/* Name */}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-4"
+          style={{ color: '#F1F5F9', letterSpacing: '-0.03em' }}
+        >
+          {personalInfo.name.split(' ').map((word, i) => (
+            <span key={i}>
+              {i === 2 ? (
+                <span className="gradient-text">{word}</span>
+              ) : (
+                word
+              )}
+              {i < 2 ? ' ' : ''}
+            </span>
+          ))}
+        </motion.h1>
+
+        {/* Title */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="text-lg sm:text-xl md:text-2xl font-light mb-6"
+          style={{ color: '#94A3B8' }}
+        >
+          {personalInfo.title}
+        </motion.p>
+
+        {/* Animated Tagline */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12 w-full max-w-4xl"
+          transition={{ duration: 0.7, delay: 0.4 }}
+          className="h-8 mb-10"
         >
-          {[
-            { label: 'IIT Madras Scholar', value: '🎓' },
-            { label: 'Competition Finalist', value: '🏆' },
-            { label: 'GitHub Projects', value: '🚀 17+' },
-            { label: 'Startups Ideated', value: '💡 3+' }
-          ].map((stat, index) => (
-            <div key={index} className="p-4 bg-white/5 rounded-lg backdrop-blur-sm border border-white/10">
-              <div className="text-3xl mb-2">{stat.value}</div>
-              <div className="text-sm text-blue-200">{stat.label}</div>
-            </div>
+          <TypeAnimation
+            sequence={typeSequence}
+            speed={40}
+            deletionSpeed={60}
+            repeat={Infinity}
+            className="text-base sm:text-lg font-medium"
+            style={{ color: '#60A5FA' }}
+          />
+        </motion.div>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+        >
+          <Link href="/projects" className="btn-primary text-base" style={{ padding: '14px 32px' }}>
+            View Projects
+          </Link>
+          <Link href="/resume" className="btn-outline text-base"
+            style={{ padding: '14px 32px', color: '#CBD5E1', borderColor: 'rgba(148, 163, 184, 0.3)' }}>
+            <FiDownload size={18} />
+            Download Resume
+          </Link>
+        </motion.div>
+
+        {/* Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
+        >
+          {stats.map((stat, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ y: -4, boxShadow: '0 0 30px rgba(59, 130, 246, 0.15)' }}
+              className="stat-card"
+              style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+              }}
+            >
+              <div className="text-3xl mb-1">{stat.value}</div>
+              <div className="text-sm font-semibold" style={{ color: '#E2E8F0' }}>{stat.label}</div>
+              <div className="text-xs mt-1" style={{ color: '#64748B' }}>{stat.description}</div>
+            </motion.div>
           ))}
         </motion.div>
 
+        {/* Social Links */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="flex justify-center gap-4 mt-10"
+        >
+          <a href={personalInfo.github} target="_blank" rel="noopener noreferrer"
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+            style={{ border: '1px solid rgba(148, 163, 184, 0.2)', color: '#94A3B8' }}>
+            <FiGithub size={18} />
+          </a>
+          <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer"
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+            style={{ border: '1px solid rgba(148, 163, 184, 0.2)', color: '#94A3B8' }}>
+            <FiLinkedin size={18} />
+          </a>
+        </motion.div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <span className="text-xs font-medium" style={{ color: '#64748B' }}>Scroll to explore</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5 }}
+        >
+          <FiArrowDown size={18} style={{ color: '#64748B' }} />
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

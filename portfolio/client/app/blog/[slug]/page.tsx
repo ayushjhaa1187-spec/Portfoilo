@@ -1,93 +1,83 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-
-// Mock Data
-const blogPostsData = [
-  {
-    slug: 'satellite-ml-agriculture',
-    title: 'How Satellite Data + ML Can Transform Agriculture',
-    content: `
-      <p>Precision agriculture is revolutionizing how we grow food. By leveraging satellite imagery and machine learning, farmers can now monitor crop health, soil moisture, and pest infestations with unprecedented accuracy.</p>
-      <h2>The Role of Remote Sensing</h2>
-      <p>Satellites like Sentinel-2 and Landsat provide multispectral data that goes beyond visible light. Indices like NDVI (Normalized Difference Vegetation Index) allow us to assess plant vigor.</p>
-      <h2>Machine Learning Models</h2>
-      <p>We can train CNNs to segment fields and classify crop types. Time-series analysis using LSTMs can predict yield based on historical growth patterns and weather data.</p>
-      <h2>Business Impact</h2>
-      <p>For a medium-sized farm, optimizing fertilizer application based on satellite data can reduce costs by 20% while increasing yield by 15%.</p>
-    `,
-    category: 'ML/AI',
-    date: 'Feb 15, 2026',
-    author: 'Ayush Kumar Jha'
-  },
-  {
-    slug: 'iit-ideation-to-product',
-    title: 'From IIT Ideation to Product: My Startup Journey',
-    content: `
-      <p>Participating in the IREU School for Startups was a transformative experience. It taught me that a great technical solution is worthless without a viable business model.</p>
-      <h2>Validating the Problem</h2>
-      <p>We started with a hypothesis: "Small businesses struggle with inventory management." We interviewed 50+ shop owners to validate this before writing a single line of code.</p>
-      <h2>The MVP</h2>
-      <p>Instead of building a full-fledged app, we created a simple WhatsApp chatbot to test engagement. The results were promising.</p>
-      <h2>Lessons Learned</h2>
-      <p>1. Fall in love with the problem, not the solution.<br>2. Data beats opinion.<br>3. Speed of execution matters more than perfection.</p>
-    `,
-    category: 'Startups',
-    date: 'Feb 10, 2026',
-    author: 'Ayush Kumar Jha'
-  },
-  {
-    slug: 'business-side-of-data-science',
-    title: 'The Business Side of Data Science: What Models Don\'t Tell You',
-    content: `
-      <p>As data scientists, we often obsess over accuracy, precision, and recall. But business stakeholders care about ROI, time-to-market, and scalability.</p>
-      <h2>The Translation Layer</h2>
-      <p>One of the most valuable skills I've learned is translating technical metrics into business outcomes. Instead of saying "The model has 90% accuracy," say "This model will reduce manual review time by 50%."</p>
-      <h2>Choosing the Right Metric</h2>
-      <p>Sometimes, a false positive is more expensive than a false negative. Understanding the cost matrix is crucial for alignment.</p>
-    `,
-    category: 'Business',
-    date: 'Jan 28, 2026',
-    author: 'Ayush Kumar Jha'
-  }
-];
+import ReactMarkdown from 'react-markdown';
+import { blogPosts, personalInfo } from '@/data/portfolio';
+import { FiArrowLeft, FiClock, FiCalendar, FiUser } from 'react-icons/fi';
 
 export async function generateStaticParams() {
-  return blogPostsData.map((post) => ({
+  return blogPosts.map((post) => ({
     slug: post.slug,
   }));
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = blogPostsData.find((p) => p.slug === slug);
+  const post = blogPosts.find((p) => p.slug === slug);
 
   if (!post) {
     notFound();
   }
 
   return (
-    <div className="min-h-screen pt-24 px-4 max-w-3xl mx-auto pb-16">
-      <Link href="/blog" className="text-blue-600 hover:text-blue-800 mb-8 inline-block">
-        ← Back to Blog
-      </Link>
+    <div style={{ paddingTop: '80px' }}>
+      <div className="relative py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0B1120 0%, #1E3A8A 100%)' }}>
+        <div className="absolute inset-0 grid-bg opacity-20" />
+        <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
+          <Link href="/blog" className="inline-flex items-center gap-2 mb-8 text-sm font-medium transition-colors hover:text-blue-400" style={{ color: '#94A3B8' }}>
+            <FiArrowLeft /> Back to Blog
+          </Link>
 
-      <article className="prose lg:prose-xl max-w-none">
-        <h1 className="text-4xl font-bold mb-4 text-gray-900 leading-tight">{post.title}</h1>
+          <div className="mb-6">
+            <span className="px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase"
+              style={{ background: 'rgba(59, 130, 246, 0.2)', color: '#93C5FD' }}>
+              {post.category}
+            </span>
+          </div>
 
-        <div className="flex items-center space-x-4 mb-8 text-gray-500 border-b border-gray-100 pb-8">
-          <span>{post.date}</span>
-          <span>•</span>
-          <span className="font-medium text-blue-600">{post.category}</span>
-          <span>•</span>
-          <span>By {post.author}</span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 leading-tight" style={{ color: '#F1F5F9' }}>
+            {post.title}
+          </h1>
+
+          <div className="flex flex-wrap justify-center items-center gap-4 text-sm font-medium" style={{ color: '#94A3B8' }}>
+            <div className="flex items-center gap-2">
+              <FiCalendar size={14} />
+              <span>{post.date}</span>
+            </div>
+            <span className="hidden sm:inline">•</span>
+            <div className="flex items-center gap-2">
+              <FiClock size={14} />
+              <span>{post.readTime}</span>
+            </div>
+            <span className="hidden sm:inline">•</span>
+            <div className="flex items-center gap-2">
+              <FiUser size={14} />
+              <span>{personalInfo.name}</span>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div
-          className="text-gray-800 leading-relaxed space-y-6"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
-      </article>
+      <div className="max-w-3xl mx-auto px-4 py-16">
+        <article className="prose prose-lg dark:prose-invert max-w-none">
+          <ReactMarkdown>{post.content}</ReactMarkdown>
+        </article>
+
+        <div className="mt-16 pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderColor: 'var(--border-color)' }}>
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full overflow-hidden" style={{ background: 'linear-gradient(135deg, var(--primary), var(--accent))' }}>
+              <div className="w-full h-full flex items-center justify-center text-white font-bold text-lg">AJ</div>
+            </div>
+            <div>
+              <div className="font-bold" style={{ color: 'var(--text-primary)' }}>{personalInfo.name}</div>
+              <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>{personalInfo.title}</div>
+            </div>
+          </div>
+          <Link href="/contact" className="btn-primary text-sm py-2 px-4">
+            Get in touch
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,62 +1,78 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import Section from '@/components/Section';
+import { blogPosts } from '@/data/portfolio';
+import { FiClock, FiArrowRight } from 'react-icons/fi';
 
-const BlogPage = () => {
-  const blogPosts = [
-    {
-      slug: 'satellite-ml-agriculture',
-      title: 'How Satellite Data + ML Can Transform Agriculture',
-      excerpt: 'Exploring the potential of remote sensing for crop yield prediction and precision farming.',
-      category: 'ML/AI',
-      date: 'Feb 15, 2026',
-      readTime: '8 min read'
-    },
-    {
-      slug: 'iit-ideation-to-product',
-      title: 'From IIT Ideation to Product: My Startup Journey',
-      excerpt: 'Lessons learned from validating startup ideas during the IREU entrepreneurship track.',
-      category: 'Startups',
-      date: 'Feb 10, 2026',
-      readTime: '6 min read'
-    },
-    {
-      slug: 'business-side-of-data-science',
-      title: 'The Business Side of Data Science: What Models Don\'t Tell You',
-      excerpt: 'Why understanding business context is just as important as model accuracy.',
-      category: 'Business',
-      date: 'Jan 28, 2026',
-      readTime: '5 min read'
-    }
-  ];
-
+export default function BlogPage() {
   return (
-    <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16">
-      <h1 className="text-4xl font-bold mb-12 text-blue-900">Blog & Insights</h1>
-
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {blogPosts.map((post) => (
-          <Link key={post.slug} href={`/blog/${post.slug}`}>
-            <Card className="p-6 h-full hover:border-blue-400 transition-colors flex flex-col">
-              <div className="flex justify-between items-center mb-4 text-sm text-gray-500">
-                <span className="font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">{post.category}</span>
-                <span>{post.readTime}</span>
-              </div>
-              <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">{post.title}</h2>
-              <p className="text-gray-600 mb-6 flex-grow line-clamp-3">{post.excerpt}</p>
-              <div className="flex justify-between items-center mt-auto pt-4 border-t border-gray-100">
-                <span className="text-sm text-gray-500">{post.date}</span>
-                <span className="text-blue-600 font-medium text-sm">Read More →</span>
-              </div>
-            </Card>
-          </Link>
-        ))}
+    <div style={{ paddingTop: '80px' }}>
+      <div className="relative py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0B1120 0%, #1E3A8A 100%)' }}>
+        <div className="absolute inset-0 grid-bg opacity-20" />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#F1F5F9' }}>
+            Blog & <span className="gradient-text">Insights</span>
+          </motion.h1>
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+            className="text-lg" style={{ color: '#94A3B8' }}>
+            Thoughts on Data Science, Business Strategy, and the Startup Ecosystem
+          </motion.p>
+        </div>
       </div>
+
+      <Section>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {blogPosts.map((post, index) => (
+            <motion.div
+              key={post.slug}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <Link href={`/blog/${post.slug}`} className="block h-full">
+                <div className="card h-full flex flex-col group overflow-hidden">
+                  {post.featured && (
+                    <div className="bg-gradient-to-r from-blue-600 to-orange-500 h-1 w-full" />
+                  )}
+
+                  <div className="p-6 sm:p-8 flex flex-col flex-grow">
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="badge badge-primary">{post.category}</span>
+                      <span className="text-xs font-medium flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
+                        <FiClock size={12} /> {post.readTime}
+                      </span>
+                    </div>
+
+                    <h2 className="text-xl font-bold mb-3 group-hover:text-blue-500 transition-colors line-clamp-2"
+                      style={{ color: 'var(--text-primary)' }}>
+                      {post.title}
+                    </h2>
+
+                    <p className="text-sm leading-relaxed mb-6 flex-grow line-clamp-3" style={{ color: 'var(--text-secondary)' }}>
+                      {post.excerpt}
+                    </p>
+
+                    <div className="flex justify-between items-center mt-auto pt-4" style={{ borderTop: '1px solid var(--border-color)' }}>
+                      <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
+                        {post.date}
+                      </span>
+                      <span className="text-sm font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform"
+                        style={{ color: 'var(--primary-light)' }}>
+                        Read More <FiArrowRight size={14} />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </Section>
     </div>
   );
-};
-
-export default BlogPage;
+}

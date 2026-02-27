@@ -1,133 +1,108 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
+import { projects } from '@/data/portfolio';
+import { FiArrowLeft, FiGithub, FiExternalLink, FiClock, FiTarget, FiActivity } from 'react-icons/fi';
 
-// Mock data
-const projectsData = [
-  {
-    slug: 'satellite-data-analysis',
-    title: 'Satellite Data Analysis System',
-    category: 'ML/AI',
-    shortDescription: 'ML models to classify satellite imagery for environmental monitoring.',
-    fullDescription: 'Developed a comprehensive system using computer vision to analyze satellite imagery. The system detects environmental changes, deforestation patterns, and urban expansion with high accuracy.',
-    techStack: ['Python', 'TensorFlow', 'OpenCV', 'Satellite APIs', 'PostgreSQL'],
-    metrics: { accuracy: '92%', impact: 'Automated monitoring' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: true
-  },
-  {
-    slug: 'predictive-analytics-dashboard',
-    title: 'Predictive Analytics Dashboard',
-    category: 'ML/AI',
-    shortDescription: 'End-to-end ML pipeline with business insights and interactive visualizations.',
-    fullDescription: 'Built a predictive analytics platform that processes historical data to forecast trends. integrated with a user-friendly dashboard for stakeholders.',
-    techStack: ['Python', 'Scikit-learn', 'Streamlit', 'PostgreSQL'],
-    metrics: { accuracy: '89%', impact: 'Improved decision making' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: true
-  },
-  {
-    slug: 'startup-idea-validator',
-    title: 'Startup Idea Validator',
-    category: 'Business',
-    shortDescription: 'Validated startup ideas using data-driven market research.',
-    fullDescription: 'A tool and methodology developed during IREU internship to validate business hypotheses using real-world data and market signals.',
-    techStack: ['Python', 'Pandas', 'Market Research', 'Business Modeling'],
-    metrics: { accuracy: 'N/A', impact: 'Validated 3 ideas' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: true
-  },
-  {
-    slug: 'market-analysis-tool',
-    title: 'Market Analysis Tool',
-    category: 'Business',
-    shortDescription: 'Data-driven business intelligence solution combining ML with strategy.',
-    fullDescription: 'Automated tool for scraping and analyzing market data to identify gaps and opportunities.',
-    techStack: ['Python', 'BeautifulSoup', 'NLP', 'Tableau'],
-    metrics: { accuracy: 'N/A', impact: 'Strategic insights' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: false
-  },
-  {
-    slug: 'healthcare-prediction',
-    title: 'Healthcare Prediction Model',
-    category: 'ML/AI',
-    shortDescription: 'Disease prediction using patient data and ML classification.',
-    fullDescription: 'Machine learning model to predict disease likelihood based on patient history and symptoms.',
-    techStack: ['Python', 'Scikit-learn', 'Pandas'],
-    metrics: { accuracy: '94%', impact: 'Early detection' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: false
-  }
-];
-
-export async function generateStaticParams() {
-  return projectsData.map((project) => ({
+export function generateStaticParams() {
+  return projects.map((project) => ({
     slug: project.slug,
   }));
 }
 
 export default async function ProjectDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = projectsData.find((p) => p.slug === slug);
+  const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
     notFound();
   }
 
   return (
-    <div className="min-h-screen pt-24 px-4 max-w-4xl mx-auto pb-16">
-      <Link href="/projects" className="text-blue-600 hover:text-blue-800 mb-8 inline-block">
-        ← Back to Projects
-      </Link>
-
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
-        <div className="p-8">
-          <div className="flex justify-between items-start mb-6">
-            <h1 className="text-3xl font-bold text-gray-900">{project.title}</h1>
-            <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+    <div style={{ paddingTop: '80px' }}>
+      {/* Hero Section */}
+      <div className="relative py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0B1120 0%, #1E3A8A 100%)' }}>
+        <div className="absolute inset-0 grid-bg opacity-20" />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+          <Link href="/projects" className="inline-flex items-center gap-2 mb-8 text-sm font-medium transition-colors hover:text-blue-400" style={{ color: '#94A3B8' }}>
+            <FiArrowLeft /> Back to Projects
+          </Link>
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <span className="text-3xl">{project.icon}</span>
+            <span className="px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase"
+              style={{ background: 'rgba(59, 130, 246, 0.2)', color: '#93C5FD' }}>
               {project.category}
             </span>
           </div>
-
-          <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-            {project.fullDescription}
+          <h1 className="text-4xl sm:text-5xl font-extrabold mb-6" style={{ color: '#F1F5F9' }}>
+            {project.title}
+          </h1>
+          <p className="text-xl max-w-2xl mx-auto" style={{ color: '#94A3B8' }}>
+            {project.shortDescription}
           </p>
+        </div>
+      </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
-            <div>
-              <h2 className="text-lg font-bold mb-4 text-gray-900">Tech Stack</h2>
+      <div className="max-w-4xl mx-auto px-4 py-16">
+        <div className="grid md:grid-cols-3 gap-12">
+          {/* Main Content */}
+          <div className="md:col-span-2 space-y-12">
+            <section>
+              <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Overview</h2>
+              <p className="text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                {project.fullDescription}
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Performance & Impact</h2>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {Object.entries(project.metrics).map(([key, value], i) => (
+                  <div key={i} className="card p-6 flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
+                      {key === 'accuracy' ? <FiTarget size={20} /> : key === 'impact' ? <FiActivity size={20} /> : <FiClock size={20} />}
+                    </div>
+                    <div>
+                      <div className="text-sm uppercase tracking-wider font-semibold mb-1" style={{ color: 'var(--text-muted)' }}>
+                        {key}
+                      </div>
+                      <div className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                        {value}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-8">
+            <div className="card p-6">
+              <h3 className="text-sm font-bold uppercase tracking-wider mb-4" style={{ color: 'var(--text-muted)' }}>Tech Stack</h3>
               <div className="flex flex-wrap gap-2">
                 {project.techStack.map((tech) => (
-                  <span key={tech} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-md text-sm">
-                    {tech}
-                  </span>
+                  <span key={tech} className="tag">{tech}</span>
                 ))}
               </div>
             </div>
 
-            <div>
-              <h2 className="text-lg font-bold mb-4 text-gray-900">Key Metrics</h2>
-              <div className="space-y-2">
-                {project.metrics.accuracy !== 'N/A' && (
-                  <div className="flex justify-between border-b pb-2">
-                    <span className="text-gray-600">Accuracy</span>
-                    <span className="font-bold text-green-600">{project.metrics.accuracy}</span>
-                  </div>
-                )}
-                <div className="flex justify-between border-b pb-2">
-                  <span className="text-gray-600">Business Impact</span>
-                  <span className="font-bold text-blue-600 text-right">{project.metrics.impact}</span>
-                </div>
+            <div className="card p-6">
+              <h3 className="text-sm font-bold uppercase tracking-wider mb-4" style={{ color: 'var(--text-muted)' }}>Links</h3>
+              <div className="space-y-3">
+                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-3 rounded-lg transition-colors border"
+                  style={{ borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}>
+                  <FiGithub size={18} />
+                  <span className="font-medium text-sm">View Source Code</span>
+                </a>
+                <a href="#" className="flex items-center gap-3 p-3 rounded-lg transition-colors border opactiy-50 cursor-not-allowed"
+                  style={{ borderColor: 'var(--border-color)', color: 'var(--text-muted)' }}>
+                  <FiExternalLink size={18} />
+                  <span className="font-medium text-sm">Live Demo (Coming Soon)</span>
+                </a>
               </div>
             </div>
-          </div>
-
-          <div className="flex gap-4 mt-8">
-            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-              <Button>View Code on GitHub</Button>
-            </a>
           </div>
         </div>
       </div>

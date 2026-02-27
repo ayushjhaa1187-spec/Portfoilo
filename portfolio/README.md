@@ -52,7 +52,7 @@ Professional portfolio website for Ayush Kumar Jha, IIT Madras Data Science Scho
 3. Set Root Directory to `server`.
 4. Set Build Command: `npm install`
 5. Set Start Command: `node server.js`
-6. Add Environment Variables: `MONGO_URI`, `PORT`.
+6. Add Environment Variables: `MONGODB_URI` (or `MONGO_URI`), `PORT`.
 
 ## License
 

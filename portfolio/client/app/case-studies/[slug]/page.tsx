@@ -1,62 +1,113 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-
-// Mock Data
-const caseStudiesData = [
-  {
-    slug: 'satellite-environmental-monitoring',
-    title: 'How Satellite Data + ML Can Transform Environmental Monitoring',
-    challenge: 'Manual analysis of satellite imagery is time-consuming and prone to error. Environmental agencies struggle to process petabytes of daily data to detect deforestation or illegal mining activities in real-time.',
-    approach: 'We hypothesized that a Convolutional Neural Network (CNN) could identify specific environmental features with high accuracy. We collected 10,000 labeled satellite images and preprocessed them to handle cloud cover and atmospheric noise.',
-    implementation: 'The solution involved a U-Net architecture for semantic segmentation. The model was trained on AWS using PyTorch. We implemented a sliding window approach to process large-scale geotiff images.',
-    results: 'The automated system achieved 92% accuracy compared to expert analysis. It reduced the time to generate a report for a 100 sq km area from 3 days to 4 hours (60% reduction in overall workflow time).',
-    learnings: 'High-quality labeled data is more critical than model complexity in remote sensing. Handling different sensor resolutions required robust normalization techniques.'
-  }
-];
+import { caseStudies } from '@/data/portfolio';
+import { FiArrowLeft, FiAlertCircle, FiTrendingUp, FiCheckCircle, FiTool } from 'react-icons/fi';
 
 export async function generateStaticParams() {
-  return caseStudiesData.map((study) => ({
+  return caseStudies.map((study) => ({
     slug: study.slug,
   }));
 }
 
 export default async function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const study = caseStudiesData.find((s) => s.slug === slug);
+  const study = caseStudies.find((s) => s.slug === slug);
 
   if (!study) {
     notFound();
   }
 
   return (
-    <div className="min-h-screen pt-24 px-4 max-w-3xl mx-auto pb-16">
-      <Link href="/case-studies" className="text-blue-600 hover:text-blue-800 mb-8 inline-block">
-        ← Back to Case Studies
-      </Link>
+    <div style={{ paddingTop: '80px' }}>
+      <div className="relative py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0B1120 0%, #1E3A8A 100%)' }}>
+        <div className="absolute inset-0 grid-bg opacity-20" />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+          <Link href="/case-studies" className="inline-flex items-center gap-2 mb-8 text-sm font-medium transition-colors hover:text-blue-400" style={{ color: '#94A3B8' }}>
+            <FiArrowLeft /> Back to Case Studies
+          </Link>
 
-      <article className="prose lg:prose-xl">
-        <h1 className="text-4xl font-bold mb-8 text-gray-900 leading-tight">{study.title}</h1>
+          <div className="mb-6">
+            <span className="px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase"
+              style={{ background: 'rgba(59, 130, 246, 0.2)', color: '#93C5FD' }}>
+              {study.category} Case Study
+            </span>
+          </div>
 
-        <div className="bg-blue-50 p-6 rounded-lg mb-10 border-l-4 border-blue-600">
-          <h2 className="text-xl font-bold text-blue-900 mb-2 mt-0">The Challenge</h2>
-          <p className="text-gray-800 m-0">{study.challenge}</p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 leading-tight" style={{ color: '#F1F5F9' }}>
+            {study.title}
+          </h1>
+
+          {/* Connected Project Link */}
+          {study.projectSlug && (
+            <Link href={`/projects/${study.projectSlug}`} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-colors border"
+              style={{ borderColor: 'rgba(148, 163, 184, 0.3)', color: '#E2E8F0', background: 'rgba(255, 255, 255, 0.05)' }}>
+              View Full Project Details
+            </Link>
+          )}
+        </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-4 py-16 space-y-12">
+        {/* The Challenge */}
+        <div className="card p-8 border-l-4" style={{ borderLeftColor: 'var(--error)' }}>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-500">
+              <FiAlertCircle size={24} />
+            </div>
+            <h2 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>The Challenge</h2>
+          </div>
+          <p className="text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            {study.challenge}
+          </p>
         </div>
 
-        <h2 className="text-2xl font-bold mb-4 text-gray-900">Data Science Approach</h2>
-        <p className="text-gray-600 mb-8 text-lg leading-relaxed">{study.approach}</p>
-
-        <h2 className="text-2xl font-bold mb-4 text-gray-900">Technical Implementation</h2>
-        <p className="text-gray-600 mb-8 text-lg leading-relaxed">{study.implementation}</p>
-
-        <h2 className="text-2xl font-bold mb-4 text-gray-900">Results & Impact</h2>
-        <p className="text-gray-600 mb-8 text-lg leading-relaxed">{study.results}</p>
-
-        <div className="bg-gray-50 p-6 rounded-lg mb-10">
-          <h2 className="text-xl font-bold text-gray-900 mb-2 mt-0">Key Learnings</h2>
-          <p className="text-gray-700 m-0 italic">"{study.learnings}"</p>
+        {/* The Approach */}
+        <div className="card p-8 border-l-4" style={{ borderLeftColor: 'var(--primary-light)' }}>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-500">
+              <FiTool size={24} />
+            </div>
+            <h2 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>Data Science Approach</h2>
+          </div>
+          <p className="text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            {study.approach}
+          </p>
         </div>
-      </article>
+
+        {/* Implementation */}
+        <div className="card p-8 border-l-4" style={{ borderLeftColor: 'var(--accent)' }}>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 rounded-lg bg-orange-50 dark:bg-orange-900/20 text-orange-500">
+              <FiCheckCircle size={24} />
+            </div>
+            <h2 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>Technical Implementation</h2>
+          </div>
+          <p className="text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            {study.implementation}
+          </p>
+        </div>
+
+        {/* Results */}
+        <div className="card p-8 border-l-4" style={{ borderLeftColor: 'var(--success)' }}>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-500">
+              <FiTrendingUp size={24} />
+            </div>
+            <h2 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>Results & Impact</h2>
+          </div>
+          <p className="text-lg leading-relaxed font-semibold mb-6" style={{ color: 'var(--success)' }}>
+            {study.results}
+          </p>
+
+          <div className="p-6 rounded-lg" style={{ background: 'var(--bg-secondary)' }}>
+            <h3 className="text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--text-muted)' }}>Key Learnings</h3>
+            <p className="italic text-base" style={{ color: 'var(--text-secondary)' }}>
+              &quot;{study.learnings}&quot;
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

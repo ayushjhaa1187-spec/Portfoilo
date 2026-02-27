@@ -7,7 +7,7 @@ const Project = require('../models/Project');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const projects = await Project.find();
+    const projects = await Project.find().select('-fullDescription').lean();
     res.json(projects);
   } catch (err) {
     console.error(err.message);

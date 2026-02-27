@@ -20,8 +20,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         const initialTheme = savedTheme || (mediaQuery.matches ? 'dark' : 'light');
 
-        setTheme(initialTheme);
-        document.documentElement.setAttribute('data-theme', initialTheme);
+        // Timeout prevents a synchronous state update error (set-state-in-effect)
+        setTimeout(() => {
+            setTheme(initialTheme);
+            document.documentElement.setAttribute('data-theme', initialTheme);
+        }, 0);
 
         // Add a listener for system theme changes if not overridden
         const listener = (e: MediaQueryListEvent) => {

@@ -39,8 +39,12 @@ const Navbar = () => {
   useEffect(() => {
     // Just reset scroll instead of toggling menu to avoid cascading renders
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setIsDropdownOpen(false);
-  }, [pathname]);
+    if (isDropdownOpen) {
+      setTimeout(() => {
+        setIsDropdownOpen(false);
+      }, 0);
+    }
+  }, [pathname, isDropdownOpen]);
 
   return (
     <motion.nav

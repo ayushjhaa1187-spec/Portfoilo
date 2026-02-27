@@ -86,18 +86,52 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        name: "Ayush Kumar Jha",
+        url: "https://ayushjha.dev",
+        jobTitle: "Data Scientist & ML/AI Researcher",
+        alumniOf: {
+          "@type": "CollegeOrUniversity",
+          name: "IIT Madras",
+        },
+        sameAs: [
+          "https://github.com/ayushjhaa1187-spec",
+          "https://www.linkedin.com/in/ayush-kumar-jha-5960a3362/",
+        ],
+      },
+      {
+        "@type": "WebSite",
+        url: "https://ayushjha.dev",
+        name: "Ayush Kumar Jha Portfolio",
+        description:
+          "IIT Madras Data Science Scholar building AI solutions at the intersection of science & business.",
+      },
+    ],
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body
         className={`${inter.variable} ${firaCode.variable} ${poppins.variable}`}
         style={{ fontFamily: "var(--font-inter), system-ui, sans-serif" }}
       >
         <ThemeProvider>
+          <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-4 focus:left-4 focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-lg">
+            Skip to content
+          </a>
           <Navbar />
-          <main>{children}</main>
+          <main id="main-content">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>

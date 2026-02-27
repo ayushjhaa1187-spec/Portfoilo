@@ -155,7 +155,7 @@ body {
 }
 
 .gradient-text-blue {
-  background: linear-gradient(135deg, #3B82F6, #06B6D4);
+  background: linear-gradient(135deg, var(--primary-light), #06B6D4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -163,7 +163,7 @@ body {
 
 /* ===== GRADIENT BACKGROUNDS ===== */
 .gradient-hero {
-  background: linear-gradient(135deg, #0B1120 0%, #1E3A8A 50%, #0F172A 100%);
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--primary-dark) 50%, var(--bg-secondary) 100%);
 }
 
 .gradient-section {
@@ -190,6 +190,7 @@ body {
   background: linear-gradient(135deg, var(--primary-light), var(--accent), var(--success));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   pointer-events: none;
 }

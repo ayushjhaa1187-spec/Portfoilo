@@ -321,8 +321,8 @@ body {
 }
 
 .card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
   border-color: var(--primary-light);
 }
 
@@ -354,7 +354,7 @@ body {
 
 /* ===== SKILL BAR ===== */
 .skill-bar {
-  height: 6px;
+  height: 8px;
   border-radius: var(--radius-full);
   background: var(--border-color);
   overflow: hidden;

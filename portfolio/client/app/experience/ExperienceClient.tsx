@@ -18,7 +18,7 @@ export default function ExperienceClient() {
 
       <Section>
         <div className="max-w-4xl mx-auto">
-          <div className="timeline space-y-12">
+          <div className="timeline space-y-14">
             {experiences.map((exp, idx) => (
               <motion.div
                 key={idx}
@@ -40,21 +40,21 @@ export default function ExperienceClient() {
                   <span className="text-xl">{exp.icon}</span>
                 </div>
 
-                <div className="card p-6 sm:p-8 hover:shadow-lg transition-all border-l-4" style={{ borderLeftColor: exp.color }}>
-                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
+                <div className="card p-8 sm:p-10 hover:shadow-lg transition-all border-l-4" style={{ borderLeftColor: exp.color }}>
+                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-5 gap-3">
                     <div>
                       <h2 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{exp.role}</h2>
-                      <h3 className="text-lg font-medium mt-1" style={{ color: exp.color }}>{exp.company}</h3>
+                      <h3 className="text-lg font-medium mt-1.5" style={{ color: exp.color }}>{exp.company}</h3>
                     </div>
                     <span className="badge badge-primary text-sm whitespace-nowrap self-start md:self-auto">
                       {exp.period}
                     </span>
                   </div>
 
-                  <ul className="space-y-3 mt-6">
+                  <ul className="space-y-4 mt-6">
                     {exp.desc.map((item, i) => (
                       <li key={i} className="flex items-start gap-3" style={{ color: 'var(--text-secondary)' }}>
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: exp.color }} />
+                        <span className="mt-2 w-2 h-2 rounded-full flex-shrink-0" style={{ background: exp.color }} />
                         <span className="leading-relaxed text-sm sm:text-base">{item}</span>
                       </li>
                     ))}

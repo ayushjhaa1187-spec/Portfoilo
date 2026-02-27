@@ -17,7 +17,7 @@ export default function AchievementsClient() {
       />
 
       <Section>
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-10 lg:gap-12">
           {achievements.map((item, idx) => (
             <motion.div
               key={idx}
@@ -27,15 +27,15 @@ export default function AchievementsClient() {
               transition={{ delay: idx * 0.1, duration: 0.5 }}
             >
               <div
-                className="card p-8 h-full flex flex-col group relative overflow-hidden"
+                className="card p-8 sm:p-10 h-full flex flex-col group relative overflow-hidden"
               >
                 {/* Gradient Top Border Effect */}
                 <div
-                  className="absolute top-0 left-0 w-full h-1 transition-all duration-300 group-hover:h-2"
+                  className="absolute top-0 left-0 w-full h-1.5 transition-all duration-300 group-hover:h-2"
                   style={{ background: item.color }}
                 />
 
-                <div className="flex justify-between items-start mb-6">
+                <div className="flex justify-between items-start mb-8 gap-4">
                   <div
                     className="w-16 h-16 rounded-xl flex items-center justify-center text-3xl shadow-sm"
                     style={{ background: `${item.color}15`, border: `1px solid ${item.color}30` }}
@@ -47,7 +47,7 @@ export default function AchievementsClient() {
                   </span>
                 </div>
 
-                <h2 className="text-xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>
+                <h2 className="text-xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
                   {item.title}
                 </h2>
 
@@ -55,7 +55,7 @@ export default function AchievementsClient() {
                   {item.desc}
                 </p>
 
-                <div className="mt-6 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                <div className="mt-8 pt-5 border-t" style={{ borderColor: 'var(--border-color)' }}>
                   <span className="text-sm font-medium" style={{ color: item.color }}>
                     Verified Achievement
                   </span>

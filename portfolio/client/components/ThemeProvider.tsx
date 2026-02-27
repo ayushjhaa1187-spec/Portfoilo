@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-type Theme = 'light' | 'dark';
+type Theme = 'dark' | 'light';
 
 interface ThemeContextType {
     theme: Theme;
@@ -13,45 +13,40 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const [theme, setTheme] = useState<Theme>('dark');
-    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        // Run once on mount to determine initial theme
+        // Initialize theme on mount
         const savedTheme = localStorage.getItem('portfolio-theme') as Theme;
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
         const initialTheme = savedTheme || (mediaQuery.matches ? 'dark' : 'light');
 
-        if (initialTheme !== theme) {
-            // We just update the DOM directly on mount to avoid cascading renders
-            document.documentElement.setAttribute('data-theme', initialTheme);
-        }
+        setTheme(initialTheme);
+        document.documentElement.setAttribute('data-theme', initialTheme);
 
-        // Use timeout to avoid synchronous setState warning
-        const timer = setTimeout(() => {
-            setMounted(true);
-        }, 0);
-        return () => clearTimeout(timer);
-    }, [theme]);
-
-    // This useEffect ensures the data-theme attribute is always in sync with the theme state
-    useEffect(() => {
-        if (mounted) {
-            document.documentElement.setAttribute('data-theme', theme);
-        }
-    }, [theme, mounted]);
+        // Add a listener for system theme changes if not overridden
+        const listener = (e: MediaQueryListEvent) => {
+            if (!localStorage.getItem('portfolio-theme')) {
+                const sysTheme = e.matches ? 'dark' : 'light';
+                setTheme(sysTheme);
+                document.documentElement.setAttribute('data-theme', sysTheme);
+            }
+        };
+        mediaQuery.addEventListener('change', listener);
+        return () => mediaQuery.removeEventListener('change', listener);
+    }, []);
 
     const toggleTheme = () => {
         const newTheme = theme === 'dark' ? 'light' : 'dark';
         setTheme(newTheme);
         localStorage.setItem('portfolio-theme', newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
     };
 
+    // Return naked children directly; we already suppressed hydration warnings
+    // on <html> tag, avoiding layout jank or missing content for bots
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
-            <div style={{ visibility: mounted ? 'visible' : 'hidden' }}>
-                {children}
-            </div>
+            {children}
         </ThemeContext.Provider>
     );
 }

@@ -1,44 +1,30 @@
-'use client';
-
 import React from 'react';
-import { motion } from 'framer-motion';
+import { Metadata } from 'next';
 import Section from '@/components/Section';
+import PageHero from '@/components/PageHero';
+import AnimatedReveal from '@/components/AnimatedReveal';
 import { timeline, currentFocus, personalInfo } from '@/data/portfolio';
 import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 
+export const metadata: Metadata = {
+  title: 'About | Ayush Kumar Jha',
+  description: 'From Commerce to Cutting-Edge Data Science at IIT Madras',
+};
+
 export default function AboutPage() {
   return (
-    <div style={{ paddingTop: '80px' }}>
-      {/* Hero Banner */}
-      <div className="relative py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0B1120 0%, #1E3A8A 100%)' }}>
-        <div className="absolute inset-0 grid-bg opacity-20" />
-        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl font-extrabold mb-4"
-            style={{ color: '#F1F5F9' }}
-          >
-            About <span className="gradient-text">Me</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-lg"
-            style={{ color: '#94A3B8' }}
-          >
-            From Commerce to Cutting-Edge Data Science at IIT Madras
-          </motion.p>
-        </div>
-      </div>
+    <>
+      <PageHero
+        title="About"
+        highlight="Me"
+        subtitle="From Commerce to Cutting-Edge Data Science at IIT Madras"
+      />
 
-      {/* Philosophy */}
       <Section>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        {/* Philosophy */}
+        <AnimatedReveal
+          direction="up"
+          delay={0}
           className="card p-8 sm:p-10 mb-16 relative overflow-hidden group"
           style={{ background: 'var(--bg-card)' }}
         >
@@ -46,7 +32,7 @@ export default function AboutPage() {
           <p className="text-xl sm:text-2xl font-medium italic leading-relaxed text-center sm:text-left relative z-10" style={{ color: 'var(--text-primary)' }}>
             &ldquo;{personalInfo.philosophy}&rdquo;
           </p>
-        </motion.div>
+        </AnimatedReveal>
 
         {/* Two Column */}
         <div className="grid lg:grid-cols-2 gap-16">
@@ -57,12 +43,10 @@ export default function AboutPage() {
             </h2>
             <div className="timeline space-y-10">
               {timeline.map((item, i) => (
-                <motion.div
+                <AnimatedReveal
                   key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                  direction="left"
+                  delay={i * 0.1}
                   className="relative pl-8"
                 >
                   <div className="timeline-dot" />
@@ -73,7 +57,7 @@ export default function AboutPage() {
                   <p className="text-sm leading-relaxed mt-1" style={{ color: 'var(--text-secondary)' }}>
                     {item.desc}
                   </p>
-                </motion.div>
+                </AnimatedReveal>
               ))}
             </div>
           </div>
@@ -81,11 +65,9 @@ export default function AboutPage() {
           {/* Right Column */}
           <div>
             {/* Photo Placeholder */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="w-full aspect-square max-w-sm mx-auto mb-10 rounded-2xl flex items-center justify-center"
+            <AnimatedReveal
+              direction="none"
+              className="w-full aspect-square max-w-sm mx-auto mb-10 rounded-2xl flex items-center justify-center transition-transform hover:scale-105"
               style={{
                 background: 'linear-gradient(135deg, rgba(59,130,246,0.1), rgba(249,115,22,0.1))',
                 border: '2px dashed var(--border-color)',
@@ -100,7 +82,7 @@ export default function AboutPage() {
                   Coming Soon
                 </p>
               </div>
-            </motion.div>
+            </AnimatedReveal>
 
             {/* Current Focus */}
             <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
@@ -108,16 +90,14 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-3 mb-10">
               {currentFocus.map((focus, i) => (
-                <motion.div
+                <AnimatedReveal
                   key={i}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
+                  direction="right"
+                  delay={i * 0.1}
                   className="card p-4"
                 >
                   <span className="text-base font-medium" style={{ color: 'var(--text-primary)' }}>{focus}</span>
-                </motion.div>
+                </AnimatedReveal>
               ))}
             </div>
 
@@ -131,27 +111,25 @@ export default function AboutPage() {
                 { icon: FiLinkedin, href: personalInfo.linkedin, label: 'LinkedIn' },
                 { icon: FiMail, href: `mailto:${personalInfo.email}`, label: 'Email' },
               ].map(({ icon: Icon, href, label }) => (
-                <motion.a
+                <a
                   key={label}
                   href={href}
                   target={href.startsWith('http') ? '_blank' : undefined}
                   rel="noopener noreferrer"
-                  whileHover={{ y: -3 }}
-                  className="card p-3 flex items-center gap-2 cursor-pointer"
+                  className="card p-3 flex items-center gap-2 cursor-pointer transition-transform hover:-translate-y-1"
                 >
                   <Icon size={18} style={{ color: 'var(--primary-light)' }} />
                   <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{label}</span>
-                </motion.a>
+                </a>
               ))}
             </div>
           </div>
         </div>
 
         {/* Bio */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <AnimatedReveal
+          direction="up"
+          delay={0.2}
           className="mt-16 card p-8"
         >
           <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
@@ -160,8 +138,8 @@ export default function AboutPage() {
           <p className="text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
             {personalInfo.bio}
           </p>
-        </motion.div>
+        </AnimatedReveal>
       </Section>
-    </div>
+    </>
   );
 }

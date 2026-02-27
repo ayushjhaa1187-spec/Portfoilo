@@ -20,28 +20,29 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
   return (
     <div style={{ paddingTop: '80px' }}>
-      <div className="relative py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0B1120 0%, #1E3A8A 100%)' }}>
+      {/* Hero Section */}
+      <div className="relative py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%)' }}>
         <div className="absolute inset-0 grid-bg opacity-20" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <Link href="/case-studies" className="inline-flex items-center gap-2 mb-8 text-sm font-medium transition-colors hover:text-blue-400" style={{ color: '#94A3B8' }}>
+          <Link href="/case-studies" className="inline-flex items-center gap-2 mb-8 text-sm font-medium transition-colors hover:text-blue-400" style={{ color: 'var(--text-secondary)' }}>
             <FiArrowLeft /> Back to Case Studies
           </Link>
 
-          <div className="mb-6">
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
             <span className="px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase"
-              style={{ background: 'rgba(59, 130, 246, 0.2)', color: '#93C5FD' }}>
+              style={{ background: 'rgba(59, 130, 246, 0.2)', color: 'var(--primary-light)' }}>
               {study.category} Case Study
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 leading-tight" style={{ color: '#F1F5F9' }}>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 leading-tight" style={{ color: 'var(--text-primary)' }}>
             {study.title}
           </h1>
 
           {/* Connected Project Link */}
           {study.projectSlug && (
             <Link href={`/projects/${study.projectSlug}`} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-colors border"
-              style={{ borderColor: 'rgba(148, 163, 184, 0.3)', color: '#E2E8F0', background: 'rgba(255, 255, 255, 0.05)' }}>
+              style={{ borderColor: 'var(--border-color)', color: 'var(--text-primary)', background: 'rgba(255, 255, 255, 0.05)' }}>
               View Full Project Details
             </Link>
           )}

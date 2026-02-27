@@ -108,8 +108,8 @@ const Hero = () => {
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border"
             style={{
               background: 'rgba(59, 130, 246, 0.1)',
-              borderColor: 'rgba(59, 130, 246, 0.3)',
-              color: '#93C5FD',
+              borderColor: 'var(--border-color)',
+              color: 'var(--primary-light)',
             }}>
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             Open to collaborations & opportunities
@@ -122,7 +122,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-4"
-          style={{ color: '#F1F5F9', letterSpacing: '-0.03em' }}
+          style={{ color: 'var(--text-primary)', letterSpacing: '-0.03em' }}
         >
           {personalInfo.name.split(' ').map((word, i) => (
             <span key={i}>
@@ -142,7 +142,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
           className="text-lg sm:text-xl md:text-2xl font-light mb-6"
-          style={{ color: '#94A3B8' }}
+          style={{ color: 'var(--text-secondary)' }}
         >
           {personalInfo.title}
         </motion.p>
@@ -160,7 +160,7 @@ const Hero = () => {
             deletionSpeed={60}
             repeat={Infinity}
             className="text-base sm:text-lg font-medium"
-            style={{ color: '#60A5FA' }}
+            style={{ color: 'var(--primary)' }}
           />
         </motion.div>
 
@@ -175,7 +175,7 @@ const Hero = () => {
             View Projects
           </Link>
           <Link href="/resume" className="btn-outline text-base"
-            style={{ padding: '14px 32px', color: '#CBD5E1', borderColor: 'rgba(148, 163, 184, 0.3)' }}>
+            style={{ padding: '14px 32px', color: 'var(--text-secondary)', borderColor: 'var(--border-color)' }}>
             <FiDownload size={18} />
             Download Resume
           </Link>
@@ -199,8 +199,8 @@ const Hero = () => {
               }}
             >
               <div className="text-3xl mb-1">{stat.value}</div>
-              <div className="text-sm font-semibold" style={{ color: '#E2E8F0' }}>{stat.label}</div>
-              <div className="text-xs mt-1" style={{ color: '#64748B' }}>{stat.description}</div>
+              <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{stat.label}</div>
+              <div className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>{stat.description}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -214,12 +214,12 @@ const Hero = () => {
         >
           <a href={personalInfo.github} target="_blank" rel="noopener noreferrer"
             className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
-            style={{ border: '1px solid rgba(148, 163, 184, 0.2)', color: '#94A3B8' }}>
+            style={{ border: '1px solid var(--border-color)', color: 'var(--text-secondary)' }}>
             <FiGithub size={18} />
           </a>
           <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer"
             className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
-            style={{ border: '1px solid rgba(148, 163, 184, 0.2)', color: '#94A3B8' }}>
+            style={{ border: '1px solid var(--border-color)', color: 'var(--text-secondary)' }}>
             <FiLinkedin size={18} />
           </a>
         </motion.div>
@@ -232,12 +232,12 @@ const Hero = () => {
         transition={{ delay: 1.2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="text-xs font-medium" style={{ color: '#64748B' }}>Scroll to explore</span>
+        <span className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>Scroll to explore</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
         >
-          <FiArrowDown size={18} style={{ color: '#64748B' }} />
+          <FiArrowDown size={18} style={{ color: 'var(--text-muted)' }} />
         </motion.div>
       </motion.div>
     </section>

@@ -1,0 +1,29 @@
+<<<<<<< SEARCH
+import { Mail, Linkedin, Github } from 'lucide-react';
+=======
+import { Mail, Linkedin, Github, Loader2 } from 'lucide-react';
+>>>>>>> REPLACE
+<<<<<<< SEARCH
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={status === 'sending'}
+            >
+              {status === 'sending' ? 'Sending...' : 'Send Message'}
+            </Button>
+=======
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={status === 'sending'}
+            >
+              {status === 'sending' ? (
+                <span className="flex items-center justify-center gap-2">
+                  <Loader2 className="animate-spin" size={20} />
+                  Sending...
+                </span>
+              ) : (
+                'Send Message'
+              )}
+            </Button>
+>>>>>>> REPLACE

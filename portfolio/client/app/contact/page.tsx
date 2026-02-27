@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import axios from 'axios';
-import { Mail, Linkedin, Github } from 'lucide-react';
+import { Mail, Linkedin, Github, Loader2 } from 'lucide-react';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -50,9 +50,9 @@ const ContactPage = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">Let's Build Something Together</h2>
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">Let&apos;s Build Something Together</h2>
           <p className="text-gray-600 mb-8 text-lg">
-            I'm always interested in ML/AI collaboration projects, startup opportunities, and research partnerships.
+            I&apos;m always interested in ML/AI collaboration projects, startup opportunities, and research partnerships.
           </p>
 
           <div className="space-y-6">
@@ -136,15 +136,24 @@ const ContactPage = () => {
               className="w-full"
               disabled={status === 'sending'}
             >
-              {status === 'sending' ? 'Sending...' : 'Send Message'}
+              {status === 'sending' ? (
+                <span className="flex items-center justify-center gap-2">
+                  <Loader2 className="animate-spin" size={20} />
+                  Sending...
+                </span>
+              ) : (
+                'Send Message'
+              )}
             </Button>
 
-            {status === 'success' && (
-              <p className="text-green-600 text-center">Message sent successfully!</p>
-            )}
-            {status === 'error' && (
-              <p className="text-red-600 text-center">Failed to send message. Please try again.</p>
-            )}
+            <div aria-live="polite" className="mt-4">
+              {status === 'success' && (
+                <p className="text-green-600 text-center">Message sent successfully!</p>
+              )}
+              {status === 'error' && (
+                <p className="text-red-600 text-center">Failed to send message. Please try again.</p>
+              )}
+            </div>
           </form>
         </motion.div>
       </div>

@@ -1,0 +1,3 @@
+## 2024-05-18 - Form Status Message Accessibility & Async Buttons
+**Learning:** Dynamic form status messages (success/error) must be wrapped in `aria-live` regions to be announced by screen readers. Async buttons benefit greatly from both textual ("Sending...") and visual (spinner) state changes.
+**Action:** Always wrap dynamic success/error messages in `<div aria-live="polite">` and include a loading spinner (like `Loader2` from `lucide-react`) along with loading text for async operations.

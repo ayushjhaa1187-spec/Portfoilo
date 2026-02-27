@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiMail, FiArrowUp, FiHeart } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiMail, FiHeart } from 'react-icons/fi';
 
 const footerLinks = [
   { label: 'About', href: '/about' },
@@ -21,10 +21,6 @@ const socialLinks = [
 ];
 
 const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
     <footer className="relative" style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-color)' }}>
       {/* Gradient Line */}
@@ -113,18 +109,9 @@ const Footer = () => {
           <p className="text-xs flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
             © {new Date().getFullYear()} Ayush Kumar Jha. Built with <FiHeart size={12} style={{ color: 'var(--accent)' }} /> using Next.js
           </p>
-          <button
-            onClick={scrollToTop}
-            className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:shadow-md"
-            style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-color)',
-              color: 'var(--text-secondary)',
-            }}
-            aria-label="Scroll to top"
-          >
-            <FiArrowUp size={18} />
-          </button>
+          <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
+            Designed & Developed with passion
+          </p>
         </div>
       </div>
     </footer>

@@ -3,6 +3,8 @@ import { Inter, Fira_Code, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PageTransition from "@/components/PageTransition";
+import BackToTop from "@/components/BackToTop";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({
@@ -131,8 +133,11 @@ export default function RootLayout({
             Skip to content
           </a>
           <Navbar />
-          <main id="main-content">{children}</main>
+          <main id="main-content">
+            <PageTransition>{children}</PageTransition>
+          </main>
           <Footer />
+          <BackToTop />
         </ThemeProvider>
       </body>
     </html>

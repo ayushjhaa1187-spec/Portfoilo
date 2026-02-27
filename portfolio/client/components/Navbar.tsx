@@ -35,16 +35,15 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when route changes
+  // Close mobile menu & dropdown when route changes
   useEffect(() => {
-    // Just reset scroll instead of toggling menu to avoid cascading renders
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (isDropdownOpen) {
-      setTimeout(() => {
-        setIsDropdownOpen(false);
-      }, 0);
-    }
-  }, [pathname, isDropdownOpen]);
+    const timer = setTimeout(() => {
+      setIsOpen(false);
+      setIsDropdownOpen(false);
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [pathname]);
 
   return (
     <motion.nav

@@ -7,7 +7,8 @@ const BlogPost = require('../models/BlogPost');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const posts = await BlogPost.find();
+    // Optimization: Exclude heavy content field and use lean() to bypass Mongoose document instantiation
+    const posts = await BlogPost.find().select('-content').lean();
     res.json(posts);
   } catch (err) {
     console.error(err.message);
@@ -20,7 +21,8 @@ router.get('/', async (req, res) => {
 // @access  Public
 router.get('/:slug', async (req, res) => {
   try {
-    const post = await BlogPost.findOne({ slug: req.params.slug });
+    // Optimization: Use lean() to improve read performance
+    const post = await BlogPost.findOne({ slug: req.params.slug }).lean();
     if (!post) {
       return res.status(404).json({ msg: 'Post not found' });
     }

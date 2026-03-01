@@ -276,20 +276,7 @@ export const achievements = [
 
 export const experiences = [
     {
-        role: 'Entrepreneurship Intern',
-        company: 'IREU School for Startups',
-        period: 'Startup Ideation Track',
-        desc: [
-            'Completed intensive entrepreneurship program focusing on problem validation and market-fit analysis.',
-            'Developed 3+ business ideas with data-driven market research and customer discovery.',
-            'Created business model canvases, financial projections, and go-to-market strategies.',
-            'Pitched to industry experts, mentors, and received actionable feedback for iteration.',
-        ],
-        color: '#F97316',
-        icon: '🚀',
-    },
-    {
-        role: 'Data Science Student & Researcher',
+        role: 'Research & Data Science Scholar',
         company: 'Indian Institute of Technology Madras',
         period: '2025 – Present',
         desc: [
@@ -302,19 +289,66 @@ export const experiences = [
         icon: '🎓',
     },
     {
-        role: 'IIT Competition Participant',
-        company: 'Various Premier IITs',
-        period: '2025 – 2026',
+        role: 'Data Analyst (Jr) & Frontend Developer',
+        company: 'Freelance & Contracting',
+        period: '2025 – Present',
         desc: [
-            'Finalist at premier IIT Ideathon with AI-driven sustainable agriculture solution.',
-            'Top 10 at IIT Hackathon with real-time disaster management application.',
-            'Competed against 500+ teams nationwide with innovative ML solutions.',
-            'Built end-to-end solutions combining ML/AI with business strategy.',
+            'Working as a Junior Data Analyst focusing on statistical modeling and data visualization.',
+            'Serving as a Python Programmer for automation scripts and backend APIs.',
+            'Developing full-stack applications and creating UI/UX designs for modern web platforms.',
+            'Combining analytical skills with frontend execution to deliver comprehensive software solutions.',
+        ],
+        color: '#00f0ff',
+        icon: '💻',
+    },
+    {
+        role: 'Intern (Multiple Roles)',
+        company: 'Yuvaintern & EI System',
+        period: '2025',
+        desc: [
+            'Completed internships gaining practical industry experience in tech and business operations.',
+            'Contributed to real-world projects, applying academic knowledge to practical scenarios.',
         ],
         color: '#10B981',
-        icon: '🏆',
+        icon: '💼',
+    },
+    {
+        role: 'Core Member & HR',
+        company: 'Spaceborn & Spacelance',
+        period: '2025 – Present',
+        desc: [
+            'Acting as a Core Member at Spacelance, contributing to strategic decisions and organizational growth.',
+            'Managing Human Resources (HR) responsibilities, including team building and operational coordination across both organizations.',
+        ],
+        color: '#8B5CF6',
+        icon: '🚀',
+    },
+    {
+        role: 'Campus Ambassador',
+        company: 'E-Cell IIT Bombay, IIT Kanpur, IIT Roorkee',
+        period: '2025 – 2026',
+        desc: [
+            'Representing premier Indian Institutes of Technology (Bombay, Kanpur, Roorkee) entrepreneurship cells as a campus ambassador.',
+            'Promoting innovation, startups, and technological events within the student community.',
+            'Building networks and bridging the gap between national IIT-level events and local student bodies.',
+        ],
+        color: '#F97316',
+        icon: '📣',
+    },
+    {
+        role: 'Entrepreneurship Intern',
+        company: 'IREU School for Startups',
+        period: 'Startup Ideation Track',
+        desc: [
+            'Completed intensive entrepreneurship program focusing on problem validation and market-fit analysis.',
+            'Developed 3+ business ideas with data-driven market research and customer discovery.',
+            'Created business model canvases, financial projections, and go-to-market strategies.',
+        ],
+        color: '#F97316',
+        icon: '📊',
     },
 ];
+
 
 export const researchAreas = [
     {

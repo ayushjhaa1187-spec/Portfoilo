@@ -1,264 +1,126 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { TypeAnimation } from 'react-type-animation';
-import { FiArrowDown, FiGithub, FiLinkedin, FiDownload } from 'react-icons/fi';
-import { personalInfo, animatedTaglines, stats } from '@/data/portfolio';
-
-const ParticleField = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationId: number;
-    const particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number }[] = [];
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return;
-    }
-
-    for (let i = 0; i < 60; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        size: Math.random() * 2 + 0.5,
-        opacity: Math.random() * 0.5 + 0.1,
-      });
-    }
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(59, 130, 246, ${p.opacity})`;
-        ctx.fill();
-
-        // Draw connections
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = p.x - particles[j].x;
-          const dy = p.y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 150) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(59, 130, 246, ${0.05 * (1 - dist / 150)})`;
-            ctx.stroke();
-          }
-        }
-      });
-
-      animationId = requestAnimationFrame(animate);
-    };
-    animate();
-
-    return () => {
-      cancelAnimationFrame(animationId);
-      window.removeEventListener('resize', resize);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="absolute inset-0 z-0" aria-hidden="true" />;
-};
+import { FiArrowDown, FiDownload, FiGithub } from 'react-icons/fi';
+import { personalInfo, animatedTaglines } from '@/data/portfolio';
 
 const Hero = () => {
   const typeSequence = animatedTaglines.flatMap((t) => [t, 2500]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
-      {/* Particle Background */}
-      <ParticleField />
-
-      {/* Gradient Orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-20 blur-3xl animate-float"
-        style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.4) 0%, transparent 70%)' }} />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-15 blur-3xl animate-float-slow"
-        style={{ background: 'radial-gradient(circle, rgba(249,115,22,0.4) 0%, transparent 70%)' }} />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[var(--bg-primary)]">
+      {/* Ambient Glow from CSS */}
+      <div className="ambient-glow animate-float" />
+      <div className="ambient-glow-2 animate-float" style={{ animationDelay: '2s' }} />
 
       {/* Grid Overlay */}
-      <div className="absolute inset-0 grid-bg opacity-30" />
+      <div className="absolute inset-0 grid-bg opacity-40 z-0" />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Badge */}
+      {/* Main Content */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+
+        {/* Sub-heading badge */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-6"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-8"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border"
-            style={{
-              background: 'rgba(59, 130, 246, 0.1)',
-              borderColor: 'var(--border-color)',
-              color: 'var(--primary-light)',
-            }}>
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            Open to collaborations & opportunities
+          <span className="tag px-4 py-2 text-sm flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[var(--success)] shadow-[0_0_10px_var(--success)] animate-pulse" />
+            Open for New Opportunities
           </span>
         </motion.div>
 
-        {/* Name */}
-        <motion.h1
+        {/* Giant Name Typography */}
+        <motion.div
           initial="hidden"
           animate="visible"
           variants={{
             hidden: { opacity: 0 },
             visible: {
               opacity: 1,
-              transition: { staggerChildren: 0.05, delayChildren: 0.1 }
+              transition: { staggerChildren: 0.1, delayChildren: 0.2 }
             }
           }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-4 flex flex-wrap justify-center gap-3 md:gap-5"
-          style={{ letterSpacing: '-0.02em' }}
+          className="flex flex-col items-center justify-center font-display font-black uppercase leading-[0.85] tracking-tighter mb-8"
         >
-          {personalInfo.name.split(' ').map((word, i) => (
-            <span key={i} className="flex">
-              {word.split('').map((char, j) => (
-                <motion.span
-                  key={j}
-                  variants={{
-                    hidden: { opacity: 0, y: 50, scale: 0.8, rotateZ: i % 2 === 0 ? -10 : 10 },
-                    visible: { opacity: 1, y: 0, scale: 1, rotateZ: 0, transition: { type: 'spring', damping: 12, stiffness: 150 } }
-                  }}
-                  className={`inline-block ${i === 2 ? 'gradient-text drop-shadow-md' : ''}`}
-                  style={{ color: i !== 2 ? 'var(--text-primary)' : undefined }}
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </span>
-          ))}
-        </motion.h1>
-
-        {/* Title */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-lg sm:text-xl md:text-2xl font-light mb-6"
-          style={{ color: 'var(--text-secondary)' }}
-        >
-          {personalInfo.title}
-        </motion.p>
-
-        {/* Animated Tagline */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-          className="h-8 mb-10"
-        >
-          <TypeAnimation
-            sequence={typeSequence}
-            speed={40}
-            deletionSpeed={60}
-            repeat={Infinity}
-            className="text-base sm:text-lg font-medium"
-            style={{ color: 'var(--primary)' }}
-          />
+          {/* First Name */}
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 50 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+            }}
+            className="text-[12vw] sm:text-[10vw] md:text-[8rem] lg:text-[10rem] text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 drop-shadow-2xl"
+          >
+            Ayush
+          </motion.div>
+          {/* Last Name (Outlined) */}
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 50 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+            }}
+            className="text-[12vw] sm:text-[10vw] md:text-[8rem] lg:text-[10rem] text-outline text-outline-active"
+          >
+            Kumar Jha
+          </motion.div>
         </motion.div>
 
-        {/* CTA Buttons */}
+        {/* Title & Tagline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+          transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-2xl mx-auto"
         >
-          <Link href="/projects" className="btn-primary text-base" style={{ padding: '14px 32px' }}>
-            View Projects
+          <h2 className="text-xl sm:text-2xl font-light text-[var(--text-secondary)] mb-4">
+            {personalInfo.title}
+          </h2>
+          <div className="h-8 font-mono text-[var(--primary)] text-sm sm:text-base">
+            <TypeAnimation
+              sequence={typeSequence}
+              speed={50}
+              deletionSpeed={70}
+              repeat={Infinity}
+            />
+          </div>
+        </motion.div>
+
+        {/* Actions */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 1 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center mt-12 z-20"
+        >
+          <Link href="/projects" className="btn-primary">
+            Explore My Work
           </Link>
           <a
             href="https://docs.google.com/document/d/1yRiBRiccgoBYQwmctVLHuYk1YVpn670uSgQDxgrSnSY/edit?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-outline text-base flex items-center gap-2"
-            style={{ padding: '14px 32px', color: 'var(--text-secondary)', borderColor: 'var(--border-color)' }}>
-            <FiDownload size={18} />
-            View Resume
-          </a>
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
-        >
-          {stats.map((stat, i) => (
-            <motion.div
-              key={i}
-              whileHover={{ y: -4, boxShadow: '0 0 30px rgba(59, 130, 246, 0.15)' }}
-              className="stat-card"
-              style={{
-                background: 'var(--bg-glass)',
-                border: '1px solid var(--border-glass)',
-              }}
-            >
-              <div className="text-3xl mb-1">{stat.value}</div>
-              <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{stat.label}</div>
-              <div className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>{stat.description}</div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Social Links */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="flex justify-center gap-4 mt-10"
-        >
-          <a href={personalInfo.github} target="_blank" rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
-            style={{ border: '1px solid var(--border-color)', color: 'var(--text-secondary)' }}>
-            <FiGithub size={18} />
-          </a>
-          <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
-            style={{ border: '1px solid var(--border-color)', color: 'var(--text-secondary)' }}>
-            <FiLinkedin size={18} />
+            className="btn-outline"
+          >
+            <FiDownload /> Download Resume
           </a>
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Down Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--text-muted)] z-10"
       >
-        <span className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>Scroll to explore</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-        >
-          <FiArrowDown size={18} style={{ color: 'var(--text-muted)' }} />
+        <span className="text-xs uppercase tracking-widest font-mono">Scroll</span>
+        <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}>
+          <FiArrowDown />
         </motion.div>
       </motion.div>
     </section>

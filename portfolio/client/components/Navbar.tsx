@@ -21,7 +21,7 @@ const moreLinks = [
   { name: 'Research', href: '/research' },
   { name: 'Blog', href: '/blog' },
   { name: 'Education', href: '/education' },
-  { name: 'Resume', href: '/resume' },
+  { name: 'Resume', href: 'https://docs.google.com/document/d/1yRiBRiccgoBYQwmctVLHuYk1YVpn670uSgQDxgrSnSY/edit?usp=sharing' },
 ];
 
 const Navbar = () => {
@@ -61,13 +61,14 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-sm"
-              style={{ background: 'linear-gradient(135deg, var(--primary), var(--accent))' }}>
-              AJ
-            </div>
-            <span className="font-bold text-lg hidden sm:block" style={{ color: 'var(--text-primary)' }}>
-              Ayush<span style={{ color: 'var(--primary-light)' }}>.dev</span>
+          <Link href="/" className="flex flex-col items-start justify-center group">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/en/6/69/IIT_Madras_Logo.svg"
+              alt="IIT Madras Logo"
+              className="h-10 w-auto object-contain"
+            />
+            <span className="font-bold text-xs sm:text-sm mt-1" style={{ color: 'var(--text-primary)' }}>
+              Ayush Kumar Jha
             </span>
           </Link>
 
@@ -159,13 +160,15 @@ const Navbar = () => {
             </button>
 
             {/* Resume Button */}
-            <Link
-              href="/resume"
-              className="ml-2 btn-primary text-sm shadow-md"
+            <a
+              href="https://docs.google.com/document/d/1yRiBRiccgoBYQwmctVLHuYk1YVpn670uSgQDxgrSnSY/edit?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 btn-primary text-sm shadow-md flex items-center justify-center whitespace-nowrap"
               style={{ padding: '8px 24px' }}
             >
               Resume
-            </Link>
+            </a>
           </div>
 
           {/* Mobile Controls */}
@@ -216,13 +219,15 @@ const Navbar = () => {
                   </Link>
                 );
               })}
-              <Link
-                href="/resume"
+              <a
+                href="https://docs.google.com/document/d/1yRiBRiccgoBYQwmctVLHuYk1YVpn670uSgQDxgrSnSY/edit?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="block text-center btn-primary mt-2"
                 style={{ marginTop: '12px' }}
               >
                 Resume
-              </Link>
+              </a>
             </div>
           </motion.div>
         )}

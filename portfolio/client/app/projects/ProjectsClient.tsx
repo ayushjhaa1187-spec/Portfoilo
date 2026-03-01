@@ -44,7 +44,7 @@ export default function ProjectsClient() {
 
         {/* Grid */}
         <div className="max-w-6xl mx-auto">
-          <motion.div layout className="grid lg:grid-cols-2 gap-8">
+          <motion.div layout className="grid lg:grid-cols-2 gap-10 lg:gap-12">
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project) => (
                 <motion.div
@@ -54,8 +54,10 @@ export default function ProjectsClient() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3 }}
+                  whileHover={{ y: -8, boxShadow: '0 20px 40px -10px rgba(59, 130, 246, 0.2)' }}
+                  className="h-full rounded-2xl"
                 >
-                  <div className="card p-6 h-full flex flex-col sm:flex-row gap-6 group">
+                  <div className="card p-8 h-full flex flex-col sm:flex-row gap-6 group transition-colors duration-300 hover:border-blue-500/30">
                     {/* Left Column (Content) */}
                     <div className="flex-1 flex flex-col">
                       <div className="flex justify-between items-start mb-4">

@@ -27,12 +27,15 @@ export default function Home() {
               transition={{ delay: i * 0.1, duration: 0.5 }}
             >
               <Link href={`/projects/${project.slug}`}>
-                <div className="card p-6 h-full flex flex-col cursor-pointer group">
+                <motion.div
+                  whileHover={{ y: -8, boxShadow: '0 20px 40px -10px rgba(59, 130, 246, 0.15)', borderColor: 'var(--primary-light)' }}
+                  className="card p-6 h-full flex flex-col cursor-pointer group transition-all duration-300 rounded-2xl"
+                >
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-3xl">{project.icon}</span>
+                    <span className="text-3xl group-hover:scale-110 transition-transform duration-300 inline-block">{project.icon}</span>
                     <span className="badge badge-primary">{project.category}</span>
                   </div>
-                  <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+                  <h3 className="text-lg font-bold mb-2 group-hover:text-blue-500 transition-colors" style={{ color: 'var(--text-primary)' }}>
                     {project.title}
                   </h3>
                   <p className="text-sm leading-relaxed flex-grow mb-4" style={{ color: 'var(--text-secondary)' }}>
@@ -46,18 +49,18 @@ export default function Home() {
                       <span className="tag text-xs">+{project.techStack.length - 3}</span>
                     )}
                   </div>
-                  <div className="flex items-center justify-between pt-4" style={{ borderTop: '1px solid var(--border-color)' }}>
+                  <div className="flex items-center justify-between pt-4 mt-auto" style={{ borderTop: '1px solid var(--border-color)' }}>
                     <span className="text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all"
                       style={{ color: 'var(--primary-light)' }}>
-                      View Details <FiArrowRight size={14} />
+                      View Details <FiArrowRight size={14} className="group-hover:translate-x-1 duration-300" />
                     </span>
                     <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
-                      className="p-1" style={{ color: 'var(--text-muted)' }}
+                      className="p-1 hover:text-blue-500 transition-colors z-10" style={{ color: 'var(--text-muted)' }}
                       onClick={(e) => e.stopPropagation()}>
-                      <FiGithub size={16} />
+                      <FiGithub size={18} />
                     </a>
                   </div>
-                </div>
+                </motion.div>
               </Link>
             </motion.div>
           ))}

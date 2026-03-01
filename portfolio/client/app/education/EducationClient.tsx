@@ -42,6 +42,12 @@ export default function EducationClient() {
                 <span className="badge badge-primary text-xs whitespace-nowrap">{edu.period}</span>
               </div>
 
+              {(edu as any).description && (
+                <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  {(edu as any).description}
+                </p>
+              )}
+
               {edu.focusAreas.length > 0 && (
                 <div className="mb-8">
                   <h3 className="text-sm font-semibold uppercase tracking-wider mb-4" style={{ color: 'var(--text-muted)' }}>

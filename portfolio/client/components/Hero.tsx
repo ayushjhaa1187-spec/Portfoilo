@@ -122,20 +122,33 @@ const Hero = () => {
 
         {/* Name */}
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-4"
-          style={{ color: 'var(--text-primary)', letterSpacing: '-0.03em' }}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.05, delayChildren: 0.1 }
+            }
+          }}
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-4 flex flex-wrap justify-center gap-3 md:gap-5"
+          style={{ letterSpacing: '-0.02em' }}
         >
           {personalInfo.name.split(' ').map((word, i) => (
-            <span key={i}>
-              {i === 2 ? (
-                <span className="gradient-text">{word}</span>
-              ) : (
-                word
-              )}
-              {i < 2 ? ' ' : ''}
+            <span key={i} className="flex">
+              {word.split('').map((char, j) => (
+                <motion.span
+                  key={j}
+                  variants={{
+                    hidden: { opacity: 0, y: 50, scale: 0.8, rotateZ: i % 2 === 0 ? -10 : 10 },
+                    visible: { opacity: 1, y: 0, scale: 1, rotateZ: 0, transition: { type: 'spring', damping: 12, stiffness: 150 } }
+                  }}
+                  className={`inline-block ${i === 2 ? 'gradient-text drop-shadow-md' : ''}`}
+                  style={{ color: i !== 2 ? 'var(--text-primary)' : undefined }}
+                >
+                  {char}
+                </motion.span>
+              ))}
             </span>
           ))}
         </motion.h1>
@@ -178,11 +191,15 @@ const Hero = () => {
           <Link href="/projects" className="btn-primary text-base" style={{ padding: '14px 32px' }}>
             View Projects
           </Link>
-          <Link href="/resume" className="btn-outline text-base"
+          <a
+            href="https://docs.google.com/document/d/1yRiBRiccgoBYQwmctVLHuYk1YVpn670uSgQDxgrSnSY/edit?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-outline text-base flex items-center gap-2"
             style={{ padding: '14px 32px', color: 'var(--text-secondary)', borderColor: 'var(--border-color)' }}>
             <FiDownload size={18} />
-            Download Resume
-          </Link>
+            View Resume
+          </a>
         </motion.div>
 
         {/* Stats */}

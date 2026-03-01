@@ -25,12 +25,13 @@ export default function SkillsClient() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className="card p-8 sm:p-10"
+              whileHover={{ y: -8, boxShadow: `0 20px 40px -10px ${category.color}30`, borderColor: `${category.color}80` }}
+              className="card p-8 sm:p-10 transition-all duration-300 rounded-2xl group"
             >
               {/* Header */}
               <div className="flex items-center gap-4 mb-8 pb-4" style={{ borderBottom: '1px solid var(--border-color)' }}>
                 <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
+                  className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300 shadow-sm"
                   style={{ background: `${category.color}15`, border: `1px solid ${category.color}30` }}
                 >
                   {category.icon}

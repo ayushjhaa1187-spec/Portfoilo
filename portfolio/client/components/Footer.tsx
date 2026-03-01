@@ -30,12 +30,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-sm"
-                style={{ background: 'linear-gradient(135deg, var(--primary), var(--accent))' }}>
-                AJ
-              </div>
-              <span className="font-bold text-lg" style={{ color: 'var(--text-primary)' }}>
+            <div className="flex flex-col items-start justify-center mb-4 group">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/en/6/69/IIT_Madras_Logo.svg"
+                alt="IIT Madras Logo"
+                className="h-10 w-auto object-contain mb-1"
+              />
+              <span className="font-bold text-sm" style={{ color: 'var(--text-primary)' }}>
                 Ayush Kumar Jha
               </span>
             </div>

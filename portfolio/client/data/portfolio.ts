@@ -1,13 +1,13 @@
 export const personalInfo = {
     name: 'Ayush Kumar Jha',
-    title: 'Data Scientist | IIT Madras Scholar | Entrepreneur',
-    tagline: 'Building AI Solutions at the Intersection of Science & Business',
+    title: 'Data Scientist | Full Stack Developer | IIT Madras Scholar',
+    tagline: 'Driven by Data. Scaled by Code. Engineered for the Future.',
     email: 'ayushjhaa1187@gmail.com',
-    location: 'Ghaziabad, Uttar Pradesh, India',
+    location: 'Delhi, India',
     github: 'https://github.com/ayushjhaa1187-spec',
     linkedin: 'https://www.linkedin.com/in/ayush-kumar-jha-5960a3362/',
-    bio: "I'm Ayush Kumar Jha, a Data Science student at IIT Madras specializing in Machine Learning applications for satellite data and remote sensing. As a finalist at premier IIT competitions and an entrepreneurship intern at IREU School for Startups, I bridge the gap between cutting-edge data science and real-world business impact.",
-    philosophy: "I don't just build models — I build solutions that matter. My unique combination of IIT-level data science and entrepreneurial thinking lets me create AI systems that are both technically robust and commercially viable.",
+    bio: "I bridge the gap between complex data scholarship at IIT Madras and real-world software execution. With 1,500+ GitHub contributions this year, I don't just study AI—I build production-ready autonomous systems.",
+    philosophy: "I build autonomous AI agents and data-driven systems that solve real business bottlenecks. My unique combination of IIT-level data science and full-stack development allows me to engineer solutions from data engineering to frontend execution.",
 };
 
 export const animatedTaglines = [
@@ -20,9 +20,9 @@ export const animatedTaglines = [
 
 export const stats = [
     { label: 'IIT Madras Scholar', value: '🎓', description: 'BS Data Science' },
-    { label: 'Competition Finalist', value: '🏆', description: 'Premier IITs' },
-    { label: 'GitHub Projects', value: '17+', description: 'Open Source' },
-    { label: 'Startups Ideated', value: '3+', description: 'IREU Track' },
+    { label: 'GitHub Contributions', value: '1.5K+', description: 'Past Year' },
+    { label: 'Autonomous Agents', value: '🚀', description: 'Production Ready' },
+    { label: 'Open Source Projects', value: '17+', description: 'GitHub Repos' },
 ];
 
 export const timeline = [
@@ -60,29 +60,29 @@ export const timeline = [
 
 export const skillCategories = [
     {
-        title: 'Machine Learning & AI',
+        title: 'Machine Learning & AI Agents',
         icon: '🤖',
-        color: '#3B82F6',
+        color: '#00f0ff',
         skills: [
+            { name: 'Python', level: 90 },
+            { name: 'Autonomous Agents', level: 85 },
             { name: 'Supervised Learning', level: 85 },
             { name: 'Deep Learning', level: 75 },
-            { name: 'Computer Vision', level: 80 },
-            { name: 'Satellite Data Analysis', level: 75 },
+            { name: 'NLP / Voice Assistants', level: 80 },
             { name: 'Statistical Modeling', level: 85 },
-            { name: 'NLP', level: 65 },
         ],
     },
     {
-        title: 'Programming & Tools',
+        title: 'Full Stack Development',
         icon: '💻',
-        color: '#10B981',
+        color: '#39ff14',
         skills: [
-            { name: 'Python', level: 90 },
-            { name: 'NumPy & Pandas', level: 85 },
-            { name: 'TensorFlow / PyTorch', level: 75 },
-            { name: 'Scikit-learn', level: 85 },
-            { name: 'Jupyter & Colab', level: 90 },
-            { name: 'SQL', level: 80 },
+            { name: 'TypeScript / JS', level: 85 },
+            { name: 'Next.js & React', level: 85 },
+            { name: 'Tailwind CSS', level: 90 },
+            { name: 'Vercel / Deployment', level: 80 },
+            { name: 'HTML/CSS', level: 95 },
+            { name: 'SQL / Databases', level: 80 },
         ],
     },
     {
@@ -131,16 +131,40 @@ export interface Project {
 
 export const projects: Project[] = [
     {
-        slug: 'satellite-data-analysis',
-        title: 'Satellite Data Analysis System',
-        category: 'ML/AI',
-        shortDescription: 'ML models to classify satellite imagery for environmental monitoring with 92% accuracy.',
-        fullDescription: 'Developed a comprehensive system using computer vision to analyze satellite imagery. The system detects environmental changes, deforestation patterns, and urban expansion with high accuracy. Uses U-Net architecture for semantic segmentation with a sliding window approach for processing large geotiff images.',
-        techStack: ['Python', 'TensorFlow', 'OpenCV', 'Satellite APIs', 'PostgreSQL'],
-        metrics: { accuracy: '92%', impact: 'Automated monitoring', speed: '60% faster' },
-        githubUrl: 'https://github.com/ayushjhaa1187-spec/satellite-data-analysis',
+        slug: 'stocksense-agent',
+        title: 'StockSense AI Agent',
+        category: 'Autonomous Agents',
+        shortDescription: 'Autonomous AI agent for pharmacy expiry management and inventory optimization.',
+        fullDescription: 'Developed a production-ready autonomous AI agent designed explicitly for pharmacies. It constantly monitors inventory flow, predicts stockouts using machine learning models, and autonomously manages expiry tracking to maximize profitability and reduce waste. A prime example of converting data science into an actionable software product.',
+        techStack: ['Python', 'AI Agents', 'Data Analysis', 'Automation'],
+        metrics: { accuracy: 'High', impact: 'Eliminated Waste', speed: 'Real-time' },
+        githubUrl: 'https://github.com/ayushjhaa1187-spec/stocksense-agent',
         featured: true,
-        icon: '🛰️',
+        icon: '🏥',
+    },
+    {
+        slug: 'ethicallancing',
+        title: 'Ethicallancing Platform',
+        category: 'Full Stack',
+        shortDescription: 'A custom frontend platform advocating for fair, transparent, and ethical freelance work.',
+        fullDescription: 'Frontend implementation for a platform that advocates for fair and ethical freelance work. The goal is to provide a transparent and accessible environment for freelancers and clients alike, complete with a clean, responsive UI deployed on Vercel.',
+        techStack: ['HTML', 'CSS', 'JavaScript', 'Vercel'],
+        metrics: { accuracy: 'N/A', impact: 'Community Builder', speed: 'Highly Optimized' },
+        githubUrl: 'https://github.com/ayushjhaa1187-spec/ethicallancing',
+        featured: true,
+        icon: '💻',
+    },
+    {
+        slug: 'voice-assistant',
+        title: 'AI Voice Assistant',
+        category: 'NLP / Automation',
+        shortDescription: 'Interactive Python-based natural language voice assistant for hands-free automation.',
+        fullDescription: 'A versatile voice assistant capable of performing various system tasks completely hands-free. Includes functionality for web search, application control, and natural conversation using different speech recognition and TTS engines. Showcases advanced integration of NLP with operating system protocols.',
+        techStack: ['Python', 'SpeechRecognition', 'pyttsx3', 'APIs'],
+        metrics: { accuracy: 'High', impact: 'Accessibility', speed: 'Fast Execution' },
+        githubUrl: 'https://github.com/ayushjhaa1187-spec/Voice-Assistant',
+        featured: true,
+        icon: '🎙️',
     },
     {
         slug: 'predictive-analytics-dashboard',

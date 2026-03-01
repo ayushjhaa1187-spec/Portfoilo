@@ -22,37 +22,41 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   return (
     <div style={{ paddingTop: '80px' }}>
       {/* Hero Section */}
-      <div className="relative py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%)' }}>
-        <div className="absolute inset-0 grid-bg opacity-20" />
+      <div className="relative py-24 overflow-hidden border-b border-[var(--border-glass)]">
+        {/* Ambient background glows */}
+        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[var(--primary)] opacity-[0.05] blur-[120px] rounded-full mix-blend-screen pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[var(--success)] opacity-[0.05] blur-[120px] rounded-full mix-blend-screen pointer-events-none" />
+        <div className="absolute inset-0 grid-bg opacity-10" />
+
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <Link href="/blog" className="inline-flex items-center gap-2 mb-8 text-sm font-medium transition-colors hover:text-blue-400" style={{ color: 'var(--text-secondary)' }}>
+          <Link href="/blog" className="inline-flex items-center gap-2 mb-10 text-sm font-semibold transition-colors hover:text-[var(--primary)] text-[var(--text-secondary)]">
             <FiArrowLeft /> Back to Blog
           </Link>
 
-          <div className="mb-6">
-            <span className="px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase"
-              style={{ background: 'rgba(59, 130, 246, 0.2)', color: 'var(--primary-light)' }}>
+          <div className="mb-8">
+            <span className="px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase border"
+              style={{ background: 'rgba(0, 240, 255, 0.05)', color: 'var(--primary)', borderColor: 'rgba(0, 240, 255, 0.2)', textShadow: '0 0 10px var(--primary)' }}>
               {post.category}
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 leading-tight" style={{ color: 'var(--text-primary)' }}>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-extrabold mb-8 leading-tight text-white drop-shadow-2xl">
             {post.title}
           </h1>
 
-          <div className="flex flex-wrap justify-center items-center gap-4 text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
+          <div className="flex flex-wrap justify-center items-center gap-6 text-sm font-medium text-[var(--text-secondary)]">
             <div className="flex items-center gap-2">
-              <FiCalendar size={14} />
+              <FiCalendar size={16} className="text-[var(--primary)]" />
               <span>{post.date}</span>
             </div>
-            <span className="hidden sm:inline">•</span>
+            <span className="hidden sm:inline opacity-30">•</span>
             <div className="flex items-center gap-2">
-              <FiClock size={14} />
+              <FiClock size={16} className="text-[var(--success)]" />
               <span>{post.readTime}</span>
             </div>
-            <span className="hidden sm:inline">•</span>
+            <span className="hidden sm:inline opacity-30">•</span>
             <div className="flex items-center gap-2">
-              <FiUser size={14} />
+              <FiUser size={16} className="text-white" />
               <span>{personalInfo.name}</span>
             </div>
           </div>

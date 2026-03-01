@@ -27,14 +27,14 @@ export default function BlogClient() {
 
       <Section>
         {/* Filters */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12 lg:mb-16">
+        <div className="flex flex-wrap justify-center gap-4 mb-16 relative z-10">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${filter === cat
-                  ? 'bg-blue-600 text-white shadow-md'
-                  : 'bg-transparent text-gray-500 border border-gray-200 hover:border-blue-300 dark:border-gray-700 dark:text-gray-400 dark:hover:border-blue-500'
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${filter === cat
+                ? 'bg-[var(--primary)] text-black shadow-[0_0_15px_var(--primary)] font-bold'
+                : 'bg-white/5 text-[var(--text-secondary)] border border-white/10 hover:border-[var(--primary)]/50 hover:text-[var(--primary)]'
                 }`}
             >
               {cat}
@@ -48,44 +48,43 @@ export default function BlogClient() {
               <motion.div
                 layout
                 key={post.slug}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                whileHover={{ y: -8, boxShadow: '0 20px 40px -10px rgba(59, 130, 246, 0.15)' }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="h-full rounded-2xl"
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                className="h-full rounded-2xl group"
               >
                 <Link href={`/blog/${post.slug}`} className="block h-full">
-                  <div className="card h-full flex flex-col group overflow-hidden">
-                    {post.featured && (
-                      <div className="bg-gradient-to-r from-blue-600 to-orange-500 h-1 w-full" />
-                    )}
+                  <div className="neon-border h-full">
+                    <div className="glass-card h-full flex flex-col group overflow-hidden relative z-10 transition-colors duration-300 hover:border-[var(--primary)]/30">
+                      {post.featured && (
+                        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[var(--success)] to-[var(--primary)] shadow-[0_0_10px_var(--primary)] z-20" />
+                      )}
 
-                    <div className="p-6 sm:p-8 flex flex-col flex-grow">
-                      <div className="flex justify-between items-center mb-4">
-                        <span className="badge badge-primary">{post.category}</span>
-                        <span className="text-xs font-medium flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
-                          <FiClock size={12} /> {post.readTime}
-                        </span>
-                      </div>
+                      <div className="p-6 sm:p-8 flex flex-col flex-grow">
+                        <div className="flex justify-between items-center mb-6">
+                          <span className="tag px-3 py-1 bg-[var(--primary)]/10 text-[var(--primary)] border-[var(--primary)]/20">{post.category}</span>
+                          <span className="text-xs font-bold uppercase tracking-widest flex items-center gap-2 text-[var(--text-muted)]">
+                            <FiClock size={12} className="text-[var(--primary)]" /> {post.readTime}
+                          </span>
+                        </div>
 
-                      <h2 className="text-xl font-bold mb-3 group-hover:text-blue-500 transition-colors line-clamp-2"
-                        style={{ color: 'var(--text-primary)' }}>
-                        {post.title}
-                      </h2>
+                        <h2 className="text-xl font-display font-medium mb-4 group-hover:text-[var(--primary)] transition-colors line-clamp-2 text-white">
+                          {post.title}
+                        </h2>
 
-                      <p className="text-sm leading-relaxed mb-6 flex-grow line-clamp-3" style={{ color: 'var(--text-secondary)' }}>
-                        {post.excerpt}
-                      </p>
+                        <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-6 flex-grow line-clamp-3">
+                          {post.excerpt}
+                        </p>
 
-                      <div className="flex justify-between items-center mt-auto pt-4" style={{ borderTop: '1px solid var(--border-color)' }}>
-                        <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
-                          {post.date}
-                        </span>
-                        <span className="text-sm font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform"
-                          style={{ color: 'var(--primary-light)' }}>
-                          Read More <FiArrowRight size={14} />
-                        </span>
+                        <div className="flex justify-between items-center mt-auto pt-5 border-t border-[var(--border-glass)]">
+                          <span className="text-xs font-bold uppercase tracking-widest text-[var(--text-muted)]">
+                            {post.date}
+                          </span>
+                          <span className="text-sm font-semibold flex items-center gap-2 text-[var(--primary)] group-hover:gap-3 transition-all relative z-20">
+                            Read More <FiArrowRight size={14} className="group-hover:translate-x-1 duration-300" />
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>

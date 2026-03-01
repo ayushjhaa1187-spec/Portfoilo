@@ -28,31 +28,31 @@ export default function CaseStudiesClient() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <Link href={`/case-studies/${study.slug}`} className="block h-full">
-                <div className="card h-full flex flex-col group overflow-hidden">
-                  <div className="p-6 sm:p-8 flex flex-col flex-grow">
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="badge badge-primary">{study.category}</span>
-                    </div>
+              <Link href={`/case-studies/${study.slug}`} className="block h-full group">
+                <div className="neon-border h-full">
+                  <div className="glass-card h-full flex flex-col overflow-hidden relative z-10 transition-colors duration-300 hover:border-[var(--primary)]/30">
+                    <div className="p-6 sm:p-8 flex flex-col flex-grow">
+                      <div className="flex justify-between items-center mb-6">
+                        <span className="tag px-3 py-1 bg-[var(--primary)]/10 text-[var(--primary)] border-[var(--primary)]/20">{study.category}</span>
+                      </div>
 
-                    <h2 className="text-2xl font-bold mb-3 group-hover:text-blue-500 transition-colors"
-                      style={{ color: 'var(--text-primary)' }}>
-                      {study.title}
-                    </h2>
+                      <h2 className="text-2xl font-display font-medium mb-4 group-hover:text-[var(--primary)] transition-colors text-white">
+                        {study.title}
+                      </h2>
 
-                    <p className="text-base leading-relaxed mb-6 flex-grow" style={{ color: 'var(--text-secondary)' }}>
-                      <span className="font-semibold block mb-1">The Challenge:</span>
-                      <span className="line-clamp-3">{study.challenge}</span>
-                    </p>
+                      <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-6 flex-grow">
+                        <span className="font-semibold text-white block mb-2 uppercase tracking-widest text-xs">The Challenge:</span>
+                        <span className="line-clamp-3">{study.challenge}</span>
+                      </p>
 
-                    <div className="flex justify-between items-center mt-auto pt-4" style={{ borderTop: '1px solid var(--border-color)' }}>
-                      <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
-                        {study.date}
-                      </span>
-                      <span className="text-sm font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform"
-                        style={{ color: 'var(--primary-light)' }}>
-                        Read Case Study <FiArrowRight size={14} />
-                      </span>
+                      <div className="flex justify-between items-center mt-auto pt-5 border-t border-[var(--border-glass)]">
+                        <span className="text-xs font-bold uppercase tracking-widest text-[var(--text-muted)]">
+                          {study.date}
+                        </span>
+                        <span className="text-sm font-semibold flex items-center gap-2 text-[var(--primary)] group-hover:gap-3 transition-all relative z-20">
+                          Read Case Study <FiArrowRight size={14} className="group-hover:translate-x-1 duration-300" />
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>

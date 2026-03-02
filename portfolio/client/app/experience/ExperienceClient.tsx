@@ -18,7 +18,7 @@ export default function ExperienceClient() {
 
       <Section>
         <div className="max-w-4xl mx-auto">
-          <div className="timeline space-y-14">
+          <div className="timeline space-y-20">
             {experiences.map((exp, idx) => (
               <motion.div
                 key={idx}

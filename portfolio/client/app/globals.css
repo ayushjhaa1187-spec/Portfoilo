@@ -82,6 +82,8 @@ body {
   font-family: var(--font-sans);
   background: var(--bg-primary);
   color: var(--text-primary);
+  line-height: 1.7;
+  letter-spacing: -0.01em;
   transition: background 0.3s ease, color 0.3s ease;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -140,6 +142,7 @@ body {
   color: transparent;
   -webkit-text-stroke: 1px var(--text-secondary);
   transition: all 0.3s ease;
+  letter-spacing: 0.02em;
 }
 
 .text-outline:hover,
@@ -154,6 +157,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  letter-spacing: -0.02em;
 }
 
 /* Animated Border Container */
@@ -323,19 +327,29 @@ body {
 
 /* Utilities */
 .section {
-  padding: 120px 0;
+  padding: 220px 0;
   position: relative;
   z-index: 2;
 }
 
 .section-title {
-  font-size: 3.5rem;
+  font-size: 5rem;
   font-family: var(--font-display);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
   color: var(--text-primary);
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  max-width: 700px;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  opacity: 0.8;
 }
 
 /* Prose */

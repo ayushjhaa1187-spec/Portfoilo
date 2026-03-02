@@ -4,6 +4,7 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import { blogPosts, personalInfo } from '@/data/portfolio';
 import { FiArrowLeft, FiClock, FiCalendar, FiUser } from 'react-icons/fi';
+import BackButton from '@/components/BackButton';
 
 export async function generateStaticParams() {
   return blogPosts.map((post) => ({
@@ -29,9 +30,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <div className="absolute inset-0 grid-bg opacity-10" />
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <Link href="/blog" className="inline-flex items-center gap-2 mb-10 text-sm font-semibold transition-colors hover:text-[var(--primary)] text-[var(--text-secondary)]">
-            <FiArrowLeft /> Back to Blog
-          </Link>
+          <BackButton />
 
           <div className="mb-8">
             <span className="px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase border"

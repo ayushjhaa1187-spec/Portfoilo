@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { projects } from '@/data/portfolio';
 import { FiArrowLeft, FiGithub, FiExternalLink, FiClock, FiTarget, FiActivity } from 'react-icons/fi';
+import BackButton from '@/components/BackButton';
 
 export function generateStaticParams() {
   return projects.map((project) => ({
@@ -24,9 +25,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
       <div className="relative py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%)' }}>
         <div className="absolute inset-0 grid-bg opacity-20" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <Link href="/projects" className="inline-flex items-center gap-2 mb-8 text-sm font-medium transition-colors hover:text-blue-400" style={{ color: 'var(--text-secondary)' }}>
-            <FiArrowLeft /> Back to Projects
-          </Link>
+          <BackButton />
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="text-3xl">{project.icon}</span>
             <span className="px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase"

@@ -15,7 +15,7 @@ export default function PageHero({ title, highlight, subtitle, children, classNa
     return (
         <div style={{ paddingTop: '80px' }} className={className}>
             <div
-                className="relative py-20 overflow-hidden"
+                className="relative py-32 overflow-hidden"
                 style={{
                     background: 'linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%)'
                 }}
@@ -25,7 +25,7 @@ export default function PageHero({ title, highlight, subtitle, children, classNa
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-4xl sm:text-5xl font-extrabold mb-4"
+                        className="text-5xl sm:text-6xl font-display font-black mb-6 uppercase tracking-tight"
                         style={{ color: 'var(--text-primary)' }}
                     >
                         {title} {highlight && <span className="gradient-text">{highlight}</span>}

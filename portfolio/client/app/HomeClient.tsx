@@ -7,6 +7,7 @@ import Hero from '@/components/Hero';
 import Section from '@/components/Section';
 import { projects, personalInfo } from '@/data/portfolio';
 import { FiArrowRight, FiGithub, FiExternalLink } from 'react-icons/fi';
+import LinkedInSection from '@/components/LinkedInSection';
 
 const featuredProjects = projects.filter((p) => p.featured);
 
@@ -15,9 +16,14 @@ export default function Home() {
     <div className="bg-[var(--bg-primary)] min-h-screen">
       <Hero />
 
+      {/* Professional Ecosystem Section */}
+      <Section title="Professional Ecosystem." subtitle="Connecting academia at IIT Madras with real-world industry impact.">
+        <LinkedInSection />
+      </Section>
+
       {/* Featured Projects */}
       <Section title="Featured Works." subtitle="A selection of recent Data Science, ML, and AI projects.">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-20 mt-24">
           {featuredProjects.map((project, i) => (
             <motion.div
               key={project.slug}
@@ -29,7 +35,7 @@ export default function Home() {
             >
               <Link href={`/projects/${project.slug}`}>
                 <div className="neon-border h-full">
-                  <div className="glass-card p-6 h-full flex flex-col cursor-pointer relative z-10">
+                  <div className="glass-card p-8 sm:p-10 h-full flex flex-col cursor-pointer relative z-10 transition-all duration-500">
                     <div className="flex items-center justify-between mb-6">
                       <span className="text-4xl group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300 inline-block drop-shadow-lg">
                         {project.icon}
@@ -41,7 +47,7 @@ export default function Home() {
                       {project.title}
                     </h3>
 
-                    <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-6 flex-grow">
+                    <p className="text-[var(--text-secondary)] text-base leading-relaxed mb-10 flex-grow opacity-80 letter-spacing-[0.01em]">
                       {project.shortDescription}
                     </p>
 
@@ -58,9 +64,9 @@ export default function Home() {
                       )}
                     </div>
 
-                    <div className="flex items-center justify-between pt-5 mt-auto border-t border-[var(--border-glass)]">
-                      <span className="text-sm font-semibold flex items-center gap-2 text-[var(--primary)] group-hover:gap-3 transition-all">
-                        View Details <FiArrowRight size={16} className="group-hover:translate-x-1 duration-300" />
+                    <div className="flex items-center justify-between pt-8 mt-auto border-t border-[var(--border-glass)]">
+                      <span className="text-sm font-bold uppercase tracking-widest flex items-center gap-2 text-[var(--primary)] group-hover:gap-4 transition-all">
+                        View Details <FiArrowRight size={18} className="group-hover:translate-x-1 duration-300" />
                       </span>
                       <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
                         className="p-2 bg-white/5 rounded-full hover:bg-[var(--primary)] hover:text-black transition-colors text-white z-20"
@@ -103,10 +109,10 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h2 className="text-5xl sm:text-6xl font-display font-black mb-6 tracking-tight uppercase">
+            <h2 className="text-5xl sm:text-6xl font-display font-black mb-8 tracking-tight uppercase leading-tight">
               Let's build <br /><span className="gradient-text">the future</span>
             </h2>
-            <p className="text-lg text-[var(--text-secondary)] mb-10 max-w-2xl mx-auto">
+            <p className="text-lg text-[var(--text-secondary)] mb-12 max-w-2xl mx-auto leading-relaxed">
               I'm currenly exploring new opportunities in Machine Learning, AI research, and innovative tech. My inbox is always open.
             </p>
             <div className="flex flex-col sm:flex-row gap-5 justify-center">

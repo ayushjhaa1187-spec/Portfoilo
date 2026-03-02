@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import BackToTop from "@/components/BackToTop";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import AnimatedBackground from "@/components/AnimatedBackground";
+import Spotlight from "@/components/Spotlight";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -146,8 +148,10 @@ export default function RootLayout({
           <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-4 focus:left-4 focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-lg">
             Skip to content
           </a>
+          <Spotlight />
+          <AnimatedBackground />
           <Navbar />
-          <main id="main-content">
+          <main id="main-content" className="relative z-10">
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer />

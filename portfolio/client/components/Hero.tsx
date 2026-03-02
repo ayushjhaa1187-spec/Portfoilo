@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { TypeAnimation } from 'react-type-animation';
 import { FiArrowDown, FiDownload, FiGithub } from 'react-icons/fi';
 import { personalInfo, animatedTaglines } from '@/data/portfolio';
+import LiveInsights from '@/components/LiveInsights';
 
 const Hero = () => {
   const typeSequence = animatedTaglines.flatMap((t) => [t, 2500]);
@@ -24,51 +25,51 @@ const Hero = () => {
 
         {/* Sub-heading badge */}
         <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-6"
+        >
+          <span className="text-[var(--primary)] font-mono text-sm sm:text-base tracking-[0.3em] uppercase opacity-70 drop-shadow-sm leading-relaxed">
+            VANAKKAM / HELLO
+          </span>
+        </motion.div>
+
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-8"
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-10"
         >
-          <span className="tag px-4 py-2 text-sm flex items-center gap-2">
+          <span className="tag px-5 py-2.5 text-xs sm:text-sm flex items-center gap-2.5 font-bold tracking-wider">
             <span className="w-2 h-2 rounded-full bg-[var(--success)] shadow-[0_0_10px_var(--success)] animate-pulse" />
-            Open for New Opportunities
+            OPEN TO INNOVATIVE AI ROLES
           </span>
         </motion.div>
 
         {/* Giant Name Typography */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: { staggerChildren: 0.1, delayChildren: 0.2 }
-            }
-          }}
-          className="flex flex-col items-center justify-center font-display font-black uppercase leading-[0.85] tracking-tighter mb-8"
+        <div
+          className="flex flex-col items-center justify-center font-display font-black uppercase leading-[0.85] tracking-tighter mb-12"
         >
           {/* First Name */}
           <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
-            }}
-            className="text-[12vw] sm:text-[10vw] md:text-[8rem] lg:text-[10rem] text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 drop-shadow-2xl"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="text-[12vw] sm:text-[10vw] md:text-[9rem] lg:text-[11rem] font-black text-white bg-clip-text text-transparent bg-gradient-to-br from-white via-white to-white/40 drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]"
           >
             Ayush
           </motion.div>
           {/* Last Name (Outlined) */}
           <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
-            }}
-            className="text-[12vw] sm:text-[10vw] md:text-[8rem] lg:text-[10rem] text-outline text-outline-active"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="text-[12vw] sm:text-[10vw] md:text-[8.5rem] lg:text-[11rem] text-outline text-outline-active"
           >
             Kumar Jha
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* Title & Tagline */}
         <motion.div
@@ -108,6 +109,16 @@ const Hero = () => {
           >
             <FiDownload /> Download Resume
           </a>
+        </motion.div>
+
+        {/* Live Insights Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="mt-16 w-full max-w-4xl"
+        >
+          <LiveInsights />
         </motion.div>
       </div>
 

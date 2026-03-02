@@ -1,0 +1,3 @@
+## 2024-05-18 - Form Feedback Accessibility & Async Loading States
+**Learning:** Dynamic form status messages (success/error) cause layout shifts and are often missed by screen readers if not properly implemented. Additionally, async submit buttons should include a visual loading spinner for better interaction feedback.
+**Action:** Wrap form status messages in `aria-live='polite'` regions with a reserved height (e.g., `min-h-[24px]`) to prevent layout shifts and announce changes to screen readers. Add a loading spinner (e.g., `Loader2` from `lucide-react`) to the submit button when `status === 'sending'`.

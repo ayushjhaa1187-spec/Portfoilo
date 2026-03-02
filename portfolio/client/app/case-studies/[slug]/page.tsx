@@ -54,7 +54,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
         <div className="bg-gray-50 p-6 rounded-lg mb-10">
           <h2 className="text-xl font-bold text-gray-900 mb-2 mt-0">Key Learnings</h2>
-          <p className="text-gray-700 m-0 italic">"{study.learnings}"</p>
+          <p className="text-gray-700 m-0 italic">&quot;{study.learnings}&quot;</p>
         </div>
       </article>
     </div>

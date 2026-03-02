@@ -1,0 +1,4 @@
+## 2024-03-02 - [Safe API Key Validation with timingSafeEqual]
+**Vulnerability:** Timing attack vulnerability when comparing strings directly or using `crypto.timingSafeEqual` with varying length buffers (which throws an error and reveals information / causes DoS).
+**Learning:** `crypto.timingSafeEqual` requires the two buffers to be exactly the same length. If an attacker sends a key of a different length, it throws a `TypeError: Input buffers must have the same byte length`. To use it safely for user-provided string lengths, both strings must be hashed to a fixed length buffer first.
+**Prevention:** Use `crypto.createHash('sha256').update(string).digest()` to normalize both the provided string and the expected secret to fixed-length buffers before passing them to `crypto.timingSafeEqual`. This is fast, non-blocking, and avoids algorithmic DoS vulnerabilities that could be caused by using `crypto.scryptSync` in the request pipeline.

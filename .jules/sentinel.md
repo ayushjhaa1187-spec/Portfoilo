@@ -1,0 +1,4 @@
+## 2024-03-03 - [Missing Authentication on Admin Endpoint]
+**Vulnerability:** The POST `/api/projects` endpoint in the backend was meant to be private but lacked authentication, allowing anyone to create new projects on the portfolio.
+**Learning:** A comment `// @access Private (TODO: Add Auth)` indicated awareness, but the `auth.js` middleware itself was missing entirely. The correct approach uses an `x-api-key` header compared to an `ADMIN_API_KEY` environment variable. To avoid algorithmic DoS and timing attacks when comparing arbitrary lengths, strings must be hashed with SHA-256 before using `crypto.timingSafeEqual`.
+**Prevention:** Do not merge admin/private endpoints with `TODO: Add Auth`. Always include basic authentication early in the development lifecycle to prevent unintentional exposure.

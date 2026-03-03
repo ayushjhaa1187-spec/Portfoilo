@@ -1,0 +1,3 @@
+## 2025-03-03 - Mongoose Read Performance Overhead
+**Learning:** Mongoose instantiates heavy document instances for queries by default, causing unnecessary memory allocation and CPU overhead for endpoints that only send JSON payloads (like `/api/projects`, `/api/blog`, etc.). Additionally, returning heavy fields like `fullDescription` or `content` in list view arrays increases the payload significantly unnecessarily.
+**Action:** Use `.lean()` at the end of Mongoose `.find()` and `.findOne()` chains in all read-only endpoints. Chain with `.select('-fieldName')` to exclude heavy or unnecessary fields from list responses whenever appropriate.

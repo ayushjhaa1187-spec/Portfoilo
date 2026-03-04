@@ -7,7 +7,9 @@ const Project = require('../models/Project');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const projects = await Project.find();
+    // ⚡ Bolt: Use .lean() to bypass Mongoose document instantiation for faster reads.
+    // .select('-fullDescription') excludes the large text field from the list endpoint payload.
+    const projects = await Project.find().select('-fullDescription').lean();
     res.json(projects);
   } catch (err) {
     console.error(err.message);
@@ -20,7 +22,8 @@ router.get('/', async (req, res) => {
 // @access  Public
 router.get('/:slug', async (req, res) => {
   try {
-    const project = await Project.findOne({ slug: req.params.slug });
+    // ⚡ Bolt: Use .lean() to bypass Mongoose document instantiation for faster reads.
+    const project = await Project.findOne({ slug: req.params.slug }).lean();
     if (!project) {
       return res.status(404).json({ msg: 'Project not found' });
     }

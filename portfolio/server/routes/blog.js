@@ -7,7 +7,9 @@ const BlogPost = require('../models/BlogPost');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const posts = await BlogPost.find();
+    // ⚡ Bolt: Use .lean() to bypass Mongoose document instantiation for faster reads.
+    // .select('-content') excludes the full blog post text from the list endpoint payload.
+    const posts = await BlogPost.find().select('-content').lean();
     res.json(posts);
   } catch (err) {
     console.error(err.message);
@@ -20,7 +22,8 @@ router.get('/', async (req, res) => {
 // @access  Public
 router.get('/:slug', async (req, res) => {
   try {
-    const post = await BlogPost.findOne({ slug: req.params.slug });
+    // ⚡ Bolt: Use .lean() to bypass Mongoose document instantiation for faster reads.
+    const post = await BlogPost.findOne({ slug: req.params.slug }).lean();
     if (!post) {
       return res.status(404).json({ msg: 'Post not found' });
     }

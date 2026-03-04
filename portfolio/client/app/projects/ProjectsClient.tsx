@@ -56,59 +56,67 @@ export default function ProjectsClient() {
                   transition={{ duration: 0.4, delay: i * 0.05 }}
                   className="h-full rounded-2xl group"
                 >
-                  <div className="neon-border h-full">
-                    <div className="glass-card p-6 sm:p-8 h-full flex flex-col sm:flex-row gap-6 group transition-colors duration-300 relative z-10">
-                      {/* Left Column (Content) */}
-                      <div className="flex-1 flex flex-col">
-                        <div className="flex justify-between items-start mb-6">
-                          <div className="flex items-center gap-3">
-                            <span className="text-4xl group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300 inline-block drop-shadow-lg">{project.icon}</span>
-                            <span className="tag px-3 py-1 bg-[var(--primary)]/10 text-[var(--primary)] border-[var(--primary)]/20">{project.category}</span>
-                          </div>
-                          {project.featured && (
-                            <span className="text-[var(--success)] text-xs font-bold flex items-center gap-1 uppercase tracking-wider drop-shadow-[0_0_5px_var(--success)]">
-                              ★ <span className="hidden sm:inline">Featured</span>
-                            </span>
-                          )}
+                  <div className="glass-card p-6 sm:p-8 h-full flex flex-col sm:flex-row gap-6 group overflow-hidden relative group-hover:bg-white/[0.02] group-hover:border-[var(--primary)]/30 transition-all duration-500 z-10">
+                    {/* Subtle Top-Right Gradient Glow */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--primary)]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-[var(--primary)]/10 transition-colors duration-500" />
+
+                    {/* Left Column (Content) */}
+                    <div className="flex-1 flex flex-col relative z-10">
+                      <div className="flex justify-between items-start mb-6">
+                        <div className="flex items-center gap-4">
+                          <span className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-3xl border border-white/10 group-hover:scale-110 shadow-sm transition-all duration-300">
+                            {project.icon}
+                          </span>
+                          <span className="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full bg-[var(--primary)]/10 text-[var(--primary)] border border-[var(--primary)]/20">
+                            {project.category}
+                          </span>
                         </div>
+                        {project.featured && (
+                          <span className="text-[var(--success)] text-xs font-bold flex items-center gap-1 uppercase tracking-wider">
+                            ★ <span className="hidden sm:inline">Featured</span>
+                          </span>
+                        )}
+                      </div>
 
-                        <h3 className="text-2xl font-display font-medium mb-3 group-hover:text-[var(--primary)] transition-colors text-white">
-                          {project.title}
-                        </h3>
-                        {/* Always show full description on the projects page since cards are bigger */}
-                        <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-6 flex-grow">
-                          {project.fullDescription || project.shortDescription}
-                        </p>
+                      <h3 className="text-2xl font-display font-semibold tracking-tight text-white mb-3 group-hover:text-[var(--primary-light)] transition-colors">
+                        {project.title}
+                      </h3>
+                      {/* Always show full description on the projects page since cards are bigger */}
+                      <p className="text-[var(--text-secondary)] text-[0.95rem] leading-relaxed mb-8 flex-grow">
+                        {project.fullDescription || project.shortDescription}
+                      </p>
 
-                        <div className="mb-8 flex flex-wrap gap-2">
-                          {project.techStack.map((tech) => (
-                            <span key={tech} className="text-xs px-2 py-1 bg-white/5 rounded-md text-[var(--text-muted)] border border-white/5 group-hover:border-[var(--primary)]/30 group-hover:text-[var(--primary)] transition-colors">
-                              {tech}
-                            </span>
-                          ))}
+                      <div className="mb-8 flex flex-wrap gap-2">
+                        {project.techStack.map((tech) => (
+                          <span key={tech} className="text-xs px-3 py-1 bg-white/5 rounded-md text-[var(--text-muted)] border border-white/10 group-hover:border-[var(--primary)]/30 group-hover:text-[var(--text-secondary)] transition-colors font-medium">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Stats/Metrics Row */}
+                      <div className="grid grid-cols-2 gap-4 mb-8 p-4 rounded-xl bg-black/20 border border-white/5">
+                        <div>
+                          <div className="text-[10px] uppercase tracking-widest mb-1 text-[var(--text-muted)] font-bold">Accuracy</div>
+                          <div className="font-display font-medium text-lg text-[var(--success)]">{project.metrics.accuracy}</div>
                         </div>
-
-                        {/* Stats/Metrics Row */}
-                        <div className="grid grid-cols-2 gap-4 mb-6 p-4 rounded-xl bg-black/40 border border-white/5">
-                          <div>
-                            <div className="text-[10px] uppercase tracking-widest mb-1 text-[var(--text-muted)] font-bold">Accuracy</div>
-                            <div className="font-display font-medium text-lg text-[var(--success)] drop-shadow-[0_0_8px_rgba(57,255,20,0.4)]">{project.metrics.accuracy}</div>
-                          </div>
-                          <div>
-                            <div className="text-[10px] uppercase tracking-widest mb-1 text-[var(--text-muted)] font-bold">Impact</div>
-                            <div className="font-display font-medium text-lg text-[var(--primary)] drop-shadow-[0_0_8px_rgba(0,240,255,0.4)]">{project.metrics.impact}</div>
-                          </div>
+                        <div>
+                          <div className="text-[10px] uppercase tracking-widest mb-1 text-[var(--text-muted)] font-bold">Impact</div>
+                          <div className="font-display font-medium text-lg text-[var(--primary-light)]">{project.metrics.impact}</div>
                         </div>
+                      </div>
 
-                        <div className="mt-auto flex justify-between items-center pt-5 border-t border-[var(--border-glass)]">
-                          <Link href={`/projects/${project.slug}`} className="text-sm font-semibold flex items-center gap-2 text-[var(--primary)] group-hover:gap-3 transition-all relative z-20">
-                            Read Case Study <FiArrowRight size={16} className="group-hover:translate-x-1 duration-300" />
-                          </Link>
-                          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
-                            className="p-2 bg-white/5 rounded-full hover:bg-[var(--primary)] hover:text-black transition-colors text-white relative z-20"
-                            onClick={(e) => e.stopPropagation()}>
-                            <FiGithub size={18} />
-                          </a>
+                      <div className="mt-auto flex justify-between items-center pt-6 border-t border-[var(--border-color)]/50 group-hover:border-[var(--primary)]/30 transition-colors">
+                        <Link href={`/projects/${project.slug}`} className="text-sm font-semibold flex items-center gap-2 text-[var(--text-primary)] group-hover:text-[var(--primary)] group-hover:gap-3 transition-all relative z-20">
+                          Read Case Study <FiArrowRight size={16} className="group-hover:translate-x-1 duration-300" />
+                        </Link>
+                        <div
+                          className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-[var(--text-muted)] hover:text-white hover:border-[var(--primary)] hover:bg-[var(--primary)] transition-all cursor-pointer pointer-events-auto z-20"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            window.open(project.githubUrl, '_blank', 'noopener,noreferrer');
+                          }}>
+                          <FiGithub size={16} />
                         </div>
                       </div>
                     </div>
@@ -122,7 +130,7 @@ export default function ProjectsClient() {
         <div className="mt-16 text-center">
           <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>Explore more research and private repositories on my GitHub</p>
           <a href="https://github.com/ayushjhaa1187-spec" target="_blank" rel="noopener noreferrer" className="btn-outline">
-            <FiGithub size={18} /> View All 17+ Repositories
+            <FiGithub size={18} /> View All 33+ Repositories
           </a>
         </div>
       </Section>

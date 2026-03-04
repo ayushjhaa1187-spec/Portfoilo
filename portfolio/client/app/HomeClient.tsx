@@ -33,46 +33,54 @@ export default function Home() {
               transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="group"
             >
-              <Link href={`/projects/${project.slug}`}>
-                <div className="neon-border h-full">
-                  <div className="glass-card p-8 sm:p-10 h-full flex flex-col cursor-pointer relative z-10 transition-all duration-500">
-                    <div className="flex items-center justify-between mb-6">
-                      <span className="text-4xl group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300 inline-block drop-shadow-lg">
-                        {project.icon}
-                      </span>
-                      <span className="tag">{project.category}</span>
+              <Link href={`/projects/${project.slug}`} className="block h-full group">
+                <div className="glass-card p-8 sm:p-10 h-full flex flex-col relative overflow-hidden group-hover:bg-white/[0.02] group-hover:border-[var(--primary)]/30 transition-all duration-500">
+                  {/* Subtle Top-Right Gradient Glow */}
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--primary)]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-[var(--primary)]/10 transition-colors duration-500" />
+
+                  <div className="flex items-center justify-between mb-8 relative z-10">
+                    <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-3xl border border-white/10 group-hover:scale-110 shadow-sm transition-all duration-300">
+                      {project.icon}
                     </div>
+                    <span className="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full bg-[var(--primary)]/10 text-[var(--primary)] border border-[var(--primary)]/20">
+                      {project.category}
+                    </span>
+                  </div>
 
-                    <h3 className="text-2xl font-display font-medium mb-3 group-hover:text-[var(--primary)] transition-colors">
-                      {project.title}
-                    </h3>
+                  <h3 className="text-2xl font-display font-semibold tracking-tight text-white mb-4 group-hover:text-[var(--primary-light)] transition-colors relative z-10">
+                    {project.title}
+                  </h3>
 
-                    <p className="text-[var(--text-secondary)] text-base leading-relaxed mb-10 flex-grow opacity-80 letter-spacing-[0.01em]">
-                      {project.shortDescription}
-                    </p>
+                  <p className="text-[var(--text-secondary)] text-[0.95rem] leading-relaxed mb-10 flex-grow relative z-10">
+                    {project.shortDescription}
+                  </p>
 
-                    <div className="flex flex-wrap gap-2 mb-6">
+                  <div className="relative z-10 mt-auto">
+                    <div className="flex flex-wrap gap-2 mb-8">
                       {project.techStack.slice(0, 3).map((tech) => (
-                        <span key={tech} className="text-xs px-2 py-1 bg-white/5 rounded-md text-[var(--text-muted)] border border-white/5 group-hover:border-[var(--primary)]/30 group-hover:text-[var(--primary)] transition-colors">
+                        <span key={tech} className="text-xs px-3 py-1 bg-white/5 rounded-md text-[var(--text-muted)] border border-white/10 group-hover:border-[var(--primary)]/30 group-hover:text-[var(--text-secondary)] transition-colors font-medium">
                           {tech}
                         </span>
                       ))}
                       {project.techStack.length > 3 && (
-                        <span className="text-xs px-2 py-1 bg-white/5 rounded-md text-[var(--text-muted)] border border-white/5">
+                        <span className="text-xs px-3 py-1 bg-white/5 rounded-md text-[var(--text-muted)] border border-white/10 font-medium">
                           +{project.techStack.length - 3}
                         </span>
                       )}
                     </div>
 
-                    <div className="flex items-center justify-between pt-8 mt-auto border-t border-[var(--border-glass)]">
-                      <span className="text-sm font-bold uppercase tracking-widest flex items-center gap-2 text-[var(--primary)] group-hover:gap-4 transition-all">
-                        View Details <FiArrowRight size={18} className="group-hover:translate-x-1 duration-300" />
+                    <div className="flex items-center justify-between pt-6 border-t border-[var(--border-color)]/50 group-hover:border-[var(--primary)]/30 transition-colors">
+                      <span className="text-sm font-semibold tracking-wide flex items-center gap-2 text-[var(--text-primary)] group-hover:text-[var(--primary)] transition-colors">
+                        View Details <FiArrowRight size={16} className="group-hover:translate-x-1 duration-300" />
                       </span>
-                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
-                        className="p-2 bg-white/5 rounded-full hover:bg-[var(--primary)] hover:text-black transition-colors text-white z-20"
-                        onClick={(e) => e.stopPropagation()}>
+                      <div
+                        className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-[var(--text-muted)] hover:text-white hover:border-[var(--primary)] hover:bg-[var(--primary)] transition-all cursor-pointer pointer-events-auto"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          window.open(project.githubUrl, '_blank', 'noopener,noreferrer');
+                        }}>
                         <FiGithub size={16} />
-                      </a>
+                      </div>
                     </div>
                   </div>
                 </div>

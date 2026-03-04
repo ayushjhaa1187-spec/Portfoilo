@@ -1,13 +1,13 @@
 export const personalInfo = {
     name: 'Ayush Kumar Jha',
-    title: 'Data Scientist | Full Stack Developer | IIT Madras Scholar',
-    tagline: 'Driven by Data. Scaled by Code. Engineered for the Future.',
+    title: 'Data Scientist | IT Engineer | IIT Madras Scholar',
+    tagline: 'Bridging Software Development, Data Science, and Economic Strategy.',
     email: 'ayushjhaa1187@gmail.com',
     location: 'Delhi, India',
     github: 'https://github.com/ayushjhaa1187-spec',
     linkedin: 'https://www.linkedin.com/in/ayush-kumar-jha-5960a3362/',
-    bio: "I bridge the gap between complex data scholarship at IIT Madras and real-world software execution. With 1,500+ GitHub contributions this year, I don't just study AI—I build production-ready autonomous systems.",
-    philosophy: "I build autonomous AI agents and data-driven systems that solve real business bottlenecks. My unique combination of IIT-level data science and full-stack development allows me to engineer solutions from data engineering to frontend execution.",
+    bio: "I bridge the gap between complex data scholarship and real-world software execution. With a background spanning IT Engineering at IIIT Bhubaneswar and Data Science at IIT Madras, I don't just study AI—I build production-ready autonomous systems, optimize APIs, and engineer document pipelines.",
+    philosophy: "I build autonomous AI agents and data-driven systems that solve real business bottlenecks. My unique multidisciplinary background in IT, Data Science, and Economics allows me to engineer holistic solutions—from intricate data engineering and FastAPI backends to frontend execution.",
 };
 
 export const animatedTaglines = [
@@ -19,10 +19,10 @@ export const animatedTaglines = [
 ];
 
 export const stats = [
-    { label: 'IIT Madras Scholar', value: '🎓', description: 'BS Data Science' },
+    { label: 'Engineering & Data', value: '🎓', description: 'BTech IT & BS Data Science' },
     { label: 'GitHub Contributions', value: '1.5K+', description: 'Past Year' },
     { label: 'Autonomous Agents', value: '🚀', description: 'Production Ready' },
-    { label: 'Open Source Projects', value: '17+', description: 'GitHub Repos' },
+    { label: 'Open Source Projects', value: '33+', description: 'GitHub Repositories' },
 ];
 
 export const timeline = [
@@ -94,6 +94,19 @@ export const skillCategories = [
             { name: 'Market Analysis', level: 75 },
             { name: 'Product Strategy', level: 70 },
             { name: 'Business Modeling', level: 80 },
+        ],
+    },
+    {
+        title: 'Backend & Data Pipelines',
+        icon: '⚙️',
+        color: '#F59E0B',
+        skills: [
+            { name: 'FastAPI / Node.js', level: 85 },
+            { name: 'Document Processing (OCR)', level: 80 },
+            { name: 'PostgreSQL / SQL', level: 85 },
+            { name: 'Regex & Data Parsing', level: 90 },
+            { name: 'System Architecture', level: 80 },
+            { name: 'Data Structures & Algorithms', level: 90 },
         ],
     },
     {
@@ -794,22 +807,31 @@ If you're from a non-traditional background considering data science:
 
 export const education = [
     {
+        institution: 'International Institute of Information Technology (IIIT) Bhubaneswar',
+        degree: 'BTech in Information Technology',
+        period: 'Present',
+        focusAreas: ['Data Structures & Algorithms', 'Software Engineering', 'System Architecture'],
+        coursework: ['Advanced DSA', 'Database Management Systems', 'Computer Networks'],
+        color: '#3B82F6',
+        description: 'Maintaining an 8.55 GPA. Focusing on core software development, fast backend APIs (FastAPI), and robust IT infrastructure.'
+    },
+    {
         institution: 'Indian Institute of Technology Madras',
         degree: 'BS in Data Science & Applications',
         period: '2025 – 2029',
         focusAreas: ['Machine Learning & AI', 'Satellite Data Analysis', 'Statistical Modeling', 'Business Applications of DS'],
-        coursework: ['ML Foundations', 'Deep Learning', 'Neural Networks', 'Statistical Methods', 'Data Structures', 'Business Analytics'],
+        coursework: ['ML Foundations', 'Deep Learning', 'Neural Networks', 'Statistical Methods'],
         color: '#1E40AF',
-        description: 'Chose IIT Madras Data Science over NIT after qualifying JEE Mains 2025 and narrowly missing JEE Advanced cut-off by 16 marks.'
+        description: 'Rigorous data science curriculum focusing on mathematical foundations and production-level machine learning.'
     },
     {
-        institution: 'High School (Class 12th)',
-        degree: 'PCM + Computer Science',
-        period: '2024',
-        focusAreas: ['Physics', 'Chemistry', 'Mathematics', 'Computer Science'],
-        coursework: ['Advanced Mathematics', 'Programming fundamentals', 'Physics experiments'],
-        color: '#3B82F6',
-        description: 'Qualified JEE Mains 2025. Wrote JEE Advanced but left by 16 marks. Built strong logical and analytical foundations through PCM+CS.'
+        institution: 'Lalit Narayan Mithila University',
+        degree: 'B.A. in Economics (Hons.) with Psychology',
+        period: 'Present',
+        focusAreas: ['Macroeconomics', 'Behavioral Psychology', 'Market Analysis'],
+        coursework: ['Economic Theory', 'Statistical Applications in Economics'],
+        color: '#8B5CF6',
+        description: 'Providing a strong foundation in market dynamics, consumer behavior, and logical economic frameworks.'
     },
     {
         institution: 'IREU School for Startups',

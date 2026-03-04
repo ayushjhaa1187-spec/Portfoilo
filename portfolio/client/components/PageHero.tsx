@@ -25,7 +25,7 @@ export default function PageHero({ title, highlight, subtitle, children, classNa
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-5xl sm:text-6xl font-display font-black mb-6 uppercase tracking-tight"
+                        className="text-5xl sm:text-6xl font-display font-extrabold mb-6 tracking-tight"
                         style={{ color: 'var(--text-primary)' }}
                     >
                         {title} {highlight && <span className="gradient-text">{highlight}</span>}

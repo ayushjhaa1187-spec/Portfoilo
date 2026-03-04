@@ -23,8 +23,8 @@ const LinkedInSection = () => {
                         </div>
                     </div>
                     <div className="mt-4 flex flex-col items-center">
-                        <span className="text-xl font-bold text-white uppercase tracking-tighter">Ayush</span>
-                        <span className="text-[10px] text-[var(--primary)] font-bold tracking-[0.2em] uppercase mt-1">IIT Madras Scholar</span>
+                        <span className="text-xl font-bold text-white tracking-tight">Ayush</span>
+                        <span className="text-xs text-[var(--primary)] font-bold tracking-wider mt-1">IIT Madras Scholar</span>
                     </div>
                 </div>
 

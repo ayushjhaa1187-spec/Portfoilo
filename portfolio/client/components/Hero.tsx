@@ -30,8 +30,8 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-6"
         >
-          <span className="text-[var(--primary)] font-mono text-sm sm:text-base tracking-[0.3em] uppercase opacity-70 drop-shadow-sm leading-relaxed">
-            VANAKKAM / HELLO
+          <span className="text-[var(--text-secondary)] font-mono text-sm sm:text-base tracking-widest uppercase opacity-80 leading-relaxed">
+            Hello, Welcome
           </span>
         </motion.div>
 
@@ -42,30 +42,30 @@ const Hero = () => {
           className="mb-10"
         >
           <span className="tag px-5 py-2.5 text-xs sm:text-sm flex items-center gap-2.5 font-bold tracking-wider">
-            <span className="w-2 h-2 rounded-full bg-[var(--success)] shadow-[0_0_10px_var(--success)] animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-[var(--primary-light)] shadow-sm animate-pulse" />
             OPEN TO INNOVATIVE AI ROLES
           </span>
         </motion.div>
 
         {/* Giant Name Typography */}
         <div
-          className="flex flex-col items-center justify-center font-display font-black uppercase leading-[0.85] tracking-tighter mb-12"
+          className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 font-display font-extrabold tracking-tight mb-8"
         >
           {/* First Name */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[12vw] sm:text-[10vw] md:text-[9rem] lg:text-[11rem] font-black text-white bg-clip-text text-transparent bg-gradient-to-br from-white via-white to-white/40 drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+            className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-transparent bg-clip-text bg-gradient-to-b from-white to-[var(--text-secondary)]"
           >
             Ayush
           </motion.div>
-          {/* Last Name (Outlined) */}
+          {/* Last Name */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[12vw] sm:text-[10vw] md:text-[8.5rem] lg:text-[11rem] text-outline text-outline-active"
+            className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary-light)] to-[var(--primary)]"
           >
             Kumar Jha
           </motion.div>

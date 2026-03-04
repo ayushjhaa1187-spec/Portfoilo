@@ -22,7 +22,7 @@ const LiveInsights = () => {
 
     const cards = [
         { label: 'Repos', value: stats?.publicRepos || '17+', icon: <FiGithub size={20} />, color: 'var(--primary)' },
-        { label: 'Followers', value: stats?.followers || '0', icon: <FiUsers size={20} />, color: 'var(--success)' },
+        { label: 'Followers', value: stats?.followers || '0', icon: <FiUsers size={20} />, color: 'var(--primary-light)' },
         { label: 'Stars', value: '45+', icon: <FiStar size={20} />, color: 'var(--accent)' },
         { label: 'Updates', value: 'Daily', icon: <FiActivity size={20} />, color: 'var(--primary-light)' },
     ];

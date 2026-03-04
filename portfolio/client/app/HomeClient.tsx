@@ -100,7 +100,7 @@ export default function Home() {
 
         {/* Glowing Orbs */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 blur-[100px] pointer-events-none"
-          style={{ background: 'radial-gradient(circle, var(--success), transparent)' }} />
+          style={{ background: 'radial-gradient(circle, var(--primary), transparent)' }} />
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
           <motion.div
@@ -109,7 +109,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h2 className="text-5xl sm:text-6xl font-display font-black mb-8 tracking-tight uppercase leading-tight">
+            <h2 className="text-5xl sm:text-6xl font-display font-black mb-8 tracking-tight leading-tight">
               Let's build <br /><span className="gradient-text">the future</span>
             </h2>
             <p className="text-lg text-[var(--text-secondary)] mb-12 max-w-2xl mx-auto leading-relaxed">

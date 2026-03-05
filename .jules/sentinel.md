@@ -1,0 +1,4 @@
+## 2024-05-18 - [Secure API Key Comparison]
+**Vulnerability:** Comparing API keys using standard equality operators (`===`) exposes the application to timing attacks, where an attacker can guess the key by measuring the time it takes for the comparison to fail. Using `crypto.scryptSync` on long inputs can lead to algorithmic DoS.
+**Learning:** Node's `crypto.timingSafeEqual` prevents timing attacks. However, it requires both buffers to be of equal length. Hashing both the expected and provided keys using `crypto.createHash('sha256')` ensures equal lengths and constant comparison time, while avoiding the potential DoS vulnerabilities of synchronous key derivation functions like `scryptSync` on arbitrary input lengths.
+**Prevention:** Always use `crypto.timingSafeEqual` to compare secrets, and hash both the expected and provided values first to safely normalize their lengths.

@@ -1,0 +1,4 @@
+## 2024-03-07 - Secure API Key Comparison
+**Vulnerability:** Comparing API keys securely without introducing timing attacks or algorithmic DoS.
+**Learning:** Simple string comparison (`===`) is vulnerable to timing attacks. Synchronous key derivation functions like `crypto.scryptSync` used for comparison can introduce algorithmic DoS vulnerabilities. `crypto.timingSafeEqual` is ideal but requires buffers of the exact same length. Hashing the strings first (e.g., `crypto.createHash('sha256').update(string).digest()`) normalizes their lengths securely, allowing `crypto.timingSafeEqual` to be used safely and efficiently.
+**Prevention:** When comparing secrets (like API keys or tokens) where timing attacks are a concern, always normalize their lengths via hashing before using `crypto.timingSafeEqual`.

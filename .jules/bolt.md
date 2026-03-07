@@ -1,0 +1,3 @@
+## 2024-03-07 - Duplicate Layout Component Rendering in Next.js
+**Learning:** The `portfolio/client` application renders global layout components (like `Navbar` and `Footer`) inside `app/layout.tsx`. Manually importing and rendering these components in individual page components (like `app/page.tsx`) causes duplicate Virtual DOM rendering. This duplicate rendering negatively impacts frontend performance, particularly when the components contain complex state or animations like framer-motion.
+**Action:** When adding or modifying page routes, always assume global elements like navigation and footers are already handled by `layout.tsx`. Only render page-specific content within the page components.

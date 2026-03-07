@@ -7,7 +7,8 @@ const BlogPost = require('../models/BlogPost');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const posts = await BlogPost.find();
+    // ⚡ Bolt: Exclude heavy content field from list queries to reduce payload size and memory overhead
+    const posts = await BlogPost.find().select('-content');
     res.json(posts);
   } catch (err) {
     console.error(err.message);

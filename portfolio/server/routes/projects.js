@@ -7,7 +7,8 @@ const Project = require('../models/Project');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const projects = await Project.find();
+    // ⚡ Bolt: Exclude fullDescription field from list queries to reduce payload size and memory overhead
+    const projects = await Project.find().select('-fullDescription');
     res.json(projects);
   } catch (err) {
     console.error(err.message);

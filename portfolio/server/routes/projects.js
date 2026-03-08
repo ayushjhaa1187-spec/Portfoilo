@@ -7,7 +7,9 @@ const Project = require('../models/Project');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const projects = await Project.find();
+    // Bolt: Exclude large fullDescription field from list payload to reduce size and memory overhead.
+    // .lean() cannot be used here because frontend requires the `id` virtual field.
+    const projects = await Project.find().select('-fullDescription');
     res.json(projects);
   } catch (err) {
     console.error(err.message);

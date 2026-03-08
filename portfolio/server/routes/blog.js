@@ -7,7 +7,9 @@ const BlogPost = require('../models/BlogPost');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const posts = await BlogPost.find();
+    // Bolt: Exclude large content field from list payload to reduce size and memory overhead.
+    // .lean() cannot be used here because frontend requires the `id` virtual field.
+    const posts = await BlogPost.find().select('-content');
     res.json(posts);
   } catch (err) {
     console.error(err.message);

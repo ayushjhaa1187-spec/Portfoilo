@@ -7,7 +7,9 @@ const Project = require('../models/Project');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const projects = await Project.find();
+    // Optimization: Exclude heavy fullDescription field from list view
+    // Cannot use .lean() due to reliance on virtuals like 'id'
+    const projects = await Project.find().select('-fullDescription');
     res.json(projects);
   } catch (err) {
     console.error(err.message);

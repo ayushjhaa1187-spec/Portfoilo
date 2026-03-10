@@ -7,7 +7,9 @@ const Project = require('../models/Project');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const projects = await Project.find();
+    // ⚡ Bolt: Exclude large fullDescription field to reduce payload size and memory usage.
+    // Cannot use .lean() here because frontend relies on Mongoose virtual fields like 'id'
+    const projects = await Project.find().select('-fullDescription');
     res.json(projects);
   } catch (err) {
     console.error(err.message);

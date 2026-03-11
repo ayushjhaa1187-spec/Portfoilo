@@ -2,63 +2,80 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Award, Briefcase, GraduationCap } from "lucide-react";
+import { Award, Briefcase, GraduationCap, MapPin } from "lucide-react";
 import SectionReveal from "../SectionReveal";
 
 interface TimelineEntry {
   year: string;
   role: string;
   company: string;
+  location: string;
   detail: string;
   side: "left" | "right";
   icon: any;
+  subPoints?: string[];
 }
 
 const entries: TimelineEntry[] = [
   {
-    year: "2024",
-    role: "Data Analyst",
-    company: "Industry Experience",
+    year: "SEP – DEC 2025",
+    role: "Healthcare Data Analyst & Hiring Manager",
+    company: "Spacelance / Spaceborn",
+    location: "Delhi, India",
     detail:
-      "Built production-ready dashboards and automated data pipelines. Analyzed complex datasets to drive business decisions. Certified in Python and Data Visualization by IBM during this tenure.",
+      "Analyzed healthcare datasets to identify trends. Led talent acquisition as Hiring Manager. Campus Ambassador across IIT Bombay, Kharagpur, Delhi, Madras, and Roorkee. Jury Member at IIT Kharagpur.",
     side: "left",
     icon: Briefcase,
   },
   {
-    year: "2025",
-    role: "Hackathon Builder",
-    company: "ELITE HACK 1.0 & National Hackathons",
-    detail:
-      "Top 10 at IIT Ideathon 2025 (Out of 500+ teams). Developed 'AgriVision', an AI platform for satellite-based crop monitoring and yield prediction using Computer Vision.",
+    year: "SEP 2025 – JAN 2026",
+    role: "Data Science Apprentice & Junior Data Analyst",
+    company: "YuvaIntern",
+    location: "Remote",
+    detail: "Built end-to-end ML pipelines (collection → preprocessing → model building → evaluation). Performed EDA on agribusiness & apparel datasets.",
+    subPoints: [
+      "IBM Certified: Data Analysis with Python",
+      "IBM Certified: Data Visualization with Python",
+      "IBM Certified: Python for Data Science"
+    ],
     side: "right",
+    icon: Award,
+  },
+  {
+    year: "2025 – PRESENT",
+    role: "IIT Competition Finalist",
+    company: "IITK · IITM · IITB · IITD · IITR + more",
+    location: "National",
+    detail: "Finalist across multiple premier IIT hackathons. Jury Member at IIT Kharagpur. Campus Ambassador across all premier IITs. Built Circles for ELITE HACK 1.0.",
+    side: "left",
     icon: Award,
   },
   {
     year: "NOW",
     role: "BS Data Science Scholar",
-    company: "IIT Madras · 2025 – 2029",
-    detail:
-      "Deep diving into Machine Learning, Neural Networks, and AI Systems at India's premier engineering institute. Working on research projects at the intersection of AI and commerce.",
-    side: "left",
+    company: "Indian Institute of Technology Madras",
+    location: "2025 – 2029",
+    detail: "Coursework: Python, Statistical Methods, Data Analysis, Database Management. Focusing on building the next generation of AI systems.",
+    side: "right",
     icon: GraduationCap,
   },
 ];
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="relative py-40 px-6 lg:px-12 bg-[#060608] overflow-hidden">
+    <section id="experience" className="relative py-40 px-6 lg:px-20 bg-[#060608] overflow-hidden">
       {/* Background Ghost Text */}
-      <div className="absolute top-20 right-[-5%] text-[20vw] font-display text-outline opacity-[0.03] select-none pointer-events-none">
-        EXPERIENCE
+      <div className="absolute top-20 right-[-5%] text-[20vw] font-display text-outline opacity-[0.03] select-none pointer-events-none uppercase">
+        Journey
       </div>
 
       <div className="max-w-[1400px] mx-auto relative">
         <SectionReveal>
           <div className="mb-32">
-            <span className="section-label text-[#8B5CF6] font-mono text-xs tracking-[5px] uppercase block mb-6">
+            <span className="section-label text-[#555560] font-mono text-xs tracking-[5px] uppercase block mb-6">
               // 004 — JOURNEY
             </span>
-            <h2 className="font-display text-7xl lg:text-9xl text-[#F1F0FB] leading-[0.8] tracking-tight">
+            <h2 className="font-display text-7xl lg:text-9xl text-[#F1F0FB] leading-[0.8] tracking-tight mb-4">
               CAREER &<br />
               <span className="text-outline">EXPERIENCE</span>
             </h2>
@@ -66,11 +83,11 @@ export default function ExperienceSection() {
         </SectionReveal>
 
         {/* Timeline Desktop Container */}
-        <div className="relative">
-          {/* Vertical Center Line */}
-          <div className="absolute left-0 lg:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[#1E1E24] via-[#8B5CF6] to-[#1E1E24] lg:-translate-x-1/2 opacity-30" />
-
-          <div className="space-y-24 lg:space-y-32">
+        <div className="relative mt-20">
+          {/* Main Vertical Line */}
+          <div className="absolute left-0 lg:left-1/2 top-0 bottom-0 w-px bg-[#1E1E24] lg:-translate-x-1/2 opacity-50" />
+          
+          <div className="flex flex-col relative z-10 pl-10 lg:pl-0">
             {entries.map((entry, i) => (
               <TimelineItem key={i} entry={entry} index={i} />
             ))}
@@ -87,91 +104,83 @@ function TimelineItem({ entry, index }: { entry: TimelineEntry; index: number })
   const isLeft = entry.side === "left";
   const Icon = entry.icon;
 
+  const cardVariants: any = {
+    hidden: { opacity: 0, x: isLeft ? -40 : 40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] } }
+  };
+
+  const markerVariants: any = {
+    hidden: { scale: 0 },
+    visible: { scale: 1, rotate: 45, transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] } }
+  };
+
   return (
-    <div ref={ref} className="relative w-full">
-      {/* Center Marker Diamond - Desktop Only */}
+    <div ref={ref} className="relative w-full mb-24 lg:mb-32 last:mb-0">
+      {/* Center Marker - Desktop Only */}
       <div className="hidden lg:block absolute left-1/2 top-0 -translate-x-1/2 z-20">
         <motion.div
-          initial={{ scale: 0, rotate: 0 }}
+          initial={{ scale: 0 }}
           animate={isInView ? { scale: 1, rotate: 45 } : {}}
-          transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
-          className="w-4 h-4 bg-[#8B5CF6] border-4 border-[#060608] shadow-[0_0_15px_rgba(139,92,246,0.5)]"
+          className="w-3 h-3 bg-[#8B5CF6] border border-[#060608]"
         />
-        <motion.div
-           initial={{ opacity: 0, y: 10 }}
-           animate={isInView ? { opacity: 1, y: 0 } : {}}
-           transition={{ delay: 0.4 }}
-           className="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] tracking-widest text-[#555560]"
-        >
-          {entry.year}
-        </motion.div>
       </div>
 
-      {/* Grid Container */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 w-full">
-        {/* Left Side Column */}
-        <div className={`${isLeft ? "block" : "hidden lg:block invisible opacity-0"}`}>
+      {/* Content Container */}
+      <div className={`flex flex-col w-full ${isLeft ? "lg:flex-row" : "lg:flex-row-reverse"} items-start`}>
+        {/* Card Side */}
+        <div className="w-full lg:w-1/2">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="w-full flex justify-center lg:justify-end lg:pr-16"
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+            className={`w-full max-w-[560px] ${isLeft ? "lg:mr-auto lg:pr-16" : "lg:ml-auto lg:pl-16"}`}
           >
-            <CardContent entry={entry} Icon={Icon} />
+            <div className="bg-[#0E0E12] p-8 lg:p-10 border-l-2 border-[#8B5CF6]">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 bg-[#16161D] text-[#8B5CF6]">
+                  <Icon size={18} strokeWidth={1.5} />
+                </div>
+                <div>
+                   <span className="font-mono text-[10px] tracking-[4px] text-[#555560] block mb-1">
+                    {entry.year}
+                  </span>
+                  <div className="flex items-center gap-2 text-[#06B6D4] font-mono text-[10px] uppercase tracking-wider">
+                    <MapPin size={10} />
+                    {entry.location}
+                  </div>
+                </div>
+              </div>
+
+              <h3 className="font-display text-3xl lg:text-4xl text-[#F1F0FB] mb-2 tracking-wide leading-none">
+                {entry.role}
+              </h3>
+              <p className="font-mono text-xs text-[#8B5CF6] mb-6 tracking-widest uppercase">
+                {entry.company}
+              </p>
+              <p className="text-[#888] text-sm lg:text-base leading-relaxed mb-6 font-body">
+                {entry.detail}
+              </p>
+
+              {entry.subPoints && (
+                <div className="space-y-2 pt-4 border-t border-[#1E1E24]">
+                  {entry.subPoints.map((point, idx) => (
+                    <div key={idx} className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 bg-[#8B5CF6] translate-y-2 flex-shrink-0" />
+                      <span className="text-xs font-mono text-[#F1F0FB] tracking-tight">{point}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </motion.div>
         </div>
 
-        {/* Right Side Column */}
-        <div className={`${!isLeft ? "block" : "hidden lg:block invisible opacity-0"} lg:mt-32`}>
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="w-full flex justify-center lg:justify-start lg:pl-16"
-          >
-            <CardContent entry={entry} Icon={Icon} />
-          </motion.div>
-        </div>
+        {/* Empty Space for Desktop */}
+        <div className="hidden lg:block lg:w-1/2" />
       </div>
 
-      {/* Mobile Dot */}
-      <div className="lg:hidden absolute left-[-4px] top-6 w-2 h-2 bg-[#8B5CF6] rounded-full z-10" />
-    </div>
-  );
-}
-
-function CardContent({ entry, Icon }: { entry: TimelineEntry; Icon: any }) {
-  return (
-    <div className="relative group w-full max-w-[540px]">
-      {/* Animated Border Header */}
-      <div className="absolute top-0 left-0 w-20 h-px bg-[#8B5CF6] group-hover:w-full transition-all duration-700" />
-      
-      <div className="bg-[#0E0E12] border border-[#1E1E24] p-8 lg:p-10 hover:border-[#8B5CF6]/30 transition-all duration-500">
-        <div className="flex items-start justify-between mb-8">
-          <div className="p-3 bg-[#16161D] border border-[#1E1E24] text-[#8B5CF6] group-hover:bg-[#8B5CF6] group-hover:text-white transition-all duration-500">
-            <Icon size={20} />
-          </div>
-          <span className="font-mono text-[11px] tracking-[5px] text-[#555560] uppercase">
-            {entry.year}
-          </span>
-        </div>
-
-        <h3 className="font-display text-3xl lg:text-4xl text-[#F1F0FB] mb-2 tracking-wide group-hover:translate-x-2 transition-transform duration-500">
-          {entry.role}
-        </h3>
-        <p className="font-mono text-xs text-[#06B6D4] mb-6 tracking-widest uppercase">
-          {entry.company}
-        </p>
-        <p className="text-[#888] text-sm lg:text-base leading-relaxed group-hover:text-[#AAA] transition-colors">
-          {entry.detail}
-        </p>
-
-        {/* Bottom Ghost Number/ID */}
-        <div className="mt-8 flex items-center gap-4 opacity-20 group-hover:opacity-40 transition-opacity">
-           <div className="w-8 h-px bg-[#555560]" />
-           <span className="font-mono text-[10px]">0{Math.floor(Math.random() * 90) + 10}</span>
-        </div>
-      </div>
+      {/* Mobile Indicator */}
+      <div className="lg:hidden absolute left-[-4px] top-4 w-2 h-2 bg-[#8B5CF6] z-10" />
     </div>
   );
 }

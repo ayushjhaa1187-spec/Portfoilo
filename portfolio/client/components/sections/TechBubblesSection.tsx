@@ -1,223 +1,106 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { 
+  Database, 
+  Code2, 
+  Terminal, 
+  Cpu, 
+  Layers, 
+  Server, 
+  Brain, 
+  Workflow, 
+  Github as GitIcon,
+  Search,
+  Zap,
+  Box
+} from "lucide-react";
 import SectionReveal from "../SectionReveal";
 
-interface Bubble {
-  label: string;
-  icon: string;
-  size: number;
-  x: string;
-  y: string;
-  color: string;
-  animClass: string;
-  delay: string;
-  desc: string;
-}
-
-const bubbles: Bubble[] = [
-  {
-    label: "Python",
-    icon: "🐍",
-    size: 100,
-    x: "12%",
-    y: "15%",
-    color: "59,130,246",
-    animClass: "bubble-float-1",
-    delay: "0s",
-    desc: "Core language for AI/ML",
-  },
-  {
-    label: "ML / AI",
-    icon: "🤖",
-    size: 95,
-    x: "55%",
-    y: "8%",
-    color: "139,92,246",
-    animClass: "bubble-float-2",
-    delay: "0.5s",
-    desc: "Machine Learning & AI Systems",
-  },
-  {
-    label: "PyTorch",
-    icon: "🔥",
-    size: 90,
-    x: "78%",
-    y: "20%",
-    color: "239,68,68",
-    animClass: "bubble-float-3",
-    delay: "1s",
-    desc: "Deep Learning Framework",
-  },
-  {
-    label: "TypeScript",
-    icon: "⚡",
-    size: 80,
-    x: "30%",
-    y: "45%",
-    color: "6,182,212",
-    animClass: "bubble-float-2",
-    delay: "0.3s",
-    desc: "Type-safe JavaScript",
-  },
-  {
-    label: "Node.js",
-    icon: "🌐",
-    size: 78,
-    x: "68%",
-    y: "50%",
-    color: "34,197,94",
-    animClass: "bubble-float-1",
-    delay: "0.8s",
-    desc: "Server-side Runtime",
-  },
-  {
-    label: "PostgreSQL",
-    icon: "💾",
-    size: 75,
-    x: "8%",
-    y: "60%",
-    color: "59,130,246",
-    animClass: "bubble-float-3",
-    delay: "0.2s",
-    desc: "Relational Database",
-  },
-  {
-    label: "Pandas",
-    icon: "📊",
-    size: 65,
-    x: "45%",
-    y: "70%",
-    color: "245,158,11",
-    animClass: "bubble-float-1",
-    delay: "0.6s",
-    desc: "Data Manipulation",
-  },
-  {
-    label: "Streamlit",
-    icon: "📈",
-    size: 62,
-    x: "85%",
-    y: "65%",
-    color: "239,68,68",
-    animClass: "bubble-float-2",
-    delay: "1.2s",
-    desc: "Data App Framework",
-  },
-  {
-    label: "Scikit-learn",
-    icon: "🧠",
-    size: 60,
-    x: "20%",
-    y: "80%",
-    color: "245,158,11",
-    animClass: "bubble-float-3",
-    delay: "0.4s",
-    desc: "ML Library",
-  },
-  {
-    label: "REST APIs",
-    icon: "🔌",
-    size: 58,
-    x: "62%",
-    y: "85%",
-    color: "6,182,212",
-    animClass: "bubble-float-1",
-    delay: "0.9s",
-    desc: "API Architecture",
-  },
-  {
-    label: "Git",
-    icon: "⌨️",
-    size: 55,
-    x: "40%",
-    y: "25%",
-    color: "239,68,68",
-    animClass: "bubble-float-2",
-    delay: "0.7s",
-    desc: "Version Control",
-  },
+const tech = [
+  { name: "PYTHON", icon: Code2, color: "#8B5CF6", float: "bubble-float-1" },
+  { name: "ML / AI", icon: Brain, color: "#06B6D4", float: "bubble-float-2" },
+  { name: "PYTORCH", icon: Cpu, color: "#F1F0FB", float: "bubble-float-3" },
+  { name: "TYPESCRIPT", icon: Zap, color: "#06B6D4", float: "bubble-float-1" },
+  { name: "NODE.JS", icon: Server, color: "#8B5CF6", float: "bubble-float-2" },
+  { name: "POSTGRESQL", icon: Database, color: "#555560", float: "bubble-float-3" },
+  { name: "PANDAS", icon: Layers, color: "#F1F0FB", float: "bubble-float-1" },
+  { name: "STREAMLIT", icon: Workflow, color: "#F59E0B", float: "bubble-float-2" },
+  { name: "SCIKIT-LEARN", icon: Terminal, color: "#06B6D4", float: "bubble-float-3" },
+  { name: "REST APIS", icon: Search, color: "#8B5CF6", float: "bubble-float-1" },
+  { name: "GIT", icon: GitIcon, color: "#555560", float: "bubble-float-2" },
+  { name: "MYSQL", icon: Box, color: "#F1F0FB", float: "bubble-float-3" },
 ];
 
-export default function TechBubblesSection() {
+export default function TechStackSection() {
   return (
-    <section
-      id="tech-stack"
-      className="relative py-32 px-6 lg:px-12 overflow-hidden"
-      style={{ background: "#060608" }}
-    >
+    <section id="tech-stack" className="py-40 px-6 lg:px-20 bg-[#060608] overflow-hidden">
       <div className="max-w-[1400px] mx-auto">
         <SectionReveal>
-          <span className="section-label">// 003 — ARSENAL</span>
-          <h2
-            className="font-display section-title-large mb-8"
-            style={{ fontSize: "72px", lineHeight: 1, color: "#F1F0FB" }}
-          >
-            My Tech{" "}
-            <span className="text-outline">Stack</span>
-          </h2>
+          <div className="mb-32 text-center">
+            <span className="section-label text-[#555560] font-mono text-xs tracking-[5px] uppercase block mb-6">
+              // 003 — ARSENAL
+            </span>
+            <h2 className="font-display text-8xl lg:text-[180px] text-[#F1F0FB] leading-[0.7] tracking-tighter">
+              MY TECH<br />
+              <span className="text-outline">STACK</span>
+            </h2>
+          </div>
         </SectionReveal>
 
-        {/* Bubbles Container */}
-        <div className="relative w-full" style={{ height: "550px" }}>
-          {bubbles.map((bubble, i) => (
-            <motion.div
-              key={bubble.label}
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 * i, duration: 0.5, ease: "backOut" }}
-              className={`absolute ${bubble.animClass} group`}
-              style={{
-                left: bubble.x,
-                top: bubble.y,
-                animationDelay: bubble.delay,
-                zIndex: 10,
-              }}
-            >
-              <div
-                className="flex flex-col items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110 relative"
-                style={{
-                  width: bubble.size,
-                  height: bubble.size,
-                  background: `radial-gradient(circle at 35% 35%, rgba(255,255,255,0.12), rgba(${bubble.color}, 0.08))`,
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  boxShadow: `0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)`,
-                }}
-              >
-                <span style={{ fontSize: `${bubble.size * 0.35}px` }}>
-                  {bubble.icon}
-                </span>
+        <div className="relative min-h-[600px] mt-20">
+           {/* Background Decoration */}
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[1px] bg-gradient-to-r from-transparent via-[#1E1E24] to-transparent opacity-50" />
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1px] h-[80%] bg-gradient-to-b from-transparent via-[#1E1E24] to-transparent opacity-50" />
 
-                {/* Tooltip */}
-                <div
-                  className="absolute -bottom-12 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none"
-                  style={{
-                    background: "#141418",
-                    border: "1px solid #1E1E24",
-                    padding: "4px 10px",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "10px",
-                    color: "#999",
-                  }}
-                >
-                  {bubble.desc}
-                </div>
-              </div>
-              <div
-                className="text-center mt-2 font-mono"
-                style={{
-                  fontSize: "10px",
-                  color: "#555560",
-                  letterSpacing: "1px",
-                }}
-              >
-                {bubble.label}
-              </div>
-            </motion.div>
-          ))}
+           <div className="flex flex-wrap justify-center gap-10 lg:gap-20">
+             {tech.map((item, i) => (
+                <TechBubble key={i} item={item} index={i} />
+             ))}
+           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function TechBubble({ item, index }: { item: any; index: number }) {
+  const Icon = item.icon;
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.05 }}
+      whileHover={{ scale: 1.15 }}
+      className={`relative group ${item.float}`}
+    >
+      {/* Glossy Sphere */}
+      <div className="w-32 h-32 lg:w-40 lg:h-40 bg-[#0E0E12]/80 backdrop-blur-xl border border-[#1E1E24] rounded-full flex flex-col items-center justify-center relative overflow-hidden group-hover:border-[#8B5CF6]/50 transition-colors shadow-2xl">
+         {/* Gloss highlights */}
+         <div className="absolute top-4 left-4 w-8 h-4 bg-white/10 rounded-full blur-md -rotate-45" />
+         <div className="absolute bottom-4 right-8 w-12 h-6 bg-[#8B5CF6]/5 rounded-full blur-xl" />
+         
+         {/* Icon */}
+         <div className="p-3 text-[#F1F0FB] group-hover:text-[#8B5CF6] transition-colors mb-4 relative z-10">
+           <Icon size={28} strokeWidth={1.5} />
+         </div>
+
+         {/* Label */}
+         <span className="font-mono text-[9px] tracking-[3px] text-[#555560] group-hover:text-[#F1F0FB] transition-colors relative z-10 text-center px-4 leading-tight">
+           {item.name}
+         </span>
+
+         {/* Inner Glow */}
+         <div 
+           className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity"
+           style={{ background: `radial-gradient(circle at center, ${item.color}, transparent)` }}
+         />
+      </div>
+
+      {/* Orbit Decoration */}
+      <div className="absolute -inset-4 border border-dashed border-[#1E1E24] rounded-full opacity-0 group-hover:opacity-20 group-hover:rotate-180 transition-all duration-1000" />
+    </motion.div>
   );
 }

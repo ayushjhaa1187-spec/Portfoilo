@@ -1,97 +1,80 @@
 "use client";
 
+import { motion } from "framer-motion";
+import { BrainCircuit, BarChart3, CloudCog } from "lucide-react";
 import SectionReveal from "../SectionReveal";
 
 const services = [
   {
-    num: "01",
-    icon: "🤖",
-    title: "AI & ML Engineering",
-    desc: "Building end-to-end machine learning pipelines, autonomous AI agents, and intelligent systems. From data preprocessing to production deployment.",
-    tags: ["Python", "PyTorch", "Scikit-learn", "LLMs", "AI Agents"],
+    icon: BrainCircuit,
+    title: "AI & ML ENGINEERING",
+    description: "Building production-grade machine learning pipelines, autonomous agents, and intelligence systems from data preprocessing to cloud deployment.",
+    tags: ["Python", "PyTorch", "Scikit-learn", "AI Agents"],
+    number: "01"
   },
   {
-    num: "02",
-    icon: "📊",
-    title: "Data Analysis & Visualization",
-    desc: "Transforming raw datasets into strategic business insights. Interactive dashboards, statistical analysis, and visual storytelling with data.",
-    tags: ["Pandas", "NumPy", "Streamlit", "Power BI", "Matplotlib"],
+    icon: BarChart3,
+    title: "DATA ANALYSIS & VISUALIZATION",
+    description: "Transforming raw data into actionable insights through statistical analysis, interactive dashboards, and compelling visual storytelling.",
+    tags: ["Pandas", "NumPy", "Streamlit", "Power BI"],
+    number: "02"
   },
   {
-    num: "03",
-    icon: "⚡",
-    title: "Full Stack Development",
-    desc: "Architecting scalable backend APIs, databases, and data-driven web applications. From schema design to production deployment on Vercel.",
-    tags: ["TypeScript", "Node.js", "Express", "PostgreSQL", "Prisma", "REST APIs"],
-  },
+    icon: CloudCog,
+    title: "FULL STACK DEVELOPMENT",
+    description: "Architecting scalable backend architectures and dynamic user interfaces focused on performance, security, and clean developer experience.",
+    tags: ["TypeScript", "Node.js", "Next.js", "PostgreSQL"],
+    number: "03"
+  }
 ];
 
 export default function ServicesSection() {
   return (
-    <section
-      id="services"
-      className="relative py-32 px-6 lg:px-12"
-      style={{ background: "#060608" }}
-    >
+    <section id="services" className="py-40 px-6 lg:px-20 bg-[#060608]">
       <div className="max-w-[1400px] mx-auto">
         <SectionReveal>
-          <span className="section-label">// 002 — SERVICES</span>
-          <h2
-            className="font-display section-title-large mb-16"
-            style={{ fontSize: "72px", lineHeight: 1, color: "#F1F0FB" }}
-          >
-            What I{" "}
-            <span className="text-outline">DO</span>
-          </h2>
+          <div className="mb-24">
+            <span className="section-label text-[#555560] font-mono text-xs tracking-[5px] uppercase block mb-6">
+              // 002 — SERVICES
+            </span>
+            <h2 className="font-display text-7xl lg:text-9xl text-[#F1F0FB] leading-[0.8] tracking-tight">
+              WHAT<br />
+              <span className="text-outline">I DO</span>
+            </h2>
+          </div>
         </SectionReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[2px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-[2px] bg-[#1E1E24] border-[1px] border-[#1E1E24]">
           {services.map((service, i) => (
-            <SectionReveal key={service.num} delay={i * 0.1}>
-              <div
-                className="card-hover-border relative p-8 lg:p-10 group transition-all duration-300 h-full"
-                style={{
-                  background: "#0E0E12",
-                  border: "1px solid #1E1E24",
-                }}
-              >
-                {/* Ghost Number */}
-                <span
-                  className="ghost-text absolute top-4 right-4"
-                  style={{ fontSize: "80px", lineHeight: 1 }}
-                >
-                  {service.num}
-                </span>
-
-                {/* Icon */}
-                <div className="text-3xl mb-6">{service.icon}</div>
-
-                {/* Title */}
-                <h3
-                  className="font-display text-2xl tracking-wider mb-4"
-                  style={{ color: "#F1F0FB" }}
-                >
-                  {service.title}
-                </h3>
-
-                {/* Description */}
-                <p
-                  className="text-sm leading-relaxed mb-6"
-                  style={{ color: "#888" }}
-                >
-                  {service.desc}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {service.tags.map((tag) => (
-                    <span key={tag} className="tag-pill">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+            <div 
+              key={i}
+              className="group bg-[#0E0E12] p-10 lg:p-12 hover:bg-[#141418] transition-all duration-500 relative overflow-hidden"
+            >
+              {/* Ghost Number */}
+              <div className="absolute top-10 right-10 font-display text-6xl text-outline opacity-[0.05] group-hover:opacity-[0.15] transition-opacity">
+                {service.number}
               </div>
-            </SectionReveal>
+
+              <div className="mb-12 p-4 bg-[#16161D] border border-[#1E1E24] w-fit text-[#8B5CF6]">
+                 <service.icon size={28} strokeWidth={1.5} />
+              </div>
+
+              <h3 className="font-display text-3xl lg:text-4xl text-[#F1F0FB] mb-6 leading-none tracking-wide group-hover:text-[#8B5CF6] transition-colors">
+                {service.title}
+              </h3>
+
+              <p className="font-body text-[#888] text-sm lg:text-base leading-relaxed mb-12">
+                {service.description}
+              </p>
+
+              <div className="flex flex-wrap gap-2 pt-8 border-t border-[#1E1E24]">
+                {service.tags.map((tag, idx) => (
+                  <span key={idx} className="font-mono text-[10px] text-[#06B6D4] tracking-widest uppercase">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </div>

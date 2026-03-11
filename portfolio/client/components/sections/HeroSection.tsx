@@ -1,9 +1,14 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import MagneticButton from "../MagneticButton";
-import Spline from "@splinetool/react-spline";
+import dynamic from "next/dynamic";
+import ErrorBoundary from "../ErrorBoundary";
+
+// Dynamically import Lottie for client-side only rendering
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 const stats = [
   { label: "Industry Experience", value: "6+ Months" },
@@ -20,6 +25,16 @@ const floatingBadges = [
 ];
 
 export default function HeroSection() {
+  const [animationData, setAnimationData] = useState<any>(null);
+
+  useEffect(() => {
+    // Fetch a reliable coder animation from a stable Lottie URL
+    fetch("https://lottie.host/020928ff-3c40-41da-a78b-37ca72d4b8f5/9Yj1j59J1M.json")
+      .then(res => res.json())
+      .then(data => setAnimationData(data))
+      .catch(err => console.error("Lottie fetch failed:", err));
+  }, []);
+
   const nameVariants: any = {
     hidden: { y: 100, opacity: 0 },
     visible: (i: number) => ({
@@ -143,7 +158,7 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Right Content - 3D/Character Area */}
+        {/* Right Content - Lottie Character Area */}
         <div className="relative hidden lg:flex items-center justify-center min-h-[600px]">
            {/* Soft violet radial glow */}
            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#8B5CF6]/20 rounded-full blur-[80px]" />
@@ -154,10 +169,18 @@ export default function HeroSection() {
              <div className="w-[380px] h-[380px] border border-[#1E1E24] rounded-full absolute animate-ring-2 opacity-30" />
            </div>
 
-           {/* Spline 3D Character */}
-           <div className="w-full h-full relative z-10 flex items-center justify-center animate-vertical-float">
-             <div className="w-full h-[600px]">
-               <Spline scene="https://prod.spline.design/i992178S6T9M6u6X/scene.splinecode" />
+           {/* Character Container */}
+           <div className="relative z-10 w-full h-full flex items-center justify-center animate-vertical-float">
+             <div className="w-[450px] h-[450px]">
+               <ErrorBoundary>
+                 {animationData && (
+                   <Lottie 
+                    animationData={animationData} 
+                    loop={true} 
+                    style={{ width: '100%', height: '100%' }}
+                   />
+                 )}
+               </ErrorBoundary>
              </div>
 
              {/* Floating Badges */}

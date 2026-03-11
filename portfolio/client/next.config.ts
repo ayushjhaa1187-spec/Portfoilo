@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   compress: true,
   // Optimise package imports to reduce bundle size
   experimental: {
-    optimizePackageImports: ['react-icons', 'framer-motion'],
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
   // Security and performance headers
   async headers() {

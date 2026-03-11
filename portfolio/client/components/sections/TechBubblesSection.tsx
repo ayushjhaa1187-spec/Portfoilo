@@ -34,21 +34,21 @@ const tech = [
 
 export default function TechStackSection() {
   return (
-    <section id="tech-stack" className="py-40 px-6 lg:px-20 bg-[#060608] overflow-hidden">
+    <section id="stack" className="py-20 px-6 lg:px-20 bg-[#060608] overflow-hidden min-h-auto">
       <div className="max-w-[1400px] mx-auto">
         <SectionReveal>
-          <div className="mb-32 text-center">
+          <div className="mb-24 text-center">
             <span className="section-label text-[#555560] font-mono text-xs tracking-[5px] uppercase block mb-6">
               // 003 — ARSENAL
             </span>
-            <h2 className="font-display text-8xl lg:text-[180px] text-[#F1F0FB] leading-[0.7] tracking-tighter">
+            <h2 className="font-display text-7xl lg:text-[140px] text-[#F1F0FB] leading-[0.7] tracking-tighter">
               MY TECH<br />
               <span className="text-outline">STACK</span>
             </h2>
           </div>
         </SectionReveal>
 
-        <div className="relative h-[800px] lg:h-[700px] mt-20">
+        <div className="bubbles-container relative w-full h-[600px] lg:h-[500px] mt-20">
            {/* Background Decoration */}
            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[1px] bg-gradient-to-r from-transparent via-[#1E1E24] to-transparent opacity-30" />
            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1px] h-[90%] bg-gradient-to-b from-transparent via-[#1E1E24] to-transparent opacity-30" />

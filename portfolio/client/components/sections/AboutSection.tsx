@@ -13,7 +13,7 @@ export default function AboutSection() {
   ];
 
   return (
-    <section id="about" className="py-40 px-6 lg:px-20 bg-[#0E0E12]">
+    <section id="about" className="bg-[#0E0E12]">
       <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
         <SectionReveal>
           <div>

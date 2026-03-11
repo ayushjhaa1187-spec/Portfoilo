@@ -7,7 +7,7 @@ import SectionReveal from "../SectionReveal";
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="relative py-40 px-6 lg:px-20 bg-[#060608] overflow-hidden min-h-[80vh] flex items-center">
+    <section id="contact" className="relative bg-[#060608] overflow-hidden flex items-center">
       {/* Background radial glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[100vw] h-[100vw] bg-[#8B5CF6] opacity-10 rounded-full blur-[150px] pointer-events-none" />
 

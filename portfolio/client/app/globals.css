@@ -45,12 +45,13 @@ body {
 
 /* --- Section Formatting --- */
 section {
-  padding: var(--section-py-desktop) var(--section-px-desktop);
+  padding: 120px 80px;
+  min-height: auto;
 }
 
 @media (max-width: 640px) {
   section {
-    padding: var(--section-py-mobile) var(--section-px-mobile);
+    padding: 80px 24px;
   }
 }
 
@@ -141,9 +142,10 @@ section {
   left: 0;
   width: 12px;
   height: 12px;
-  background: var(--accent-violet);
+  background: #8B5CF6;
+  border-radius: 50%;
   pointer-events: none;
-  z-index: 10001;
+  z-index: 9999;
 }
 
 .custom-cursor-ring {
@@ -153,6 +155,7 @@ section {
   width: 36px;
   height: 36px;
   border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 50%;
   pointer-events: none;
   z-index: 10000;
   transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;

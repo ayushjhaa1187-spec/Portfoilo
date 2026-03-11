@@ -17,46 +17,46 @@ interface TimelineEntry {
 
 const timeline: TimelineEntry[] = [
   {
-    year: "APR 2025 - PRESENT",
-    role: "JUNIOR DATA ANALYST",
-    company: "SPACELANCE",
-    location: "New Delhi, India",
-    detail: "Leading data processing workflows and predictive modeling for internal analytics platforms. Focused on retail automation and client performance metrics.",
+    year: "SEP – DEC 2025",
+    role: "HEALTHCARE DATA ANALYST & HIRING MANAGER",
+    company: "SPACELANCE / SPACEBORN",
+    location: "DELHI, INDIA",
+    detail: "Analyzed healthcare datasets to identify trends. Led talent acquisition as Hiring Manager. Campus Ambassador across IIT Bombay, Kharagpur, Delhi, Madras, and Roorkee. Jury Member at IIT Kharagpur.",
     side: "left",
     icon: Briefcase
   },
   {
-    year: "FEB 2025 - APR 2025",
-    role: "DATA ANALYST INTERN",
+    year: "SEP 2025 – JAN 2026",
+    role: "DATA SCIENCE APPRENTICE & JUNIOR DATA ANALYST",
     company: "YUVAINTERN",
-    location: "New Delhi, India",
-    detail: "Developed data visualization dashboards and conducted statistical analysis on large-scale consumer datasets to drive marketing efficiency.",
+    location: "REMOTE",
+    detail: "Built end-to-end ML pipelines from data collection to model evaluation. EDA on agribusiness and apparel datasets using Pandas and NumPy. Earned IBM Certifications in Data Analysis, Data Visualization, and Python for Data Science.",
     side: "right",
     icon: Briefcase
   },
   {
-    year: "MAY 2024 - PRESENT",
-    role: "BS IN DATA SCIENCE",
-    company: "IIT MADRAS",
-    location: "Chennai (Remote)",
-    detail: "Acquiring core competencies in Machine Learning, Statistical Inference, and Advanced Programming. Consistently maintaining top-tier academic performance.",
+    year: "2025 – PRESENT",
+    role: "IIT COMPETITION FINALIST",
+    company: "IITK · IITM · IITB · IITD · IITR",
+    location: "MULTIPLE IITs",
+    detail: "Finalist across premier IIT hackathons and competitions. Jury Member at IIT Kharagpur. Campus Ambassador across all premier IITs. Built Circles platform for ELITE HACK 1.0.",
     side: "left",
-    icon: GraduationCap
+    icon: Award
   },
   {
-    year: "2025",
-    role: "IDEATHON FINALIST",
-    company: "IIT GUWAHATI / ROORKEE",
-    location: "India",
-    detail: "Recognized among Top 10 innovators for StockSense AI — an autonomous logistics agent solving pharmacy inventory decay.",
+    year: "2025 – 2029",
+    role: "BS DATA SCIENCE SCHOLAR",
+    company: "INDIAN INSTITUTE OF TECHNOLOGY MADRAS",
+    location: "CHENNAI, INDIA",
+    detail: "Pursuing BS in Data Science and Applications. Coursework: Python, Statistical Methods, Data Analysis, Database Management.",
     side: "right",
-    icon: Award
+    icon: GraduationCap
   }
 ];
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="py-40 px-6 lg:px-20 bg-[#060608] relative overflow-hidden">
+    <section id="experience" className="py-40 px-6 lg:px-20 bg-[#060608] relative overflow-hidden min-h-auto">
       <div className="max-w-[1400px] mx-auto relative z-10">
         <SectionReveal>
           <div className="mb-32">
@@ -119,7 +119,7 @@ function TimelineItem({ entry, index }: { entry: TimelineEntry; index: number })
                   <Icon size={18} strokeWidth={1.5} />
                 </div>
                 <div>
-                   <span className="font-mono text-[10px] tracking-[4px] text-[#555560] block mb-1">
+                   <span className="font-mono text-[10px] tracking-[4px] text-[#555560] block mb-1 uppercase">
                     {entry.year}
                   </span>
                   <div className="flex items-center gap-2 text-[#06B6D4] font-mono text-[10px] uppercase tracking-wider">
@@ -129,7 +129,7 @@ function TimelineItem({ entry, index }: { entry: TimelineEntry; index: number })
                 </div>
               </div>
 
-              <h3 className="font-display text-3xl text-[#F1F0FB] mb-4 leading-tight tracking-wide">
+              <h3 className="font-display text-2xl lg:text-3xl text-[#F1F0FB] mb-4 leading-tight tracking-wide">
                 {entry.role}
               </h3>
               

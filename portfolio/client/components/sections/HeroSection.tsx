@@ -28,11 +28,11 @@ export default function HeroSection() {
   const [animationData, setAnimationData] = useState<any>(null);
 
   useEffect(() => {
-    // Fetch a reliable coder animation from a stable Lottie URL
+    // Fetch the Lottie JSON via the stable URL provided by the user
     fetch("https://lottie.host/020928ff-3c40-41da-a78b-37ca72d4b8f5/9Yj1j59J1M.json")
       .then(res => res.json())
       .then(data => setAnimationData(data))
-      .catch(err => console.error("Lottie fetch failed:", err));
+      .catch(err => console.error("Lottie fetch failed or CORS issue:", err));
   }, []);
 
   const nameVariants: any = {
@@ -171,14 +171,18 @@ export default function HeroSection() {
 
            {/* Character Container */}
            <div className="relative z-10 w-full h-full flex items-center justify-center animate-vertical-float">
-             <div className="w-[450px] h-[450px]">
+             <div className="w-[380px] h-[380px]">
                <ErrorBoundary>
-                 {animationData && (
+                 {animationData ? (
                    <Lottie 
                     animationData={animationData} 
                     loop={true} 
                     style={{ width: '100%', height: '100%' }}
                    />
+                 ) : (
+                   <div className="w-full h-full flex items-center justify-center">
+                     <div className="w-4 h-4 border-2 border-[#8B5CF6] border-t-transparent rounded-full animate-spin" />
+                   </div>
                  )}
                </ErrorBoundary>
              </div>

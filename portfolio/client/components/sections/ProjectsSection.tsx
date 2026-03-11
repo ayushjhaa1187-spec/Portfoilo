@@ -92,7 +92,7 @@ export default function ProjectsSection() {
   const selectedProject = projects.find(p => p.id === selectedId);
 
   return (
-    <section id="projects" className="py-40 px-6 lg:px-20 bg-[#060608]">
+    <section id="projects" className="bg-[#060608]">
       <div className="max-w-[1400px] mx-auto">
         <SectionReveal>
           <div className="mb-24">

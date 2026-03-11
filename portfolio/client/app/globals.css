@@ -83,7 +83,7 @@ section {
 .font-mono { font-family: 'Space Mono', monospace; }
 
 .text-outline {
-  -webkit-text-stroke: 1.5px rgba(241, 240, 251, 0.2);
+  -webkit-text-stroke: 1.5px rgba(241, 240, 251, 0.4);
   -webkit-text-fill-color: transparent;
 }
 
@@ -126,22 +126,13 @@ section {
 }
 .animate-float { animation: float 6s ease-in-out infinite; }
 
-/* Tech Bubble Float Classes */
-@keyframes bubbleFloat1 {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(4px, -12px); }
+@keyframes vertical-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
 }
-@keyframes bubbleFloat2 {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(-8px, -16px); }
+.animate-vertical-float {
+  animation: vertical-float 6s ease-in-out infinite;
 }
-@keyframes bubbleFloat3 {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(6px, -10px); }
-}
-.bubble-float-1 { animation: bubbleFloat1 4s ease-in-out infinite; }
-.bubble-float-2 { animation: bubbleFloat2 5s ease-in-out infinite; }
-.bubble-float-3 { animation: bubbleFloat3 6s ease-in-out infinite; }
 
 /* --- Custom Cursor --- */
 .custom-cursor {

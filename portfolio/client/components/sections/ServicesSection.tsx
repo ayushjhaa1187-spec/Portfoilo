@@ -46,8 +46,12 @@ export default function ServicesSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[2px] bg-[#1E1E24] border-[1px] border-[#1E1E24]">
           {services.map((service, i) => (
-            <div 
+            <motion.div 
               key={i}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: i * 0.1, ease: "easeOut" }}
               className="group bg-[#0E0E12] p-10 lg:p-12 hover:bg-[#141418] transition-all duration-500 relative overflow-hidden"
             >
               {/* Ghost Number */}
@@ -74,7 +78,7 @@ export default function ServicesSection() {
                   </span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

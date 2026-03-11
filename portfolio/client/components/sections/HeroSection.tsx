@@ -1,14 +1,22 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, Code, Database, Sparkle, Trophy } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import MagneticButton from "../MagneticButton";
+import Spline from "@splinetool/react-spline";
 
 const stats = [
-  { label: "Experience", value: "6+ Months" },
-  { label: "Certifications", value: "3x IBM" },
-  { label: "Hackathons", value: "IIT Finalist" },
-  { label: "Projects", value: "35+ Repos" },
+  { label: "Industry Experience", value: "6+ Months" },
+  { label: "IBM Certified", value: "3x" },
+  { label: "Multiple IITs", value: "IIT Finalist" },
+  { label: "GitHub Repos", value: "35+" },
+];
+
+const floatingBadges = [
+  { text: "ML / AI", position: "top-0 -right-4", delay: 0 },
+  { text: "Data Science", position: "top-1/2 -left-32", delay: 1.5 },
+  { text: "IIT Madras", position: "bottom-0 -right-4", delay: 3 },
+  { text: "Full Stack", position: "bottom-1/2 -left-32", delay: 0.8 },
 ];
 
 export default function HeroSection() {
@@ -51,21 +59,39 @@ export default function HeroSection() {
 
           {/* Stacking Name */}
           <div className="mb-10">
-            {["AYUSH", "KUMAR", "JHA"].map((name, i) => (
-              <div key={name} className="overflow-hidden h-[100px] lg:h-[130px] mb-[-10px] lg:mb-[-20px]">
-                <motion.h1
-                  custom={i}
-                  variants={nameVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className={`font-display text-8xl lg:text-[160px] leading-none tracking-tight ${
-                    i === 2 ? "text-[#8B5CF6]" : "text-[#F1F0FB]"
-                  }`}
-                >
-                  {name}
-                </motion.h1>
-              </div>
-            ))}
+            <div className="overflow-hidden h-[100px] lg:h-[130px] mb-[-10px] lg:mb-[-20px]">
+              <motion.h1
+                custom={0}
+                variants={nameVariants}
+                initial="hidden"
+                animate="visible"
+                className="font-display text-8xl lg:text-[140px] leading-none tracking-tight text-[#F1F0FB]"
+              >
+                AYUSH
+              </motion.h1>
+            </div>
+            <div className="overflow-hidden h-[100px] lg:h-[130px] mb-[-10px] lg:mb-[-20px]">
+              <motion.h1
+                custom={1}
+                variants={nameVariants}
+                initial="hidden"
+                animate="visible"
+                className="font-display text-8xl lg:text-[140px] leading-none tracking-tight text-outline"
+              >
+                KUMAR
+              </motion.h1>
+            </div>
+            <div className="overflow-hidden h-[100px] lg:h-[130px]">
+              <motion.h1
+                custom={2}
+                variants={nameVariants}
+                initial="hidden"
+                animate="visible"
+                className="font-display text-8xl lg:text-[140px] leading-none tracking-tight text-[#8B5CF6]"
+              >
+                JHA
+              </motion.h1>
+            </div>
           </div>
 
           <motion.p 
@@ -110,7 +136,7 @@ export default function HeroSection() {
           >
             {stats.map((stat, i) => (
               <div key={i} className="flex flex-col gap-1">
-                <span className="font-display text-3xl text-[#F1F0FB]">{stat.value}</span>
+                <span className="font-display text-4xl text-[#F1F0FB]">{stat.value}</span>
                 <span className="font-mono text-[9px] tracking-[3px] text-[#555560] uppercase">{stat.label}</span>
               </div>
             ))}
@@ -118,62 +144,49 @@ export default function HeroSection() {
         </div>
 
         {/* Right Content - 3D/Character Area */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-          className="relative hidden lg:flex items-center justify-center min-h-[600px]"
-        >
-          {/* Circular Rings Decoration */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-[450px] h-[450px] border border-[#1E1E24] rounded-full animate-ring-1" />
-            <div className="w-[350px] h-[350px] border border-[#1E1E24] rounded-full absolute animate-ring-2" />
-          </div>
+        <div className="relative hidden lg:flex items-center justify-center min-h-[600px]">
+           {/* Soft violet radial glow */}
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#8B5CF6]/20 rounded-full blur-[80px]" />
 
-          {/* Character Container */}
-          <div className="relative z-10 w-full h-full flex items-center justify-center">
-            <div className="w-80 h-80 bg-gradient-to-b from-[#0E0E12] to-[#060608] border border-[#1E1E24] p-4 relative animate-float">
-               <div className="w-full h-full bg-[#16161D] flex items-center justify-center text-[#8B5CF6]">
-                 {/* Placeholder for Character/Avatar */}
-                  <div className="flex flex-col items-center gap-4 text-center">
-                    <Sparkle size={48} className="animate-pulse" />
-                    <span className="font-mono text-[10px] tracking-widest leading-relaxed">
-                      {"<AyushJha />"}<br />
-                      <span className="text-[#555560]">IIT-M Scholar</span>
-                    </span>
-                  </div>
-               </div>
+           {/* Rotating Concentric Rings */}
+           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+             <div className="w-[500px] h-[500px] border border-[#1E1E24] rounded-full animate-ring-1 opacity-20" />
+             <div className="w-[380px] h-[380px] border border-[#1E1E24] rounded-full absolute animate-ring-2 opacity-30" />
+           </div>
 
-               {/* Floating Badges around Character */}
-               <motion.div 
-                 animate={{ y: [0, -10, 0] }}
-                 transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                 className="absolute -top-6 -right-12 bg-[#0E0E12] border border-[#1E1E24] p-3 flex items-center gap-3 z-20"
+           {/* Spline 3D Character */}
+           <div className="w-full h-full relative z-10 flex items-center justify-center animate-vertical-float">
+             <div className="w-full h-[600px]">
+               <Spline scene="https://prod.spline.design/i992178S6T9M6u6X/scene.splinecode" />
+             </div>
+
+             {/* Floating Badges */}
+             {floatingBadges.map((badge, i) => (
+               <motion.div
+                 key={i}
+                 initial={{ opacity: 0 }}
+                 animate={{ opacity: 1 }}
+                 transition={{ delay: 1.5 + i * 0.2 }}
+                 className={`absolute ${badge.position} z-20`}
                >
-                 <Code size={14} className="text-[#06B6D4]" />
-                 <span className="font-mono text-[9px] tracking-widest text-[#F1F0FB]">ML / AI</span>
+                 <motion.div
+                   animate={{ y: [0, -10, 0] }}
+                   transition={{ 
+                     repeat: Infinity, 
+                     duration: 5, 
+                     ease: "easeInOut", 
+                     delay: badge.delay 
+                   }}
+                   className="bg-[#141418] border border-[#1E1E24] px-4 py-3 shadow-2xl"
+                 >
+                   <span className="font-mono text-[10px] tracking-widest text-[#F1F0FB] whitespace-nowrap">
+                     {badge.text}
+                   </span>
+                 </motion.div>
                </motion.div>
-
-               <motion.div 
-                 animate={{ y: [0, 10, 0] }}
-                 transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 0.5 }}
-                 className="absolute bottom-12 -left-16 bg-[#0E0E12] border border-[#1E1E24] p-3 flex items-center gap-3 z-20"
-               >
-                 <Database size={14} className="text-[#8B5CF6]" />
-                 <span className="font-mono text-[9px] tracking-widest text-[#F1F0FB]">FULL STACK</span>
-               </motion.div>
-
-               <motion.div 
-                 animate={{ x: [0, 8, 0] }}
-                 transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
-                 className="absolute top-1/2 -right-20 bg-[#0E0E12] border border-[#1E1E24] p-3 flex items-center gap-3 z-20"
-               >
-                 <Trophy size={14} className="text-[#F59E0B]" />
-                 <span className="font-mono text-[9px] tracking-widest text-[#F1F0FB]">IIT FINALIST</span>
-               </motion.div>
-            </div>
-          </div>
-        </motion.div>
+             ))}
+           </div>
+        </div>
       </div>
 
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-4">

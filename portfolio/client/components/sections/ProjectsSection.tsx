@@ -145,19 +145,19 @@ function ProjectCard({ project, index, onClick }: { project: Project; index: num
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: (index % 2) * 0.15 + (Math.floor(index / 2) * 0.1) }}
+      transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
       className="bg-[#0E0E12] p-10 lg:p-12 hover:bg-[#141418] transition-colors cursor-pointer group flex flex-col justify-between"
       onClick={onClick}
     >
       <div>
         <div className="flex justify-between items-start mb-12">
-           <span className="font-mono text-[#555560] text-xs tracking-widest">{project.category}</span>
+           <span className="font-mono text-[#555560] text-xs tracking-widest uppercase">{project.category}</span>
            <span className="font-display text-4xl text-outline opacity-20 group-hover:opacity-60 transition-opacity">{project.number}</span>
         </div>
         
-        <h3 className="font-display text-4xl lg:text-5xl text-[#F1F0FB] mb-6 group-hover:text-[#8B5CF6] transition-colors leading-none">
+        <h3 className="font-display text-4xl lg:text-5xl text-[#F1F0FB] mb-6 group-hover:text-[#8B5CF6] transition-colors leading-none tracking-tight">
           {project.title}
         </h3>
         <p className="font-body text-[#888] text-sm lg:text-base mb-10 leading-relaxed line-clamp-2">

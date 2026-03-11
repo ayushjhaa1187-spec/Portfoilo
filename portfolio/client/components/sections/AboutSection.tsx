@@ -37,10 +37,10 @@ export default function AboutSection() {
             {stats.map((stat, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
                 className="bg-[#060608] border border-[#1E1E24] p-8 flex items-center justify-between group hover:border-[#8B5CF6]/40 transition-colors"
               >
                 <div className="flex items-center gap-6">
@@ -63,6 +63,7 @@ export default function AboutSection() {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
               className="bg-[#141418] border border-[#1E1E24] p-10 mt-6 relative overflow-hidden"
             >
               <Award className="absolute -right-4 -bottom-4 text-[#F59E0B] opacity-10" size={120} />

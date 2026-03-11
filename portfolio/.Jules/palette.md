@@ -1,0 +1,3 @@
+## 2024-05-24 - Focus States and ARIA Labels on Reusable Components
+**Learning:** Icon-only interactive elements (like social links in a `Footer` or a mobile menu toggle in a `Navbar`) require explicit `aria-label`s and `focus-visible` styling to be accessible. Since these components are used across the entire application, fixing their accessibility provides a massive UX win for keyboard and screen reader users globally.
+**Action:** Always verify that icon-only buttons or links have descriptive `aria-label` attributes and visible focus rings (`focus-visible:ring-2`) when working on shared UI components.

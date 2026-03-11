@@ -8,7 +8,7 @@ export default function Loading() {
         <img 
           src="/signature-gold.png" 
           alt="Ayush Kumar Jha Loading" 
-          style={{ height: '70px', width: 'auto', objectFit: 'contain' }}
+          style={{ height: '196px', width: 'auto', objectFit: 'contain' }}
         />
       </div>
     </div>

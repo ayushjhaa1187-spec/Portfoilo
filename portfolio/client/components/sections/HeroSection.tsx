@@ -18,10 +18,10 @@ const stats = [
 ];
 
 const floatingBadges = [
-  { text: "ML / AI", position: "top-0 -right-4", delay: 0 },
-  { text: "Data Science", position: "top-1/2 -left-32", delay: 1.5 },
-  { text: "IIT Madras", position: "bottom-0 -right-4", delay: 3 },
-  { text: "Full Stack", position: "bottom-1/2 -left-32", delay: 0.8 },
+  { text: "ML / AI", position: "top-[15%] -right-[5%]", delay: 0 },
+  { text: "Data Science", position: "top-[50%] -left-[10%]", delay: 1.5 },
+  { text: "IIT Madras", position: "bottom-[15%] right-[0%]", delay: 3 },
+  { text: "Full Stack", position: "bottom-[30%] -left-[5%]", delay: 0.8 },
 ];
 
 export default function HeroSection() {
@@ -56,7 +56,7 @@ export default function HeroSection() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-[#8B5CF6] opacity-10 rounded-full blur-[120px]" />
       </div>
 
-      <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-20 items-center relative z-10">
+      <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-20 items-center relative z-10">
         
         {/* Left Content */}
         <div>
@@ -165,19 +165,19 @@ export default function HeroSection() {
         </div>
 
         {/* Right Content - Lottie Character Area */}
-        <div className="relative hidden lg:flex items-center justify-center min-h-[600px]">
+        <div className="relative hidden lg:flex items-center justify-center min-h-[600px] w-full">
            {/* Soft violet radial glow */}
-           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#8B5CF6]/20 rounded-full blur-[80px]" />
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#8B5CF6]/20 rounded-full blur-[120px]" />
 
            {/* Rotating Concentric Rings */}
            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-             <div className="w-[500px] h-[500px] border border-[#1E1E24] rounded-full animate-ring-1 opacity-20" />
-             <div className="w-[380px] h-[380px] border border-[#1E1E24] rounded-full absolute animate-ring-2 opacity-30" />
+             <div className="w-[800px] h-[800px] border border-[#1E1E24] rounded-full animate-ring-1 opacity-20" />
+             <div className="w-[650px] h-[650px] border border-[#1E1E24] rounded-full absolute animate-ring-2 opacity-30" />
            </div>
 
            {/* Character Container */}
            <div className="relative z-10 w-full h-full flex items-center justify-center animate-vertical-float">
-             <div className="w-[380px] h-[380px]">
+             <div className="w-[600px] h-[600px]">
                <ErrorBoundary>
                  {animationData ? (
                    <Lottie 

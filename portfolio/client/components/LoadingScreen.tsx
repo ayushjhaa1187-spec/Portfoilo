@@ -37,7 +37,7 @@ export default function LoadingScreen() {
               <img 
                 src="/signature-gold.png" 
                 alt="Ayush Kumar Jha Loading" 
-                style={{ height: '70px', width: 'auto', objectFit: 'contain' }}
+                style={{ height: '196px', width: 'auto', objectFit: 'contain' }}
               />
             </motion.div>
             <motion.div
@@ -48,7 +48,7 @@ export default function LoadingScreen() {
               style={{
                 background:
                   "linear-gradient(90deg, transparent, #D4AF37, transparent)",
-                maxWidth: 160,
+                maxWidth: 400,
               }}
             />
           </motion.div>

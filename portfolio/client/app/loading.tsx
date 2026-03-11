@@ -5,12 +5,11 @@ export default function Loading() {
       style={{ background: "#060608" }}
     >
       <div className="loading-monogram">
-        <span
-          className="font-display text-5xl tracking-widest"
-          style={{ color: "#8B5CF6" }}
-        >
-          AKJ
-        </span>
+        <img 
+          src="/signature-gold.png" 
+          alt="Ayush Kumar Jha Loading" 
+          style={{ height: '70px', width: 'auto', objectFit: 'contain' }}
+        />
       </div>
     </div>
   );

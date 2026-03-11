@@ -28,14 +28,18 @@ export default function LoadingScreen() {
             transition={{ duration: 0.5 }}
             className="text-center"
           >
-            <div className="loading-monogram">
-              <span
-                className="font-display text-7xl tracking-widest"
-                style={{ color: "#8B5CF6" }}
-              >
-                AKJ
-              </span>
-            </div>
+            <motion.div
+              initial={{ filter: "brightness(0.5) blur(10px)" }}
+              animate={{ filter: ["brightness(1) blur(0px)", "brightness(1.5) blur(0px)", "brightness(1) blur(0px)"] }}
+              transition={{ duration: 1.5, ease: "easeInOut", times: [0, 0.5, 1] }}
+              className="loading-monogram"
+            >
+              <img 
+                src="/signature-gold.png" 
+                alt="Ayush Kumar Jha Loading" 
+                style={{ height: '70px', width: 'auto', objectFit: 'contain' }}
+              />
+            </motion.div>
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: "100%" }}
@@ -43,8 +47,8 @@ export default function LoadingScreen() {
               className="h-[2px] mt-6 mx-auto"
               style={{
                 background:
-                  "linear-gradient(90deg, transparent, #8B5CF6, transparent)",
-                maxWidth: 120,
+                  "linear-gradient(90deg, transparent, #D4AF37, transparent)",
+                maxWidth: 160,
               }}
             />
           </motion.div>

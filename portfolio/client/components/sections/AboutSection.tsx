@@ -41,10 +41,10 @@ export default function AboutSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
-                className="bg-[#060608] border border-[#1E1E24] p-8 flex items-center justify-between group hover:border-[#8B5CF6]/40 transition-colors"
+                className="bg-[#060608] border border-[#1E1E24] p-8 flex items-center justify-between group hover:border-[#D4AF37]/40 transition-colors"
               >
                 <div className="flex items-center gap-6">
-                  <div className="text-[#8B5CF6]">
+                  <div className="text-[#D4AF37]">
                     <stat.icon size={20} strokeWidth={1.5} />
                   </div>
                   <div>
@@ -64,11 +64,11 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-              className="bg-[#141418] border border-[#1E1E24] p-10 mt-6 relative overflow-hidden"
+              className="bg-[#141418] border border-[#1E1E24] p-10 mt-6 relative overflow-hidden group hover:border-[#D4AF37]/40 transition-colors"
             >
-              <Award className="absolute -right-4 -bottom-4 text-[#F59E0B] opacity-10" size={120} />
+              <Award className="absolute -right-4 -bottom-4 text-[#D4AF37] opacity-10" size={120} />
               <div className="relative z-10">
-                <span className="font-mono text-[10px] tracking-[4px] text-[#F59E0B] uppercase block mb-4 italic">
+                <span className="font-mono text-[10px] tracking-[4px] text-[#D4AF37] uppercase block mb-4 italic">
                   IIT Competition Finalist
                 </span>
                 <p className="font-display text-4xl text-[#F1F0FB] leading-none tracking-wide">

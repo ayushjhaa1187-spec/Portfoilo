@@ -56,7 +56,7 @@ const timeline: TimelineEntry[] = [
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="py-40 px-6 lg:px-20 bg-[#060608] relative overflow-hidden min-h-auto">
+    <section id="experience" className="bg-[#060608] relative overflow-hidden">
       <div className="max-w-[1400px] mx-auto relative z-10">
         <SectionReveal>
           <div className="mb-32">
@@ -72,7 +72,7 @@ export default function ExperienceSection() {
 
         <div className="relative">
           {/* Vertical Line - Desktop Only */}
-          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[#8B5CF6] via-[#1E1E24] to-transparent -translate-x-1/2" />
+          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[#D4AF37] via-[#1E1E24] to-transparent -translate-x-1/2" />
 
           <div className="flex flex-col gap-10 lg:gap-0">
             {timeline.map((entry, i) => (
@@ -99,7 +99,7 @@ function TimelineItem({ entry, index }: { entry: TimelineEntry; index: number })
           initial={{ scale: 0 }}
           animate={isInView ? { scale: 1, rotate: 45 } : {}}
           transition={{ duration: 0.5, ease: "backOut" }}
-          className="w-3 h-3 bg-[#8B5CF6] border border-[#060608]"
+          className="w-3 h-3 bg-[#D4AF37] border border-[#060608]"
         />
       </div>
 
@@ -113,9 +113,9 @@ function TimelineItem({ entry, index }: { entry: TimelineEntry; index: number })
             transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
             className={`w-full max-w-[560px] ${isLeft ? "lg:mr-auto lg:pr-16" : "lg:ml-auto lg:pl-16"}`}
           >
-            <div className="bg-[#0E0E12] p-8 lg:p-10 border-l-2 border-[#8B5CF6]">
+            <div className="bg-[#0E0E12] p-8 lg:p-10 border-l-2 border-[#D4AF37]">
               <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 bg-[#16161D] text-[#8B5CF6]">
+                <div className="p-3 bg-[#16161D] text-[#D4AF37]">
                   <Icon size={18} strokeWidth={1.5} />
                 </div>
                 <div>

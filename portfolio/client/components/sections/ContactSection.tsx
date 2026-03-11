@@ -34,8 +34,13 @@ export default function ContactSection() {
            whileInView={{ opacity: 1, y: 0 }}
            viewport={{ once: true }}
            transition={{ delay: 0.2 }}
-           className="mb-20"
+           className="mb-20 flex flex-col items-center"
         >
+          <img 
+            src="/signature-gold.png" 
+            alt="Ayush Kumar Jha" 
+            style={{ height: '80px', width: 'auto', objectFit: 'contain', opacity: 0.9, marginBottom: '24px' }}
+          />
           <a 
             href="mailto:ayushjhaa1187@gmail.com" 
             className="font-mono text-lg lg:text-3xl text-[#06B6D4] hover:text-[#8B5CF6] transition-colors tracking-widest border-b border-[#06B6D4]/30 pb-4"

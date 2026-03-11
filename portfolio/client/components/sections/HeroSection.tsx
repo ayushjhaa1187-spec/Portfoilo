@@ -66,7 +66,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-3 bg-[#0E0E12] border border-[#1E1E24] px-4 py-2 w-fit mb-12"
           >
-            <div className="w-2 h-2 bg-[#8B5CF6] rounded-full animate-pulse-dot" />
+            <div className="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse-dot" />
             <span className="font-mono text-[10px] tracking-[4px] text-[#F1F0FB] uppercase">
               OPEN TO AI/ML ROLES
             </span>
@@ -102,12 +102,18 @@ export default function HeroSection() {
                 variants={nameVariants}
                 initial="hidden"
                 animate="visible"
-                className="font-display text-8xl lg:text-[140px] leading-none tracking-tight text-[#8B5CF6]"
+                className="font-display text-8xl lg:text-[140px] leading-none tracking-tight text-[#D4AF37]"
               >
                 JHA
               </motion.h1>
             </div>
           </div>
+
+          <img 
+            src="/signature-gold.png" 
+            alt="Ayush Kumar Jha signature" 
+            style={{ height: '70px', width: 'auto', objectFit: 'contain', marginTop: '8px', marginBottom: '16px' }}
+          />
 
           <motion.p 
             initial={{ opacity: 0 }}

@@ -41,12 +41,11 @@ export default function Navigation() {
       <div className="max-w-[1400px] mx-auto flex items-center justify-between">
         {/* Logo */}
         <a href="#home" onClick={(e) => scrollToSection(e, "#home")} className="flex items-center gap-3 group">
-          <div className="w-10 h-10 border border-[#8B5CF6] flex items-center justify-center font-display text-xl text-[#F1F0FB] group-hover:bg-[#8B5CF6] transition-all duration-500">
-            A
-          </div>
-          <span className="font-mono text-[10px] tracking-[5px] text-[#F1F0FB] hidden sm:block">
-            AYUSH JHA
-          </span>
+          <img 
+            src="/signature-gold.png" 
+            alt="Ayush Kumar Jha" 
+            style={{ height: '40px', width: 'auto', objectFit: 'contain' }}
+          />
         </a>
 
         {/* Desktop Links */}

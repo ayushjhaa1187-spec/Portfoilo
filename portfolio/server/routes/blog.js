@@ -7,7 +7,9 @@ const BlogPost = require('../models/BlogPost');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const posts = await BlogPost.find();
+    // Optimization: Exclude large content field for list endpoints
+    // Note: We avoid .lean() here to preserve Mongoose virtuals like `id`
+    const posts = await BlogPost.find().select('-content');
     res.json(posts);
   } catch (err) {
     console.error(err.message);

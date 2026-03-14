@@ -1,13 +1,8 @@
 import Hero from '@/components/Hero';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col">
-      <Navbar />
-      <Hero />
-      <Footer />
-    </main>
-  );
+  // ⚡ Bolt: Removed duplicate Navbar and Footer components here.
+  // The Next.js App Router already wraps this page with layout.tsx,
+  // so including them here caused double rendering and increased hydration time.
+  return <Hero />;
 }

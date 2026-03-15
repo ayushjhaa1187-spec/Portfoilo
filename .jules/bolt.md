@@ -1,0 +1,3 @@
+## 2024-05-24 - Mongoose `.lean()` and Virtual Fields
+**Learning:** Mongoose `.lean()` shouldn't be used to optimize read endpoints in this project (`/api/projects`, `/api/blog`, `/api/achievements`) because the frontend relies on the virtual `id` field. Mongoose `.lean()` bypasses document creation and strips out virtual fields. Altering the frontend to use `_id` instead would be a larger breaking change. Thus, read optimizations must be handled via indexing (`index: true`) on frequently filtered fields like `category` instead of using `.lean()`.
+**Action:** Prioritize database-level optimizations like adding indexes (e.g., `index: true` for frequently filtered fields) over altering the response structure with `.lean()`.

@@ -14,6 +14,8 @@ const ProjectSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: ['ML/AI', 'Business', 'Research', 'Web'],
+    // ⚡ Bolt: Adding index to optimize category-based filtering queries
+    index: true,
   },
   shortDescription: {
     type: String,

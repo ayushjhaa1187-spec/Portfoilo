@@ -1,0 +1,3 @@
+## 2024-05-18 - Prevent Duplicate Layout Renderings in Next.js App Router
+**Learning:** In Next.js App Router, components defined in `layout.tsx` (like `Navbar` and `Footer`) apply globally to all pages nested within that route segment. If you also import and render these same components in the child `page.tsx` file, Next.js will render them twice. This leads to duplicate DOM nodes, increased React hydration times, and potential accessibility/styling issues due to hidden duplicate elements.
+**Action:** When creating new pages in an App Router application, ensure that you are not re-rendering structural components that are already handled by a parent `layout.tsx`.

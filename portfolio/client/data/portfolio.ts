@@ -969,7 +969,7 @@ export const thoughtProcess = [
 export const recruiterInfo = {
     status: 'Available for AI/ML Roles & Internships',
     location: 'Delhi, India (Open to Remote)',
-    resumeUrl: 'https://drive.google.com/file/d/1Fk5CSQ4lcK44JP2_POJPxN5zle3qcceC/view?usp=sharing',
+    resumeUrl: 'https://drive.google.com/file/d/11xzeMLqC4iR8VRBJEdRyiyE1vH9ASQ5O/view?usp=sharing',
     calendly: 'https://calendly.com/ayushjhaa1187',
     quickContact: [
         { platform: 'Twitter', link: 'https://x.com/ayushjhaa1187' },

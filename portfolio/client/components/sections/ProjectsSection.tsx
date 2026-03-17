@@ -2,136 +2,70 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, ArrowUpRight, X } from "lucide-react";
+import { ExternalLink, Github, ArrowUpRight, X, Layers, Target, Zap, ChevronRight } from "lucide-react";
 import SectionReveal from "../SectionReveal";
-
-interface Project {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  longDescription: string;
-  tech: string[];
-  impact: string;
-  github: string;
-  demo?: string;
-  number: string;
-}
-
-const projects: Project[] = [
-  {
-    id: "stocksense",
-    title: "StockSense AI Agent",
-    category: "AI / Autonomous Agents",
-    number: "01",
-    description: "Autonomous inventory management system using LLMs to detect expiring stock and optimize reorder cycles.",
-    longDescription: "StockSense leverages autonomous AI agents to monitor pharmacy inventory in real-time. It analyzes sales velocity, expiration dates, and demand patterns to automatically trigger reorders and minimize wastage, specifically optimized for healthcare retail supply chains.",
-    tech: ["Python", "OpenAI API", "LangGraph", "Data Analytics"],
-    impact: "Automated 80% of reorder scheduling for pilot retailers.",
-    github: "https://github.com/ayushjhaa1187-spec/StockSense",
-  },
-  {
-    id: "circles",
-    title: "Circles Event Platform",
-    category: "Full Stack / Hackathon (ELITE HACK 1.0)",
-    number: "02",
-    description: "Multi-event management ecosystem with QR check-ins, real-time analytics, and team collaboration tools.",
-    longDescription: "Built for ELITE HACK 1.0, Circles handles end-to-end event management. Features include QR-based attendee tracking, instant check-in dashboards for admins, and a participant hub for team formation and schedule management.",
-    tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma"],
-    impact: "Succesfully handled 200+ registrations for Elite Hack event.",
-    github: "https://github.com/ayushjhaa1187-spec/Circles",
-  },
-  {
-    id: "predictive",
-    title: "Predictive Analytics Dashboard",
-    category: "ML / Data Science",
-    number: "03",
-    description: "End-to-end ML pipeline with interactive visualization for business trend forecasting.",
-    longDescription: "A comprehensive data science project that transforms raw business datasets into predictive insights. Includes advanced EDA, feature engineering, and a random forest model deployed via a custom dashboard.",
-    tech: ["Python", "Scikit-learn", "Pandas", "Plotly"],
-    impact: "Provided 92% accurate trend forecasting on historical retail datasets.",
-    github: "https://github.com/ayushjhaa1187-spec/PredictiveAnalytics",
-  },
-  {
-    id: "voice-ai",
-    title: "AI Voice Assistant",
-    category: "NLP / Python",
-    number: "04",
-    description: "Hands-free task automation assistant utilizing speech recognition and intent parsing.",
-    longDescription: "A Python-based voice engine capable of managing daily tasks, querying databases, and controlling local system functions via natural language commands. Features noise-canceling speech processing.",
-    tech: ["Python", "SpeechRecognition", "NLTK", "PyAutoGUI"],
-    impact: "Reduced local task execution time by 40% using voice triggers.",
-    github: "https://github.com/ayushjhaa1187-spec/VoiceAssistant",
-  },
-  {
-    id: "ethicallance",
-    title: "Ethicallancing Platform",
-    category: "Frontend / Social Impact",
-    number: "05",
-    description: "A niche marketplace connecting ethical freelancers with social impact nonprofit projects.",
-    longDescription: "A beautifully designed frontend-first platform aimed at the 'Social Good' sector. Focused on user experience, transparency, and accessible design patterns for community driven initiatives.",
-    tech: ["React", "TailwindCSS", "Framer Motion", "Vite"],
-    impact: "Showcased as a model for ethical gig-economy platforms at IIT Ideathons.",
-    github: "https://github.com/ayushjhaa1187-spec/Ethicallancing",
-  },
-  {
-    id: "insight-weaver",
-    title: "Insight Weaver Suite",
-    category: "TypeScript / Microservices",
-    number: "06",
-    description: "A collection of data extraction and sentiment analysis tools for market research.",
-    longDescription: "A professional developer suite designed for microservice-heavy architectures. Includes efficient scrapers, API weavers, and a primary dashboard for monitoring data flow across multiple streams.",
-    tech: ["TypeScript", "Node.js", "Cheerio", "Redis"],
-    impact: "Processes 10k+ data points per hour with 99.9% scrape success rate.",
-    github: "https://github.com/ayushjhaa1187-spec/InsightWeaver",
-  }
-];
+import { projects, Project } from "../../data/portfolio";
 
 export default function ProjectsSection() {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const selectedProject = projects.find(p => p.id === selectedId);
+  const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
+  const selectedProject = projects.find(p => p.slug === selectedSlug);
 
   return (
-    <section id="projects" className="bg-[#060608]">
-      <div className="max-w-[1400px] mx-auto">
+    <section id="projects" className="bg-[#0A0A0B] py-32 relative overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#D4AF37]/5 rounded-full blur-[120px] -mr-64 -mt-64" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#06B6D4]/5 rounded-full blur-[120px] -ml-64 -mb-64" />
+
+      <div className="max-w-[1500px] mx-auto px-6 lg:px-20 relative z-10">
         <SectionReveal>
-          <div className="mb-24">
-            <span className="section-label text-[#555560] font-mono text-xs tracking-[5px] uppercase block mb-6">
-              // 005 — PORTFOLIO
-            </span>
-            <h2 className="font-display text-7xl lg:text-9xl text-[#F1F0FB] leading-[0.8] tracking-tight">
-              FEATURED<br />
-              <span className="text-outline">PROJECTS</span>
-            </h2>
+          <div className="mb-24 flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+            <div>
+              <span className="section-label text-[#D4AF37] font-mono text-[10px] tracking-[8px] uppercase block mb-6 px-1 border-l-2 border-[#D4AF37]">
+                WORK ARCHIVE
+              </span>
+              <h2 className="font-display text-[clamp(2.5rem,6vw,6rem)] text-[#F1F0FB] leading-[0.8] tracking-tighter">
+                IMPACTFUL<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#F1F0FB]">SOLUTIONS</span>
+              </h2>
+            </div>
+            <p className="max-w-md text-[#F1F0FB]/50 font-light text-lg leading-relaxed">
+              A curated selection of autonomous systems, data engines, and product experiences engineered to solve real-world bottlenecks.
+            </p>
           </div>
         </SectionReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-[2px] bg-[#1E1E24] border-[1px] border-[#1E1E24]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, i) => (
             <ProjectCard 
-              key={project.id} 
+              key={project.slug} 
               project={project} 
               index={i} 
-              onClick={() => setSelectedId(project.id)}
+              onClick={() => setSelectedSlug(project.slug)}
             />
           ))}
         </div>
 
-        <div className="mt-20 flex justify-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-24 flex justify-center"
+        >
            <a 
             href="https://github.com/ayushjhaa1187-spec" 
             target="_blank" 
-            className="group flex items-center gap-4 bg-[#0E0E12] border border-[#1E1E24] px-10 py-5 font-mono text-xs tracking-[4px] text-[#F1F0FB] hover:bg-[#8B5CF6] transition-all duration-500"
+            className="group relative flex items-center gap-6 bg-transparent border border-[#1E1E24] px-12 py-6 font-mono text-[10px] tracking-[4px] text-[#F1F0FB] hover:border-[#D4AF37]/50 transition-all duration-500 rounded-full"
            >
-            VIEW ALL REPOSITORIES
-            <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            <span className="relative z-10">EXPLORE FULL REPOSITORY</span>
+            <ArrowUpRight size={16} className="relative z-10 group-hover:rotate-45 transition-transform duration-500" />
+            <div className="absolute inset-x-0 bottom-0 h-0 group-hover:h-full bg-[#111113] transition-all duration-300 rounded-full" />
            </a>
-        </div>
+        </motion.div>
       </div>
 
       <AnimatePresence>
-        {selectedId && selectedProject && (
-          <Modal project={selectedProject} onClose={() => setSelectedId(null)} />
+        {selectedSlug && selectedProject && (
+          <Modal project={selectedProject} onClose={() => setSelectedSlug(null)} />
         )}
       </AnimatePresence>
     </section>
@@ -140,47 +74,62 @@ export default function ProjectsSection() {
 
 function ProjectCard({ project, index, onClick }: { project: Project; index: number; onClick: () => void }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
-      className="bg-[#0E0E12] p-10 lg:p-12 hover:bg-[#141418] transition-colors cursor-pointer group flex flex-col justify-between"
+      transition={{ duration: 0.8, delay: (index % 3) * 0.1, ease: [0.33, 1, 0.68, 1] }}
+      whileHover={{ y: -10 }}
+      className="group bg-[#111113] border border-[#1E1E24] p-8 lg:p-10 hover:border-[#D4AF37]/30 transition-all duration-500 cursor-pointer flex flex-col justify-between h-full rounded-2xl relative overflow-hidden"
       onClick={onClick}
     >
-      <div>
-        <div className="flex justify-between items-start mb-12">
-           <span className="font-mono text-[#555560] text-xs tracking-widest uppercase">{project.category}</span>
-           <span className="font-display text-4xl text-outline opacity-20 group-hover:opacity-60 transition-opacity">{project.number}</span>
+      <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      
+      <div className="relative z-10">
+        <div className="flex justify-between items-start mb-10">
+           <div className="flex flex-col gap-1">
+             <span className="font-mono text-[#D4AF37] text-[9px] tracking-[4px] uppercase">{project.category}</span>
+             <div className="h-0.5 w-0 group-hover:w-full bg-[#D4AF37]/30 transition-all duration-700" />
+           </div>
+           <span className="font-display text-2xl text-[#1E1E24] group-hover:text-[#D4AF37]/10 transition-colors uppercase">{project.icon || '0' + (index + 1)}</span>
         </div>
         
-        <h3 className="font-display text-4xl lg:text-5xl text-[#F1F0FB] mb-6 group-hover:text-[#8B5CF6] transition-colors leading-none tracking-tight">
+        <h3 className="font-display text-2xl lg:text-3xl text-[#F1F0FB] mb-6 group-hover:text-white transition-colors tracking-tight leading-loose">
           {project.title}
         </h3>
-        <p className="font-body text-[#888] text-sm lg:text-base mb-10 leading-relaxed line-clamp-2">
-          {project.description}
+        
+        <p className="font-body text-[#F1F0FB]/40 text-sm mb-10 leading-relaxed line-clamp-3 group-hover:text-[#F1F0FB]/60 transition-colors italic">
+          "{project.shortDescription}"
         </p>
 
-        <div className="flex flex-wrap gap-2 mb-10">
-          {project.tech.map((t, idx) => (
-            <span key={idx} className="bg-[#16161D] text-[#06B6D4] font-mono text-[10px] uppercase tracking-widest px-3 py-1.5 border border-[#1E1E24]">
+        <div className="flex flex-wrap gap-2 mb-8">
+          {project.techStack.slice(0, 3).map((t, idx) => (
+            <span key={idx} className="bg-[#0A0A0B] text-[#F1F0FB]/40 group-hover:text-[#06B6D4] font-mono text-[9px] uppercase tracking-widest px-3 py-1.5 border border-[#1E1E24] group-hover:border-[#06B6D4]/30 transition-all">
               {t}
             </span>
           ))}
+          {project.techStack.length > 3 && (
+            <span className="text-[#555560] font-mono text-[9px] uppercase tracking-widest py-1.5 px-2">+{project.techStack.length - 3} More</span>
+          )}
         </div>
       </div>
 
-      <div className="pt-8 border-t border-[#1E1E24] flex items-center justify-between">
+      <div className="relative z-10 pt-8 border-t border-[#1E1E24] flex items-center justify-between">
         <div className="flex items-center gap-3">
-           <div className="w-1.5 h-1.5 bg-[#8B5CF6]" />
-           <span className="font-mono text-[10px] text-[#555560] tracking-wider truncate max-w-[200px] uppercase">
-             {project.impact}
+           <Zap size={12} className="text-[#D4AF37] animate-pulse" />
+           <span className="font-mono text-[9px] text-[#555560] group-hover:text-[#F1F0FB]/60 transition-colors tracking-widest uppercase">
+             {project.metrics?.impact || "In Progress"}
            </span>
         </div>
-        <ArrowUpRight className="text-[#555560] group-hover:text-[#8B5CF6] transition-colors" size={20} />
+        <div className="flex items-center gap-2 group/btn">
+          <span className="font-mono text-[9px] tracking-widest text-[#555560] group-hover:text-[#D4AF37] transition-colors opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all">VIEW STORY</span>
+          <div className="p-2 rounded-full bg-[#1E1E24] group-hover:bg-[#D4AF37] transition-all duration-300">
+            <ChevronRight className="text-[#555560] group-hover:text-[#0A0A0B]" size={14} />
+          </div>
+        </div>
       </div>
     </motion.div>
   );
@@ -192,53 +141,103 @@ function Modal({ project, onClose }: { project: Project; onClose: () => void }) 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-[#060608]/95 backdrop-blur-md"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 lg:p-10 bg-[#060608]/98 backdrop-blur-xl"
     >
       <motion.div 
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        className="w-full max-w-4xl bg-[#0E0E12] border border-[#1E1E24] p-10 lg:p-20 relative overflow-y-auto max-h-[90vh] custom-scrollbar"
+        initial={{ y: 50, opacity: 0, scale: 0.95 }}
+        animate={{ y: 0, opacity: 1, scale: 1 }}
+        exit={{ y: 50, opacity: 0, scale: 0.95 }}
+        className="w-full max-w-6xl bg-[#0A0A0B] border border-[#1E1E24] p-8 lg:p-16 relative overflow-y-auto max-h-[90vh] custom-scrollbar rounded-3xl"
       >
-        <button onClick={onClose} className="absolute top-10 right-10 text-[#555560] hover:text-[#F1F0FB] transition-colors">
+        <button 
+          onClick={onClose} 
+          className="absolute top-8 right-8 lg:top-12 lg:right-12 text-[#555560] hover:text-[#D4AF37] transition-all hover:rotate-90 duration-300"
+        >
           <X size={32} />
         </button>
 
-        <div className="mb-10">
-          <span className="font-mono text-[#8B5CF6] text-xs tracking-[8px] uppercase mb-4 block">
-            {project.category}
-          </span>
-          <h2 className="font-display text-6xl lg:text-8xl text-[#F1F0FB] leading-none mb-10">
+        <div className="mb-12 lg:mb-20">
+          <div className="flex items-center gap-4 mb-6">
+            <span className="bg-[#D4AF37]/10 text-[#D4AF37] px-4 py-1 rounded-full font-mono text-[9px] tracking-[4px] uppercase border border-[#D4AF37]/20">
+              {project.category}
+            </span>
+            <div className="h-px flex-1 bg-gradient-to-r from-[#1E1E24] to-transparent" />
+          </div>
+          <h2 className="font-display text-5xl lg:text-7xl text-[#F1F0FB] leading-[0.9] tracking-tighter">
             {project.title}
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-16">
-          <div>
-            <h4 className="font-mono text-[10px] text-[#555560] uppercase tracking-[4px] mb-6">PROJECT OVERVIEW</h4>
-            <p className="text-lg lg:text-xl text-[#888] leading-relaxed mb-10 font-body">
-              {project.longDescription}
-            </p>
+        <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-16 lg:gap-24">
+          <div className="space-y-16">
+            <div className="grid grid-cols-1 gap-12">
+               <div className="flex gap-6">
+                  <div className="flex flex-col items-center">
+                    <div className="w-10 h-10 rounded-full bg-[#111113] border border-[#1E1E24] flex items-center justify-center text-[#D4AF37] font-mono text-xs">01</div>
+                    <div className="w-px h-full bg-gradient-to-b from-[#1E1E24] to-transparent mt-4" />
+                  </div>
+                  <div className="pb-8">
+                    <h4 className="font-mono text-[10px] text-[#555560] uppercase tracking-[4px] mb-4 flex items-center gap-2">
+                       <Target size={14} className="text-[#D4AF37]" /> THE CHALLENGE
+                    </h4>
+                    <p className="text-xl lg:text-2xl text-[#F1F0FB]/80 leading-relaxed font-light italic">
+                      {project.problem}
+                    </p>
+                  </div>
+               </div>
 
-            <h4 className="font-mono text-[10px] text-[#555560] uppercase tracking-[4px] mb-6">CORE IMPACT</h4>
-            <div className="flex items-center gap-4 bg-[#141418] border-l-2 border-[#06B6D4] p-6 mb-10">
-              <span className="text-[#06B6D4] font-body font-medium italic">"{project.impact}"</span>
+               <div className="flex gap-6">
+                  <div className="flex flex-col items-center">
+                    <div className="w-10 h-10 rounded-full bg-[#111113] border border-[#1E1E24] flex items-center justify-center text-[#06B6D4] font-mono text-xs">02</div>
+                    <div className="w-px h-full bg-gradient-to-b from-[#1E1E24] to-transparent mt-4" />
+                  </div>
+                  <div className="pb-8">
+                    <h4 className="font-mono text-[10px] text-[#555560] uppercase tracking-[4px] mb-4 flex items-center gap-2">
+                       <Zap size={14} className="text-[#06B6D4]" /> THE ARCHITECTURE
+                    </h4>
+                    <p className="text-xl lg:text-2xl text-[#F1F0FB]/80 leading-relaxed font-light">
+                      {project.action}
+                    </p>
+                  </div>
+               </div>
+
+               <div className="flex gap-6">
+                  <div className="flex flex-col items-center">
+                    <div className="w-10 h-10 rounded-full bg-[#111113] border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37] font-mono text-xs shadow-[0_0_20px_rgba(212,175,55,0.2)] animate-pulse">03</div>
+                  </div>
+                  <div>
+                    <h4 className="font-mono text-[10px] text-[#555560] uppercase tracking-[4px] mb-4 flex items-center gap-2">
+                       <Layers size={14} className="text-[#D4AF37]" /> THE OUTCOME
+                    </h4>
+                    <p className="text-xl lg:text-2xl text-[#F1F0FB] leading-relaxed font-medium">
+                      {project.result}
+                    </p>
+                  </div>
+               </div>
             </div>
           </div>
 
-          <div>
-             <h4 className="font-mono text-[10px] text-[#555560] uppercase tracking-[4px] mb-6">TECH STACK</h4>
-             <div className="flex flex-col gap-3 mb-12">
-                {project.tech.map((t, idx) => (
-                  <span key={idx} className="bg-[#16161D] text-[#8B5CF6] font-mono text-xs p-3 border border-[#1E1E24]">
-                    {t}
-                  </span>
-                ))}
+          <div className="space-y-12">
+             <div className="bg-[#111113] border border-[#1E1E24] p-10 rounded-3xl">
+                <h4 className="font-mono text-[10px] text-[#555560] uppercase tracking-[4px] mb-8 border-b border-[#1E1E24] pb-4">CORE TECHNOLOGY</h4>
+                <div className="flex flex-wrap gap-2">
+                    {project.techStack.map((t, idx) => (
+                      <span key={idx} className="bg-[#0A0A0B] text-[#06B6D4] font-mono text-[10px] uppercase tracking-widest px-4 py-2 border border-[#1E1E24] rounded-lg">
+                        {t}
+                      </span>
+                    ))}
+                </div>
              </div>
 
-             <div className="flex flex-col gap-4">
-                <a href={project.github} target="_blank" className="flex items-center justify-center gap-3 bg-[#1E1E24] hover:bg-[#8B5CF6] text-white p-5 font-mono text-xs tracking-widest transition-colors">
-                  <Github size={18} /> GITHUB REPO
+             <div className="grid grid-cols-1 gap-4">
+                <a 
+                  href={project.githubUrl} 
+                  target="_blank" 
+                  className="group relative flex items-center justify-center gap-4 bg-[#D4AF37] text-[#0A0A0B] p-6 lg:p-8 rounded-2xl font-mono text-xs font-bold tracking-[4px] transition-all overflow-hidden"
+                >
+                  <Github size={20} className="relative z-10" /> 
+                  <span className="relative z-10">RECON SOURCE CODE</span>
+                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                 </a>
              </div>
           </div>

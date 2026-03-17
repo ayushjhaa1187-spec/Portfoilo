@@ -1,20 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowDown, Mail, Download, Calendar, ArrowRight } from "lucide-react";
 import MagneticButton from "../MagneticButton";
 import dynamic from "next/dynamic";
 import ErrorBoundary from "../ErrorBoundary";
+import { personalInfo, recruiterInfo, githubStats } from "../../data/portfolio";
 
 // Dynamically import Lottie for client-side only rendering
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
-const stats = [
-  { label: "Industry Experience", value: "6+ Months" },
-  { label: "IBM Certified", value: "3x" },
-  { label: "Multiple IITs", value: "IIT Finalist" },
-  { label: "GitHub Repos", value: "35+" },
+const roles = [
+  "AI/ML Researcher",
+  "Full Stack Architect",
+  "Product Designer",
+  "Data Scientist",
+  "Foundational Engineer"
 ];
 
 const floatingBadges = [
@@ -26,14 +28,47 @@ const floatingBadges = [
 
 export default function HeroSection() {
   const [animationData, setAnimationData] = useState<any>(null);
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+  const [typedText, setTypedText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const containerRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   useEffect(() => {
-    // Fetch the Lottie JSON via the stable URL provided by the user
     fetch("https://lottie.host/020928ff-3c40-41da-a78b-37ca72d4b8f5/9Yj1j59J1M.json")
       .then(res => res.json())
       .then(data => setAnimationData(data))
-      .catch(err => console.error("Lottie fetch failed or CORS issue:", err));
+      .catch(err => console.error("Lottie fetch failed:", err));
   }, []);
+
+  // Simple Typewriter Effect
+  useEffect(() => {
+    const role = roles[currentRoleIndex];
+    const typeSpeed = isDeleting ? 50 : 100;
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting && typedText.length < role.length) {
+        setTypedText(role.slice(0, typedText.length + 1));
+      } else if (isDeleting && typedText.length > 0) {
+        setTypedText(role.slice(0, typedText.length - 1));
+      } else if (!isDeleting && typedText.length === role.length) {
+        setTimeout(() => setIsDeleting(true), 2000);
+      } else if (isDeleting && typedText.length === 0) {
+        setIsDeleting(false);
+        setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+      }
+    }, typeSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [typedText, isDeleting, currentRoleIndex]);
 
   const nameVariants: any = {
     hidden: { y: 100, opacity: 0 },
@@ -41,191 +76,239 @@ export default function HeroSection() {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.8,
-        delay: 0.2 + i * 0.15,
-        ease: "easeOut",
+        duration: 1,
+        delay: 0.2 + i * 0.1,
+        ease: [0.33, 1, 0.68, 1],
       },
     }),
   };
 
   return (
-    <section id="home" className="relative min-h-[100vh] flex flex-col justify-center px-6 lg:px-20 overflow-hidden pt-32 lg:pt-0">
-      {/* Background elements */}
+    <section 
+      ref={containerRef}
+      id="home" 
+      className="relative min-h-screen flex flex-col justify-center px-6 lg:px-24 overflow-hidden pt-32 lg:pt-0 bg-[#0A0A0B]"
+    >
+      {/* Dynamic Background */}
       <div className="absolute inset-0 z-0">
-        <div className="hero-grid absolute inset-0 opacity-20" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-[#8B5CF6] opacity-10 rounded-full blur-[120px]" />
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(#F1F0FB 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        <div className="absolute top-[20%] left-[10%] w-[40vw] h-[40vw] bg-[#D4AF37]/5 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-[20%] right-[10%] w-[30vw] h-[30vw] bg-[#06B6D4]/5 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
-      <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-20 items-center relative z-10">
-        
+      <motion.div 
+        style={{ opacity, scale, y }}
+        className="max-w-[1600px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 items-center relative z-10"
+      >
         {/* Left Content */}
-        <div>
-          {/* Status Badge */}
+        <div className="relative">
+          {/* Availability Badge */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="group flex items-center gap-3 bg-[#111113] border border-[#1E1E24] px-5 py-2.5 w-fit mb-8 rounded-full cursor-pointer hover:border-[#D4AF37]/50 transition-all duration-300"
+          >
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D4AF37] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#D4AF37]"></span>
+            </span>
+            <span className="font-mono text-[10px] tracking-[2px] text-[#F1F0FB]/80 uppercase group-hover:text-[#F1F0FB] transition-colors">
+              {recruiterInfo.status}
+            </span>
+            <ArrowRight size={12} className="text-[#D4AF37] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+          </motion.div>
+
+          {/* Headline Section */}
+          <div className="mb-4">
+            <motion.div className="flex flex-col gap-0">
+               <div className="overflow-hidden">
+                <motion.h1 custom={0} variants={nameVariants} initial="hidden" animate="visible" className="font-display text-[clamp(4rem,10vw,9rem)] leading-[0.9] tracking-tighter text-[#F1F0FB]">
+                  {personalInfo.firstName.toUpperCase()}
+                </motion.h1>
+               </div>
+               <div className="overflow-hidden">
+                <motion.h1 custom={1} variants={nameVariants} initial="hidden" animate="visible" className="font-display text-[clamp(4rem,10vw,9rem)] leading-[0.9] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F1F0FB] to-[#D4AF37] animate-gradient-x">
+                  {personalInfo.lastName.toUpperCase()}
+                </motion.h1>
+               </div>
+            </motion.div>
+          </div>
+
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-3 bg-[#0E0E12] border border-[#1E1E24] px-4 py-2 w-fit mb-12"
+            transition={{ delay: 0.6 }}
+            className="flex items-center gap-4 mb-8"
           >
-            <div className="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse-dot" />
-            <span className="font-mono text-[10px] tracking-[4px] text-[#F1F0FB] uppercase">
-              OPEN TO AI/ML ROLES
-            </span>
+            <div className="h-px w-12 bg-[#D4AF37]/40" />
+            <div className="font-mono text-xl lg:text-3xl text-[#06B6D4] font-medium min-h-[1.5em] flex items-center">
+              {typedText}<span className="w-1 h-8 bg-[#D4AF37] ml-2 animate-pulse" />
+            </div>
           </motion.div>
 
-          {/* Stacking Name */}
-          <div className="mb-10">
-            <div className="overflow-hidden h-[100px] lg:h-[130px] mb-[-10px] lg:mb-[-20px]">
-              <motion.h1
-                custom={0}
-                variants={nameVariants}
-                initial="hidden"
-                animate="visible"
-                className="font-display text-8xl lg:text-[140px] leading-none tracking-tight text-[#F1F0FB]"
-              >
-                AYUSH
-              </motion.h1>
-            </div>
-            <div className="overflow-hidden h-[100px] lg:h-[130px] mb-[-10px] lg:mb-[-20px]">
-              <motion.h1
-                custom={1}
-                variants={nameVariants}
-                initial="hidden"
-                animate="visible"
-                className="font-display text-8xl lg:text-[140px] leading-none tracking-tight text-outline"
-              >
-                KUMAR
-              </motion.h1>
-            </div>
-            <div className="overflow-hidden h-[100px] lg:h-[130px]">
-              <motion.h1
-                custom={2}
-                variants={nameVariants}
-                initial="hidden"
-                animate="visible"
-                className="font-display text-8xl lg:text-[140px] leading-none tracking-tight text-[#D4AF37]"
-              >
-                JHA
-              </motion.h1>
-            </div>
-          </div>
-
-          <img 
-            src="/signature-gold.png" 
-            alt="Ayush Kumar Jha signature" 
-            style={{ height: '70px', width: 'auto', objectFit: 'contain', marginTop: '8px', marginBottom: '16px' }}
-          />
-
           <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="font-mono text-xs lg:text-sm tracking-[5px] text-[#06B6D4] uppercase mb-12"
+            className="max-w-xl text-lg lg:text-xl text-[#F1F0FB]/60 leading-relaxed mb-12 font-light"
           >
-            Data Scientist · IIT Madras · AI/ML Researcher
+            Architecting <span className="text-[#F1F0FB] font-medium italic">future-ready autonomous systems</span> at the intersection of AI, Economics, and High-Impact Software Engineering.
           </motion.p>
 
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1 }}
-            className="flex flex-wrap gap-6 mb-20"
+            className="flex flex-wrap gap-5 mb-16"
           >
             <MagneticButton>
               <a 
                 href="#projects" 
-                className="bg-[#8B5CF6] text-white px-10 py-5 font-mono text-xs tracking-widest flex items-center gap-2 hover:bg-[#7c3aed] transition-colors"
+                className="group relative bg-[#D4AF37] text-[#0A0A0B] px-10 py-5 font-mono text-xs font-bold tracking-[3px] flex items-center gap-3 overflow-hidden"
               >
-                VIEW PROJECTS <ArrowDown size={14} />
+                <span className="relative z-10">EXPLORE WORK</span>
+                <ArrowRight size={16} className="relative z-10 transition-transform group-hover:translate-x-1" />
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               </a>
             </MagneticButton>
-            <MagneticButton>
-              <a 
-                href="/resume.pdf" 
-                className="bg-transparent border border-[#1E1E24] text-[#F1F0FB] px-10 py-5 font-mono text-xs tracking-widest hover:border-[#8B5CF6] transition-colors"
-              >
-                DOWNLOAD CV
-              </a>
-            </MagneticButton>
+            
+            <div className="flex gap-3">
+              <MagneticButton>
+                <a 
+                  href={recruiterInfo.resumeUrl}
+                  className="bg-transparent border border-[#1E1E24] text-[#F1F0FB] px-6 py-5 font-mono text-xs tracking-widest hover:border-[#D4AF37]/50 hover:bg-[#111113] transition-all flex items-center gap-2"
+                >
+                  <Download size={16} className="text-[#D4AF37]" /> RESUME
+                </a>
+              </MagneticButton>
+              <MagneticButton>
+                <a 
+                  href={recruiterInfo.calendly}
+                  className="bg-transparent border border-[#1E1E24] text-[#F1F0FB] px-6 py-5 font-mono text-xs tracking-widest hover:border-[#06B6D4]/50 hover:bg-[#111113] transition-all flex items-center gap-2"
+                >
+                  <Calendar size={16} className="text-[#06B6D4]" /> BOOK CALL
+                </a>
+              </MagneticButton>
+            </div>
           </motion.div>
 
-          {/* Stats Row */}
+          {/* Quick Stats Grid */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 border-t border-[#1E1E24]"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-10 pt-10 border-t border-[#1E1E24]/50"
           >
-            {stats.map((stat, i) => (
-              <div key={i} className="flex flex-col gap-1">
-                <span className="font-display text-4xl text-[#F1F0FB]">{stat.value}</span>
-                <span className="font-mono text-[9px] tracking-[3px] text-[#555560] uppercase">{stat.label}</span>
-              </div>
-            ))}
+            <div>
+              <span className="block font-display text-4xl text-[#F1F0FB]">{githubStats.contributions}</span>
+              <span className="block font-mono text-[9px] tracking-[3px] text-[#555560] uppercase mt-2">Commits</span>
+            </div>
+            <div>
+              <span className="block font-display text-4xl text-[#D4AF37]">IIT</span>
+              <span className="block font-mono text-[9px] tracking-[3px] text-[#555560] uppercase mt-2">Scholar</span>
+            </div>
+            <div>
+              <span className="block font-display text-4xl text-[#F1F0FB]">{githubStats.repositories}</span>
+              <span className="block font-mono text-[9px] tracking-[3px] text-[#555560] uppercase mt-2">Product OS</span>
+            </div>
+            <div>
+              <span className="block font-display text-4xl text-[#06B6D4]">3x</span>
+              <span className="block font-mono text-[9px] tracking-[3px] text-[#555560] uppercase mt-2">Certified</span>
+            </div>
           </motion.div>
         </div>
 
-        {/* Right Content - Lottie Character Area */}
+        {/* Right Content - Interactive Visual */}
         <div className="relative hidden lg:flex items-center justify-center min-h-[600px] w-full">
-           {/* Soft violet radial glow */}
-           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#8B5CF6]/20 rounded-full blur-[120px]" />
+           <div className="absolute inset-0 bg-gradient-radial from-[#D4AF37]/10 via-transparent to-transparent opacity-50" />
+           
+           {/* Abstract Floating UI Elements */}
+           <motion.div 
+             animate={{ rotate: 360 }}
+             transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+             className="absolute w-[600px] h-[600px] border border-[#1E1E24] rounded-full opacity-20"
+           />
+           <motion.div 
+             animate={{ rotate: -360 }}
+             transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+             className="absolute w-[450px] h-[450px] border border-dashed border-[#D4AF37]/20 rounded-full opacity-20"
+           />
 
-           {/* Rotating Concentric Rings */}
-           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-             <div className="w-[800px] h-[800px] border border-[#1E1E24] rounded-full animate-ring-1 opacity-20" />
-             <div className="w-[650px] h-[650px] border border-[#1E1E24] rounded-full absolute animate-ring-2 opacity-30" />
-           </div>
+           {/* Lottie Container */}
+           <div className="relative z-10 w-[550px] h-[550px] flex items-center justify-center animate-vertical-float">
+             <ErrorBoundary>
+               {animationData ? (
+                 <Lottie 
+                  animationData={animationData} 
+                  loop={true} 
+                  style={{ width: '100%', height: '100%' }}
+                 />
+               ) : (
+                 <div className="w-12 h-12 border-2 border-[#D4AF37] border-t-transparent rounded-full animate-spin" />
+               )}
+             </ErrorBoundary>
 
-           {/* Character Container */}
-           <div className="relative z-10 w-full h-full flex items-center justify-center animate-vertical-float">
-             <div className="w-[600px] h-[600px]">
-               <ErrorBoundary>
-                 {animationData ? (
-                   <Lottie 
-                    animationData={animationData} 
-                    loop={true} 
-                    style={{ width: '100%', height: '100%' }}
-                   />
-                 ) : (
-                   <div className="w-full h-full flex items-center justify-center">
-                     <div className="w-4 h-4 border-2 border-[#8B5CF6] border-t-transparent rounded-full animate-spin" />
-                   </div>
-                 )}
-               </ErrorBoundary>
-             </div>
-
-             {/* Floating Badges */}
+             {/* Dynamic Data Points */}
              {floatingBadges.map((badge, i) => (
                <motion.div
                  key={i}
                  initial={{ opacity: 0 }}
                  animate={{ opacity: 1 }}
-                 transition={{ delay: 1.5 + i * 0.2 }}
-                 className={`absolute ${badge.position} z-20`}
+                 transition={{ delay: 2 + i * 0.2 }}
+                 className={`absolute ${badge.position} z-20 group`}
                >
                  <motion.div
-                   animate={{ y: [0, -10, 0] }}
+                   animate={{ y: [0, -15, 0] }}
                    transition={{ 
                      repeat: Infinity, 
-                     duration: 5, 
+                     duration: 6, 
                      ease: "easeInOut", 
                      delay: badge.delay 
                    }}
-                   className="bg-[#141418] border border-[#1E1E24] px-4 py-3 shadow-2xl"
+                   className="bg-[#111113]/80 backdrop-blur-md border border-[#1E1E24] px-4 py-3 rounded-lg shadow-[0_10px_30px_rgba(0,0,0,0.5)] group-hover:border-[#D4AF37]/40 transition-colors"
                  >
-                   <span className="font-mono text-[10px] tracking-widest text-[#F1F0FB] whitespace-nowrap">
+                   <span className="font-mono text-[10px] tracking-[3px] text-[#F1F0FB] uppercase">
                      {badge.text}
                    </span>
                  </motion.div>
                </motion.div>
              ))}
            </div>
-        </div>
-      </div>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-4">
-        <span className="font-mono text-[9px] tracking-[4px] text-[#555560] uppercase">Scroll</span>
-        <div className="w-px h-12 bg-gradient-to-b from-[#8B5CF6] to-transparent" />
-      </div>
+           {/* Terminal Snippet Feature */}
+           <motion.div 
+             initial={{ opacity: 0, scale: 0.8 }}
+             animate={{ opacity: 1, scale: 1 }}
+             transition={{ delay: 2.5 }}
+             className="absolute bottom-10 -left-10 z-30 bg-[#0E0E10]/90 backdrop-blur-xl border border-[#1E1E24] p-5 rounded-xl shadow-2xl max-w-[280px] font-mono text-[10px]"
+           >
+             <div className="flex gap-1.5 mb-3">
+               <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
+               <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
+               <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
+             </div>
+             <div className="space-y-1.5">
+               <p className="text-[#F1F0FB]/40"># Ayush Portfolio 2026</p>
+               <p className="text-[#06B6D4]">const <span className="text-[#F1F0FB]">engineer</span> = {"{"}</p>
+               <p className="pl-4 text-[#F1F0FB]"><span className="text-[#D4AF37]">vision:</span> <span className="text-green-400">"Autonomous"</span>,</p>
+               <p className="pl-4 text-[#F1F0FB]"><span className="text-[#D4AF37]">impact:</span> <span className="text-green-400">"Global"</span>,</p>
+               <p className="pl-4 text-[#F1F0FB]"><span className="text-[#D4AF37]">status:</span> <span className="text-green-400">"Hirable"</span></p>
+               <p className="text-[#06B6D4]">{"}"};</p>
+             </div>
+           </motion.div>
+        </div>
+      </motion.div>
+
+      {/* Scroll Indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 cursor-pointer group"
+      >
+        <span className="font-mono text-[9px] tracking-[6px] text-[#555560] uppercase group-hover:text-[#F1F0FB] transition-colors">Scroll To Deep Dive</span>
+        <div className="w-px h-16 bg-gradient-to-b from-[#D4AF37] to-transparent group-hover:h-20 transition-all duration-500" />
+      </motion.div>
     </section>
   );
 }

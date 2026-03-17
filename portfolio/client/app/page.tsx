@@ -5,13 +5,16 @@ import { AnimatePresence } from "framer-motion";
 import LoadingScreen from "@/components/LoadingScreen";
 import CustomCursor from "@/components/CustomCursor";
 import Navigation from "@/components/Navigation";
+import CommandPalette from "@/components/CommandPalette";
 import HeroSection from "@/components/sections/HeroSection";
 import TickerSection from "@/components/sections/TickerSection";
-import ServicesSection from "@/components/sections/ServicesSection";
-import TechBubblesSection from "@/components/sections/TechBubblesSection";
+import CurrentlyBuilding from "@/components/sections/CurrentlyBuilding";
+import DeveloperDashboard from "@/components/sections/DeveloperDashboard";
 import ExperienceSection from "@/components/sections/ExperienceSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
+import ThoughtProcess from "@/components/sections/ThoughtProcess";
 import AboutSection from "@/components/sections/AboutSection";
+import RecruiterSection from "@/components/sections/RecruiterSection";
 import ContactSection from "@/components/sections/ContactSection";
 import FooterSection from "@/components/sections/FooterSection";
 import SectionDivider from "@/components/SectionDivider";
@@ -40,15 +43,16 @@ export default function Home() {
       {!isLoading && (
         <div className="flex flex-col relative w-full overflow-x-hidden">
           <Navigation />
+          <CommandPalette />
           
           <HeroSection />
           
           <TickerSection />
           
-          <ServicesSection />
+          <CurrentlyBuilding />
           <SectionDivider />
-          
-          <TechBubblesSection />
+
+          <DeveloperDashboard />
           <SectionDivider />
           
           <ExperienceSection />
@@ -56,8 +60,13 @@ export default function Home() {
           
           <ProjectsSection />
           <SectionDivider />
+
+          <ThoughtProcess />
+          <SectionDivider />
           
           <AboutSection />
+          
+          <RecruiterSection />
           
           <ContactSection />
           

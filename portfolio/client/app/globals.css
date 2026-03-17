@@ -2,21 +2,17 @@
 
 /* --- CSS Custom Properties --- */
 :root {
-  --bg-primary: #060608;
-  --bg-surface: #0E0E12;
+  --bg-primary: #0A0A0B;
+  --bg-surface: #111113;
   --border-color: #1E1E24;
-  --accent-violet: #8B5CF6;
+  --accent-gold: #D4AF37;
   --accent-cyan: #06B6D4;
-  --accent-amber: #F59E0B;
   --text-primary: #F1F0FB;
   --text-muted: #555560;
   
-  /* Spacing Tokens */
   --space-unit: 8px;
-  --section-py-desktop: 120px;
+  --section-py-desktop: 140px;
   --section-px-desktop: 80px;
-  --section-py-mobile: 80px;
-  --section-px-mobile: 24px;
 }
 
 /* --- Global Reset & Base --- */
@@ -24,14 +20,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* Base reset to 0, but allow overrides for specific elements like bubbles */
-  border-radius: 0;
 }
 
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: var(--accent-violet) var(--bg-primary);
+  scrollbar-color: var(--accent-gold) var(--bg-primary);
   cursor: none;
 }
 
@@ -39,31 +33,36 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   overflow-x: hidden;
-  line-height: 1.5;
+  line-height: 1.6;
   cursor: none;
+  font-family: 'Outfit', sans-serif;
 }
 
 /* --- Section Formatting --- */
 section {
-  padding: 120px 80px;
-  min-height: auto;
+  padding: var(--section-py-desktop) 0;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   section {
-    padding: 80px 24px;
+    padding: 80px 0;
   }
 }
 
 /* --- Custom Scrollbar --- */
 ::-webkit-scrollbar {
-  width: 3px;
+  width: 4px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-violet);
+  background: var(--accent-gold);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 2px;
 }
 
 /* --- Noise Overlay --- */
@@ -72,10 +71,8 @@ section {
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.04;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
 }
 
 /* --- Typography Helpers --- */
@@ -88,51 +85,37 @@ section {
   -webkit-text-fill-color: transparent;
 }
 
-/* --- Section Label Style --- */
-.section-label {
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 5px;
-  color: var(--text-muted);
-  text-transform: uppercase;
+.text-outline-gold {
+  -webkit-text-stroke: 1.5px rgba(212, 175, 55, 0.3);
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- UI Utilities --- */
+.glass-panel {
+  background: rgba(17, 17, 19, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(30, 30, 36, 0.5);
+}
+
+.gold-glow {
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.1);
 }
 
 /* --- Animations --- */
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.animate-marquee {
-  animation: marquee 40s linear infinite;
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.4); }
-}
-.animate-pulse-dot {
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-
-@keyframes rotate-ring {
+@keyframes spin-slow {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-.animate-ring-1 { animation: rotate-ring 30s linear infinite; }
-.animate-ring-2 { animation: rotate-ring 45s linear infinite reverse; }
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-16px); }
+.animate-spin-slow {
+  animation: spin-slow 15s linear infinite;
 }
-.animate-float { animation: float 6s ease-in-out infinite; }
 
-@keyframes vertical-float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-12px); }
+@keyframes pulse-gold {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
-.animate-vertical-float {
-  animation: vertical-float 6s ease-in-out infinite;
+.animate-pulse-gold {
+  animation: pulse-gold 3s ease-in-out infinite;
 }
 
 /* --- Custom Cursor --- */
@@ -140,39 +123,54 @@ section {
   position: fixed;
   top: 0;
   left: 0;
-  width: 12px;
-  height: 12px;
-  background: #8B5CF6;
+  width: 10px;
+  height: 10px;
+  background: var(--accent-gold);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 10001;
+  mix-blend-mode: difference;
 }
 
 .custom-cursor-ring {
   position: fixed;
   top: 0;
   left: 0;
-  width: 36px;
-  height: 36px;
-  border: 1px solid rgba(139, 92, 246, 0.4);
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  background: rgba(212, 175, 55, 0.05);
   border-radius: 50%;
   pointer-events: none;
   z-index: 10000;
-  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+  transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
+}
+
+/* Interactivity */
+a:hover ~ .custom-cursor-ring,
+button:hover ~ .custom-cursor-ring {
+  width: 80px;
+  height: 80px;
+  background: rgba(212, 175, 55, 0.1);
 }
 
 /* Hide default cursor on interactive items */
-a, button, [role="button"] { cursor: none; }
+a, button, [role="button"], input, textarea { cursor: none; }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   html, body, a, button { cursor: auto !important; }
   .custom-cursor, .custom-cursor-ring { display: none !important; }
 }
 
-/* --- Hero Grid Background --- */
+/* --- Grid & Patterns --- */
 .hero-grid {
   background-image:
-    linear-gradient(rgba(30, 30, 36, 0.3) 1.5px, transparent 1.5px),
-    linear-gradient(90deg, rgba(30, 30, 36, 0.3) 1.5px, transparent 1.5px);
-  background-size: 40px 40px;
+    linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.hero-dots {
+  background-image: radial-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
 }

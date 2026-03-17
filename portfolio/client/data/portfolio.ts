@@ -165,6 +165,7 @@ export const projects: Project[] = [
         githubUrl: 'https://github.com/ayushjhaa1187-spec/stocksense-agent',
         featured: true,
         icon: '🏥',
+        aiContext: 'StockSense is an autonomous AI agent for pharmacy inventory. It uses predictive modeling to identify expiry risks and stockout patterns, effectively eliminating inventory waste in pilot tests.',
     },
     {
         slug: 'insight-weaver-ecosystem',
@@ -180,6 +181,7 @@ export const projects: Project[] = [
         githubUrl: 'https://github.com/ayushjhaa1187-spec/insight-weaver',
         featured: true,
         icon: '🕸️',
+        aiContext: 'Insight Weaver is a TypeScript-based microservices ecosystem. It automates complex data parsing and BI reporting, reducing manual data ingestion time by 70%.',
     },
     {
         slug: 'ethicallancing',
@@ -195,6 +197,7 @@ export const projects: Project[] = [
         githubUrl: 'https://github.com/ayushjhaa1187-spec/ethicallancing',
         featured: true,
         icon: '💻',
+        aiContext: 'Ethicallancing is a React platform advocating for fair freelance work. It features transparent fee structures and ethical workflows, combining social impact with premium UI/UX.',
     },
     {
         slug: 'voice-assistant',
@@ -257,6 +260,7 @@ export const projects: Project[] = [
         githubUrl: 'https://github.com/ayushjhaa1187-spec/hostel-issue-tracking-system',
         featured: false,
         icon: '🏢',
+        aiContext: 'Developed during HackOverflow 2026, this system streamlines hostel grievance redressal. It features real-time status tracking and admin dashboards, reducing resolution time by 60%.',
     },
     {
         slug: 'predictive-analytics-dashboard',
@@ -272,6 +276,7 @@ export const projects: Project[] = [
         githubUrl: 'https://github.com/ayushjhaa1187-spec/predictive-analytics-dashboard',
         featured: true,
         icon: '📊',
+        aiContext: 'This dashboard uses Scikit-Learn and Streamlit to provide real-time strategic insights. It achieved 89% forecasting accuracy and significantly accelerated business decision-making processes.',
     },
     {
         slug: 'multi-agent-document-generator',
@@ -287,6 +292,7 @@ export const projects: Project[] = [
         githubUrl: 'https://github.com/ayushjhaa1187-spec/-Multi-Agent-Document-Generator',
         featured: false,
         icon: '🤖',
+        aiContext: 'A multi-agent system using LangGraph and LLMs to automate end-to-end document drafting workflows. It coordinates research, drafting, and proofreading agents for 10x faster output.',
     },
     {
         slug: 'advitiya-hackathon',

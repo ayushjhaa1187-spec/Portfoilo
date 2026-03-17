@@ -53,7 +53,7 @@ export default function AIAssistant() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
           message: text,
-          context: `You are assisting a recruiter looking at ${personalInfo.name}'s portfolio. Here is the project list: ${projectsContext}. ${personalInfo.bio}`
+          projectContext: `User is looking at Ayush's portfolio. Projects summary: ${projectsContext}. Bio: ${personalInfo.bio}`
         })
       });
 

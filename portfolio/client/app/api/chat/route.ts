@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { message, context } = await req.body ? await req.json() : { message: "", context: "" };
+    const { message, projectContext } = await req.json();
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
@@ -21,20 +21,19 @@ export async function POST(req: Request) {
             {
               parts: [
                 {
-                  text: `You are Ayush Kumar Jha's AI Portfolio Assistant. 
-                  Ayush is a Data Scientist and IT Engineer studying at IIT Madras and IIIT Bhubaneswar.
-                  
-                  Context provided: ${context}
-                  
-                  Guidelines:
-                  - Be confident, smart, and concise.
-                  - Focus on Ayush's projects, skills, and value to a recruiter.
-                  - If the user asks about a specific project, use the 'Context' provided to explain it.
-                  - If the user asks for voice input, remind them to click the microphone icon.
-                  - Sound like a high-end personal JARVIS for an elite developer.
-                  - Keep responses under 3-4 sentences.
-                  
-                  User message: ${message}`
+                  text: `You are Ayush's AI Assistant (JARVIS-style).
+
+Your role:
+- Help recruiters understand Ayush's elite expertise in Data Science and IT Engineering.
+- Explain projects intelligently using the context provided.
+- Highlight skills and strengths with confidence.
+- Be extremely concise (max 3 sentences), smart, and impressive.
+
+Project/System Context:
+${projectContext || "No specific project selected. General portfolio assistant mode active."}
+
+User Instruction:
+${message}`
                 }
               ]
             }
@@ -43,7 +42,7 @@ export async function POST(req: Request) {
             temperature: 0.7,
             topK: 40,
             topP: 0.95,
-            maxOutputTokens: 250,
+            maxOutputTokens: 150,
           }
         }),
       }

@@ -65,5 +65,5 @@ export const scaleIn: Variants = {
 export const hoverScale = {
   whileHover: { scale: 1.03, y: -5 },
   whileTap: { scale: 0.98 },
-  transition: { duration: 0.3, ease: "easeOut" },
+  transition: { duration: 0.3, ease: "easeOut" as const },
 };

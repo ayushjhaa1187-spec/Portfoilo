@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ExternalLink } from "lucide-react";
+import { recruiterInfo } from "../data/portfolio";
 
 const navLinks = [
   { name: "ABOUT", href: "#about" },
@@ -64,11 +65,11 @@ export default function Navigation() {
             </a>
           ))}
           <a
-            href="#hiring"
-            onClick={(e) => scrollToSection(e, "#hiring")}
-            className="bg-[#D4AF37] text-[#0A0A0B] px-8 py-3.5 font-mono text-[10px] font-bold tracking-[4px] hover:scale-105 transition-all rounded-full"
+            href={recruiterInfo.calendly}
+            target="_blank"
+            className="bg-[#D4AF37] text-[#0A0A0B] px-8 py-3.5 font-mono text-[10px] font-bold tracking-[4px] hover:scale-105 transition-all rounded-full flex items-center gap-2"
           >
-            HACK ME
+            HACK ME <ExternalLink size={12} strokeWidth={3} />
           </a>
         </div>
 

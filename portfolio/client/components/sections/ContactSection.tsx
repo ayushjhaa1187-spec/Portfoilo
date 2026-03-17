@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ArrowRight } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowRight, Calendar } from "lucide-react";
+import { recruiterInfo } from "../../data/portfolio";
 import MagneticButton from "../MagneticButton";
 import SectionReveal from "../SectionReveal";
 
@@ -59,7 +60,7 @@ export default function ContactSection() {
           <MagneticButton>
              <a 
               href="mailto:ayushjhaa1187@gmail.com" 
-              className="bg-[#D4AF37] text-white px-12 py-5 font-mono text-xs tracking-widest flex items-center gap-3 hover:bg-[#b89a2e] transition-all group"
+              className="bg-[#D4AF37] text-[#0A0A0B] px-12 py-5 font-mono text-xs font-bold tracking-[3px] flex items-center gap-3 hover:bg-[#b89a2e] transition-all group"
              >
               SAY HELLO <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
              </a>
@@ -67,11 +68,11 @@ export default function ContactSection() {
 
           <MagneticButton>
              <a 
-              href="https://github.com/ayushjhaa1187-spec" 
+              href={recruiterInfo.calendly}
               target="_blank"
-              className="bg-transparent border border-[#1E1E24] text-[#F1F0FB] px-12 py-5 font-mono text-xs tracking-widest hover:border-[#D4AF37] transition-all"
+              className="bg-transparent border border-[#1E1E24] text-[#F1F0FB] px-12 py-5 font-mono text-xs tracking-widest flex items-center gap-3 hover:border-[#D4AF37] transition-all group"
              >
-              VIEW GITHUB
+              <Calendar size={14} className="text-[#06B6D4]" /> BOOK CALL
              </a>
           </MagneticButton>
         </motion.div>

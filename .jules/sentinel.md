@@ -1,0 +1,4 @@
+## 2024-05-18 - [Missing Admin Auth & Timing Attacks]
+**Vulnerability:** The `POST /api/projects` endpoint in the Mongoose backend lacked any authentication, leaving the admin functionality exposed publicly.
+**Learning:** Even internal or "TODO" endpoints can expose critical mass assignment vulnerabilities (`new Project(req.body)`). When implementing API key authentication manually, standard string comparison introduces a timing attack vulnerability.
+**Prevention:** Always implement authentication on write-endpoints before deployment. For API keys, always use `crypto.timingSafeEqual` with normalized buffer lengths (e.g. `crypto.createHash('sha256').update(key).digest()`) rather than simple `===` string comparisons.

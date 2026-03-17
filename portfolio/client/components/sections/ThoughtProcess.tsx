@@ -14,7 +14,7 @@ const iconMap: { [key: string]: any } = {
 
 export default function ThoughtProcess() {
   return (
-    <section id="process" className="bg-[#0A0A0B] py-16 md:py-24 lg:py-32 relative overflow-hidden">
+    <section id="process" className="bg-[#0A0A0B] py-24 md:py-32 lg:py-48 relative overflow-hidden">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -29,12 +29,12 @@ export default function ThoughtProcess() {
           <h2 className="font-display text-5xl lg:text-8xl text-[#F1F0FB] tracking-tighter leading-none mb-6">
             HOW I <span className="text-outline">BUILD</span> PRODUCTS
           </h2>
-          <p className="max-w-2xl mx-auto text-[#F1F0FB]/50 font-light text-lg leading-relaxed">
+          <p className="max-w-2xl mx-auto text-[#F1F0FB]/50 font-light text-xl leading-relaxed mt-8">
             Engineering is more than just writing code. It's about translating complex business problems into scalable, high-performance digital ecosystems.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
           {thoughtProcess.map((step, i) => {
             const Icon = iconMap[step.icon] || Search;
             return (
@@ -43,7 +43,7 @@ export default function ThoughtProcess() {
                 variants={fadeUp}
                 className="group relative"
               >
-                <div className="bg-[#111113] border border-[#1E1E24] p-10 rounded-3xl h-full flex flex-col items-start hover:border-[#D4AF37]/40 transition-all duration-500 hover:-translate-y-2">
+                <div className="bg-[#111113] border border-[#1E1E24] p-12 lg:p-14 rounded-3xl h-full flex flex-col items-start hover:border-[#D4AF37]/40 transition-all duration-500 hover:-translate-y-2">
                   <div className="text-[#D4AF37] mb-8 p-4 bg-[#0A0A0B] rounded-2xl group-hover:scale-110 transition-transform">
                     <Icon size={24} />
                   </div>

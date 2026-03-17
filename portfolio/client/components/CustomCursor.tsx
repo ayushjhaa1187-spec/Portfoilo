@@ -99,13 +99,13 @@ export default function CustomCursor() {
       {/* Central Probe */}
       <div 
         ref={dotRef} 
-        className="custom-cursor fixed top-0 left-0 w-[10px] h-[10px] bg-[#D4AF37] rounded-full pointer-events-none z-[10001] transition-transform duration-100 mix-blend-difference" 
+        className="custom-cursor fixed top-0 left-0 w-[10px] h-[10px] bg-[#D4AF37] rounded-full pointer-events-none z-[1000001] transition-transform duration-100" 
       />
       
       {/* Reactive Perimeter */}
       <div 
         ref={ringRef} 
-        className="custom-cursor-ring fixed w-[40px] h-[40px] border border-[#D4AF37]/30 bg-white/5 backdrop-blur-[2px] rounded-full pointer-events-none z-[10000] transition-all duration-300 ease-out flex items-center justify-center -translate-x-1/2 -translate-y-1/2"
+        className="custom-cursor-ring fixed w-[40px] h-[40px] border border-[#D4AF37]/30 bg-white/5 backdrop-blur-[2px] rounded-full pointer-events-none z-[1000000] transition-all duration-300 ease-out flex items-center justify-center -translate-x-1/2 -translate-y-1/2"
       />
     </>
   );

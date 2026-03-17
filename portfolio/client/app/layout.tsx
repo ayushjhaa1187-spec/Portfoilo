@@ -44,6 +44,11 @@ export const metadata: Metadata = {
   },
 };
 
+import CustomCursor from "@/components/CustomCursor";
+import Navigation from "@/components/Navigation";
+import CommandPalette from "@/components/CommandPalette";
+import AIAssistant from "@/components/AIAssistant";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -52,7 +57,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark scroll-smooth">
       <body className={`${bebas.variable} ${outfit.variable} ${spaceMono.variable} font-body bg-[#060608]`}>
+        <CustomCursor />
+        <Navigation />
+        <CommandPalette />
+        <div className="noise-overlay" />
         {children}
+        <AIAssistant />
       </body>
     </html>
   );

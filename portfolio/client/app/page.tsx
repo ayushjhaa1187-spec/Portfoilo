@@ -37,15 +37,9 @@ export default function Home() {
       <AnimatePresence>
         {isLoading && <LoadingScreen />}
       </AnimatePresence>
-
-      <CustomCursor />
-      <div className="noise-overlay" />
       
       {!isLoading && (
         <div className="relative w-full overflow-x-hidden">
-          <Navigation />
-          <CommandPalette />
-          
           <HeroSection />
           
           <TickerSection />
@@ -73,7 +67,6 @@ export default function Home() {
           
           <ContactSection />
           
-          <AIAssistant />
           <FooterSection />
         </div>
       )}

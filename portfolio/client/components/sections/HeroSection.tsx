@@ -7,6 +7,7 @@ import MagneticButton from "../MagneticButton";
 import dynamic from "next/dynamic";
 import ErrorBoundary from "../ErrorBoundary";
 import { personalInfo, recruiterInfo, githubStats } from "../../data/portfolio";
+import { fadeUp, staggerContainer } from "../../lib/animations";
 
 // Dynamically import Lottie for client-side only rendering
 // Dynamically import Lottie removed for robustness - replacing with custom SVG/Framer Motion visual
@@ -104,58 +105,63 @@ export default function HeroSection() {
       >
         {/* Left Content */}
         <div className="relative">
-          {/* Availability Badge */}
           <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="group flex items-center gap-3 bg-[#111113] border border-[#1E1E24] px-5 py-2.5 w-fit mb-12 rounded-full cursor-pointer hover:border-[#D4AF37]/50 transition-all duration-300"
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+            className="relative"
           >
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D4AF37] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#D4AF37]"></span>
-            </span>
-            <span className="font-mono text-[10px] tracking-[2px] text-[#F1F0FB]/80 uppercase group-hover:text-[#F1F0FB] transition-colors">
-              {recruiterInfo.status}
-            </span>
-            <ArrowRight size={12} className="text-[#D4AF37] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
-          </motion.div>
-
-          {/* Headline Section */}
-          <div className="mb-8">
-            <motion.div className="flex flex-col gap-0">
-               <div className="overflow-hidden">
-                <motion.h1 custom={0} variants={nameVariants} initial="hidden" animate="visible" className="font-display text-[clamp(4rem,10vw,9rem)] leading-[0.9] tracking-tighter text-[#F1F0FB]">
-                  {personalInfo.firstName.toUpperCase()}
-                </motion.h1>
-               </div>
-               <div className="overflow-hidden">
-                <motion.h1 custom={1} variants={nameVariants} initial="hidden" animate="visible" className="font-display text-[clamp(4rem,10vw,9rem)] leading-[0.9] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F1F0FB] to-[#D4AF37] animate-gradient-x">
-                  {personalInfo.lastName.toUpperCase()}
-                </motion.h1>
-               </div>
+            {/* Availability Badge */}
+            <motion.div 
+              variants={fadeUp}
+              custom={0.2}
+              className="group flex items-center gap-3 bg-[#111113] border border-[#1E1E24] px-5 py-2.5 w-fit mb-12 rounded-full cursor-pointer hover:border-[#D4AF37]/50 transition-all duration-300"
+            >
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D4AF37] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#D4AF37]"></span>
+              </span>
+              <span className="font-mono text-[10px] tracking-[2px] text-[#F1F0FB]/80 uppercase group-hover:text-[#F1F0FB] transition-colors">
+                {recruiterInfo.status}
+              </span>
+              <ArrowRight size={12} className="text-[#D4AF37] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
             </motion.div>
-          </div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="flex items-center gap-4 mb-12"
-          >
-            <div className="h-px w-12 bg-[#D4AF37]/40" />
-            <div className="font-mono text-xl lg:text-3xl text-[#06B6D4] font-medium min-h-[1.5em] flex items-center">
-              {typedText}<span className="w-1 h-8 bg-[#D4AF37] ml-2 animate-pulse" />
+            {/* Headline Section */}
+            <div className="mb-8">
+              <motion.div className="flex flex-col gap-0">
+                 <div className="overflow-hidden">
+                  <motion.h1 custom={0} variants={nameVariants} initial="hidden" animate="visible" className="font-display text-[clamp(4rem,10vw,9rem)] leading-[0.9] tracking-tighter text-[#F1F0FB]">
+                    {personalInfo.firstName.toUpperCase()}
+                  </motion.h1>
+                 </div>
+                 <div className="overflow-hidden">
+                  <motion.h1 custom={1} variants={nameVariants} initial="hidden" animate="visible" className="font-display text-[clamp(4rem,10vw,9rem)] leading-[0.9] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F1F0FB] to-[#D4AF37] animate-gradient-x">
+                    {personalInfo.lastName.toUpperCase()}
+                  </motion.h1>
+                 </div>
+              </motion.div>
             </div>
-          </motion.div>
 
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            className="max-w-xl text-lg lg:text-xl text-[#F1F0FB]/60 leading-relaxed mb-12 font-light"
-          >
-            Architecting <span className="text-[#F1F0FB] font-medium italic">future-ready autonomous systems</span> at the intersection of AI, Economics, and High-Impact Software Engineering.
-          </motion.p>
+            <motion.div 
+              variants={fadeUp}
+              custom={0.6}
+              className="flex items-center gap-4 mb-12"
+            >
+              <div className="h-px w-12 bg-[#D4AF37]/40" />
+              <div className="font-mono text-xl lg:text-3xl text-[#06B6D4] font-medium min-h-[1.5em] flex items-center">
+                {typedText}<span className="w-1 h-8 bg-[#D4AF37] ml-2 animate-pulse" />
+              </div>
+            </motion.div>
+
+            <motion.p 
+              variants={fadeUp}
+              custom={0.8}
+              className="max-w-xl text-lg lg:text-xl text-[#F1F0FB]/60 leading-relaxed mb-12 font-light"
+            >
+              Architecting <span className="text-[#F1F0FB] font-medium italic">future-ready autonomous systems</span> at the intersection of AI, Economics, and High-Impact Software Engineering.
+            </motion.p>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, x: -20 }}

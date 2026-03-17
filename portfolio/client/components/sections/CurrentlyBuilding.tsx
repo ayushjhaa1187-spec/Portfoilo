@@ -4,12 +4,19 @@ import { motion } from "framer-motion";
 import { Zap, Construction, Code2, ArrowUpRight } from "lucide-react";
 import SectionReveal from "../SectionReveal";
 import { currentlyBuilding } from "../../data/portfolio";
+import { fadeUp, staggerContainer, hoverScale } from "../../lib/animations";
 
 export default function CurrentlyBuilding() {
   return (
     <section id="building" className="bg-[#0A0A0B] py-16 md:py-24 lg:py-32 relative overflow-hidden">
-      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
-        <SectionReveal>
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+        className="max-w-[1200px] mx-auto px-6 relative z-10"
+      >
+        <motion.div variants={fadeUp}>
           <div className="mb-12 md:mb-20">
             <span className="section-label text-[#06B6D4] font-mono text-[10px] tracking-[8px] uppercase block mb-4">
               // ACTIVE_DEVELOPMENT
@@ -18,17 +25,17 @@ export default function CurrentlyBuilding() {
               CURRENTLY <span className="text-outline">DEVELOPING</span>
             </h2>
           </div>
-        </SectionReveal>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {currentlyBuilding.map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: i * 0.1 }}
-              className="group bg-[#111113] border border-[#1E1E24] p-10 rounded-3xl hover:border-[#06B6D4]/30 transition-all duration-500"
+              variants={fadeUp}
+              whileHover={hoverScale.whileHover}
+              whileTap={hoverScale.whileTap}
+              transition={hoverScale.transition}
+              className="group bg-[#111113] border border-[#1E1E24] p-10 rounded-3xl hover:border-[#06B6D4]/30 transition-all duration-500 shadow-xl hover:shadow-[0_20px_40px_-15px_rgba(6,182,212,0.1)]"
             >
               <div className="flex justify-between items-start mb-10">
                 <div className="p-4 rounded-2xl bg-[#0A0A0B] border border-[#1E1E24] text-[#06B6D4] group-hover:scale-110 transition-transform duration-500">
@@ -78,9 +85,7 @@ export default function CurrentlyBuilding() {
         </div>
 
         <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          variants={fadeUp}
           className="mt-20 p-10 bg-[#111113] border border-[#1E1E24] border-dashed rounded-3xl flex flex-col lg:flex-row items-center justify-between gap-10"
         >
           <div className="flex items-center gap-6">
@@ -99,7 +104,7 @@ export default function CurrentlyBuilding() {
             GET IN TOUCH <ArrowUpRight size={16} />
           </a>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

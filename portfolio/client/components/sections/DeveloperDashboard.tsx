@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Github, Star, GitPullRequest, Code2, Globe, GitBranch } from "lucide-react";
 import SectionReveal from "../SectionReveal";
 import { githubStats } from "../../data/portfolio";
+import { fadeUp, staggerContainer, hoverScale } from "../../lib/animations";
 
 export default function DeveloperDashboard() {
   const statCards = [
@@ -15,8 +16,14 @@ export default function DeveloperDashboard() {
 
   return (
     <section id="stats" className="bg-[#0A0A0B] py-16 md:py-24 lg:py-32 relative overflow-hidden">
-      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
-        <SectionReveal>
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+        className="max-w-[1200px] mx-auto px-6 relative z-10"
+      >
+        <motion.div variants={fadeUp}>
           <div className="mb-12 md:mb-20">
             <span className="section-label text-[#555560] font-mono text-[10px] tracking-[8px] uppercase block mb-4">
               // TELEMETRY_HUB
@@ -25,7 +32,7 @@ export default function DeveloperDashboard() {
               DEVELOPER <span className="text-[#D4AF37]">DASHBOARD</span>
             </h2>
           </div>
-        </SectionReveal>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8">
           {/* Main Stats Grid */}
@@ -33,11 +40,9 @@ export default function DeveloperDashboard() {
             {statCards.map((stat, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: i * 0.1 }}
-                whileHover={{ scale: 1.02 }}
+                variants={fadeUp}
+                whileHover={hoverScale.whileHover}
+                whileTap={hoverScale.whileTap}
                 className="bg-[#111113] border border-[#1E1E24] p-8 rounded-3xl flex items-center gap-8 group"
               >
                 <div 
@@ -54,10 +59,7 @@ export default function DeveloperDashboard() {
             ))}
 
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              variants={fadeUp}
               className="bg-[#111113] border border-[#1E1E24] p-8 rounded-3xl md:col-span-2 flex flex-col md:flex-row items-center gap-8 group overflow-hidden relative"
             >
               <div className="relative z-10 flex flex-col gap-6 w-full">
@@ -113,10 +115,7 @@ export default function DeveloperDashboard() {
 
           {/* Contributions Graph Mockup */}
           <motion.div 
-             initial={{ opacity: 0, x: 20 }}
-             whileInView={{ opacity: 1, x: 0 }}
-             viewport={{ once: true }}
-             transition={{ duration: 0.8 }}
+             variants={fadeUp}
              className="bg-[#111113] border border-[#1E1E24] p-10 rounded-3xl flex flex-col justify-between"
           >
             <div>
@@ -157,7 +156,7 @@ export default function DeveloperDashboard() {
             </div>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

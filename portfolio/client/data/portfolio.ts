@@ -941,28 +941,28 @@ export const githubStats = {
 
 export const thoughtProcess = [
     {
-        step: '01',
-        title: 'Deep Problem Immersion',
-        desc: 'I don\'t start with code. I start by dismantling the business bottleneck and understanding the user\'s real friction points.',
-        icon: '🔍',
+        phase: 'Problem Immersion',
+        description: 'Before writing a single line of code, I dismantle the business bottleneck. I focus on understanding the core friction points and defining clear success metrics.',
+        icon: 'Search',
+        keyPoints: ['Stakeholder Research', 'Pain Point Identification', 'Impact Assessment'],
     },
     {
-        step: '02',
-        title: 'Architectural Blueprint',
-        desc: 'Designing systems that scale. I choose technologies based on their impact on performance and long-term maintainability.',
-        icon: '🏗️',
+        phase: 'Strategic Architecture',
+        description: 'I design systems that scale. This involves choosing the right tech stack (FastAPI vs Django, Next.js vs Vite) based on long-term maintainability and performance needs.',
+        icon: 'PenTool',
+        keyPoints: ['Schema Design', 'API Orchestration', 'Scalability Audit'],
     },
     {
-        step: '03',
-        title: 'Rapid Prototyping & Feedback',
-        desc: 'Ship the core value fast. I iterate based on real feedback to ensure the final product hits the market need exactly.',
-        icon: '⚡',
+        phase: 'Agile Iteration',
+        description: 'Ship core value fast. I build functional prototypes to validate logic and gather user feedback, ensuring the solution evolves with real-world requirements.',
+        icon: 'Lightbulb',
+        keyPoints: ['Rapid Prototyping', 'User Feedback Loops', 'Fail-Fast Methodology'],
     },
     {
-        step: '04',
-        title: 'Refined Execution',
-        desc: 'Polishing UX/UI and optimizing performance. A product is only as good as it feels in the user\'s hands.',
-        icon: '✨',
+        phase: 'Product Polish',
+        description: 'The final 10% is where the magic happens. I optimize performance, refine the UX/UI, and ensure the product feels premium and reliable at every touchpoint.',
+        icon: 'CheckCircle2',
+        keyPoints: ['Performance Tuning', 'UI/UX Excellence', 'Quality Assurance'],
     },
 ];
 

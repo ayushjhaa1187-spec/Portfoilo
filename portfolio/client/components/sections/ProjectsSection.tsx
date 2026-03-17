@@ -5,6 +5,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { ExternalLink, Github, ArrowUpRight, X, Layers, Target, Zap, ChevronRight } from "lucide-react";
 import SectionReveal from "../SectionReveal";
 import { projects, Project } from "../../data/portfolio";
+import { fadeUp, staggerContainer, hoverScale } from "../../lib/animations";
 
 export default function ProjectsSection() {
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
@@ -34,7 +35,13 @@ export default function ProjectsSection() {
           </div>
         </SectionReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+        >
           {projects.map((project, i) => (
             <ProjectCard 
               key={project.slug} 
@@ -43,7 +50,7 @@ export default function ProjectsSection() {
               onClick={() => setSelectedSlug(project.slug)}
             />
           ))}
-        </div>
+        </motion.div>
 
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -78,12 +85,11 @@ function ProjectCard({ project, index, onClick }: { project: Project; index: num
 
   return (
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay: (index % 3) * 0.1, ease: [0.33, 1, 0.68, 1] }}
-      whileHover={{ y: -10 }}
-      className="group bg-[#111113] border border-[#1E1E24] p-8 lg:p-10 hover:border-[#D4AF37]/30 transition-all duration-500 cursor-pointer flex flex-col justify-between h-full rounded-2xl relative overflow-hidden"
+      variants={fadeUp}
+      whileHover={hoverScale.whileHover}
+      whileTap={hoverScale.whileTap}
+      transition={hoverScale.transition}
+      className="group bg-[#111113] border border-[#1E1E24] p-8 lg:p-10 hover:border-[#D4AF37]/30 transition-all duration-500 cursor-pointer flex flex-col justify-between h-full rounded-2xl relative overflow-hidden shadow-xl hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.1)]"
       onClick={onClick}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />

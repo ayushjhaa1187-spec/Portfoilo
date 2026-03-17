@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { GraduationCap, MapPin, Mail, Award, Quote, Search, Cpu, Globe } from "lucide-react";
 import SectionReveal from "../SectionReveal";
 import { personalInfo } from "../../data/portfolio";
+import { fadeUp, staggerContainer } from "../../lib/animations";
 
 export default function AboutSection() {
   const beliefs = [
@@ -20,37 +21,40 @@ export default function AboutSection() {
 
       <div className="max-w-[1200px] mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-24 items-center">
-          <SectionReveal>
-            <div>
-              <div className="mb-12 md:mb-20">
-                <span className="section-label text-[#D4AF37] font-mono text-[10px] tracking-[8px] uppercase block mb-4">
-                  // IDENTITY_MANIFESTO
-                </span>
-                <h2 className="font-display text-6xl lg:text-8xl text-[#F1F0FB] leading-[0.85] tracking-tighter mb-4">
-                  ENGINEERING<br />
-                  <span className="text-outline">PURPOSE</span><br />
-                  FROM COMPLEX DATA
-                </h2>
-              </div>
-              
-              <div className="relative mb-12 group">
-                <Quote className="absolute -left-8 -top-8 text-[#1E1E24] group-hover:text-[#D4AF37]/20 transition-colors" size={60} />
-                <p className="font-body text-[#F1F0FB]/60 text-xl lg:text-2xl leading-relaxed italic relative z-10 border-l-2 border-[#D4AF37]/30 pl-8">
-                  {personalInfo.bio}
-                </p>
-              </div>
-
-              <div className="bg-[#111113] border border-[#1E1E24] p-10 rounded-3xl relative overflow-hidden group">
-                 <div className="absolute top-0 right-0 p-8 opacity-[0.05] group-hover:opacity-10 transition-opacity">
-                    <Award size={100} />
-                 </div>
-                 <span className="font-mono text-[9px] tracking-[4px] text-[#D4AF37] uppercase block mb-4 italic">Core Philosophy</span>
-                 <p className="font-display text-2xl lg:text-3xl text-[#F1F0FB] leading-snug tracking-wide">
-                   "{personalInfo.philosophy}"
-                 </p>
-              </div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+          >
+            <div className="mb-12 md:mb-20">
+              <motion.span variants={fadeUp} className="section-label text-[#D4AF37] font-mono text-[10px] tracking-[8px] uppercase block mb-4">
+                // IDENTITY_MANIFESTO
+              </motion.span>
+              <motion.h2 variants={fadeUp} className="font-display text-6xl lg:text-8xl text-[#F1F0FB] leading-[0.85] tracking-tighter mb-4">
+                ENGINEERING<br />
+                <span className="text-outline">PURPOSE</span><br />
+                FROM COMPLEX DATA
+              </motion.h2>
             </div>
-          </SectionReveal>
+            
+            <motion.div variants={fadeUp} className="relative mb-12 group">
+              <Quote className="absolute -left-8 -top-8 text-[#1E1E24] group-hover:text-[#D4AF37]/20 transition-colors" size={60} />
+              <p className="font-body text-[#F1F0FB]/60 text-xl lg:text-2xl leading-relaxed italic relative z-10 border-l-2 border-[#D4AF37]/30 pl-8">
+                {personalInfo.bio}
+              </p>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="bg-[#111113] border border-[#1E1E24] p-10 rounded-3xl relative overflow-hidden group">
+               <div className="absolute top-0 right-0 p-8 opacity-[0.05] group-hover:opacity-10 transition-opacity">
+                  <Award size={100} />
+               </div>
+               <span className="font-mono text-[9px] tracking-[4px] text-[#D4AF37] uppercase block mb-4 italic">Core Philosophy</span>
+               <p className="font-display text-2xl lg:text-3xl text-[#F1F0FB] leading-snug tracking-wide">
+                 "{personalInfo.philosophy}"
+               </p>
+            </motion.div>
+          </motion.div>
 
           <div className="space-y-8">
             <div className="grid grid-cols-1 gap-6">

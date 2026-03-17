@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Award, Briefcase, GraduationCap, MapPin } from "lucide-react";
 import SectionReveal from "../SectionReveal";
+import { fadeUp, staggerContainer } from "../../lib/animations";
 
 interface TimelineEntry {
   year: string;
@@ -57,18 +58,22 @@ const timeline: TimelineEntry[] = [
 export default function ExperienceSection() {
   return (
     <section id="experience" className="bg-[#060608] py-16 md:py-24 lg:py-32 relative overflow-hidden">
-      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
-        <SectionReveal>
-          <div className="mb-12 md:mb-20">
-            <span className="section-label text-[#555560] font-mono text-xs tracking-[5px] uppercase block mb-4">
-              // 004 — JOURNEY
-            </span>
-            <h2 className="font-display text-7xl lg:text-9xl text-[#F1F0FB] leading-[0.8] tracking-tight mb-4">
-              CAREER &<br />
-              <span className="text-outline">ACADEMICS</span>
-            </h2>
-          </div>
-        </SectionReveal>
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+        className="max-w-[1200px] mx-auto px-6 relative z-10"
+      >
+        <motion.div variants={fadeUp} className="mb-12 md:mb-20">
+          <span className="section-label text-[#555560] font-mono text-xs tracking-[5px] uppercase block mb-4">
+            // 004 — JOURNEY
+          </span>
+          <h2 className="font-display text-7xl lg:text-9xl text-[#F1F0FB] leading-[0.8] tracking-tight mb-4">
+            CAREER &<br />
+            <span className="text-outline">ACADEMICS</span>
+          </h2>
+        </motion.div>
 
         <div className="relative">
           {/* Vertical Line - Desktop Only */}
@@ -80,7 +85,7 @@ export default function ExperienceSection() {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
@@ -108,9 +113,7 @@ function TimelineItem({ entry, index }: { entry: TimelineEntry; index: number })
         {/* Card Side */}
         <div className="w-full lg:w-1/2">
           <motion.div
-            initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
+            variants={fadeUp}
             className={`w-full max-w-[560px] ${isLeft ? "lg:mr-auto lg:pr-16" : "lg:ml-auto lg:pl-16"}`}
           >
             <div className="bg-[#0E0E12] p-8 lg:p-10 border-l-2 border-[#D4AF37]">

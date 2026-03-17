@@ -41,11 +41,13 @@ export default function Home() {
       <div className="noise-overlay" />
       
       {!isLoading && (
-        <div className="flex flex-col relative w-full overflow-x-hidden">
+        <div className="flex flex-col gap-32 lg:gap-48 relative w-full overflow-x-hidden pt-12">
           <Navigation />
           <CommandPalette />
           
-          <HeroSection />
+          <div className="pt-20 lg:pt-32">
+            <HeroSection />
+          </div>
           
           <TickerSection />
           
@@ -65,8 +67,10 @@ export default function Home() {
           <SectionDivider />
           
           <AboutSection />
+          <SectionDivider />
           
           <RecruiterSection />
+          <SectionDivider />
           
           <ContactSection />
           

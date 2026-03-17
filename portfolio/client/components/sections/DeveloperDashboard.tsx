@@ -17,7 +17,7 @@ export default function DeveloperDashboard() {
     <section id="stats" className="bg-[#0A0A0B] py-32 lg:py-48 relative overflow-hidden">
       <div className="max-w-[1500px] mx-auto px-6 lg:px-20 relative z-10">
         <SectionReveal>
-          <div className="mb-20">
+          <div className="mb-32">
             <span className="section-label text-[#555560] font-mono text-[10px] tracking-[8px] uppercase block mb-6">
               // TELEMETRY_HUB
             </span>

@@ -59,7 +59,7 @@ export default function ExperienceSection() {
     <section id="experience" className="bg-[#060608] py-32 lg:py-48 relative overflow-hidden">
       <div className="max-w-[1400px] mx-auto relative z-10">
         <SectionReveal>
-          <div className="mb-32">
+          <div className="mb-48">
             <span className="section-label text-[#555560] font-mono text-xs tracking-[5px] uppercase block mb-6">
               // 004 — JOURNEY
             </span>
@@ -92,7 +92,7 @@ function TimelineItem({ entry, index }: { entry: TimelineEntry; index: number })
   const Icon = entry.icon;
 
   return (
-    <div ref={ref} className="relative w-full mb-24 lg:mb-32 last:mb-0">
+    <div ref={ref} className="relative w-full mb-32 lg:mb-48 last:mb-0">
       {/* Center Marker - Desktop Only */}
       <div className="hidden lg:block absolute left-1/2 top-0 -translate-x-1/2 z-20">
         <motion.div

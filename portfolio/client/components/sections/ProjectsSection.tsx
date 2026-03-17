@@ -18,7 +18,7 @@ export default function ProjectsSection() {
 
       <div className="max-w-[1500px] mx-auto px-6 lg:px-20 relative z-10">
         <SectionReveal>
-          <div className="mb-24 flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+          <div className="mb-48 flex flex-col lg:flex-row lg:items-end justify-between gap-16">
             <div>
               <span className="section-label text-[#D4AF37] font-mono text-[10px] tracking-[8px] uppercase block mb-6 px-1 border-l-2 border-[#D4AF37]">
                 WORK ARCHIVE
@@ -49,7 +49,7 @@ export default function ProjectsSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-24 flex justify-center"
+          className="mt-48 flex justify-center"
         >
            <a 
             href="https://github.com/ayushjhaa1187-spec" 

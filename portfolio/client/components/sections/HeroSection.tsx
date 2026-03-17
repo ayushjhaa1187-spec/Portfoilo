@@ -89,7 +89,7 @@ export default function HeroSection() {
     <section 
       ref={containerRef}
       id="home" 
-      className="relative min-h-screen flex flex-col justify-center px-6 lg:px-24 overflow-hidden pt-32 lg:pt-0 bg-[#0A0A0B]"
+      className="relative min-h-screen flex flex-col justify-center px-6 lg:px-24 overflow-hidden py-32 lg:py-48 bg-[#0A0A0B]"
     >
       {/* Dynamic Background */}
       <div className="absolute inset-0 z-0">
@@ -108,7 +108,7 @@ export default function HeroSection() {
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="group flex items-center gap-3 bg-[#111113] border border-[#1E1E24] px-5 py-2.5 w-fit mb-8 rounded-full cursor-pointer hover:border-[#D4AF37]/50 transition-all duration-300"
+            className="group flex items-center gap-3 bg-[#111113] border border-[#1E1E24] px-5 py-2.5 w-fit mb-12 rounded-full cursor-pointer hover:border-[#D4AF37]/50 transition-all duration-300"
           >
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D4AF37] opacity-75"></span>
@@ -121,7 +121,7 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Headline Section */}
-          <div className="mb-4">
+          <div className="mb-8">
             <motion.div className="flex flex-col gap-0">
                <div className="overflow-hidden">
                 <motion.h1 custom={0} variants={nameVariants} initial="hidden" animate="visible" className="font-display text-[clamp(4rem,10vw,9rem)] leading-[0.9] tracking-tighter text-[#F1F0FB]">
@@ -140,7 +140,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="flex items-center gap-4 mb-8"
+            className="flex items-center gap-4 mb-12"
           >
             <div className="h-px w-12 bg-[#D4AF37]/40" />
             <div className="font-mono text-xl lg:text-3xl text-[#06B6D4] font-medium min-h-[1.5em] flex items-center">
@@ -152,7 +152,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="max-w-xl text-lg lg:text-xl text-[#F1F0FB]/60 leading-relaxed mb-8 font-light"
+            className="max-w-xl text-lg lg:text-xl text-[#F1F0FB]/60 leading-relaxed mb-12 font-light"
           >
             Architecting <span className="text-[#F1F0FB] font-medium italic">future-ready autonomous systems</span> at the intersection of AI, Economics, and High-Impact Software Engineering.
           </motion.p>
@@ -174,7 +174,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1 }}
-            className="flex flex-wrap gap-5 mb-16"
+            className="flex flex-wrap gap-5 mb-24"
           >
             <MagneticButton>
               <a 

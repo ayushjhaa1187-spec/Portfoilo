@@ -25,13 +25,13 @@ export default function AboutSection() {
               <span className="section-label text-[#D4AF37] font-mono text-[10px] tracking-[8px] uppercase block mb-6">
                 // IDENTITY_MANIFESTO
               </span>
-              <h2 className="font-display text-6xl lg:text-8xl text-[#F1F0FB] leading-[0.85] tracking-tighter mb-12">
+              <h2 className="font-display text-6xl lg:text-8xl text-[#F1F0FB] leading-[0.85] tracking-tighter mb-20">
                 ENGINEERING<br />
                 <span className="text-outline">PURPOSE</span><br />
                 FROM COMPLEX DATA
               </h2>
               
-              <div className="relative mb-12 group">
+              <div className="relative mb-20 group">
                 <Quote className="absolute -left-8 -top-8 text-[#1E1E24] group-hover:text-[#D4AF37]/20 transition-colors" size={60} />
                 <p className="font-body text-[#F1F0FB]/60 text-xl lg:text-2xl leading-relaxed italic relative z-10 border-l-2 border-[#D4AF37]/30 pl-8">
                   {personalInfo.bio}

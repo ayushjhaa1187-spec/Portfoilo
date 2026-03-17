@@ -13,7 +13,7 @@ const tickerText = [
 
 export default function TickerSection() {
   return (
-    <div className="bg-[#0E0E12] border-y border-[#1E1E24] overflow-hidden py-6 relative">
+    <div className="bg-[#0E0E12] border-y border-[#1E1E24] overflow-hidden py-12 lg:py-24 relative">
       <div className="flex whitespace-nowrap animate-marquee">
         {[...tickerText, ...tickerText, ...tickerText].map((item, i) => (
           <div key={i} className="flex items-center mx-8">

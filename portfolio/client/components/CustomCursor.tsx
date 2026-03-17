@@ -20,7 +20,7 @@ export default function CustomCursor() {
   useEffect(() => {
     // Detect mobile/touch devices
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024 || 'ontouchstart' in window);
+      setIsMobile(window.innerWidth < 1024);
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -41,6 +41,8 @@ export default function CustomCursor() {
       if (
         target.tagName === "A" ||
         target.tagName === "BUTTON" ||
+        target.tagName === "INPUT" ||
+        target.tagName === "TEXTAREA" ||
         target.closest("a") ||
         target.closest("button") ||
         target.closest("[role='button']") ||

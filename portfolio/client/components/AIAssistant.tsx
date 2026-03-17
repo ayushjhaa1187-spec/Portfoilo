@@ -88,14 +88,14 @@ export default function AIAssistant() {
   };
 
   return (
-    <div className="fixed bottom-8 right-8 z-[1000002]">
+    <div className="fixed bottom-8 right-24 z-[1000005]">
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.9, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, y: 20, scale: 0.9, filter: "blur(10px)" }}
-            className="mb-6 w-[350px] md:w-[400px] h-[500px] bg-[#111113]/90 backdrop-blur-2xl border border-[#D4AF37]/20 rounded-3xl overflow-hidden shadow-[0_20px_60px_-15px_rgba(212,175,55,0.2)] flex flex-col"
+            className="mb-6 w-[350px] md:w-[400px] h-[500px] bg-[#111113]/90 backdrop-blur-2xl border border-[#D4AF37]/20 rounded-3xl overflow-hidden shadow-[0_20px_60px_-15px_rgba(212,175,55,0.2)] flex flex-col translate-x-16 md:translate-x-12"
           >
             {/* Header */}
             <div className="p-6 border-b border-[#1E1E24] flex items-center justify-between bg-[#0A0A0B]/50">

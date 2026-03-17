@@ -63,9 +63,9 @@ export default function CustomCursor() {
       const dx = mousePos.current.x - ringPos.current.x;
       const dy = mousePos.current.y - ringPos.current.y;
       
-      // Responsive interpolation factor
-      ringPos.current.x += dx * 0.15;
-      ringPos.current.y += dy * 0.15;
+      // Responsive interpolation factor (higher = faster)
+      ringPos.current.x += dx * 0.3;
+      ringPos.current.y += dy * 0.3;
 
       if (ringRef.current) {
         // Ring offset by its radius (20px)
@@ -99,13 +99,13 @@ export default function CustomCursor() {
       {/* Central Probe */}
       <div 
         ref={dotRef} 
-        className="custom-cursor fixed top-0 left-0 w-[10px] h-[10px] bg-[#D4AF37] rounded-full pointer-events-none z-[1000001] transition-transform duration-100" 
+        className="custom-cursor fixed top-0 left-0 w-[10px] h-[10px] bg-[#D4AF37] rounded-full pointer-events-none z-[1000001]" 
       />
       
       {/* Reactive Perimeter */}
       <div 
         ref={ringRef} 
-        className="custom-cursor-ring fixed w-[40px] h-[40px] border border-[#D4AF37]/30 bg-white/5 backdrop-blur-[2px] rounded-full pointer-events-none z-[1000000] transition-all duration-300 ease-out flex items-center justify-center -translate-x-1/2 -translate-y-1/2"
+        className="custom-cursor-ring fixed w-[40px] h-[40px] border border-[#D4AF37]/30 bg-white/5 backdrop-blur-[2px] rounded-full pointer-events-none z-[1000000] flex items-center justify-center -translate-x-1/2 -translate-y-1/2"
       />
     </>
   );

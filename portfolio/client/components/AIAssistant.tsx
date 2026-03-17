@@ -88,7 +88,7 @@ export default function AIAssistant() {
   };
 
   return (
-    <div className="fixed bottom-8 right-8 z-[99999]">
+    <div className="fixed bottom-8 right-8 z-[1000002]">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -137,7 +137,7 @@ export default function AIAssistant() {
                   animate={{ opacity: 1, x: 0 }}
                   className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"}`}
                 >
-                  <div className={`max-w-[85%] p-4 rounded-2xl font-mono text-xs leading-relaxed ${
+                  <div className={`max-w-[85%] p-4 rounded-2xl font-mono text-sm leading-relaxed ${
                     msg.type === "user" 
                     ? "bg-[#D4AF37] text-[#0A0A0B] rounded-tr-none shadow-lg" 
                     : "bg-[#1E1E24] text-[#F1F0FB]/80 rounded-tl-none border border-[#D4AF37]/5"
@@ -171,7 +171,7 @@ export default function AIAssistant() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSend(input)}
                   placeholder="Initiate communication..."
-                  className="flex-1 bg-[#1E1E24] border border-[#1E1E24] text-[#F1F0FB] px-5 py-3 rounded-xl font-mono text-[10px] focus:outline-none focus:border-[#D4AF37]/50 transition-all placeholder:text-[#555560]"
+                  className="flex-1 bg-[#1E1E24] border border-[#1E1E24] text-[#F1F0FB] px-5 py-3 rounded-xl font-mono text-xs focus:outline-none focus:border-[#D4AF37]/50 transition-all placeholder:text-[#555560]"
                 />
                 <button 
                   onClick={() => handleSend(input)}

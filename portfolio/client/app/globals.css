@@ -11,7 +11,7 @@
   --text-muted: #555560;
   
   --space-unit: 8px;
-  --section-py-desktop: 140px;
+  --section-py-desktop: 180px;
   --section-px-desktop: 80px;
 }
 
@@ -151,8 +151,7 @@ section {
   background: var(--accent-gold);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 100010;
-  transition: transform 0.2s ease-out;
+  z-index: 1000100;
 }
 
 .custom-cursor-ring {
@@ -165,7 +164,7 @@ section {
   background: rgba(212, 175, 55, 0.05);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 100000;
+  z-index: 1000000;
   transition: width 0.3s ease-out, height 0.3s ease-out, background 0.3s ease-out, border-color 0.3s ease-out;
   display: flex;
   align-items: center;

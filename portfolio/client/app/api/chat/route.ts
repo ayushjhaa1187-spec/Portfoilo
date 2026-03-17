@@ -49,6 +49,13 @@ ${message}`
     );
 
     const data = await response.json();
+    console.log("Gemini API Raw Response:", JSON.stringify(data, null, 2));
+
+    if (data.error) {
+      console.error("Gemini API Error details:", data.error);
+      return NextResponse.json({ reply: `Neural synchronization error: ${data.error.message}` }, { status: 500 });
+    }
+
     const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm processing that. Could you rephrase it?";
 
     return NextResponse.json({ reply });

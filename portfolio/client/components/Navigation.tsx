@@ -45,7 +45,7 @@ export default function Navigation() {
           <img 
             src="/signature-gold.png" 
             alt="Ayush Kumar Jha" 
-            style={{ height: '36px', width: 'auto', objectFit: 'contain' }}
+            style={{ height: '50px', width: 'auto', objectFit: 'contain' }}
             className="group-hover:scale-105 transition-transform duration-500"
           />
           <div className="absolute -bottom-2 left-0 w-0 h-px bg-[#D4AF37] group-hover:w-full transition-all duration-500" />

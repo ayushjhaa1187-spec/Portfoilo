@@ -8,7 +8,7 @@ import { fadeUp, staggerContainer } from "../../lib/animations";
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="bg-[#060608] py-16 md:py-24 lg:py-32 relative overflow-hidden">
+    <section id="contact" className="bg-[#060608] relative overflow-hidden">
       {/* Abstract Background Visual */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#D4AF37]/5 to-transparent pointer-events-none" />
 

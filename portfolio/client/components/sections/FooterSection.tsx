@@ -15,7 +15,7 @@ export default function FooterSection() {
         {/* Logo */}
         <span
           className="font-display text-2xl tracking-wider"
-          style={{ color: "#8B5CF6" }}
+          style={{ color: "#D4AF37" }}
         >
           AKJ
         </span>

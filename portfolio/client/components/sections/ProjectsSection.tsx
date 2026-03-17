@@ -11,30 +11,30 @@ export default function ProjectsSection() {
   const selectedProject = projects.find(p => p.slug === selectedSlug);
 
   return (
-    <section id="projects" className="bg-[#0A0A0B] py-32 lg:py-48 relative overflow-hidden">
+    <section id="projects" className="bg-[#0A0A0B] py-16 md:py-24 lg:py-32 relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#D4AF37]/5 rounded-full blur-[120px] -mr-64 -mt-64" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#06B6D4]/5 rounded-full blur-[120px] -ml-64 -mb-64" />
 
-      <div className="max-w-[1500px] mx-auto px-6 lg:px-20 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
         <SectionReveal>
-          <div className="mb-48 flex flex-col lg:flex-row lg:items-end justify-between gap-16">
+          <div className="mb-12 md:mb-20 flex flex-col lg:flex-row lg:items-end justify-between gap-8 md:gap-16">
             <div>
-              <span className="section-label text-[#D4AF37] font-mono text-[10px] tracking-[8px] uppercase block mb-6 px-1 border-l-2 border-[#D4AF37]">
+              <span className="section-label text-[#D4AF37] font-mono text-[10px] tracking-[8px] uppercase block mb-4 px-1 border-l-2 border-[#D4AF37]">
                 WORK ARCHIVE
               </span>
-              <h2 className="font-display text-[clamp(2.5rem,6vw,6rem)] text-[#F1F0FB] leading-[0.8] tracking-tighter">
+              <h2 className="font-display text-[clamp(2.5rem,6vw,6rem)] text-[#F1F0FB] leading-[0.8] tracking-tighter mb-4">
                 IMPACTFUL<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#F1F0FB]">SOLUTIONS</span>
               </h2>
             </div>
-            <p className="max-w-md text-[#F1F0FB]/50 font-light text-lg leading-relaxed">
+            <p className="max-w-md text-[#F1F0FB]/50 font-light text-lg leading-relaxed mb-4">
               A curated selection of autonomous systems, data engines, and product experiences engineered to solve real-world bottlenecks.
             </p>
           </div>
         </SectionReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {projects.map((project, i) => (
             <ProjectCard 
               key={project.slug} 
@@ -49,7 +49,7 @@ export default function ProjectsSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-48 flex justify-center"
+          className="mt-12 md:mt-20 flex justify-center"
         >
            <a 
             href="https://github.com/ayushjhaa1187-spec" 

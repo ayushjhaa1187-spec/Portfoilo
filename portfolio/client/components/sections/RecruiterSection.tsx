@@ -7,7 +7,7 @@ import MagneticButton from "../MagneticButton";
 
 export default function RecruiterSection() {
   return (
-    <section id="hiring" className="bg-[#0A0A0B] py-32 lg:py-48 relative overflow-hidden">
+    <section id="hiring" className="bg-[#0A0A0B] py-16 md:py-24 lg:py-32 relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-[#D4AF37]/5 rounded-full blur-[150px] pointer-events-none" />
 
@@ -29,11 +29,11 @@ export default function RecruiterSection() {
                 <span className="font-mono text-[10px] tracking-[6px] text-[#D4AF37] uppercase">FOR RECRUITERS</span>
               </motion.div>
 
-              <h2 className="font-display text-5xl lg:text-7xl text-[#F1F0FB] tracking-tighter leading-[0.9] mb-10">
+              <h2 className="font-display text-5xl lg:text-7xl text-[#F1F0FB] tracking-tighter leading-[0.9] mb-8">
                 READY TO <span className="italic">SCALE</span> YOUR<br /> ENGINEERING TEAM?
               </h2>
 
-              <p className="text-xl text-[#F1F0FB]/40 font-light leading-relaxed mb-12 max-w-xl">
+              <p className="text-xl text-[#F1F0FB]/40 font-light leading-relaxed mb-8 max-w-xl">
                 I'm currently looking for <span className="text-[#F1F0FB] font-medium">AI/ML Engineering roles</span> and internship opportunities where I can apply my expertise in autonomous agents and full-stack development.
               </p>
 

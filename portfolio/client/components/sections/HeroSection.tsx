@@ -89,7 +89,7 @@ export default function HeroSection() {
     <section 
       ref={containerRef}
       id="home" 
-      className="relative min-h-screen flex flex-col justify-center px-6 lg:px-24 overflow-hidden py-32 lg:py-48 bg-[#0A0A0B]"
+      className="relative min-h-[100vh] flex flex-col justify-center px-6 overflow-hidden py-16 md:py-24 lg:py-32 bg-[#0A0A0B]"
     >
       {/* Dynamic Background */}
       <div className="absolute inset-0 z-0">
@@ -100,7 +100,7 @@ export default function HeroSection() {
 
       <motion.div 
         style={{ opacity, scale, y }}
-        className="max-w-[1600px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 items-center relative z-10"
+        className="max-w-[1200px] mx-auto w-full px-6 grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 items-center relative z-10"
       >
         {/* Left Content */}
         <div className="relative">

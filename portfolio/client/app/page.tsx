@@ -41,13 +41,11 @@ export default function Home() {
       <div className="noise-overlay" />
       
       {!isLoading && (
-        <div className="flex flex-col gap-32 lg:gap-48 relative w-full overflow-x-hidden pt-12">
+        <div className="relative w-full overflow-x-hidden">
           <Navigation />
           <CommandPalette />
           
-          <div className="pt-20 lg:pt-32">
-            <HeroSection />
-          </div>
+          <HeroSection />
           
           <TickerSection />
           

@@ -14,14 +14,14 @@ export default function DeveloperDashboard() {
   ];
 
   return (
-    <section id="stats" className="bg-[#0A0A0B] py-32 lg:py-48 relative overflow-hidden">
-      <div className="max-w-[1500px] mx-auto px-6 lg:px-20 relative z-10">
+    <section id="stats" className="bg-[#0A0A0B] py-16 md:py-24 lg:py-32 relative overflow-hidden">
+      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
         <SectionReveal>
-          <div className="mb-32">
-            <span className="section-label text-[#555560] font-mono text-[10px] tracking-[8px] uppercase block mb-6">
+          <div className="mb-12 md:mb-20">
+            <span className="section-label text-[#555560] font-mono text-[10px] tracking-[8px] uppercase block mb-4">
               // TELEMETRY_HUB
             </span>
-            <h2 className="font-display text-5xl lg:text-7xl text-[#F1F0FB] tracking-tighter leading-none">
+            <h2 className="font-display text-5xl lg:text-7xl text-[#F1F0FB] tracking-tighter leading-none mb-4">
               DEVELOPER <span className="text-[#D4AF37]">DASHBOARD</span>
             </h2>
           </div>

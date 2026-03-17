@@ -56,14 +56,14 @@ const timeline: TimelineEntry[] = [
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="bg-[#060608] py-32 lg:py-48 relative overflow-hidden">
-      <div className="max-w-[1400px] mx-auto relative z-10">
+    <section id="experience" className="bg-[#060608] py-16 md:py-24 lg:py-32 relative overflow-hidden">
+      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
         <SectionReveal>
-          <div className="mb-48">
-            <span className="section-label text-[#555560] font-mono text-xs tracking-[5px] uppercase block mb-6">
+          <div className="mb-12 md:mb-20">
+            <span className="section-label text-[#555560] font-mono text-xs tracking-[5px] uppercase block mb-4">
               // 004 — JOURNEY
             </span>
-            <h2 className="font-display text-7xl lg:text-9xl text-[#F1F0FB] leading-[0.8] tracking-tight">
+            <h2 className="font-display text-7xl lg:text-9xl text-[#F1F0FB] leading-[0.8] tracking-tight mb-4">
               CAREER &<br />
               <span className="text-outline">ACADEMICS</span>
             </h2>
@@ -92,7 +92,7 @@ function TimelineItem({ entry, index }: { entry: TimelineEntry; index: number })
   const Icon = entry.icon;
 
   return (
-    <div ref={ref} className="relative w-full mb-32 lg:mb-48 last:mb-0">
+    <div ref={ref} className="relative w-full mb-12 md:mb-20 last:mb-0">
       {/* Center Marker - Desktop Only */}
       <div className="hidden lg:block absolute left-1/2 top-0 -translate-x-1/2 z-20">
         <motion.div

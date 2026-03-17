@@ -8,7 +8,7 @@ import SectionReveal from "../SectionReveal";
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="relative bg-[#060608] py-32 lg:py-48 overflow-hidden flex items-center">
+    <section id="contact" className="relative bg-[#060608] py-16 md:py-24 lg:py-32 overflow-hidden flex items-center">
       {/* Background radial glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[100vw] h-[100vw] bg-[#D4AF37] opacity-10 rounded-full blur-[150px] pointer-events-none" />
 
@@ -17,13 +17,13 @@ export default function ContactSection() {
         AVAILABLE
       </div>
 
-      <div className="max-w-[1400px] mx-auto w-full relative z-10 text-center">
+      <div className="max-w-[1200px] mx-auto w-full px-6 relative z-10 text-center">
         <SectionReveal>
-          <div className="mb-20">
-            <span className="section-label text-[#555560] font-mono text-xs tracking-[5px] uppercase block mb-6">
+          <div className="mb-12 md:mb-20">
+            <span className="section-label text-[#555560] font-mono text-xs tracking-[5px] uppercase block mb-4">
               // 007 — CONTACT
             </span>
-            <h2 className="font-display text-8xl lg:text-[180px] text-[#F1F0FB] leading-[0.8] tracking-tight">
+            <h2 className="font-display text-8xl lg:text-[180px] text-[#F1F0FB] leading-[0.8] tracking-tight mb-4">
               LET'S BUILD<br />
               <span className="text-[#D4AF37]">THE FUTURE</span>
             </h2>

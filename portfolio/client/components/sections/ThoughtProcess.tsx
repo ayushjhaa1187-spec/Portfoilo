@@ -7,17 +7,17 @@ import { thoughtProcess } from "../../data/portfolio";
 
 export default function ThoughtProcess() {
   return (
-    <section id="process" className="bg-[#0A0A0B] py-32 lg:py-48 relative overflow-hidden">
-      <div className="max-w-[1500px] mx-auto px-6 lg:px-20 relative z-10">
+    <section id="process" className="bg-[#0A0A0B] py-16 md:py-24 lg:py-32 relative overflow-hidden">
+      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
         <SectionReveal>
-          <div className="mb-24 text-center">
-            <span className="section-label text-[#D4AF37] font-mono text-[10px] tracking-[8px] uppercase block mb-6">
+          <div className="mb-12 md:mb-20 text-center">
+            <span className="section-label text-[#D4AF37] font-mono text-[10px] tracking-[8px] uppercase block mb-4">
               // METHODOLOGY
             </span>
-            <h2 className="font-display text-5xl lg:text-8xl text-[#F1F0FB] tracking-tighter leading-none mb-8">
+            <h2 className="font-display text-5xl lg:text-8xl text-[#F1F0FB] tracking-tighter leading-none mb-6">
               HOW I <span className="text-outline">BUILD</span> PRODUCTS
             </h2>
-            <p className="max-w-2xl mx-auto text-[#F1F0FB]/50 font-light text-lg">
+            <p className="max-w-2xl mx-auto text-[#F1F0FB]/50 font-light text-lg leading-relaxed">
               Engineering is more than just writing code. It's about translating complex business problems into scalable, high-performance digital ecosystems.
             </p>
           </div>

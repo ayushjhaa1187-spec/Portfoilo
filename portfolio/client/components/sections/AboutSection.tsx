@@ -14,24 +14,26 @@ export default function AboutSection() {
   ];
 
   return (
-    <section id="about" className="bg-[#0A0A0B] py-32 lg:py-48 relative overflow-hidden">
+    <section id="about" className="bg-[#0A0A0B] py-16 md:py-24 lg:py-32 relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-1/2 left-0 w-[40vw] h-[40vw] bg-[#D4AF37]/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
-      <div className="max-w-[1500px] mx-auto px-6 lg:px-20 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-24 items-center">
           <SectionReveal>
             <div>
-              <span className="section-label text-[#D4AF37] font-mono text-[10px] tracking-[8px] uppercase block mb-6">
-                // IDENTITY_MANIFESTO
-              </span>
-              <h2 className="font-display text-6xl lg:text-8xl text-[#F1F0FB] leading-[0.85] tracking-tighter mb-20">
-                ENGINEERING<br />
-                <span className="text-outline">PURPOSE</span><br />
-                FROM COMPLEX DATA
-              </h2>
+              <div className="mb-12 md:mb-20">
+                <span className="section-label text-[#D4AF37] font-mono text-[10px] tracking-[8px] uppercase block mb-4">
+                  // IDENTITY_MANIFESTO
+                </span>
+                <h2 className="font-display text-6xl lg:text-8xl text-[#F1F0FB] leading-[0.85] tracking-tighter mb-4">
+                  ENGINEERING<br />
+                  <span className="text-outline">PURPOSE</span><br />
+                  FROM COMPLEX DATA
+                </h2>
+              </div>
               
-              <div className="relative mb-20 group">
+              <div className="relative mb-12 group">
                 <Quote className="absolute -left-8 -top-8 text-[#1E1E24] group-hover:text-[#D4AF37]/20 transition-colors" size={60} />
                 <p className="font-body text-[#F1F0FB]/60 text-xl lg:text-2xl leading-relaxed italic relative z-10 border-l-2 border-[#D4AF37]/30 pl-8">
                   {personalInfo.bio}

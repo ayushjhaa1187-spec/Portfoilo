@@ -17,7 +17,7 @@ export default function SectionDivider() {
           : { scaleX: 0, opacity: 0 }
       }
       transition={{ duration: 1, ease: "easeInOut" }}
-      className="w-full h-[1px]"
+      className="w-full h-[1px] my-24 lg:my-32"
       style={{
         background:
           "linear-gradient(90deg, transparent 0%, #8B5CF6 50%, transparent 100%)",

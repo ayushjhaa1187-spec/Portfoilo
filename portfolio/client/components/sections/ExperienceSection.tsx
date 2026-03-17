@@ -56,7 +56,7 @@ const timeline: TimelineEntry[] = [
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="bg-[#060608] relative overflow-hidden">
+    <section id="experience" className="bg-[#060608] py-32 lg:py-48 relative overflow-hidden">
       <div className="max-w-[1400px] mx-auto relative z-10">
         <SectionReveal>
           <div className="mb-32">

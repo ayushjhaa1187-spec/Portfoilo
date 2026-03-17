@@ -7,7 +7,7 @@ import MagneticButton from "../MagneticButton";
 
 export default function RecruiterSection() {
   return (
-    <section id="hiring" className="bg-[#0A0A0B] py-32 relative overflow-hidden">
+    <section id="hiring" className="bg-[#0A0A0B] py-32 lg:py-48 relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-[#D4AF37]/5 rounded-full blur-[150px] pointer-events-none" />
 

@@ -14,7 +14,7 @@ export default function AboutSection() {
   ];
 
   return (
-    <section id="about" className="bg-[#0A0A0B] py-32 relative overflow-hidden">
+    <section id="about" className="bg-[#0A0A0B] py-32 lg:py-48 relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-1/2 left-0 w-[40vw] h-[40vw] bg-[#D4AF37]/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 

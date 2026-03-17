@@ -11,7 +11,7 @@ export default function ProjectsSection() {
   const selectedProject = projects.find(p => p.slug === selectedSlug);
 
   return (
-    <section id="projects" className="bg-[#0A0A0B] py-32 relative overflow-hidden">
+    <section id="projects" className="bg-[#0A0A0B] py-32 lg:py-48 relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#D4AF37]/5 rounded-full blur-[120px] -mr-64 -mt-64" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#06B6D4]/5 rounded-full blur-[120px] -ml-64 -mb-64" />

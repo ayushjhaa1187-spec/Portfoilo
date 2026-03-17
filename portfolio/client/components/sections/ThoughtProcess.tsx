@@ -7,7 +7,7 @@ import { thoughtProcess } from "../../data/portfolio";
 
 export default function ThoughtProcess() {
   return (
-    <section id="process" className="bg-[#0A0A0B] py-32 relative overflow-hidden">
+    <section id="process" className="bg-[#0A0A0B] py-32 lg:py-48 relative overflow-hidden">
       <div className="max-w-[1500px] mx-auto px-6 lg:px-20 relative z-10">
         <SectionReveal>
           <div className="mb-24 text-center">

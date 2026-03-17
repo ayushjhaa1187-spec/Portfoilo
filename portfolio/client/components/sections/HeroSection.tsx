@@ -9,7 +9,8 @@ import ErrorBoundary from "../ErrorBoundary";
 import { personalInfo, recruiterInfo, githubStats } from "../../data/portfolio";
 
 // Dynamically import Lottie for client-side only rendering
-const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+// Dynamically import Lottie removed for robustness - replacing with custom SVG/Framer Motion visual
+// const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 const roles = [
   "AI/ML Researcher",
@@ -42,12 +43,13 @@ export default function HeroSection() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
   const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
-  useEffect(() => {
-    fetch("https://lottie.host/020928ff-3c40-41da-a78b-37ca72d4b8f5/9Yj1j59J1M.json")
-      .then(res => res.json())
-      .then(data => setAnimationData(data))
-      .catch(err => console.error("Lottie fetch failed:", err));
-  }, []);
+  // Lottie fetch removed to fix 'rotating circle' loading issue
+  // useEffect(() => {
+  //   fetch("https://lottie.host/020928ff-3c40-41da-a78b-37ca72d4b8f5/9Yj1j59J1M.json")
+  //     .then(res => res.json())
+  //     .then(data => setAnimationData(data))
+  //     .catch(err => console.error("Lottie fetch failed:", err));
+  // }, []);
 
   // Simple Typewriter Effect
   useEffect(() => {
@@ -150,10 +152,23 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="max-w-xl text-lg lg:text-xl text-[#F1F0FB]/60 leading-relaxed mb-12 font-light"
+            className="max-w-xl text-lg lg:text-xl text-[#F1F0FB]/60 leading-relaxed mb-8 font-light"
           >
             Architecting <span className="text-[#F1F0FB] font-medium italic">future-ready autonomous systems</span> at the intersection of AI, Economics, and High-Impact Software Engineering.
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.9 }}
+            className="mb-12"
+          >
+            <img 
+               src="/signature-gold.png" 
+               alt="Signature" 
+               style={{ height: '60px', width: 'auto', objectFit: 'contain', filter: 'brightness(1.1)' }}
+            />
+          </motion.div>
 
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -234,19 +249,80 @@ export default function HeroSection() {
              className="absolute w-[450px] h-[450px] border border-dashed border-[#D4AF37]/20 rounded-full opacity-20"
            />
 
-           {/* Lottie Container */}
+           {/* Custom Digital Core Visual - Replacing flaky Lottie */}
            <div className="relative z-10 w-[550px] h-[550px] flex items-center justify-center animate-vertical-float">
-             <ErrorBoundary>
-               {animationData ? (
-                 <Lottie 
-                  animationData={animationData} 
-                  loop={true} 
-                  style={{ width: '100%', height: '100%' }}
-                 />
-               ) : (
-                 <div className="w-12 h-12 border-2 border-[#D4AF37] border-t-transparent rounded-full animate-spin" />
-               )}
-             </ErrorBoundary>
+             <div className="relative w-full h-full flex items-center justify-center">
+                {/* Rotating Hub Rings */}
+                <motion.div 
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                  className="absolute w-[400px] h-[400px] border border-[#D4AF37]/20 rounded-full"
+                />
+                <motion.div 
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                  className="absolute w-[500px] h-[500px] border border-dashed border-[#06B6D4]/10 rounded-full"
+                />
+                
+                {/* Central Brain/Core node */}
+                <motion.div 
+                   whileHover={{ scale: 1.05 }}
+                   className="relative w-72 h-72 bg-[#111113] border border-[#1E1E24] rounded-full flex flex-col items-center justify-center shadow-[0_0_100px_rgba(212,175,55,0.15)] group overflow-hidden pointer-events-auto cursor-pointer"
+                >
+                    <div className="absolute inset-0 bg-gradient-radial from-[#D4AF37]/5 to-transparent group-hover:opacity-100 transition-opacity" />
+                    
+                    {/* SVG Brain/Node Visual */}
+                    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative z-10 drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+                        <motion.circle 
+                          cx="60" cy="60" r="40" 
+                          stroke="#D4AF37" strokeWidth="0.5" strokeDasharray="4 4"
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                        />
+                        <motion.path 
+                          d="M60 20V40M60 80V100M20 60H40M80 60H100" 
+                          stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" 
+                          animate={{ opacity: [0.3, 1, 0.3] }}
+                          transition={{ duration: 3, repeat: Infinity }}
+                        />
+                        <motion.circle 
+                          cx="60" cy="60" r="15" 
+                          fill="#D4AF37" 
+                          animate={{ scale: [1, 1.2, 1], opacity: [0.8, 1, 0.8] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        />
+                    </svg>
+                    
+                    <span className="font-mono text-[9px] tracking-[6px] text-[#D4AF37] mt-6 opacity-0 group-hover:opacity-100 transition-opacity">AUTONOMOUS</span>
+                    
+                    {/* Pulsing Aura */}
+                    {Array.from({ length: 3 }).map((_, i) => (
+                      <motion.div
+                        key={i}
+                        animate={{ scale: [1, 2], opacity: [0.2, 0] }}
+                        transition={{ duration: 3, repeat: Infinity, delay: i, ease: "easeOut" }}
+                        className="absolute inset-0 border border-[#D4AF37]/20 rounded-full"
+                      />
+                    ))}
+                </motion.div>
+                
+                {/* Floating Tech Orbits */}
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <motion.div
+                    key={i}
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 10 + i * 5, repeat: Infinity, ease: "linear" }}
+                    className="absolute w-full h-full"
+                  >
+                    <motion.div 
+                      className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#06B6D4] rounded-full shadow-[0_0_10px_#06B6D4]"
+                      style={{ marginTop: `${150 + i * 25}px` }}
+                      animate={{ opacity: [0.2, 0.6, 0.2] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: i }}
+                    />
+                  </motion.div>
+                ))}
+             </div>
 
              {/* Dynamic Data Points */}
              {floatingBadges.map((badge, i) => (

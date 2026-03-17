@@ -18,6 +18,7 @@ import RecruiterSection from "@/components/sections/RecruiterSection";
 import ContactSection from "@/components/sections/ContactSection";
 import FooterSection from "@/components/sections/FooterSection";
 import SectionDivider from "@/components/SectionDivider";
+import AIAssistant from "@/components/AIAssistant";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -72,6 +73,7 @@ export default function Home() {
           
           <ContactSection />
           
+          <AIAssistant />
           <FooterSection />
         </div>
       )}

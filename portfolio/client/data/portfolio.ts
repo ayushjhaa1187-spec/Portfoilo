@@ -137,6 +137,7 @@ export interface Project {
     category: string;
     shortDescription: string;
     fullDescription: string;
+    aiContext?: string;
     problem: string;
     action: string;
     result: string;
@@ -201,6 +202,7 @@ export const projects: Project[] = [
         category: 'NLP / Automation',
         shortDescription: 'Interactive Python-based natural language voice assistant for hands-free automation.',
         fullDescription: 'Faced with accessibility barriers in hands-free computing, I built a Voice Assistant using Python and NLP APIs. Overcame low-latency speech recognition challenges to deliver rapid system automation. This project reflects my ability to integrate advanced AI with core operating protocols.',
+        aiContext: 'This is a Python-based NLP assistant designed to handle OS-level tasks via voice commands. It uses SpeechRecognition and pyttsx3 for interaction, focusing on low-latency response times for high-impact accessibility.',
         problem: 'Inefficient hands-free interaction for complex system automation tasks.',
         action: 'Developed a Python-based voice engine with real-time intent parsing and OS-level integration.',
         result: 'Reduced common task execution time by 40% and improved system accessibility.',
@@ -231,6 +233,7 @@ export const projects: Project[] = [
         category: 'Full Stack',
         shortDescription: 'JavaScript-based risk assessment software platform.',
         fullDescription: 'Faced with unquantified operational risks, I built Risk-Radar using React and advanced state management. Overcame complex logic hurdles to identify and mitigate platform vulnerabilities. This project reflects my ability to handle intricate system logic and deliver robust security-focused software.',
+        aiContext: 'Risk-Radar is a full-stack assessment platform that quantifies operational vulnerabilities. It uses complex logic trees and real-time state management to identifies bottlenecks before they impact production.',
         problem: 'Operational vulnerabilities going unnoticed due to lack of real-time risk assessment tools.',
         action: 'Engineered a real-time risk assessment engine with complex state management and logic trees.',
         result: 'Successfully identified and mitigated potential bottlenecks in simulated operational environments.',

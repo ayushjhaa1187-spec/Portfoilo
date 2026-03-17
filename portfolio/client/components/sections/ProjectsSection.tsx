@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { ExternalLink, Github, ArrowUpRight, X, Layers, Target, Zap, ChevronRight } from "lucide-react";
 import SectionReveal from "../SectionReveal";
@@ -79,28 +79,53 @@ export default function ProjectsSection() {
   );
 }
 
-function ProjectCard({ project, index, onClick }: { project: Project; index: number; onClick: () => void }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+const ProjectCard = ({ project, index, onClick }: { project: Project; index: number; onClick: () => void }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 1024);
+  }, []);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isMobile || !cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = (y - centerY) / 20;
+    const rotateY = (centerX - x) / 20;
+
+    cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+  };
+
+  const handleMouseLeave = () => {
+    if (isMobile || !cardRef.current) return;
+    cardRef.current.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+  };
 
   return (
     <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       variants={fadeUp}
-      whileHover={hoverScale.whileHover}
-      whileTap={hoverScale.whileTap}
-      transition={hoverScale.transition}
-      className="group bg-[#111113] border border-[#1E1E24] p-8 lg:p-10 hover:border-[#D4AF37]/30 transition-all duration-500 cursor-pointer flex flex-col justify-between h-full rounded-2xl relative overflow-hidden shadow-xl hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.1)]"
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      className="group bg-[#111113] border border-[#1E1E24] p-8 lg:p-10 hover:border-[#D4AF37]/30 transition-all duration-300 cursor-pointer flex flex-col justify-between h-full rounded-2xl relative overflow-hidden shadow-xl hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.1)] will-change-transform"
       onClick={onClick}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
       
-      <div className="relative z-10">
+      <div className="relative z-10 pointer-events-none">
         <div className="flex justify-between items-start mb-10">
            <div className="flex flex-col gap-1">
              <span className="font-mono text-[#D4AF37] text-[9px] tracking-[4px] uppercase">{project.category}</span>
              <div className="h-0.5 w-0 group-hover:w-full bg-[#D4AF37]/30 transition-all duration-700" />
            </div>
-           <span className="font-display text-2xl text-[#1E1E24] group-hover:text-[#D4AF37]/10 transition-colors uppercase">{project.icon || '0' + (index + 1)}</span>
+           <span className="font-display text-2xl text-[#1E1E24] group-hover:text-[#D4AF37]/10 transition-colors uppercase">{project.icon}</span>
         </div>
         
         <h3 className="font-display text-2xl lg:text-3xl text-[#F1F0FB] mb-6 group-hover:text-white transition-colors tracking-tight leading-loose">
@@ -123,7 +148,7 @@ function ProjectCard({ project, index, onClick }: { project: Project; index: num
         </div>
       </div>
 
-      <div className="relative z-10 pt-8 border-t border-[#1E1E24] flex items-center justify-between">
+      <div className="relative z-10 pt-8 border-t border-[#1E1E24] flex items-center justify-between pointer-events-none">
         <div className="flex items-center gap-3">
            <Zap size={12} className="text-[#D4AF37] animate-pulse" />
            <span className="font-mono text-[9px] text-[#555560] group-hover:text-[#F1F0FB]/60 transition-colors tracking-widest uppercase">
@@ -139,7 +164,7 @@ function ProjectCard({ project, index, onClick }: { project: Project; index: num
       </div>
     </motion.div>
   );
-}
+};
 
 function Modal({ project, onClose }: { project: Project; onClose: () => void }) {
   return (

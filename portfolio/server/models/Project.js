@@ -14,6 +14,7 @@ const ProjectSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: ['ML/AI', 'Business', 'Research', 'Web'],
+    index: true, // ⚡ Bolt: Add index to frequently filtered field for faster queries
   },
   shortDescription: {
     type: String,

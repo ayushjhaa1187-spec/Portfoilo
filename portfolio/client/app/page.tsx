@@ -1,13 +1,8 @@
 import Hero from '@/components/Hero';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col">
-      <Navbar />
-      <Hero />
-      <Footer />
-    </main>
-  );
+  // Bolt Optimization: Returning only the Hero component.
+  // Navbar and Footer are already rendered in layout.tsx.
+  // This reduces React hydration time and unnecessary DOM nodes.
+  return <Hero />;
 }

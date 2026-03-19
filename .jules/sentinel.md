@@ -1,0 +1,4 @@
+## 2026-03-19 - Secure Secret Comparison
+**Vulnerability:** Comparing API keys using standard equality operators (`===`) exposes the application to timing attacks, where an attacker can guess the secret by measuring the time it takes to compare strings of different lengths.
+**Learning:** Using `crypto.timingSafeEqual` prevents timing attacks, but it requires both buffers to be the same length. Hashing both the provided key and the stored secret before comparison ensures uniform buffer lengths and prevents algorithmic DoS vulnerabilities that could arise from using synchronous functions like `crypto.scryptSync` on arbitrary user input.
+**Prevention:** Always use `crypto.timingSafeEqual` for comparing secrets, and normalize the length of the secrets by hashing them first (e.g., `crypto.createHash('sha256').update(secret).digest()`).

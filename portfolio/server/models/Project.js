@@ -13,6 +13,7 @@ const ProjectSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
+    index: true,
     enum: ['ML/AI', 'Business', 'Research', 'Web'],
   },
   shortDescription: {

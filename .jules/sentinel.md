@@ -1,0 +1,4 @@
+## 2024-05-24 - [Missing Authentication & Mass Assignment on POST /api/projects]
+**Vulnerability:** The `POST /api/projects` endpoint lacked authentication entirely, and allowed creating projects by directly passing `req.body` into a new `Project` document, risking mass assignment.
+**Learning:** Even internal or "admin-only" endpoints MUST have active enforcement of authentication; relying on obscurity or frontend-only protections is insufficient. Using raw `req.body` directly in Mongoose constructors can also be exploited to set restricted fields.
+**Prevention:** Always implement explicit authentication middleware (e.g., validating `x-api-key`) for non-public endpoints, and explicitly destructure only allowed fields from `req.body` before passing them to the database model. Use safe comparisons like `crypto.timingSafeEqual` with normalized buffer lengths for API key validation.

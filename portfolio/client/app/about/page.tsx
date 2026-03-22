@@ -27,7 +27,7 @@ const AboutPage = () => {
         <div className="bg-blue-50 border-l-4 border-blue-600 p-8 mb-12 rounded-r-lg">
           <h2 className="text-2xl font-bold mb-4 text-blue-800">My Philosophy</h2>
           <p className="text-xl italic text-gray-700">
-            "I don't just build models - I build solutions that matter. My unique combination of IIT-level data science and entrepreneurial thinking lets me create AI systems that are both technically robust and commercially viable."
+            &quot;I don&apos;t just build models - I build solutions that matter. My unique combination of IIT-level data science and entrepreneurial thinking lets me create AI systems that are both technically robust and commercially viable.&quot;
           </p>
         </div>
 

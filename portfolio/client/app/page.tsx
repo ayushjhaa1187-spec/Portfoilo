@@ -1,13 +1,10 @@
 import Hero from '@/components/Hero';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col">
-      <Navbar />
+      {/* Navbar and Footer are globally rendered in layout.tsx to avoid duplicate React rendering and DOM nodes */}
       <Hero />
-      <Footer />
     </main>
   );
 }

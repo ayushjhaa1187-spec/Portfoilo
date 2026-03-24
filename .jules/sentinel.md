@@ -1,0 +1,4 @@
+## 2024-03-24 - Missing Authentication & Mass Assignment on API Endpoints
+**Vulnerability:** The `POST /api/projects` endpoint had missing API key authentication and accepted a raw `req.body` directly into a Mongoose `Project` model, causing a mass assignment vulnerability. It was also vulnerable to timing attacks if standard string comparison was used.
+**Learning:** Hardcoded simple API key comparison logic can be vulnerable to timing attacks. Mongoose accepts any valid schema field when instantiating a model from `req.body`, meaning an attacker could inject `featured: true` or modify internal fields if the payload is not correctly destructured.
+**Prevention:** Always use `crypto.timingSafeEqual` with normalized length inputs (e.g. hashed values) for API key validation. Never pass `req.body` directly into Mongoose models without explicitly destructuring or defining allowed fields.

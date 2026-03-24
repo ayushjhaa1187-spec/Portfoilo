@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import axios from 'axios';
-import { Mail, Linkedin, Github } from 'lucide-react';
+import { Mail, Linkedin, Github, Loader2 } from 'lucide-react';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -50,24 +50,24 @@ const ContactPage = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">Let's Build Something Together</h2>
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">Let&apos;s Build Something Together</h2>
           <p className="text-gray-600 mb-8 text-lg">
-            I'm always interested in ML/AI collaboration projects, startup opportunities, and research partnerships.
+            I&apos;m always interested in ML/AI collaboration projects, startup opportunities, and research partnerships.
           </p>
 
           <div className="space-y-6">
             <div className="flex items-center space-x-4 text-gray-700">
-              <Mail className="text-blue-600" />
+              <Mail className="text-blue-600" aria-hidden="true" />
               <span>ayushjhaa1187@gmail.com</span>
             </div>
             <div className="flex items-center space-x-4 text-gray-700">
-              <Linkedin className="text-blue-600" />
+              <Linkedin className="text-blue-600" aria-hidden="true" />
               <a href="https://www.linkedin.com/in/ayush-kumar-jha-5960a3362/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-800">
                 LinkedIn Profile
               </a>
             </div>
             <div className="flex items-center space-x-4 text-gray-700">
-              <Github className="text-blue-600" />
+              <Github className="text-blue-600" aria-hidden="true" />
               <a href="https://github.com/ayushjhaa1187-spec" target="_blank" rel="noopener noreferrer" className="hover:text-blue-800">
                 GitHub Profile
               </a>
@@ -136,15 +136,24 @@ const ContactPage = () => {
               className="w-full"
               disabled={status === 'sending'}
             >
-              {status === 'sending' ? 'Sending...' : 'Send Message'}
+              {status === 'sending' ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
+                  Sending...
+                </>
+              ) : (
+                'Send Message'
+              )}
             </Button>
 
-            {status === 'success' && (
-              <p className="text-green-600 text-center">Message sent successfully!</p>
-            )}
-            {status === 'error' && (
-              <p className="text-red-600 text-center">Failed to send message. Please try again.</p>
-            )}
+            <div aria-live="polite" className="min-h-[24px]">
+              {status === 'success' && (
+                <p className="text-green-600 text-center">Message sent successfully!</p>
+              )}
+              {status === 'error' && (
+                <p className="text-red-600 text-center">Failed to send message. Please try again.</p>
+              )}
+            </div>
           </form>
         </motion.div>
       </div>

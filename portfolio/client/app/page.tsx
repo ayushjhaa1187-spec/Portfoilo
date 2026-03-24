@@ -1,13 +1,10 @@
 import Hero from '@/components/Hero';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col">
-      <Navbar />
+      {/* ⚡ Bolt: Removed Navbar and Footer as they are already rendered in layout.tsx */}
       <Hero />
-      <Footer />
     </main>
   );
 }

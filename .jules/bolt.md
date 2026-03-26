@@ -1,0 +1,3 @@
+## 2024-05-18 - Duplicated Global Components in Next.js App Router
+**Learning:** In Next.js App Router, components like Navbar and Footer defined in `layout.tsx` wrap all pages globally. Redefining or importing them in individual `page.tsx` files creates duplicate rendering, resulting in unnecessary DOM nodes, increased React hydration time, and slower frontend performance.
+**Action:** When working on Next.js App Router projects, ensure global layout components (like Navbar, Footer, Sidebar) are only instantiated in the `layout.tsx` file to prevent duplicate rendering and performance bottlenecks.

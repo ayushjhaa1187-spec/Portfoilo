@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Project = require('../models/Project');
+const auth = require('../middleware/auth');
 
 // @route   GET /api/projects
 // @desc    Get all projects
@@ -33,10 +34,34 @@ router.get('/:slug', async (req, res) => {
 
 // @route   POST /api/projects
 // @desc    Create a project
-// @access  Private (TODO: Add Auth)
-router.post('/', async (req, res) => {
+// @access  Private
+router.post('/', auth, async (req, res) => {
   try {
-    const newProject = new Project(req.body);
+    const {
+      title,
+      slug,
+      category,
+      shortDescription,
+      fullDescription,
+      techStack,
+      githubUrl,
+      liveUrl,
+      featured,
+      metrics,
+    } = req.body;
+
+    const newProject = new Project({
+      title,
+      slug,
+      category,
+      shortDescription,
+      fullDescription,
+      techStack,
+      githubUrl,
+      liveUrl,
+      featured,
+      metrics,
+    });
     const project = await newProject.save();
     res.json(project);
   } catch (err) {

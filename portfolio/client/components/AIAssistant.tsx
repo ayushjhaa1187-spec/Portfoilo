@@ -44,10 +44,10 @@ const AIAssistant = () => {
             <div className="p-4 bg-blue-600 text-white flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <Sparkles size={18} />
-                <span className="font-bold">Ayush's Assistant</span>
+                <span className="font-bold">Ayush&apos;s Assistant</span>
               </div>
-              <button onClick={toggleChat} className="hover:bg-white/20 p-1 rounded-full transition-colors">
-                <X size={18} />
+              <button onClick={toggleChat} className="hover:bg-white/20 p-1 rounded-full transition-colors" aria-label="Close chat">
+                <X size={18} aria-hidden="true" />
               </button>
             </div>
 
@@ -82,8 +82,9 @@ const AIAssistant = () => {
               <button 
                 onClick={handleSend}
                 className="bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition-colors"
+                aria-label="Send message"
               >
-                <Send size={18} />
+                <Send size={18} aria-hidden="true" />
               </button>
             </div>
           </motion.div>
@@ -95,8 +96,9 @@ const AIAssistant = () => {
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}
         className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-blue-500/40 transition-shadow relative group"
+        aria-label="Toggle AI assistant"
       >
-        <MessageSquare size={24} />
+        <MessageSquare size={24} aria-hidden="true" />
         <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 border-4 border-white dark:border-slate-900 rounded-full animate-pulse" />
         <span className="absolute right-full mr-3 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-sm border border-slate-100 dark:border-slate-700 pointer-events-none">
           Chat with my AI

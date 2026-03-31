@@ -30,7 +30,25 @@ const RollingNumber = ({ value, suffix = "" }: { value: string, suffix?: string 
 };
 
 const Hero = () => {
+  const [greeting, setGreeting] = useState("Initializing System...");
   const name = "AYUSH KUMAR JHA";
+
+  useEffect(() => {
+     const hour = new Date().getHours();
+     let timeGreeting = "Good Evening";
+     if (hour < 12) timeGreeting = "Good Morning";
+     else if (hour < 18) timeGreeting = "Good Afternoon";
+
+     if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+           setGreeting(`${timeGreeting}, Operative. [LOCATED_SECURE_NODE]`);
+        }, () => {
+           setGreeting(`${timeGreeting}, Operative. [NODE_ANONYMIZED]`);
+        });
+     } else {
+        setGreeting(`${timeGreeting}, Operative.`);
+     }
+  }, []);
   
   return (
     <section className="min-h-screen relative flex items-center justify-center bg-[#0a0a0a] overflow-hidden pt-20">
@@ -46,10 +64,13 @@ const Hero = () => {
         <motion.div
            initial={{ opacity: 0, scale: 0.8 }}
            animate={{ opacity: 1, scale: 1 }}
-           className="mb-8 px-4 py-1.5 rounded-full border border-amber-400/20 bg-amber-400/5 flex items-center gap-2"
+           className="mb-8 px-4 py-1.5 rounded-full border border-amber-400/20 bg-amber-400/5 flex flex-col items-center gap-1 group"
         >
-           <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-           <span className="text-[10px] font-bold tracking-widest text-amber-400 uppercase">Available for scale-up partnerships</span>
+           <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              <span className="text-[10px] font-black tracking-widest text-amber-400 uppercase">Available for scale-up partnerships</span>
+           </div>
+           <p className="text-[8px] font-bold text-slate-500 group-hover:text-white transition-colors">{greeting}</p>
         </motion.div>
 
         {/* Typed Name Effect */}

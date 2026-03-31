@@ -6,38 +6,83 @@ import { motion } from 'framer-motion';
 const ExperiencePage = () => {
   const experiences = [
     {
-      role: 'Entrepreneurship Intern',
-      company: 'IREU School for Startups',
-      date: 'Startup Ideation Track',
+      role: 'Student @ BS in Data Science & Applications',
+      company: 'Indian Institute of Technology Madras',
+      date: 'Jan 2026 – Present',
       desc: [
-        'Completed intensive entrepreneurship program focusing on startup validation.',
-        'Developed 3+ business ideas with data-driven market research.',
-        'Created business model canvases and financial projections.',
-        'Pitched to industry experts and received feedback.'
-      ],
-      color: 'orange'
-    },
-    {
-      role: 'Data Science Student & Researcher',
-      company: 'IIT Madras',
-      date: '2025 - Present',
-      desc: [
-        'Pursuing BS in Data Science & Applications.',
-        'Working on ML/AI projects in satellite data analysis and remote sensing.',
-        'Participating in research initiatives and building production-ready ML systems.'
+        'Pursuing rigorous degree in Data Science and Applications.',
+        'Focusing on Machine Learning, Statistics, and AI systems engineering.',
+        'Actively building production-ready projects in the IITM ecosystem.'
       ],
       color: 'blue'
     },
     {
-      role: 'IIT Competition Participant',
-      company: 'Various Premier IITs',
-      date: '2025 - 2026',
+      role: 'Member @ Nilgiri House',
+      company: 'IIT Madras',
+      date: 'Sep 2025 – Present',
       desc: [
-        'Finalist at [IIT X] Ideathon and Top 10 at [IIT Y] Hackathon.',
-        'Competed against 500+ teams nationwide.',
-        'Built end-to-end solutions combining ML/AI with business strategy.'
+        'Active member of Nilgiri House, participating in technical and cultural initiatives within the IITM residential community.'
+      ],
+      color: 'blue'
+    },
+    {
+      role: 'Spaceborn Intern',
+      company: 'Spaceborn',
+      date: 'Oct 2025 – Dec 2025',
+      desc: [
+        'Explored the intersection of aerospace data and machine learning.',
+        'Developed insights for environmental monitoring using specialized datasets.'
+      ],
+      color: 'orange'
+    },
+    {
+      role: 'Spacelance Intern',
+      company: 'Spacelance',
+      date: 'Dec 2025',
+      desc: [
+        'Intensive one-month project focusing on digital service architecture and client-facing solutions.'
+      ],
+      color: 'orange'
+    },
+    {
+      role: 'Junior Data Analyst Intern',
+      company: 'Yuva Intern (by Henry Harvin)',
+      date: 'Oct 2025 – Jan 2026',
+      desc: [
+        'Performed exploratory data analysis and visualization for business datasets.',
+        'Automated reporting workflows using Python and Pandas.'
       ],
       color: 'green'
+    },
+    {
+      role: 'Frontend Web Developer Intern',
+      company: 'Yuva Intern (by Henry Harvin)',
+      date: 'Sep 2025 – Jan 2026',
+      desc: [
+        'Built interactive UI components using modern JavaScript frameworks.',
+        'Optimized web performance and ensured cross-browser compatibility.'
+      ],
+      color: 'green'
+    },
+    {
+      role: 'Data Science with Python Intern',
+      company: 'Yuva Intern (by Henry Harvin)',
+      date: 'Sep 2025 – Jan 2026',
+      desc: [
+        'Implemented predictive models and statistical analysis pipelines.',
+        'Cleaned and pre-processed complex datasets for model training.'
+      ],
+      color: 'green'
+    },
+    {
+      role: 'E-Cell Campus Ambassador @ DTU',
+      company: 'Delhi Technological University',
+      date: 'Oct 2025 – Jan 2026',
+      desc: [
+        'Represented DTU\'s Entrepreneurship Cell, managing outreach and fostering startup culture.',
+        'Coordinated between student body and flagship events.'
+      ],
+      color: 'blue'
     }
   ];
 

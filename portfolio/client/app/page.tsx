@@ -1,13 +1,15 @@
 import Hero from '@/components/Hero';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import Marquee from '@/components/Marquee';
+import { FeaturedProjects } from '@/components/FeaturedProjects';
+import { AboutSection } from '@/components/AboutSection';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col">
-      <Navbar />
+    <main className="flex min-h-screen flex-col overflow-x-hidden">
       <Hero />
-      <Footer />
+      <Marquee />
+      <FeaturedProjects />
+      <AboutSection />
     </main>
   );
 }

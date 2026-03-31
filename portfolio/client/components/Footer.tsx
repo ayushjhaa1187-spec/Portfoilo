@@ -36,6 +36,9 @@ const Footer = () => {
               <a href="mailto:ayushjhaa1187@gmail.com" className="text-slate-400 hover:text-white transition-colors">
                 <Mail size={24} />
               </a>
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-slate-500 border border-slate-700 px-2 py-1 rounded hover:border-orange-500 hover:text-orange-500 transition-all flex items-center gap-1">
+                RESUME <span className="text-[10px]">↓</span>
+              </a>
             </div>
           </div>
         </div>

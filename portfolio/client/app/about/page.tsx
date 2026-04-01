@@ -87,6 +87,84 @@ const AboutPage = () => {
          </motion.div>
       </div>
 
+      {/* Skills Map Section — Phase 3.5 */}
+      <div id="skills" className="mb-40">
+        <motion.div 
+           initial={{ opacity: 0, y: 20 }} 
+           whileInView={{ opacity: 1, y: 0 }} 
+           viewport={{ once: true }}
+           className="text-center mb-24"
+        >
+           <h2 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-6 underline decoration-amber-400/20 underline-offset-12">SKILLS_MAP_v1.0</h2>
+           <p className="text-slate-500 uppercase tracking-[0.4em] text-xs font-black">Multi-Sector Engineering Expertise</p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {[
+            { 
+              cat: 'Languages', 
+              skills: ['Python', 'JavaScript', 'TypeScript', 'SQL', 'C++'], 
+              icon: <Terminal size={24} />,
+              color: 'text-amber-400' 
+            },
+            { 
+              cat: 'Frameworks', 
+              skills: ['React', 'Next.js 15', 'FastAPI', 'Node.js', 'Express', 'Tailwind'], 
+              icon: <Rocket size={24} />,
+              color: 'text-blue-400' 
+            },
+            { 
+              cat: 'AI & Data', 
+              skills: ['LangChain', 'LangGraph', 'PyTorch', 'Pandas', 'NumPy', 'Scikit-learn'], 
+              icon: <Brain size={24} />,
+              color: 'text-emerald-400' 
+            },
+            { 
+              cat: 'Infrastructure', 
+              skills: ['PostgreSQL', 'MongoDB', 'Supabase', 'Redis', 'Vercel', 'AWS'], 
+              icon: <Database size={24} />,
+              color: 'text-orange-400' 
+            },
+            { 
+              cat: 'Professional', 
+              skills: ['Git/GitHub', 'SDLC', 'Product Sync', 'Agile', 'Figma', 'Postman'], 
+              icon: <Users size={24} />,
+              color: 'text-purple-400' 
+            },
+            { 
+              cat: 'Philosophy', 
+              skills: ['Autonomous Agents', 'Self-Repairing Systems', 'High-Fidelity UX'], 
+              icon: <Target size={24} />,
+              color: 'text-rose-400' 
+            }
+          ].map((sector, i) => (
+            <motion.div 
+              key={sector.cat}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="glass-card p-10 group hover:border-amber-400/30 transition-all border-white/5 h-full flex flex-col"
+            >
+               <div className={`mb-8 ${sector.color} flex items-center gap-4`}>
+                  {sector.icon}
+                  <h3 className="text-2xl font-black text-white uppercase tracking-tighter">{sector.cat}</h3>
+               </div>
+               <div className="flex flex-wrap gap-2 mt-auto">
+                  {sector.skills.map(skill => (
+                    <span 
+                      key={skill} 
+                      className="px-4 py-1.5 bg-white/5 rounded-full text-[10px] font-black tracking-widest uppercase text-slate-500 hover:text-white hover:bg-amber-400/20 transition-all border border-white/5"
+                    >
+                       {skill}
+                    </span>
+                  ))}
+               </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
       <div className="p-20 glass-panel rounded-[4rem] text-center relative overflow-hidden border border-white/10">
          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-amber-400/5 to-transparent pointer-events-none" />
          <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter mb-10 relative">MISSION_STATEMENT</h2>

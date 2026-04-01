@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/Button';
 import Link from 'next/link';
@@ -8,9 +8,22 @@ import { Sparkles, ArrowRight, Github, Linkedin, Terminal } from 'lucide-react';
 
 const RollingNumber = ({ value, suffix = "" }: { value: string, suffix?: string }) => {
     const [displayValue, setDisplayValue] = useState(0);
+    const [hasStarted, setHasStarted] = useState(false);
     const targetValue = parseInt(value.replace(/,/g, ''));
+    const ref = useRef(null);
 
     useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => { if (entry.isIntersecting) setHasStarted(true); },
+            { threshold: 0.5 }
+        );
+        if (ref.current) observer.observe(ref.current);
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        if (!hasStarted) return;
+        
         let start = 0;
         const duration = 2000;
         const increment = targetValue / (duration / 16);
@@ -24,9 +37,9 @@ const RollingNumber = ({ value, suffix = "" }: { value: string, suffix?: string 
             }
         }, 16);
         return () => clearInterval(timer);
-    }, [targetValue]);
+    }, [hasStarted, targetValue]);
 
-    return <span>{displayValue.toLocaleString()}{suffix}</span>;
+    return <span ref={ref}>{displayValue.toLocaleString()}{suffix}</span>;
 };
 
 const Hero = () => {

@@ -50,34 +50,53 @@ export const aiKnowledge = {
 export const getAIResponse = (query: string, context?: string): string => {
   const q = query.toLowerCase();
   
-  if (q.includes('project') || q.includes('work') || q.includes('build')) {
-    return "Ayush has built 46+ projects including AI agents, full-stack apps, and ML systems. Check /projects for the full list!";
-  }
-  
-  if (q.includes('skill') || q.includes('tech') || q.includes('stack')) {
-    return "He works with Python, TypeScript, React, Next.js, FastAPI, LangGraph, PostgreSQL, and Supabase. His strength is AI/LLM integration.";
-  }
-  
-  if (q.includes('experience') || q.includes('intern') || q.includes('work')) {
-    return "He's interned at Yuva Intern (3 roles), been a Campus Ambassador at DTU E-Cell, and participated in IIT hackathons. See /experience!";
-  }
-  
-  if (q.includes('contact') || q.includes('hire') || q.includes('collab')) {
-    return "Reach Ayush at ayushjhaa1187@gmail.com or via the contact page. He's open to collaborations and part-time work!";
-  }
-  
-  if (q.includes('iit') || q.includes('madras') || q.includes('education')) {
-    return "He's pursuing BS in Data Science from IIT Madras (2025–2029), currently in his first year.";
+  // Specific Project Contexts
+  if (context === 'nexus' || q.includes('nexus')) {
+    return "Nexus AI is an inter-campus knowledge network leveraging agentic RAG and decentralized karma. It bridges silos between students of different institutions with sub-200ms latency. Check /projects/nexus-ai for the full case study.";
   }
 
-  // Topic specific follow-ups (if context exists)
-  if (context === 'nexus' && (q.includes('more') || q.includes('it'))) {
-    return "Nexus AI is an inter-campus knowledge network with decentralized karma. It is Ayush's largest engineering deployment to date.";
+  if (context === 'stocksense' || q.includes('stocksense')) {
+    return "StockSense uses LangGraph for multi-agent market reasoning. It eliminated 95% of standard LLM hallucinations in financial analysis by implementing state-aware orchestration. Verified 50ms processing latency.";
   }
 
-  if (context === 'stocksense' && (q.includes('more') || q.includes('it'))) {
-    return "StockSense uses LangGraph to orchestrate agents for deep market reasoning, eliminating simple GPT delusions in finance.";
+  if (context === 'sentinel' || q.includes('sentinel')) {
+    return "Sentinel Auth is a high-integrity Node.js security layer with anomaly detection and Redis-backed rate limiting. It achieves 99% accuracy in blocking automated brute-force attempts with sub-ms overhead.";
   }
 
-  return "I'm currently upgrading my responses. Email ayushjhaa1187@gmail.com or visit the contact page directly!";
+  // Educational Context
+  if (q.includes('iit') || q.includes('madras') || q.includes('education') || q.includes('college')) {
+    return "Ayush is pursuing a BS in Data Science at IIT Madras (2025–2029). He focuses on Applied Machine Learning, Statistics, and High-Performance Computing while participating in the Nilgiri House technical community.";
+  }
+
+  // Professional / Experience
+  if (q.includes('intern') || q.includes('experience') || q.includes('work') || q.includes('yuva')) {
+    return "Ayush has completed high-impact internships at Yuva Intern (Data Analyst, Frontend dev) and MTF Institute (Alumni Trainee). He's currently a Jury Member for AI-volution at IIT Kharagpur's GES 2026. View the full timeline at /experience.";
+  }
+
+  // Achievements / Recognition
+  if (q.includes('achievement') || q.includes('hackathon') || q.includes('award') || q.includes('winner')) {
+    return "Key achievements include: Jury Member at IIT Kharagpur GES 2026, Finalist at IIT Madras Shaastra Ideathon, Finalist at IIT Delhi BECon, and Campus Ambassador at Techfest IIT Bombay. View the badge grid at /achievements.";
+  }
+
+  // Certifications
+  if (q.includes('cert') || q.includes('certification') || q.includes('verify') || q.includes('credential')) {
+    return "Ayush holds 11+ verified credentials, including honors from IEEE DTU (Space Race), and professional certifications in Data Science, Cloud (GCP/AWS), and advanced LLM engineering from IBM and Vercel. Inspect them at /certifications.";
+  }
+
+  // Skills / Tech Stack
+  if (q.includes('skill') || q.includes('tech') || q.includes('stack') || q.includes('language')) {
+    return "Core stack: Python (TensorFlow/PyTorch/LangGraph), TypeScript (React/Next.js/Node), and Cloud (Supabase/PostgreSQL/AWS). He specializes in merging high-fidelity UX with reasoning-based AI infrastructure.";
+  }
+
+  // Contact / Availability
+  if (q.includes('contact') || q.includes('hire') || q.includes('collab') || q.includes('email') || q.includes('linkedin')) {
+    return "Reach Ayush at ayushjhaa1187@gmail.com or via LinkedIn. He is currently looking for high-impact AI/ML collaborations and research partnerships. Protocol starts at /contact.";
+  }
+
+  // General Project Query
+  if (q.includes('project') || q.includes('build') || q.includes('repo')) {
+    return "Ayush has architected 46+ repositories ranging from satellite analysis systems to decentralized reputation ledgers. 9 priority projects feature deep-dive case studies at /projects.";
+  }
+
+  return "I am currently processing your request. You can ask about his IIT Madras background, specific AI projects like StockSense, his 11+ certifications, or his experience as a Jury Member at IIT Kharagpur. System Ready.";
 };

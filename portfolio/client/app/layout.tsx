@@ -17,8 +17,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Ayush Kumar Jha | AI Engineer & Full-Stack Developer",
-  description: "Portfolio of Ayush Kumar Jha, an IIT Madras Data Science student. Specializing in Multi-agent systems and modern web architectures.",
+  description: "Portfolio of Ayush Kumar Jha, an IIT Madras Data Science student. Specializing in Multi-agent systems, LangGraph, and modern web architectures.",
   metadataBase: new URL('https://portfoilo-lovat-psi.vercel.app/'),
+  keywords: ["AI Engineer", "Data Science", "IIT Madras", "LangGraph", "Multi-agent systems", "Next.js", "Full-Stack Developer"],
   openGraph: {
     title: "Ayush Kumar Jha | AI Agent Developer",
     description: "Engineering autonomous intelligence and scalable data ecosystems.",
@@ -54,7 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar />
         <main className="flex-grow pt-24 overflow-x-hidden">

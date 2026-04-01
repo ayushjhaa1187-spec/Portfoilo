@@ -32,15 +32,22 @@ const Navbar = () => {
     };
   }, []);
 
-  const navLinks = [
+  const mainLinks = [
     { name: 'About', path: '/#about', realPath: '/about' },
     { name: 'Projects', path: '/#projects', realPath: '/projects' },
     { name: 'Experience', path: '/experience', realPath: '/experience' },
-    { name: 'Achievements', path: '/achievements', realPath: '/achievements' },
     { name: 'Skills', path: '/#skills', realPath: '/skills' },
-    { name: 'Education', path: '/education', realPath: '/education' },
+    { name: 'Achievements', path: '/achievements', realPath: '/achievements' },
+  ];
+
+  const moreLinks = [
+    { name: 'Certifications', path: '/certifications', realPath: '/certifications' },
+    { name: 'Blog', path: '/blog', realPath: '/blog' },
+    { name: 'Research', path: '/research', realPath: '/research' },
     { name: 'Contact', path: '/#contact', realPath: '/contact' }
   ];
+
+  const [moreOpen, setMoreOpen] = useState(false);
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
     if (path.startsWith('/#') && pathname === '/') {
@@ -73,7 +80,7 @@ const Navbar = () => {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-            {navLinks.map((link) => (
+            {mainLinks.map((link) => (
               <Link 
                 key={link.name} 
                 href={link.path}
@@ -85,6 +92,32 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
+
+            {/* More Dropdown */}
+            <div className="relative group/more">
+              <button 
+                className="text-[10px] font-black tracking-[0.2em] uppercase text-slate-500 hover:text-amber-400 transition-all flex items-center gap-1"
+                onMouseEnter={() => setMoreOpen(true)}
+              >
+                MORE <ChevronRight size={10} className="rotate-90" />
+              </button>
+              
+              <div className="absolute top-full right-0 mt-4 w-48 py-4 bg-[#121212] border border-white/10 rounded-xl opacity-0 translate-y-2 pointer-events-none group-hover/more:opacity-100 group-hover/more:translate-y-0 group-hover/more:pointer-events-auto transition-all shadow-2xl">
+                 {moreLinks.map((link) => (
+                   <Link
+                      key={link.name}
+                      href={link.path}
+                      onClick={(e) => {
+                        handleLinkClick(e, link.path);
+                        setMoreOpen(false);
+                      }}
+                      className="block px-6 py-3 text-[9px] font-black tracking-widest text-slate-400 hover:text-amber-400 hover:bg-white/5 transition-all uppercase"
+                   >
+                      {link.name}
+                   </Link>
+                 ))}
+              </div>
+            </div>
           </div>
 
           {/* Mobile Toggle */}
@@ -106,9 +139,9 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '-100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[90] bg-[#0a0a0a]/95 backdrop-blur-3xl pt-40 px-8 flex flex-col space-y-6"
+            className="fixed inset-0 z-[90] bg-[#0a0a0a]/95 backdrop-blur-3xl pt-40 px-8 flex flex-col space-y-6 overflow-y-auto"
           >
-            {navLinks.map((link, i) => (
+            {[...mainLinks, ...moreLinks].map((link, i) => (
               <motion.div
                 key={link.name}
                 initial={{ opacity: 0, scale: 0.9, x: 20 }}

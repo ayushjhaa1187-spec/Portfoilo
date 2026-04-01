@@ -47,8 +47,17 @@ export const AboutSection = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
-                        className="relative hidden lg:block"
+                        className="relative"
                     >
+                        {/* On mobile: show a simple skills/quote card */}
+                        <div className="lg:hidden mt-12 p-8 glass-card rounded-2xl border border-amber-400/20 text-center">
+                          <p className="text-[10px] font-black tracking-[0.4em] text-emerald-400 mb-4 uppercase">Philosophy</p>
+                          <p className="text-lg text-white italic font-serif leading-relaxed">
+                            "Systems should be self-repairing, agents should be autonomous."
+                          </p>
+                        </div>
+                        
+                        <div className="hidden lg:block">
                         <div className="aspect-square glass-card rounded-3xl p-12 flex items-center justify-center relative overflow-hidden group">
                            {/* Background decorative elements */}
                            <div className="absolute inset-0 bg-gradient-to-br from-amber-400/5 to-blue-500/5 opacity-50 transition-all group-hover:scale-110 duration-700" />
@@ -69,7 +78,8 @@ export const AboutSection = () => {
                                </div>
                            </div>
                         </div>
-                    </motion.div>
+                    </div>
+                  </motion.div>
                 </div>
             </div>
         </section>

@@ -25,17 +25,17 @@ const ProjectsPage = () => {
   }, [filter, searchQuery]);
 
   return (
-    <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-24">
+    <div className="min-h-screen pt-40 px-6 max-w-7xl mx-auto pb-48">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-16 text-center"
+        className="mb-24 text-center"
       >
-        <h1 className="text-5xl md:text-7xl font-black mb-6 text-white tracking-tighter">
-          PROJECT <span className="text-amber-400 font-serif italic">LAB</span>
+        <h1 className="text-6xl md:text-8xl font-black mb-8 text-white tracking-tighter uppercase">
+          PROJECT <span className="text-amber-400 font-serif italic lowercase">LAB</span>
         </h1>
-        <p className="text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+        <p className="text-2xl text-slate-400 max-w-3xl mx-auto font-light leading-relaxed tracking-wide">
           From autonomous agents to full-scale production engines. <br className="hidden md:block" />
           Engineering the next epoch of digital infrastructure.
         </p>

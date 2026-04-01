@@ -134,5 +134,38 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/ayushjhaa1187-spec/e-commerce-platform',
     liveUrl: 'https://prime-shop.vercel.app',
     featured: false
+  },
+  {
+    slug: 'nexus-ai',
+    title: 'Nexus AI',
+    category: 'AI Agents',
+    shortDescription: 'Inter-campus knowledge network powered by agentic RAG and decentralized karma protocols.',
+    fullDescription: 'A production-grade platform allowing students across campuses to list skills and engage in knowledge exchange, secured by a peer-to-peer reputation system.',
+    techStack: ['Next.js', 'Supabase', 'OpenAI', 'LangChain', 'PostgreSQL', 'Tailwind'],
+    metrics: { impact: 'P2P Reputation', speed: 'Live Real-time' },
+    githubUrl: 'https://github.com/ayushjhaa1187-spec/EduSync',
+    featured: true
+  },
+  {
+    slug: 'sentinel-auth',
+    title: 'Sentinel Auth',
+    category: 'Tools',
+    shortDescription: 'Advanced pattern-based security middleware for Node.js clusters.',
+    fullDescription: 'Hardened auth system featuring anomaly detection, JWT rotation, and rate-limiting powered by Redis.',
+    techStack: ['Node.js', 'Redis', 'Express', 'JWT', 'Sentinel'],
+    metrics: { accuracy: '99% blocking', speed: 'Sub-ms overhead' },
+    githubUrl: 'https://github.com/ayushjhaa1187-spec/sentinel-auth-middleware',
+    featured: true
+  },
+  {
+    slug: 'aura-orchestrator',
+    title: 'Aura Orchestrator',
+    category: 'AI Agents',
+    shortDescription: 'Multi-agent orchestration framework for complex engineering workflows.',
+    fullDescription: 'A control-plane for managing multiple autonomous agents, featuring state synchronization and recursive error correction.',
+    techStack: ['Python', 'Docker', 'FastAPI', 'RabbitMQ', 'GPT-4o'],
+    metrics: { impact: 'Task Automation', speed: 'Parallel execution' },
+    githubUrl: 'https://github.com/ayushjhaa1187-spec/aura-orchestrator',
+    featured: true
   }
 ];

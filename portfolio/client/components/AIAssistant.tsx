@@ -23,16 +23,17 @@ const AIAssistant = () => {
   const toggleChat = () => setIsOpen(!isOpen);
 
   const handleSend = () => {
-    if (!input.trim()) return;
+    const query = input.trim();
+    if (!query) return;
     
-    const userMsg = { role: 'user', content: input };
+    const userMsg = { role: 'user', content: query };
     setMessages(prev => [...prev, userMsg]);
     setInput('');
     setIsTyping(true);
 
     // Simulated RAG Response
     setTimeout(() => {
-      const response = getAIResponse(input);
+      const response = getAIResponse(query);
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
       setIsTyping(false);
     }, 1500);
@@ -46,51 +47,51 @@ const AIAssistant = () => {
             initial={{ opacity: 0, y: 40, scale: 0.9, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
             exit={{ opacity: 0, y: 40, scale: 0.9, filter: 'blur(10px)' }}
-            className="mb-6 w-[380px] h-[550px] flex flex-col glass-panel rounded-3xl shadow-[0_0_50px_rgba(251,191,36,0.1)] border-white/10 overflow-hidden"
+            className="mb-6 w-[420px] h-[650px] flex flex-col glass-panel rounded-[2rem] shadow-[0_0_80px_rgba(251,191,36,0.15)] border-white/10 overflow-hidden"
           >
             {/* Header */}
-            <div className="p-6 bg-[#121212] border-b border-white/5 flex justify-between items-center relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-400/5 to-transparent pointer-events-none" />
-              <div className="flex items-center gap-3 relative">
-                <div className="w-10 h-10 rounded-xl bg-amber-400 flex items-center justify-center text-black font-black rotate-3 group-hover:rotate-0 transition-transform shadow-[0_0_15px_rgba(251,191,36,0.3)]">
+            <div className="p-8 bg-[#121212] border-b border-white/5 flex justify-between items-center relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-400/10 to-transparent pointer-events-none" />
+              <div className="flex items-center gap-4 relative">
+                <div className="w-12 h-12 rounded-2xl bg-amber-400 flex items-center justify-center text-black font-black rotate-6 group-hover:rotate-0 transition-transform shadow-[0_0_20px_rgba(251,191,36,0.4)]">
                   AKJ
                 </div>
                 <div>
-                   <h4 className="text-sm font-black tracking-widest text-white uppercase flex items-center gap-2">
-                       Aura_v2.0.4 <Sparkles size={12} className="text-amber-400 animate-pulse" />
+                   <h4 className="text-base font-black tracking-[0.2em] text-white uppercase flex items-center gap-2">
+                       AURA_v2.1 <Sparkles size={14} className="text-amber-400 animate-pulse" />
                    </h4>
-                   <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Autonomous Agent Cluster</p>
+                   <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Neural Link Enabled</p>
                 </div>
               </div>
               <button 
                 onClick={toggleChat} 
-                className="hover:bg-white/10 p-2 rounded-xl transition-all hover:rotate-90"
+                className="hover:bg-white/10 p-3 rounded-2xl transition-all hover:rotate-90 hover:text-amber-400"
               >
-                <X size={20} className="text-slate-500" />
+                <X size={24} className="text-slate-500" />
               </button>
             </div>
 
             {/* Messages Area */}
             <div 
               ref={scrollRef}
-              className="flex-grow overflow-y-auto p-6 space-y-6 bg-transparent scrollbar-hide"
+              className="flex-grow overflow-y-auto p-8 space-y-8 bg-transparent scrollbar-hide"
             >
               {messages.map((msg, idx) => (
                 <motion.div 
                   key={idx}
-                  initial={{ opacity: 0, x: msg.role === 'user' ? 20 : -20 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed border ${
+                  <div className={`max-w-[85%] p-5 rounded-3xl text-[15px] leading-relaxed border ${
                     msg.role === 'user' 
-                      ? 'bg-amber-400 text-black font-bold rounded-tr-none border-amber-400 shadow-lg shadow-amber-400/5' 
-                      : 'bg-white/5 text-slate-200 rounded-tl-none border-white/5'
+                      ? 'bg-amber-400 text-black font-bold rounded-tr-none border-amber-400 shadow-xl' 
+                      : 'bg-white/[0.03] text-slate-200 rounded-tl-none border-white/10 backdrop-blur-md'
                   }`}>
                     {msg.role === 'assistant' && (
-                        <div className="flex items-center gap-2 mb-2 opacity-40">
-                           <Bot size={12} />
-                           <span className="text-[9px] font-black tracking-widest uppercase">Response Node</span>
+                        <div className="flex items-center gap-2 mb-3 opacity-50">
+                           <Bot size={14} />
+                           <span className="text-[10px] font-black tracking-widest uppercase">Response Engine</span>
                         </div>
                     )}
                     {msg.content}
@@ -105,42 +106,42 @@ const AIAssistant = () => {
                   animate={{ opacity: 1 }}
                   className="flex justify-start"
                 >
-                  <div className="bg-white/5 p-4 rounded-2xl rounded-tl-none border border-white/5 flex gap-1.5 items-center">
-                    <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-bounce delay-0" />
-                    <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-bounce delay-150" />
-                    <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-bounce delay-300" />
+                  <div className="bg-white/5 p-5 rounded-3xl rounded-tl-none border border-white/5 flex gap-2 items-center">
+                    <span className="w-2 h-2 bg-amber-400 rounded-full animate-bounce delay-0" />
+                    <span className="w-2 h-2 bg-amber-400 rounded-full animate-bounce delay-150" />
+                    <span className="w-2 h-2 bg-amber-400 rounded-full animate-bounce delay-300" />
                   </div>
                 </motion.div>
               )}
             </div>
 
-            {/* Input Overlay */}
-            <div className="p-6 pt-2">
+            {/* Input Overlay - EXPANDED */}
+            <div className="p-8 pt-4 bg-[#0c0c0c] border-t border-white/5">
                <div className="relative group">
                   <input 
                     type="text" 
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                    placeholder="Ask about AI, IITM, or Availability..."
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-6 pr-14 text-sm font-light text-white focus:outline-none focus:border-amber-400 transition-all placeholder:text-slate-600 focus:bg-[#121212]"
+                    placeholder="Ask about Projects, Experience, or Availability..."
+                    className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-5 pl-8 pr-16 text-base font-light text-white focus:outline-none focus:border-amber-400 transition-all placeholder:text-slate-600 focus:bg-[#121212] tracking-wide"
                   />
                   <button 
                     onClick={handleSend}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-amber-400 text-black rounded-xl hover:scale-105 transition-transform"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-amber-400 text-black rounded-xl hover:scale-110 active:scale-95 transition-transform shadow-lg shadow-amber-400/20"
                   >
-                    <Send size={18} />
+                    <Send size={22} />
                   </button>
                </div>
-               <div className="mt-4 flex justify-center items-center gap-4">
-                  <div className="flex items-center gap-1 opacity-20">
-                     <Terminal size={10} className="text-slate-500" />
-                     <span className="text-[8px] font-black tracking-[0.3em] text-white">SYSTEM ONLINE</span>
+               <div className="mt-6 flex justify-center items-center gap-6">
+                  <div className="flex items-center gap-2 opacity-30">
+                     <Terminal size={12} className="text-amber-400" />
+                     <span className="text-[9px] font-black tracking-[0.4em] text-white">SECURE_LINK: ENCRYPTED</span>
                   </div>
-                  <div className="w-1 h-1 rounded-full bg-slate-800" />
-                  <div className="flex items-center gap-1 opacity-20">
-                     <Cpu size={10} className="text-slate-500" />
-                     <span className="text-[8px] font-black tracking-[0.3em] text-white">LATENCY: 42MS</span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-slate-800" />
+                  <div className="flex items-center gap-2 opacity-30">
+                     <Cpu size={12} className="text-amber-400" />
+                     <span className="text-[9px] font-black tracking-[0.4em] text-white">LATENCY: 12MS</span>
                   </div>
                </div>
             </div>

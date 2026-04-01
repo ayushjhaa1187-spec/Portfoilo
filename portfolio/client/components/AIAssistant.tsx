@@ -33,6 +33,7 @@ const AIAssistant = () => {
     if (q.includes('nexus') || q.includes('edu')) currentTopic = 'nexus';
     else if (q.includes('stock') || q.includes('finance')) currentTopic = 'stocksense';
     else if (q.includes('sentinel') || q.includes('auth')) currentTopic = 'sentinel';
+    else if (q.includes('iit') || q.includes('madras') || q.includes('college')) currentTopic = 'iit';
     
     const userMsg = { role: 'user', content: query };
     setMessages(prev => [...prev, userMsg]);
@@ -67,9 +68,9 @@ const AIAssistant = () => {
                 </div>
                 <div>
                    <h4 className="text-base font-black tracking-[0.2em] text-white uppercase flex items-center gap-2">
-                       AURA_v2.3 <Sparkles size={14} className="text-amber-400 animate-pulse" />
+                       AURA_v2.4 <Sparkles size={14} className="text-amber-400 animate-pulse" />
                    </h4>
-                   <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest leading-none mt-1">Intelligence Node Active</p>
+                   <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest leading-none mt-1">Intelligence Link Stable</p>
                 </div>
               </div>
               <button 
@@ -125,7 +126,7 @@ const AIAssistant = () => {
 
             {/* Input Overlay - EXPANDED & FIXED */}
             <div className="p-8 pb-10 bg-[#0c0c0c] border-t border-white/5 shrink-0">
-               <div className="flex gap-2 overflow-x-auto pb-4 scrollbar-hide">
+               <div className="flex gap-2 overflow-x-auto pb-6 scrollbar-hide">
                   {['Nexus AI', 'StockSense', 'IIT Madras', 'Skills'].map(chip => (
                     <button 
                       key={chip}
@@ -143,8 +144,8 @@ const AIAssistant = () => {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                    placeholder="Enter query node..."
-                    className="w-full bg-white/[0.04] border border-white/10 rounded-[1.25rem] py-6 pl-8 pr-16 text-base font-medium text-white focus:outline-none focus:border-amber-400 transition-all placeholder:text-slate-500 focus:bg-[#121212] tracking-wide"
+                    placeholder="ENTER_QUERY_NODE..."
+                    className="w-full bg-white/[0.05] border border-white/10 rounded-[1.25rem] py-6 pl-8 pr-16 text-base font-bold text-amber-400 focus:outline-none focus:border-amber-400 transition-all placeholder:text-slate-600 focus:bg-[#121212] tracking-widest uppercase"
                   />
                   <button 
                     onClick={() => handleSend()}
@@ -154,15 +155,15 @@ const AIAssistant = () => {
                   </button>
                </div>
                
-               <div className="mt-8 flex justify-center items-center gap-8 border-t border-white/5 pt-6 opacity-40">
+               <div className="mt-8 flex justify-center items-center gap-8 border-t border-white/5 pt-8 opacity-40">
                   <div className="flex items-center gap-2">
-                     <Terminal size={12} className="text-amber-400" />
-                     <span className="text-[9px] font-black tracking-[0.4em] text-white">SECURE_TUNNEL_NODE</span>
+                     <Terminal size={14} className="text-amber-400" />
+                     <span className="text-[10px] font-black tracking-[0.5em] text-white">SECURE_TUNNEL_ESTABLISHED</span>
                   </div>
-                  <div className="w-1.5 h-1.5 rounded-full bg-slate-700" />
+                  <div className="w-2 h-2 rounded-full bg-slate-700" />
                   <div className="flex items-center gap-2">
-                     <Cpu size={12} className="text-amber-400" />
-                     <span className="text-[9px] font-black tracking-[0.4em] text-white">STATUS: SYNCED</span>
+                     <Cpu size={14} className="text-amber-400" />
+                     <span className="text-[10px] font-black tracking-[0.5em] text-white">SYNC: 100%</span>
                   </div>
                </div>
             </div>

@@ -44,6 +44,8 @@ export const metadata: Metadata = {
   },
 };
 
+import PageTransition from "@/components/PageTransition";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -55,8 +57,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <Navbar />
-        <main className="flex-grow pt-16">
-          {children}
+        <main className="flex-grow pt-24 overflow-x-hidden">
+          <PageTransition>
+            {children}
+          </PageTransition>
         </main>
         <Footer />
         <AIAssistant />

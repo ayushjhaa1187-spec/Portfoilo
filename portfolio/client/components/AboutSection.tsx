@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 
 export const AboutSection = () => {
     return (
-        <section className="py-32 bg-[#0a0a0a] border-t border-white/5">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="about" className="py-[var(--section-gap)] px-[var(--section-px)] bg-[#0a0a0a] border-t border-white/5">
+            <div className="max-w-7xl mx-auto">
                 <div className="grid lg:grid-cols-2 gap-20 items-center">
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}

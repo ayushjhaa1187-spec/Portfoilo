@@ -122,28 +122,28 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Rolling Stats */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-20 w-full max-w-4xl"
-        >
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-20 w-full max-w-4xl">
           {[
             { label: 'Verified Commits', value: '2845', icon: <Terminal size={14} /> },
             { label: 'Active Repos', value: '46', icon: <Github size={14} /> },
             { label: 'Stars Earned', value: '1', icon: <Sparkles size={14} /> },
             { label: 'IITM Credentials', value: 'BS DS', icon: <ArrowRight size={14} /> }
           ].map((stat, i) => (
-            <div key={i} className="bg-white/5 border border-white/10 p-6 flex flex-col items-center">
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.5 + i * 0.1, duration: 0.6 }}
+              className="bg-white/5 border border-white/10 p-6 flex flex-col items-center glass-card"
+            >
               <div className="text-amber-400 mb-2">{stat.icon}</div>
               <div className="text-3xl font-black text-white">
                  {typeof parseInt(stat.value) === 'number' && !isNaN(parseInt(stat.value)) ? <RollingNumber value={stat.value} /> : stat.value}
               </div>
               <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500 mt-1">{stat.label}</div>
-            </div>
+            </motion.div>
           ))}
-        </motion.div>
+        </div>
 
       </div>
     </section>

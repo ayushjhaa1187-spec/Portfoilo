@@ -4,7 +4,7 @@ export interface Achievement {
   org: string;
   date: string;
   description: string;
-  type: 'Recognition' | 'Hackathon' | 'Leadership';
+  type: 'Recognition' | 'Hackathon' | 'Leadership' | 'Certification' | 'Ambassador';
   verified: boolean;
 }
 
@@ -29,20 +29,38 @@ export const achievements: Achievement[] = [
   },
   {
     id: 3,
-    title: 'E-Cell Campus Ambassador Finalist',
-    org: 'Delhi Technological University',
+    title: 'Campus Ambassador Finalist',
+    org: 'E-Cell DTU',
     date: 'Oct 2025 – Jan 2026',
     description: 'Recognized for excellent outreach and community engagement as an ambassador for DTU’s E-Cell.',
-    type: 'Leadership',
+    type: 'Ambassador',
     verified: true
   },
   {
     id: 4,
+    title: 'Shaastra Finalist Badge',
+    org: 'IIT Madras E-Cell',
+    date: 'Jan 2026',
+    description: 'Deep-tech finalist in the Shaastra summit for innovative agentic AI workflows.',
+    type: 'Hackathon',
+    verified: true
+  },
+  {
+    id: 5,
+    title: 'Data Science Certification',
+    org: 'Udemy — Advanced AI',
+    date: 'Aug 2025',
+    description: 'Mastered predictive modeling and neural network architectures for complex data sets.',
+    type: 'Certification',
+    verified: true
+  },
+  {
+    id: 6,
     title: 'Space Race Certifications',
     org: 'IEEE DTU — Octoberfest',
     date: 'Oct 2025',
     description: 'Advanced certifications in space exploration data science and processing challenges.',
-    type: 'Recognition',
+    type: 'Certification',
     verified: true
   }
 ];

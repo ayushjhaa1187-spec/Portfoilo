@@ -8,8 +8,8 @@ export const FeaturedProjects = () => {
   const featured = projects.filter(p => p.featured);
 
   return (
-    <section className="py-32 bg-[#0a0a0a] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="py-[var(--section-gap)] px-[var(--section-px)] bg-[#0a0a0a] relative overflow-hidden">
+      <div className="max-w-7xl mx-auto">
         <motion.div
            initial={{ opacity: 0, x: -20 }}
            whileInView={{ opacity: 1, x: 0 }}

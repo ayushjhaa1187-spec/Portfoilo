@@ -14,25 +14,45 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      setScrolled(isScrolled);
-      
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       setScrollProgress((winScroll / height) * 100);
+      setScrolled(window.scrollY > 20);
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false);
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, []);
 
   const navLinks = [
-    { name: 'Projects', path: '/projects' },
-    { name: 'Experience', path: '/experience' },
-    { name: 'Achievements', path: '/achievements' },
-    { name: 'Education', path: '/education' },
-    { name: 'HACK ME', path: '/contact' }
+    { name: 'About', path: '/#about', realPath: '/about' },
+    { name: 'Projects', path: '/#projects', realPath: '/projects' },
+    { name: 'Experience', path: '/experience', realPath: '/experience' },
+    { name: 'Achievements', path: '/achievements', realPath: '/achievements' },
+    { name: 'Skills', path: '/#skills', realPath: '/skills' },
+    { name: 'Education', path: '/education', realPath: '/education' },
+    { name: 'Contact', path: '/#contact', realPath: '/contact' }
   ];
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    if (path.startsWith('/#') && pathname === '/') {
+      e.preventDefault();
+      const id = path.substring(2);
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        setIsOpen(false);
+      }
+    }
+  };
 
   return (
     <>
@@ -46,19 +66,20 @@ const Navbar = () => {
             <div className="w-10 h-10 bg-amber-400 rounded-lg flex items-center justify-center font-bold text-black group-hover:rotate-12 transition-transform">
               AKJ
             </div>
-            <span className="text-xl font-bold tracking-tighter text-white group-hover:text-amber-400 transition-colors">
+            <span className="text-xl font-bold tracking-tighter text-white group-hover:text-amber-400 transition-colors uppercase">
               Portfolio
             </span>
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
             {navLinks.map((link) => (
               <Link 
-                key={link.path} 
+                key={link.name} 
                 href={link.path}
-                className={`text-sm font-bold tracking-widest uppercase transition-all hover:text-amber-400 ${
-                  pathname === link.path ? 'text-amber-400' : 'text-slate-400'
+                onClick={(e) => handleLinkClick(e, link.path)}
+                className={`text-[10px] font-black tracking-[0.2em] uppercase transition-all hover:text-amber-400 ${
+                  pathname === link.realPath || (pathname === '/' && link.path.startsWith('/#')) ? 'text-white' : 'text-slate-500'
                 }`}
               >
                 {link.name}
@@ -68,7 +89,8 @@ const Navbar = () => {
 
           {/* Mobile Toggle */}
           <button 
-            className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
+            aria-label="Toggle Menu"
+            className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors relative z-50"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -80,30 +102,38 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            className="fixed inset-0 z-[90] bg-[#0a0a0a] pt-32 px-8 flex flex-col space-y-8"
+            initial={{ opacity: 0, y: '-100%' }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: '-100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-[90] bg-[#0a0a0a]/95 backdrop-blur-3xl pt-40 px-8 flex flex-col space-y-6"
           >
             {navLinks.map((link, i) => (
               <motion.div
-                key={link.path}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.1 }}
+                key={link.name}
+                initial={{ opacity: 0, scale: 0.9, x: 20 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                transition={{ delay: i * 0.05 }}
               >
                 <Link 
                   href={link.path}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    handleLinkClick(e, link.path);
+                    if (!link.path.startsWith('/#') || pathname !== '/') setIsOpen(false);
+                  }}
                   className={`text-4xl font-black tracking-tighter flex items-center justify-between group ${
-                    pathname === link.path ? 'text-amber-400' : 'text-white'
+                    pathname === link.realPath ? 'text-amber-400' : 'text-white'
                   }`}
                 >
                   {link.name.toUpperCase()}
-                  <ChevronRight className="group-hover:translate-x-2 transition-transform" size={40} />
+                  <ChevronRight className="text-amber-400 group-hover:translate-x-2 transition-transform" size={32} />
                 </Link>
               </motion.div>
             ))}
+            
+            <div className="pt-12 mt-12 border-t border-white/5 opacity-40">
+               <p className="text-[10px] font-black tracking-[0.5em] text-slate-500 uppercase italic">Engineering_Node_v3.2</p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

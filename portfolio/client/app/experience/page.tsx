@@ -21,43 +21,64 @@ const ExperiencePage = () => {
         </p>
       </motion.div>
 
-      <div className="relative border-l-2 border-white/5 ml-4 md:ml-0 md:left-1/2 md:-translate-x-[1px]">
+      <div className="relative ml-4 md:ml-0 overflow-hidden">
+        {/* SVG Drawing Line */}
+        <div className="absolute left-[9px] md:left-1/2 top-0 bottom-0 w-[2px] -translate-x-1/2 z-0">
+           <svg className="w-full h-full" preserveAspectRatio="none">
+              <line x1="1" y1="0" x2="1" y2="100%" className="stroke-white/5 stroke-2" />
+              <motion.line 
+                x1="1" 
+                y1="0" 
+                x2="1" 
+                y2="100%" 
+                className="stroke-amber-400 stroke-2"
+                initial={{ pathLength: 0 }}
+                whileInView={{ pathLength: 1 }}
+                viewport={{ once: false, amount: 0.1 }}
+                transition={{ duration: 2, ease: "easeInOut" }}
+              />
+           </svg>
+        </div>
+
         {experiences.map((exp, idx) => (
           <motion.div
             key={exp.id}
             initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1, duration: 0.5 }}
-            className={`relative mb-24 md:w-1/2 ${idx % 2 === 0 ? 'md:pr-16 md:text-right md:ml-0' : 'md:pl-16 md:ml-auto'}`}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className={`relative mb-32 md:w-1/2 flex ${idx % 2 === 0 ? 'md:justify-end md:pr-16 text-right' : 'md:justify-start md:pl-16 md:ml-auto text-left'}`}
           >
-            {/* Timeline Dot */}
-            <div className="absolute top-0 w-4 h-4 bg-amber-400 rounded-full -left-[9px] md:left-auto md:right-auto md:top-2 shadow-[0_0_15px_rgba(251,191,36,0.5)] z-10" 
-                 style={{ left: idx % 2 === 0 ? 'auto' : '-9px', right: idx % 2 === 0 ? '-9px' : 'auto' }} />
+            {/* Center Dot */}
+            <div className="absolute top-8 w-5 h-5 bg-black border-4 border-amber-400 rounded-full left-[-26px] md:left-auto md:right-auto z-10 shadow-[0_0_15px_rgba(251,191,36,0.5)]" 
+                 style={{ 
+                    left: idx % 2 === 0 ? 'auto' : '-10px', 
+                    right: idx % 2 === 0 ? '-10px' : 'auto' 
+                 }} />
 
-            <div className="glass-card p-8 group hover:border-amber-400/50 transition-all">
-              <div className={`flex items-center gap-4 mb-4 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
-                  <Briefcase size={24} />
+            <div className="glass-card p-10 group hover:border-amber-400/50 transition-all w-full max-w-xl relative">
+              <div className={`flex items-center gap-6 mb-6 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center text-amber-400 group-hover:rotate-6 group-hover:scale-110 transition-all shadow-xl shadow-amber-400/10">
+                  <Briefcase size={32} />
                 </div>
                 <div>
-                   <h3 className="text-2xl font-bold text-white group-hover:text-amber-400 transition-colors uppercase tracking-tight">{exp.role}</h3>
-                   <p className="text-slate-400 font-bold uppercase text-xs tracking-widest">{exp.org} • {exp.type}</p>
+                   <h3 className="text-3xl font-black text-white group-hover:text-amber-400 transition-colors uppercase tracking-tight leading-none mb-2">{exp.role}</h3>
+                   <p className="text-slate-400 font-black uppercase text-[10px] tracking-[0.3em]">{exp.org} • {exp.type}</p>
                 </div>
               </div>
 
-              <div className={`flex flex-wrap gap-4 mb-6 text-slate-500 text-xs font-black tracking-widest uppercase ${idx % 2 === 0 ? 'md:justify-end' : ''}`}>
-                 <span className="flex items-center gap-1.5"><Calendar size={12} /> {exp.start} — {exp.end}</span>
-                 {exp.verified && <span className="flex items-center gap-1.5 text-emerald-400"><CheckCircle size={12} /> Verified</span>}
+              <div className={`flex flex-wrap gap-4 mb-8 text-slate-500 text-[10px] font-black tracking-widest uppercase ${idx % 2 === 0 ? 'md:justify-end' : ''}`}>
+                 <span className="flex items-center gap-2 bg-white/5 px-4 py-1.5 rounded-full"><Calendar size={12} /> {exp.start} — {exp.end}</span>
+                 {exp.verified && <span className="flex items-center gap-2 text-emerald-400 bg-emerald-400/5 px-4 py-1.5 rounded-full"><CheckCircle size={12} /> VERIFIED_NODE</span>}
               </div>
 
-              <p className="text-slate-400 text-sm leading-relaxed mb-8 font-light">
+              <p className="text-slate-400 text-base leading-relaxed mb-10 font-light">
                 {exp.description}
               </p>
 
               <div className={`flex flex-wrap gap-2 ${idx % 2 === 0 ? 'md:justify-end' : ''}`}>
                 {exp.skills.map(skill => (
-                  <span key={skill} className="px-3 py-1 bg-white/5 rounded-full text-[9px] font-black tracking-widest uppercase text-slate-500 border border-white/5">
+                  <span key={skill} className="px-4 py-1.5 bg-white/5 rounded-full text-[9px] font-black tracking-widest uppercase text-slate-500 border border-white/5 group-hover:border-amber-400/20 group-hover:text-amber-400 transition-all">
                     {skill}
                   </span>
                 ))}

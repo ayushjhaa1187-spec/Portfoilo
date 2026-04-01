@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* globals.css — Spacing tokens */
 :root {
   --background: #0a0a0a;
   --foreground: #f5f5f5;
@@ -10,6 +11,12 @@
   --border: #262626;
   --grid-size: 8px;
   --max-width: 1200px;
+  
+  /* Fluid Spacing Tokens */
+  --section-gap: clamp(4rem, 8vw, 8rem);      /* between sections */
+  --section-px: clamp(1rem, 4vw, 2rem);        /* horizontal padding */
+  --card-gap: clamp(1rem, 2vw, 2rem);          /* between cards */
+  --content-max: 1280px;                        /* max content width */
 }
 
 @theme inline {
@@ -20,6 +27,11 @@
   --color-secondary: var(--secondary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* Custom Spacing Overlays */
+  --spacing-section: var(--section-gap);
+  --spacing-px-fluid: var(--section-px);
+  --spacing-card-gap: var(--card-gap);
 }
 
 * {
@@ -50,6 +62,8 @@ body {
   100% { transform: translateX(-50%); }
 }
 .animate-marquee {
+  display: flex;
+  width: max-content;
   animation: marquee 40s linear infinite;
 }
 .animate-marquee:hover {

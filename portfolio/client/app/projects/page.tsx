@@ -9,14 +9,15 @@ import { projects } from '@/data/projects';
 import { Search, Filter, ExternalLink, Github, ArrowRight, Zap, Target, Users, Clock } from 'lucide-react';
 
 const ProjectsPage = () => {
-  const [filter, setFilter] = useState('All');
+  const [filter, setFilter] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
   
-  const categories = ['All', 'AI Agents', 'Full-Stack', 'Hackathon', 'Tools', 'Data Science', 'ML/AI'];
+  const categories = ['ALL', 'AI/ML', 'FULL-STACK', 'HACKATHON', 'TOOLS', 'DATA'];
 
   const filteredProjects = useMemo(() => {
     return projects.filter(p => {
-      const matchesFilter = filter === 'All' || p.category === filter;
+      const pCat = p.category.toUpperCase().replace(' ', '-');
+      const matchesFilter = filter === 'ALL' || pCat === filter || (filter === 'DATA' && pCat === 'DATA-SCIENCE') || (filter === 'AI/ML' && pCat === 'ML/AI');
       const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                             p.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
                             p.techStack.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));

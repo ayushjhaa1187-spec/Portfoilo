@@ -47,23 +47,23 @@ export const aiKnowledge = {
   ]
 };
 
-export const getAIResponse = (query: string): string => {
+export const getAIResponse = (query: string, context?: string): string => {
   const q = query.toLowerCase();
   
   if (q.includes('skill') || q.includes('tech') || q.includes('stack') || q.includes('expert') || q.includes('language')) {
     return `Ayush is a "Fraken-stack" expert proficient in ${aiKnowledge.skills.slice(0, 10).join(', ')}. He specializes in Python for AI/ML and Next.js for high-fidelity frontends.`;
   }
   
-  if (q.includes('nexus') || q.includes('edusync')) {
-    return `Nexus AI (formerly EduSync) is Ayush's flagship inter-campus knowledge network. It uses agentic RAG and a P2P karma protocol to facilitate skill sharing between students across IITs.`;
+  if (q.includes('nexus') || q.includes('edusync') || (q.includes('more') && context === 'nexus')) {
+    return `Nexus AI (formerly EduSync) is Ayush's flagship inter-campus knowledge network. It uses agentic RAG and a P2P karma protocol to facilitate skill sharing between students across IITs. It recently integrated decentralized reputation scoring.`;
   }
 
-  if (q.includes('stocksense') || q.includes('market') || q.includes('stock') || q.includes('finance')) {
-    return `StockSense is an autonomous agent Ayush built using LangGraph. It handles real-time stock analysis with <50ms latency, utilizing predictive reasoning to identify market trends.`;
+  if (q.includes('stocksense') || q.includes('market') || q.includes('stock') || q.includes('finance') || (q.includes('more') && context === 'stocksense')) {
+    return `StockSense is an autonomous agent Ayush built using LangGraph. It handles real-time stock analysis with <50ms latency, utilizing predictive reasoning to identify market trends and sentiment shifts.`;
   }
 
-  if (q.includes('sentinel') || q.includes('auth') || q.includes('security')) {
-    return `Sentinel Auth is a hardened security middleware for Node.js. It features JWT rotation, Redis-backed rate limiting, and anomaly detection to secure production APIs.`;
+  if (q.includes('sentinel') || q.includes('auth') || q.includes('security') || (q.includes('more') && context === 'sentinel')) {
+    return `Sentinel Auth is a hardened security middleware for Node.js. It features JWT rotation, Redis-backed rate limiting, and anomaly detection to secure production APIs against unauthorized access.`;
   }
 
   if (q.includes('satellite') || q.includes('vision') || q.includes('cv') || q.includes('space')) {

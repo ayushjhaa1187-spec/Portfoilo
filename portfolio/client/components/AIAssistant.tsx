@@ -12,6 +12,7 @@ const AIAssistant = () => {
     { role: 'assistant', content: 'Greeting. [IDENTIFYING_VISITOR]... System Ready. Ask me about Ayush\'s AI projects, IIT Madras status, or his engineering stack.' }
   ]);
   const [input, setInput] = useState('');
+  const [lastTopic, setLastTopic] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -22,21 +23,29 @@ const AIAssistant = () => {
 
   const toggleChat = () => setIsOpen(!isOpen);
 
-  const handleSend = () => {
-    const query = input.trim();
+  const handleSend = (forcedQuery?: string) => {
+    const query = (forcedQuery || input).trim();
     if (!query) return;
+    
+    // Simple topic tracking
+    let currentTopic = lastTopic;
+    const q = query.toLowerCase();
+    if (q.includes('nexus') || q.includes('edu')) currentTopic = 'nexus';
+    else if (q.includes('stock') || q.includes('finance')) currentTopic = 'stocksense';
+    else if (q.includes('sentinel') || q.includes('auth')) currentTopic = 'sentinel';
     
     const userMsg = { role: 'user', content: query };
     setMessages(prev => [...prev, userMsg]);
     setInput('');
     setIsTyping(true);
+    setLastTopic(currentTopic);
 
     // Simulated RAG Response
     setTimeout(() => {
-      const response = getAIResponse(query);
+      const response = getAIResponse(query, currentTopic || undefined);
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
       setIsTyping(false);
-    }, 1500);
+    }, 1200);
   };
 
   return (
@@ -47,10 +56,10 @@ const AIAssistant = () => {
             initial={{ opacity: 0, y: 40, scale: 0.9, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
             exit={{ opacity: 0, y: 40, scale: 0.9, filter: 'blur(10px)' }}
-            className="mb-6 w-[420px] h-[650px] flex flex-col glass-panel rounded-[2rem] shadow-[0_0_80px_rgba(251,191,36,0.15)] border-white/10 overflow-hidden"
+            className="mb-6 w-[420px] max-h-[700px] h-[80vh] flex flex-col glass-panel rounded-[2.5rem] shadow-[0_0_80px_rgba(251,191,36,0.15)] border-white/10 overflow-hidden"
           >
             {/* Header */}
-            <div className="p-8 bg-[#121212] border-b border-white/5 flex justify-between items-center relative">
+            <div className="p-8 bg-[#121212] border-b border-white/5 flex justify-between items-center relative shrink-0">
               <div className="absolute inset-0 bg-gradient-to-r from-amber-400/10 to-transparent pointer-events-none" />
               <div className="flex items-center gap-4 relative">
                 <div className="w-12 h-12 rounded-2xl bg-amber-400 flex items-center justify-center text-black font-black rotate-6 group-hover:rotate-0 transition-transform shadow-[0_0_20px_rgba(251,191,36,0.4)]">
@@ -58,9 +67,9 @@ const AIAssistant = () => {
                 </div>
                 <div>
                    <h4 className="text-base font-black tracking-[0.2em] text-white uppercase flex items-center gap-2">
-                       AURA_v2.1 <Sparkles size={14} className="text-amber-400 animate-pulse" />
+                       AURA_v2.3 <Sparkles size={14} className="text-amber-400 animate-pulse" />
                    </h4>
-                   <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Neural Link Enabled</p>
+                   <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest leading-none mt-1">Intelligence Node Active</p>
                 </div>
               </div>
               <button 
@@ -74,7 +83,7 @@ const AIAssistant = () => {
             {/* Messages Area */}
             <div 
               ref={scrollRef}
-              className="flex-grow overflow-y-auto p-8 space-y-8 bg-transparent scrollbar-hide"
+              className="flex-grow overflow-y-auto p-8 space-y-8 bg-transparent scrollbar-hide pt-4"
             >
               {messages.map((msg, idx) => (
                 <motion.div 
@@ -83,7 +92,7 @@ const AIAssistant = () => {
                   animate={{ opacity: 1, y: 0 }}
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  <div className={`max-w-[85%] p-5 rounded-3xl text-[15px] leading-relaxed border ${
+                  <div className={`max-w-[88%] p-5 rounded-3xl text-[15px] leading-relaxed border ${
                     msg.role === 'user' 
                       ? 'bg-amber-400 text-black font-bold rounded-tr-none border-amber-400 shadow-xl' 
                       : 'bg-white/[0.03] text-slate-200 rounded-tl-none border-white/10 backdrop-blur-md'
@@ -99,7 +108,6 @@ const AIAssistant = () => {
                 </motion.div>
               ))}
               
-              {/* Typing Indicator */}
               {isTyping && (
                 <motion.div 
                   initial={{ opacity: 0 }}
@@ -115,15 +123,14 @@ const AIAssistant = () => {
               )}
             </div>
 
-            {/* Input Overlay - EXPANDED */}
-            <div className="p-8 pt-4 bg-[#0c0c0c] border-t border-white/5">
-               {/* Suggested Queries */}
+            {/* Input Overlay - EXPANDED & FIXED */}
+            <div className="p-8 pb-10 bg-[#0c0c0c] border-t border-white/5 shrink-0">
                <div className="flex gap-2 overflow-x-auto pb-4 scrollbar-hide">
                   {['Nexus AI', 'StockSense', 'IIT Madras', 'Skills'].map(chip => (
                     <button 
                       key={chip}
-                      onClick={() => { setInput(chip); }}
-                      className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-black text-slate-400 hover:text-amber-400 hover:border-amber-400 transition-all whitespace-nowrap uppercase tracking-widest"
+                      onClick={() => handleSend(chip)}
+                      className="px-5 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-black text-slate-400 hover:text-amber-400 hover:border-amber-400 transition-all whitespace-nowrap uppercase tracking-[0.2em]"
                     >
                       {chip}
                     </button>
@@ -136,25 +143,26 @@ const AIAssistant = () => {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                    placeholder="Inquire intelligence node..."
-                    className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-6 pl-8 pr-16 text-lg font-light text-white focus:outline-none focus:border-amber-400 transition-all placeholder:text-slate-700 focus:bg-[#121212] tracking-wide"
+                    placeholder="Enter query node..."
+                    className="w-full bg-white/[0.04] border border-white/10 rounded-[1.25rem] py-6 pl-8 pr-16 text-base font-medium text-white focus:outline-none focus:border-amber-400 transition-all placeholder:text-slate-500 focus:bg-[#121212] tracking-wide"
                   />
                   <button 
-                    onClick={handleSend}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 p-4 bg-amber-400 text-black rounded-2xl hover:scale-110 active:scale-95 transition-transform shadow-xl shadow-amber-400/30"
+                    onClick={() => handleSend()}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-4 bg-amber-400 text-black rounded-2xl hover:scale-110 active:scale-95 transition-transform shadow-xl shadow-amber-400/30"
                   >
-                    <Send size={24} />
+                    <Send size={22} />
                   </button>
                </div>
-               <div className="mt-8 flex justify-center items-center gap-8">
-                  <div className="flex items-center gap-2 opacity-50">
-                     <Terminal size={14} className="text-amber-400" />
-                     <span className="text-[10px] font-black tracking-[0.5em] text-white">SECURE_TUNNEL_ESTABLISHED</span>
+               
+               <div className="mt-8 flex justify-center items-center gap-8 border-t border-white/5 pt-6 opacity-40">
+                  <div className="flex items-center gap-2">
+                     <Terminal size={12} className="text-amber-400" />
+                     <span className="text-[9px] font-black tracking-[0.4em] text-white">SECURE_TUNNEL_NODE</span>
                   </div>
-                  <div className="w-2 h-2 rounded-full bg-slate-800" />
-                  <div className="flex items-center gap-2 opacity-50">
-                     <Cpu size={14} className="text-amber-400" />
-                     <span className="text-[10px] font-black tracking-[0.5em] text-white">SYNC: 100%</span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-slate-700" />
+                  <div className="flex items-center gap-2">
+                     <Cpu size={12} className="text-amber-400" />
+                     <span className="text-[9px] font-black tracking-[0.4em] text-white">STATUS: SYNCED</span>
                   </div>
                </div>
             </div>

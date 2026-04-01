@@ -117,31 +117,44 @@ const AIAssistant = () => {
 
             {/* Input Overlay - EXPANDED */}
             <div className="p-8 pt-4 bg-[#0c0c0c] border-t border-white/5">
+               {/* Suggested Queries */}
+               <div className="flex gap-2 overflow-x-auto pb-4 scrollbar-hide">
+                  {['Nexus AI', 'StockSense', 'IIT Madras', 'Skills'].map(chip => (
+                    <button 
+                      key={chip}
+                      onClick={() => { setInput(chip); }}
+                      className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-black text-slate-400 hover:text-amber-400 hover:border-amber-400 transition-all whitespace-nowrap uppercase tracking-widest"
+                    >
+                      {chip}
+                    </button>
+                  ))}
+               </div>
+
                <div className="relative group">
                   <input 
                     type="text" 
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                    placeholder="Ask about Projects, Experience, or Availability..."
-                    className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-5 pl-8 pr-16 text-base font-light text-white focus:outline-none focus:border-amber-400 transition-all placeholder:text-slate-600 focus:bg-[#121212] tracking-wide"
+                    placeholder="Inquire intelligence node..."
+                    className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-6 pl-8 pr-16 text-lg font-light text-white focus:outline-none focus:border-amber-400 transition-all placeholder:text-slate-700 focus:bg-[#121212] tracking-wide"
                   />
                   <button 
                     onClick={handleSend}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-amber-400 text-black rounded-xl hover:scale-110 active:scale-95 transition-transform shadow-lg shadow-amber-400/20"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-4 bg-amber-400 text-black rounded-2xl hover:scale-110 active:scale-95 transition-transform shadow-xl shadow-amber-400/30"
                   >
-                    <Send size={22} />
+                    <Send size={24} />
                   </button>
                </div>
-               <div className="mt-6 flex justify-center items-center gap-6">
-                  <div className="flex items-center gap-2 opacity-30">
-                     <Terminal size={12} className="text-amber-400" />
-                     <span className="text-[9px] font-black tracking-[0.4em] text-white">SECURE_LINK: ENCRYPTED</span>
+               <div className="mt-8 flex justify-center items-center gap-8">
+                  <div className="flex items-center gap-2 opacity-50">
+                     <Terminal size={14} className="text-amber-400" />
+                     <span className="text-[10px] font-black tracking-[0.5em] text-white">SECURE_TUNNEL_ESTABLISHED</span>
                   </div>
-                  <div className="w-1.5 h-1.5 rounded-full bg-slate-800" />
-                  <div className="flex items-center gap-2 opacity-30">
-                     <Cpu size={12} className="text-amber-400" />
-                     <span className="text-[9px] font-black tracking-[0.4em] text-white">LATENCY: 12MS</span>
+                  <div className="w-2 h-2 rounded-full bg-slate-800" />
+                  <div className="flex items-center gap-2 opacity-50">
+                     <Cpu size={14} className="text-amber-400" />
+                     <span className="text-[10px] font-black tracking-[0.5em] text-white">SYNC: 100%</span>
                   </div>
                </div>
             </div>

@@ -202,11 +202,11 @@ const ProjectsPage = () => {
         </motion.div>
       )}
 
-      {/* Footer Stat */}
-      <div className="mt-32 text-center py-16 border-t border-white/5">
-        <p className="text-slate-600 text-sm mb-8 tracking-widest uppercase">Curating a legacy of 46+ Technical Repositories</p>
+      {/* Footer Stat - ADDING PERSONAL SPACE */}
+      <div className="mt-64 text-center py-32 border-t border-white/5 bg-gradient-to-b from-transparent to-amber-400/5">
+        <p className="text-slate-600 text-base mb-12 tracking-[0.3em] font-black uppercase">Curating a legacy of 50+ Technical Repositories</p>
         <a href="https://github.com/ayushjhaa1187-spec" target="_blank" rel="noopener noreferrer">
-           <button className="px-10 py-4 bg-transparent border border-white/10 hover:border-amber-400 text-white font-black uppercase text-xs tracking-[0.2em] rounded-full transition-all hover:bg-amber-400 hover:text-black">
+           <button className="px-16 py-6 bg-transparent border-2 border-white/10 hover:border-amber-400 text-white font-black uppercase text-sm tracking-[0.3em] rounded-full transition-all hover:bg-amber-400 hover:text-black hover:shadow-[0_0_40px_rgba(251,191,36,0.3)]">
               Access Entire Knowledge Base
            </button>
         </a>

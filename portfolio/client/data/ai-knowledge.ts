@@ -50,29 +50,49 @@ export const aiKnowledge = {
 export const getAIResponse = (query: string): string => {
   const q = query.toLowerCase();
   
-  if (q.includes('skill') || q.includes('tech') || q.includes('stack')) {
-    return `Ayush is proficient in ${aiKnowledge.skills.slice(0, 8).join(', ')} and more. He specializes in AI Agents and Full-Stack engineering.`;
+  if (q.includes('skill') || q.includes('tech') || q.includes('stack') || q.includes('expert') || q.includes('language')) {
+    return `Ayush is a "Fraken-stack" expert proficient in ${aiKnowledge.skills.slice(0, 10).join(', ')}. He specializes in Python for AI/ML and Next.js for high-fidelity frontends.`;
   }
   
-  if (q.includes('project') || q.includes('build') || q.includes('work')) {
-    return `Ayush has built several notable projects including ${aiKnowledge.projects.map(p => p.name).join(', ')}. His flagship is StockSense, an autonomous AI agent for market analysis.`;
-  }
-  
-  if (q.includes('education') || q.includes('iit') || q.includes('college') || q.includes('madras')) {
-    return `Ayush is currently a BS in Data Science student at IIT Madras (Batch 2025-2029). He is an active member of Nilgiri House there.`;
-  }
-  
-  if (q.includes('job') || q.includes('hire') || q.includes('available') || q.includes('contact')) {
-    return aiKnowledge.profile.availability + " You can reach him directly at ayushjhaa1187@gmail.com or through the 'HACK ME' page.";
-  }
-  
-  if (q.includes('intern') || q.includes('experience')) {
-    return `Ayush has internship experience at Yuva Intern (Henry Harvin), Spaceborn, and Spacelance. He has worked across Data Science, Frontend, and Analytics roles.`;
+  if (q.includes('nexus') || q.includes('edusync')) {
+    return `Nexus AI (formerly EduSync) is Ayush's flagship inter-campus knowledge network. It uses agentic RAG and a P2P karma protocol to facilitate skill sharing between students across IITs.`;
   }
 
-  if (q.includes('achievement') || q.includes('hackathon') || q.includes('rank') || q.includes('jury')) {
-    return `Ayush was a Jury Member at IIT Kharagpur's AI-volution. He's also been a finalist at major IIT fests like Shaastra (IITM) and BECon (IIT Delhi).`;
+  if (q.includes('stocksense') || q.includes('market') || q.includes('stock') || q.includes('finance')) {
+    return `StockSense is an autonomous agent Ayush built using LangGraph. It handles real-time stock analysis with <50ms latency, utilizing predictive reasoning to identify market trends.`;
   }
 
-  return "I'm Ayush's AI assistant. I can help you with details about his AI projects (like StockSense), his background at IIT Madras, or his technical skills in Python and Next.js. What would you like to know?";
+  if (q.includes('sentinel') || q.includes('auth') || q.includes('security')) {
+    return `Sentinel Auth is a hardened security middleware for Node.js. It features JWT rotation, Redis-backed rate limiting, and anomaly detection to secure production APIs.`;
+  }
+
+  if (q.includes('satellite') || q.includes('vision') || q.includes('cv') || q.includes('space')) {
+    return `Ayush has extensive experience with Satellite Data Analysis, having built computer vision models with 92% accuracy for environmental monitoring during his Spaceborn internship.`;
+  }
+  
+  if (q.includes('project') || q.includes('build') || q.includes('work') || q.includes('repo')) {
+    return `Ayush has over 46 technical repositories. Key highlights include Nexus AI, StockSense, Sentinel Auth, and the Satellite Monitoring system. Which one should we dive into?`;
+  }
+  
+  if (q.includes('education') || q.includes('iit') || q.includes('college') || q.includes('madras') || q.includes('iitm') || q.includes('degree')) {
+    return `Ayush is currently pursuing a BS in Data Science at IIT Madras (Batch 2029). He is part of Nilgiri House and actively contributes to the campus technical ecosystem.`;
+  }
+  
+  if (q.includes('job') || q.includes('hire') || q.includes('available') || q.includes('contact') || q.includes('resume')) {
+    return `${aiKnowledge.profile.availability} You can reach him at ayushjhaa1187@gmail.com or find more details on the /experience page.`;
+  }
+  
+  if (q.includes('intern') || q.includes('experience') || q.includes('yuva') || q.includes('harvin')) {
+    return `His experience spans roles at Yuva Intern (Data Science & Web Dev), Spaceborn (ML), and Spacelance (Analytics). He excels at turning raw data into production infrastructure.`;
+  }
+
+  if (q.includes('achievement') || q.includes('hackathon') || q.includes('rank') || q.includes('jury') || q.includes('award')) {
+    return `Notable achievements: Served as a Jury Member at IIT Kharagpur (GES 2026), Finalist at Shaastra (IITM), BECon (IITD), and multiple hackathon wins.`;
+  }
+
+  if (q.includes('hi') || q.includes('hello') || q.includes('greeting') || q.includes('who are you')) {
+    return `Greeting, [AUTHORIZED_VISITOR]. I am AURA, an autonomous agent cluster representing Ayush. I can provide technical specs on his AI projects, IITM background, or engineering stack.`;
+  }
+
+  return "I'm Ayush's engineering assistant. I can fetch data on his proprietary projects (Nexus, StockSense, Sentinel), his IIT Madras tenure, or his technical capabilities in AI/ML. Give me a keyword to process.";
 };

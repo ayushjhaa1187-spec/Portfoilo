@@ -49,53 +49,35 @@ export const aiKnowledge = {
 
 export const getAIResponse = (query: string, context?: string): string => {
   const q = query.toLowerCase();
-  const isGenericFollowUp = q.length < 20 && (q.includes('more') || q.includes('elaborate') || q.includes('detail') || q.includes('it') || q.includes('tell me'));
-
-  // Priority 1: Specific Topic Detection
-  if (q.includes('nexus') || q.includes('edusync') || (isGenericFollowUp && context === 'nexus')) {
-    return `Nexus AI is Ayush's most complex engineering project—an inter-campus RAG network with decentralized reputation. It solves the "siloed campus data" problem and has been pitched at major IIT fests. Is there a specific technical detail you're interested in?`;
-  }
-
-  if (q.includes('stocksense') || q.includes('market') || q.includes('stock') || q.includes('finance') || (isGenericFollowUp && context === 'stocksense')) {
-    return `StockSense uses LangGraph to orchestrate multiple LLM agents for deep-divergence market analysis. It features real-time streaming and a reasoning trace that eliminates standard GPT hallucinations in financial data.`;
-  }
-
-  if (q.includes('sentinel') || q.includes('auth') || q.includes('security') || (isGenericFollowUp && context === 'sentinel')) {
-    return `Sentinel Auth is a high-availability middleware suite for Node.js. It implements advanced JWT rotation and Redis-backed anomaly detection to stop brute-force attacks at the door.`;
-  }
-
-  // Priority 2: General Knowledge Matches
-  if (q.includes('skill') || q.includes('tech') || q.includes('stack') || q.includes('expert') || q.includes('language')) {
-    return `Ayush is a "Fraken-stack" expert proficient in ${aiKnowledge.skills.slice(0, 10).join(', ')}. He specializes in Python for AI/ML and Next.js for high-fidelity engineering portfolios.`;
-  }
-
-  if (q.includes('satellite') || q.includes('vision') || q.includes('cv') || q.includes('space')) {
-    return `Ayush has built computer vision models with 92% accuracy for environmental monitoring of satellite imagery. He mastered this during his high-impact Spaceborn internship.`;
+  
+  if (q.includes('project') || q.includes('work') || q.includes('build')) {
+    return "Ayush has built 46+ projects including AI agents, full-stack apps, and ML systems. Check /projects for the full list!";
   }
   
-  if (q.includes('project') || q.includes('build') || q.includes('work') || q.includes('repo')) {
-    return `Ayush has over 50 technical repositories. Key highlights include Nexus AI, StockSense, Sentinel Auth, and the Satellite Monitoring engine. Which technical unit should I decode for you?`;
+  if (q.includes('skill') || q.includes('tech') || q.includes('stack')) {
+    return "He works with Python, TypeScript, React, Next.js, FastAPI, LangGraph, PostgreSQL, and Supabase. His strength is AI/LLM integration.";
   }
   
-  if (q.includes('education') || q.includes('iit') || q.includes('college') || q.includes('madras') || q.includes('iitm') || q.includes('degree')) {
-    return `Ayush is currently a BS in Data Science candidate at IIT Madras (Batch 2029) and a proud member of Nilgiri House. He is heavily involved in the institute's technical community.`;
+  if (q.includes('experience') || q.includes('intern') || q.includes('work')) {
+    return "He's interned at Yuva Intern (3 roles), been a Campus Ambassador at DTU E-Cell, and participated in IIT hackathons. See /experience!";
   }
   
-  if (q.includes('job') || q.includes('hire') || q.includes('available') || q.includes('contact') || q.includes('resume')) {
-    return `${aiKnowledge.profile.availability} Direct comms: ayushjhaa1187@gmail.com. Detailed logs available on the /experience page.`;
+  if (q.includes('contact') || q.includes('hire') || q.includes('collab')) {
+    return "Reach Ayush at ayushjhaa1187@gmail.com or via the contact page. He's open to collaborations and part-time work!";
   }
   
-  if (q.includes('intern') || q.includes('experience') || q.includes('yuva') || q.includes('harvin')) {
-    return `His experience spans roles at Yuva Intern (Data Science), Spaceborn (ML), and Spacelance (Analytics). He excels at bridging the gap between raw data and production architecture.`;
+  if (q.includes('iit') || q.includes('madras') || q.includes('education')) {
+    return "He's pursuing BS in Data Science from IIT Madras (2025–2029), currently in his first year.";
   }
 
-  if (q.includes('achievement') || q.includes('hackathon') || q.includes('rank') || q.includes('jury') || q.includes('award')) {
-    return `High-level achievements: Jury Member at IIT Kharagpur (GES 2026), Finalist at Shaastra (IITM), and BECon (IIT Delhi). He consistently ranks in the top tiers of national technical challenges.`;
+  // Topic specific follow-ups (if context exists)
+  if (context === 'nexus' && (q.includes('more') || q.includes('it'))) {
+    return "Nexus AI is an inter-campus knowledge network with decentralized karma. It is Ayush's largest engineering deployment to date.";
   }
 
-  if (q.includes('hi') || q.includes('hello') || q.includes('greeting') || q.includes('who are you')) {
-    return `Greeting, [AUTHORIZED_VISITOR]. I am AURA, an autonomous agent cluster representing Ayush's engineering persona. Ask me for technical specs on his projects, IITM tenure, or core stack.`;
+  if (context === 'stocksense' && (q.includes('more') || q.includes('it'))) {
+    return "StockSense uses LangGraph to orchestrate agents for deep market reasoning, eliminating simple GPT delusions in finance.";
   }
 
-  return "I'm Ayush's engineering assistant. I can fetch detailed specs on his proprietary projects (Nexus, StockSense, Sentinel), his academic status at IIT Madras, or his AI/ML capabilities. Please provide a technical keyword.";
+  return "I'm currently upgrading my responses. Email ayushjhaa1187@gmail.com or visit the contact page directly!";
 };

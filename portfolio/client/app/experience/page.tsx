@@ -2,137 +2,77 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { experiences } from '@/data/experience';
+import { Briefcase, Calendar, MapPin, CheckCircle, ChevronRight } from 'lucide-react';
 
 const ExperiencePage = () => {
-  const experiences = [
-    {
-      role: 'Student @ BS in Data Science & Applications',
-      company: 'Indian Institute of Technology Madras',
-      date: 'Jan 2026 – Present',
-      desc: [
-        'Pursuing rigorous degree in Data Science and Applications.',
-        'Focusing on Machine Learning, Statistics, and AI systems engineering.',
-        'Actively building production-ready projects in the IITM ecosystem.'
-      ],
-      color: 'blue'
-    },
-    {
-      role: 'Member @ Nilgiri House',
-      company: 'IIT Madras',
-      date: 'Sep 2025 – Present',
-      desc: [
-        'Active member of Nilgiri House, participating in technical and cultural initiatives within the IITM residential community.'
-      ],
-      color: 'blue'
-    },
-    {
-      role: 'Spaceborn Intern',
-      company: 'Spaceborn',
-      date: 'Oct 2025 – Dec 2025',
-      desc: [
-        'Explored the intersection of aerospace data and machine learning.',
-        'Developed insights for environmental monitoring using specialized datasets.'
-      ],
-      color: 'orange'
-    },
-    {
-      role: 'Spacelance Intern',
-      company: 'Spacelance',
-      date: 'Dec 2025',
-      desc: [
-        'Intensive one-month project focusing on digital service architecture and client-facing solutions.'
-      ],
-      color: 'orange'
-    },
-    {
-      role: 'Junior Data Analyst Intern',
-      company: 'Yuva Intern (by Henry Harvin)',
-      date: 'Oct 2025 – Jan 2026',
-      desc: [
-        'Performed exploratory data analysis and visualization for business datasets.',
-        'Automated reporting workflows using Python and Pandas.'
-      ],
-      color: 'green'
-    },
-    {
-      role: 'Frontend Web Developer Intern',
-      company: 'Yuva Intern (by Henry Harvin)',
-      date: 'Sep 2025 – Jan 2026',
-      desc: [
-        'Built interactive UI components using modern JavaScript frameworks.',
-        'Optimized web performance and ensured cross-browser compatibility.'
-      ],
-      color: 'green'
-    },
-    {
-      role: 'Data Science with Python Intern',
-      company: 'Yuva Intern (by Henry Harvin)',
-      date: 'Sep 2025 – Jan 2026',
-      desc: [
-        'Implemented predictive models and statistical analysis pipelines.',
-        'Cleaned and pre-processed complex datasets for model training.'
-      ],
-      color: 'green'
-    },
-    {
-      role: 'E-Cell Campus Ambassador @ DTU',
-      company: 'Delhi Technological University',
-      date: 'Oct 2025 – Jan 2026',
-      desc: [
-        'Represented DTU\'s Entrepreneurship Cell, managing outreach and fostering startup culture.',
-        'Coordinated between student body and flagship events.'
-      ],
-      color: 'blue'
-    }
-  ];
-
   return (
-    <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16">
-      <motion.h1
+    <div className="min-h-screen pt-40 px-6 max-w-5xl mx-auto pb-48">
+      <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-4xl font-bold mb-12 text-blue-900"
+        className="mb-24 text-center"
       >
-        Experience
-      </motion.h1>
+        <h1 className="text-6xl md:text-8xl font-black mb-8 text-white tracking-tighter uppercase">
+          PROFESSIONAL <span className="text-amber-400 font-serif italic lowercase">Timeline</span>
+        </h1>
+        <p className="text-2xl text-slate-400 max-w-3xl mx-auto font-light leading-relaxed tracking-wide">
+          A career architecture focused on Data Science, AI Agents, and scalable engineering.
+        </p>
+      </motion.div>
 
-      <div className="space-y-12 relative border-l-2 border-gray-200 ml-4 md:ml-8 pl-8 md:pl-12">
+      <div className="relative border-l-2 border-white/5 ml-4 md:ml-0 md:left-1/2 md:-translate-x-[1px]">
         {experiences.map((exp, idx) => (
           <motion.div
-            key={idx}
-            initial={{ opacity: 0, x: -20 }}
+            key={exp.id}
+            initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: idx * 0.2 }}
-            className="relative"
+            transition={{ delay: idx * 0.1, duration: 0.5 }}
+            className={`relative mb-24 md:w-1/2 ${idx % 2 === 0 ? 'md:pr-16 md:text-right md:ml-0' : 'md:pl-16 md:ml-auto'}`}
           >
-            <span
-              className="absolute -left-[45px] md:-left-[61px] top-0 w-6 h-6 rounded-full border-4 border-white shadow-sm"
-              style={{ backgroundColor: exp.color === 'blue' ? '#1E40AF' : exp.color === 'orange' ? '#F97316' : '#10B981' }}
-            ></span>
+            {/* Timeline Dot */}
+            <div className="absolute top-0 w-4 h-4 bg-amber-400 rounded-full -left-[9px] md:left-auto md:right-auto md:top-2 shadow-[0_0_15px_rgba(251,191,36,0.5)] z-10" 
+                 style={{ left: idx % 2 === 0 ? 'auto' : '-9px', right: idx % 2 === 0 ? '-9px' : 'auto' }} />
 
-            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900">{exp.role}</h2>
-                  <h3 className="text-xl text-blue-700 font-medium">{exp.company}</h3>
+            <div className="glass-card p-8 group hover:border-amber-400/50 transition-all">
+              <div className={`flex items-center gap-4 mb-4 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+                  <Briefcase size={24} />
                 </div>
-                <span className="text-gray-500 font-medium mt-2 md:mt-0 bg-gray-100 px-3 py-1 rounded-full text-sm inline-block w-fit">
-                  {exp.date}
-                </span>
+                <div>
+                   <h3 className="text-2xl font-bold text-white group-hover:text-amber-400 transition-colors uppercase tracking-tight">{exp.role}</h3>
+                   <p className="text-slate-400 font-bold uppercase text-xs tracking-widest">{exp.org} • {exp.type}</p>
+                </div>
               </div>
 
-              <ul className="space-y-2 mt-4">
-                {exp.desc.map((item, i) => (
-                  <li key={i} className="text-gray-600 flex items-start">
-                    <span className="mr-2 mt-1.5 w-1.5 h-1.5 bg-gray-400 rounded-full flex-shrink-0"></span>
-                    {item}
-                  </li>
+              <div className={`flex flex-wrap gap-4 mb-6 text-slate-500 text-xs font-black tracking-widest uppercase ${idx % 2 === 0 ? 'md:justify-end' : ''}`}>
+                 <span className="flex items-center gap-1.5"><Calendar size={12} /> {exp.start} — {exp.end}</span>
+                 {exp.verified && <span className="flex items-center gap-1.5 text-emerald-400"><CheckCircle size={12} /> Verified</span>}
+              </div>
+
+              <p className="text-slate-400 text-sm leading-relaxed mb-8 font-light">
+                {exp.description}
+              </p>
+
+              <div className={`flex flex-wrap gap-2 ${idx % 2 === 0 ? 'md:justify-end' : ''}`}>
+                {exp.skills.map(skill => (
+                  <span key={skill} className="px-3 py-1 bg-white/5 rounded-full text-[9px] font-black tracking-widest uppercase text-slate-500 border border-white/5">
+                    {skill}
+                  </span>
                 ))}
-              </ul>
+              </div>
             </div>
           </motion.div>
         ))}
+      </div>
+
+      <div className="mt-32 text-center">
+         <a href="https://www.linkedin.com/in/ayush-kumar-jha-5960a3362/" target="_blank" rel="noopener noreferrer">
+           <button className="px-12 py-5 bg-transparent border-2 border-white/10 hover:border-amber-400 text-white font-black uppercase text-xs tracking-[0.3em] rounded-full transition-all hover:bg-amber-400 hover:text-black">
+              SYNC VIA LINKEDIN ↗
+           </button>
+         </a>
       </div>
     </div>
   );

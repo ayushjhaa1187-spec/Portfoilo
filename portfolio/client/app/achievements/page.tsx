@@ -2,127 +2,94 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Card } from '@/components/ui/Card';
+import { achievements } from '@/data/achievements';
+import { Trophy, Star, Target, CheckCircle, Award, Layout, Briefcase, Zap } from 'lucide-react';
+
+const achievementsIcons: Record<string, any> = {
+  Recognition: Trophy,
+  Hackathon: Zap,
+  Leadership: Star,
+};
 
 const AchievementsPage = () => {
-  const achievements = [
-    {
-      title: 'Jury @ AI-volution, GES 2026',
-      company: 'IIT Kharagpur',
-      desc: 'Invited as a jury member to evaluate AI-driven solutions during the Entrepreneurship Summit at IIT Kharagpur.',
-      icon: '⚖️',
-      color: 'blue'
-    },
-    {
-      title: 'Finalist at Shaastra 2026 - Enable Ideathon',
-      company: 'IIT Madras x Shaastra',
-      desc: 'Advanced to the final rounds of the Enable Ideathon at Shaastra, focusing on accessibility through tech.',
-      icon: '🏆',
-      color: 'blue'
-    },
-    {
-      title: 'Changethon @ National Social Summit',
-      company: 'IIT Roorkee',
-      desc: 'Finalist in the Social Impact Hackathon, developing tech-driven solutions for civic challenges.',
-      icon: '🥈',
-      color: 'blue'
-    },
-    {
-      title: 'Co-Founder Catalyst - BECon 2026',
-      company: 'IIT Delhi',
-      desc: 'Recognized in the startup catalyst program at IIT Delhi for innovative architectural vision.',
-      icon: '🚀',
-      color: 'orange'
-    },
-    {
-      title: 'Campus Ambassador (Multiple IITs)',
-      company: 'IIT Kanpur, Bombay, Delhi, Roorkee',
-      desc: 'Represented premier technical fests including Techfest (IITB), Techkriti (IITK), and E-Summits nationwide.',
-      icon: '🤝',
-      color: 'green'
-    }
-  ];
-
-  const certifications = [
-    {
-      title: 'IBM Data Science Specialization',
-      issuer: 'Coursera / IBM',
-      date: 'Dec 2025',
-      icon: '📜'
-    },
-    {
-      title: 'Space Race Certificate',
-      issuer: 'IEEE DTU',
-      date: 'Oct 2025',
-      icon: '🚀'
-    },
-    {
-      title: 'Udemy - Profile Bio Mastery',
-      issuer: 'Udemy',
-      date: 'Oct 2025',
-      icon: '🎓'
-    }
-  ];
-
   return (
-    <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16 space-y-16">
-      <section>
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-4xl font-bold mb-12 text-blue-900"
-        >
-          Hackathon Achievements
-        </motion.h1>
+    <div className="min-h-screen pt-40 px-6 max-w-7xl mx-auto pb-48">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-24 text-center"
+      >
+        <h1 className="text-6xl md:text-8xl font-black mb-8 text-white tracking-tighter uppercase">
+          RECOGNITION <span className="text-amber-400 font-serif italic lowercase">Archives</span>
+        </h1>
+        <p className="text-2xl text-slate-400 max-w-3xl mx-auto font-light leading-relaxed tracking-wide">
+          A showcase of hackathon victories, leadership roles, and technical honors across premier institutes.
+        </p>
+      </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {achievements.map((item, idx) => (
+      <div className="grid md:grid-cols-2 gap-8 mb-32">
+        {achievements.map((ach, idx) => {
+          const Icon = achievementsIcons[ach.type] || Target;
+          return (
             <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-            >
-              <Card className="p-8 h-full border-t-4 hover:shadow-lg transition-transform hover:-translate-y-1"
-                style={{ borderColor: item.color === 'blue' ? '#1E40AF' : item.color === 'orange' ? '#F97316' : '#10B981' }}
-              >
-                <div className="text-4xl mb-4">{item.icon}</div>
-                <h2 className="text-xl font-bold text-gray-900 mb-1">{item.title}</h2>
-                <h3 className="text-blue-700 text-sm font-medium mb-3">{item.company}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <motion.h2
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="text-3xl font-bold mb-8 text-slate-800"
-        >
-          Certifications
-        </motion.h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {certifications.map((cert, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              key={ach.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex items-center gap-4 hover:border-blue-200 transition-colors"
+              transition={{ delay: idx * 0.1 }}
+              className="glass-card p-10 group hover:border-amber-400/50 transition-all duration-500 overflow-hidden relative"
             >
-              <div className="text-3xl">{cert.icon}</div>
-              <div>
-                <h4 className="font-bold text-slate-900">{cert.title}</h4>
-                <p className="text-xs text-slate-500 font-medium">{cert.issuer} • {cert.date}</p>
-              </div>
+               <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity rotate-12 -translate-y-8 translate-x-8">
+                  <Icon size={200} />
+               </div>
+
+               <div className="flex items-center gap-6 mb-8 relative">
+                  <div className="w-14 h-14 bg-amber-400 text-black flex items-center justify-center rounded-2xl group-hover:rotate-12 transition-transform shadow-[0_0_20px_rgba(251,191,36,0.3)]">
+                     <Icon size={28} />
+                  </div>
+                  <div>
+                     <h3 className="text-2xl font-black text-white group-hover:text-amber-400 transition-colors uppercase tracking-tight leading-none mb-2">{ach.title}</h3>
+                     <p className="text-xs text-slate-500 font-black tracking-widest uppercase flex items-center gap-2">
+                        <CheckCircle size={12} className="text-emerald-400" /> {ach.org} • {ach.date}
+                     </p>
+                  </div>
+               </div>
+
+               <p className="text-slate-400 text-base leading-relaxed mb-8 font-light relative max-w-lg">
+                  {ach.description}
+               </p>
+
+               <div className="relative">
+                  <span className="px-5 py-2 bg-white/5 border border-white/10 rounded-full text-[10px] font-black tracking-widest uppercase text-slate-500 group-hover:text-amber-400 group-hover:border-amber-400/30 transition-all">
+                     {ach.type} ARCHIVE_NODE_v1.0
+                  </span>
+               </div>
             </motion.div>
-          ))}
-        </div>
-      </section>
+          );
+        })}
+      </div>
+
+      <div className="mt-40 text-center py-24 border-t border-white/5">
+         <div className="flex justify-center flex-wrap gap-12 opacity-30 group">
+            <div className="flex items-center gap-3">
+               <Briefcase size={24} />
+               <p className="text-xs font-black tracking-[0.4em] uppercase">Industry Honors</p>
+            </div>
+            <div className="flex items-center gap-3">
+               <Zap size={24} />
+               <p className="text-xs font-black tracking-[0.4em] uppercase">Hackathon Elite</p>
+            </div>
+            <div className="flex items-center gap-3 text-amber-500">
+               <Star size={24} />
+               <p className="text-xs font-black tracking-[0.4em] uppercase">Jury Recognition</p>
+            </div>
+            <div className="flex items-center gap-3">
+               <Layout size={24} />
+               <p className="text-xs font-black tracking-[0.4em] uppercase">Academic Excellence</p>
+            </div>
+         </div>
+         <p className="mt-16 text-slate-600 text-xs font-black tracking-widest uppercase">Verified via LinkedIn & Institutional Credentials</p>
+      </div>
     </div>
   );
 };

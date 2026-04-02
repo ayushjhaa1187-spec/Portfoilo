@@ -27,16 +27,16 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Connect</h4>
             <div className="flex space-x-4">
-              <a href="https://github.com/ayushjhaa1187-spec" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+              <a href="https://github.com/ayushjhaa1187-spec" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="text-slate-400 hover:text-white transition-colors">
                 <Github size={24} />
               </a>
-              <a href="https://www.linkedin.com/in/ayush-kumar-jha-5960a3362/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+              <a href="https://www.linkedin.com/in/ayush-kumar-jha-5960a3362/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="text-slate-400 hover:text-white transition-colors">
                 <Linkedin size={24} />
               </a>
-              <a href="mailto:ayushjhaa1187@gmail.com" className="text-slate-400 hover:text-white transition-colors">
+              <a href="mailto:ayushjhaa1187@gmail.com" aria-label="Email Me" className="text-slate-400 hover:text-white transition-colors">
                 <Mail size={24} />
               </a>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-slate-500 border border-slate-700 px-2 py-1 rounded hover:border-orange-500 hover:text-orange-500 transition-all flex items-center gap-1">
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Download Resume" className="text-xs font-mono text-slate-500 border border-slate-700 px-2 py-1 rounded hover:border-orange-500 hover:text-orange-500 transition-all flex items-center gap-1">
                 RESUME <span className="text-[10px]">↓</span>
               </a>
             </div>

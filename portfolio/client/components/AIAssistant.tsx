@@ -44,9 +44,9 @@ const AIAssistant = () => {
             <div className="p-4 bg-blue-600 text-white flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <Sparkles size={18} />
-                <span className="font-bold">Ayush's Assistant</span>
+                <span className="font-bold">Ayush&apos;s Assistant</span>
               </div>
-              <button onClick={toggleChat} className="hover:bg-white/20 p-1 rounded-full transition-colors">
+              <button onClick={toggleChat} aria-label="Close chat assistant" className="hover:bg-white/20 p-1 rounded-full transition-colors">
                 <X size={18} />
               </button>
             </div>
@@ -77,10 +77,12 @@ const AIAssistant = () => {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                 placeholder="Ask me something..."
+                aria-label="Chat input"
                 className="flex-grow bg-slate-100 dark:bg-slate-800 border-none rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
               />
               <button 
                 onClick={handleSend}
+                aria-label="Send message"
                 className="bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition-colors"
               >
                 <Send size={18} />
@@ -94,6 +96,8 @@ const AIAssistant = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}
+        aria-label={isOpen ? "Close chat assistant" : "Open chat assistant"}
+        aria-expanded={isOpen}
         className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-blue-500/40 transition-shadow relative group"
       >
         <MessageSquare size={24} />

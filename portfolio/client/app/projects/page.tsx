@@ -1,19 +1,24 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { projects } from '@/data/projects';
 
+// Move static array outside component to prevent recreation on re-renders
+const categories = ['All', 'ML/AI', 'Business'];
+
 const ProjectsPage = () => {
   const [filter, setFilter] = useState('All');
-  const categories = ['All', 'ML/AI', 'Business'];
 
-  const filteredProjects = filter === 'All'
-    ? projects
-    : projects.filter(p => p.category === filter);
+  // Memoize filtered projects to prevent unnecessary recalculation on unrelated re-renders
+  const filteredProjects = useMemo(() => {
+    return filter === 'All'
+      ? projects
+      : projects.filter(p => p.category === filter);
+  }, [filter]);
 
   return (
     <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16">

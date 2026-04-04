@@ -41,27 +41,27 @@ const AIAssistant = () => {
             className="mb-4 w-[350px] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden"
           >
             {/* Header */}
-            <div className="p-4 bg-blue-600 text-white flex justify-between items-center">
+            <div className="p-4 bg-amber-400 text-black flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <Sparkles size={18} />
-                <span className="font-bold">Ayush's Assistant</span>
+                <span className="font-black uppercase tracking-tighter text-sm">Ayush's Core_Intelligence</span>
               </div>
-              <button onClick={toggleChat} className="hover:bg-white/20 p-1 rounded-full transition-colors">
+              <button onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors">
                 <X size={18} />
               </button>
             </div>
 
             {/* Messages */}
-            <div className="h-[400px] overflow-y-auto p-4 space-y-4 bg-slate-50 dark:bg-slate-950/50">
+            <div className="h-[400px] overflow-y-auto p-4 space-y-4 bg-slate-50 dark:bg-[#0a0a0a]">
               {messages.map((msg, idx) => (
                 <div 
                   key={idx} 
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  <div className={`max-w-[80%] p-3 rounded-2xl text-sm ${
+                  <div className={`max-w-[85%] p-4 rounded-2xl text-[13px] leading-relaxed shadow-sm ${
                     msg.role === 'user' 
-                      ? 'bg-blue-600 text-white rounded-tr-none' 
-                      : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 shadow-sm border border-slate-100 dark:border-slate-700 rounded-tl-none'
+                      ? 'bg-amber-400 text-black font-medium rounded-tr-none' 
+                      : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-100 dark:border-white/5 rounded-tl-none font-mono whitespace-pre-wrap'
                   }`}>
                     {msg.content}
                   </div>
@@ -70,18 +70,18 @@ const AIAssistant = () => {
             </div>
 
             {/* Input */}
-            <div className="p-4 border-t border-slate-100 dark:border-slate-800 flex gap-2">
+            <div className="p-4 border-t border-slate-100 dark:border-white/5 flex gap-2 bg-white dark:bg-slate-950">
               <input 
                 type="text" 
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Ask me something..."
-                className="flex-grow bg-slate-100 dark:bg-slate-800 border-none rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                placeholder="Ask about my RAG engines or IIT life..."
+                className="flex-grow bg-slate-100 dark:bg-white/5 border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-amber-400 outline-none font-medium"
               />
               <button 
                 onClick={handleSend}
-                className="bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition-colors"
+                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20"
               >
                 <Send size={18} />
               </button>
@@ -94,12 +94,12 @@ const AIAssistant = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}
-        className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-blue-500/40 transition-shadow relative group"
+        className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center shadow-2xl hover:shadow-amber-400/40 transition-all border-4 border-black group"
       >
-        <MessageSquare size={24} />
-        <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 border-4 border-white dark:border-slate-900 rounded-full animate-pulse" />
-        <span className="absolute right-full mr-3 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-sm border border-slate-100 dark:border-slate-700 pointer-events-none">
-          Chat with my AI
+        <MessageSquare size={26} />
+        <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 border-4 border-black rounded-full animate-pulse" />
+        <span className="absolute right-full mr-4 bg-amber-400 text-black px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-[0.2em] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-2xl pointer-events-none">
+          SYSTEM_ACCESS
         </span>
       </motion.button>
     </div>

@@ -71,10 +71,10 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.8 }}
-          className="text-xl md:text-2xl text-slate-400 font-light mb-10 max-w-2xl text-center leading-relaxed"
+          className="text-xl md:text-2xl text-slate-400 font-light mb-10 max-w-3xl text-center leading-relaxed"
         >
-          AI Engineer & Full-Stack Developer <span className="text-amber-400 font-medium">@ IIT Madras</span>. <br className="hidden md:block" />
-          Building autonomous agents and high-performance data ecosystems.
+          IIT Madras Data Scientist & Entrepreneurial Innovator <br className="hidden md:block" />
+          Building <span className="text-amber-400 font-medium">high-performance data ecosystems</span> and autonomous AI architecture.
         </motion.p>
 
         <motion.div 
@@ -85,7 +85,7 @@ const Hero = () => {
         >
           <Link href="/projects">
             <button className="px-8 py-4 bg-amber-400 text-black font-black uppercase tracking-widest text-xs rounded-lg hover:bg-white hover:scale-105 transition-all shadow-xl shadow-amber-400/10 flex items-center gap-2 group">
-              Exploit Projects <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              Explore Portfolio <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </Link>
           <div className="flex gap-2">
@@ -109,15 +109,20 @@ const Hero = () => {
           className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-20 w-full max-w-4xl"
         >
           {[
-            { label: 'Verified Commits', value: '2845', icon: <Terminal size={14} /> },
-            { label: 'Active Repos', value: '46', icon: <Github size={14} /> },
-            { label: 'Stars Earned', value: '1', icon: <Sparkles size={14} /> },
-            { label: 'IITM Credentials', value: 'BS DS', icon: <ArrowRight size={14} /> }
+            { label: 'Repo Audit Complete', value: '39', suffix: "/46", icon: <Terminal size={14} /> },
+            { label: 'Production Ships', value: '12', icon: <Github size={14} /> },
+            { label: 'Market Metrics', value: '94%', icon: <Sparkles size={14} /> },
+            { label: 'IIT Madras', value: 'BS DS', icon: <ArrowRight size={14} /> }
           ].map((stat, i) => (
-            <div key={i} className="bg-white/5 border border-white/10 p-6 flex flex-col items-center">
-              <div className="text-amber-400 mb-2">{stat.icon}</div>
+            <div key={i} className="bg-white/5 border border-white/10 p-6 flex flex-col items-center group hover:bg-amber-400/5 transition-colors">
+              <div className="text-amber-400 mb-2 group-hover:scale-110 transition-transform">{stat.icon}</div>
               <div className="text-3xl font-black text-white">
-                 {typeof parseInt(stat.value) === 'number' && !isNaN(parseInt(stat.value)) ? <RollingNumber value={stat.value} /> : stat.value}
+                 {typeof parseInt(stat.value) === 'number' && !isNaN(parseInt(stat.value)) ? (
+                   <div className="flex items-baseline gap-1">
+                     <RollingNumber value={stat.value} />
+                     {stat.suffix && <span className="text-xs text-slate-500 font-mono">{stat.suffix}</span>}
+                   </div>
+                 ) : stat.value}
               </div>
               <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500 mt-1">{stat.label}</div>
             </div>

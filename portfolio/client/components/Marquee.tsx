@@ -3,13 +3,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Marquee = () => {
-    const skills = [
-        "LLMs", "LANGGRAPH", "COMPUTER VISION", "AUTONOMOUS AGENTS", "NEXT.JS", 
-        "TENSORFLOW", "POSTGRESQL", "PANDAS", "FASTAPI", "SCIKIT-LEARN",
-        "NLP", "REINFORCEMENT LEARNING", "MULTIMODAL AI", "KUBERNETES"
-    ];
+// ⚡ Bolt Optimization: Extracted static SKILLS array and DUPLICATED_SKILLS out of component
+// Expected impact: Prevents redundant array allocation and concatenation on every render
+const SKILLS = [
+    "LLMs", "LANGGRAPH", "COMPUTER VISION", "AUTONOMOUS AGENTS", "NEXT.JS",
+    "TENSORFLOW", "POSTGRESQL", "PANDAS", "FASTAPI", "SCIKIT-LEARN",
+    "NLP", "REINFORCEMENT LEARNING", "MULTIMODAL AI", "KUBERNETES"
+];
 
+const DUPLICATED_SKILLS = [...SKILLS, ...SKILLS, ...SKILLS];
+
+const Marquee = () => {
     return (
         <div className="py-12 bg-[#0a0a0a] border-y border-white/5 relative overflow-hidden group">
             {/* Gradient masks */}
@@ -27,7 +31,7 @@ const Marquee = () => {
                 whileHover={{ animationPlayState: "paused" }}
             >
                 {/* Duplicate for infinite loop */}
-                {[...skills, ...skills, ...skills].map((skill, i) => (
+                {DUPLICATED_SKILLS.map((skill, i) => (
                     <div key={i} className="flex items-center gap-6">
                         <span className="text-4xl md:text-6xl font-black text-slate-800 tracking-tighter hover:text-amber-400 transition-colors cursor-default">
                             {skill}

@@ -7,13 +7,18 @@ import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { projects } from '@/data/projects';
 
+const CATEGORIES = ['All', 'ML/AI', 'Business'];
+
 const ProjectsPage = () => {
   const [filter, setFilter] = useState('All');
-  const categories = ['All', 'ML/AI', 'Business'];
 
-  const filteredProjects = filter === 'All'
-    ? projects
-    : projects.filter(p => p.category === filter);
+  // ⚡ Bolt Optimization: Memoize filtered projects to prevent O(n) recalculations on re-renders
+  // Expected impact: Eliminates redundant array filtering, slightly reducing CPU usage during state updates
+  const filteredProjects = React.useMemo(() => (
+    filter === 'All'
+      ? projects
+      : projects.filter(p => p.category === filter)
+  ), [filter]);
 
   return (
     <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16">
@@ -29,7 +34,7 @@ const ProjectsPage = () => {
       </motion.div>
 
       <div className="flex justify-center mb-12 space-x-4">
-        {categories.map((cat) => (
+        {CATEGORIES.map((cat) => (
           <Button
             key={cat}
             onClick={() => setFilter(cat)}
@@ -80,11 +85,11 @@ const ProjectsPage = () => {
                       <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-gray-400 hover:text-blue-600 transition-colors">
                         GITHUB REPO ↗
                       </a>
-                      {project.liveUrl && (
+                      {'liveUrl' in project && typeof project.liveUrl === 'string' ? (
                         <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-blue-600 hover:underline">
                           LIVE DEMO ↗
                         </a>
-                      )}
+                      ) : null}
                    </div>
                    <Link href={`/projects/${project.slug}`} className="text-[11px] font-mono text-center py-2 bg-slate-900 text-white rounded hover:bg-blue-600 transition-colors">
                       VIEW FULL CASE STUDY

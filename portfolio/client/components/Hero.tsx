@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from './ui/Button';
 import Link from 'next/link';
 import { Sparkles, ArrowRight, Github, Linkedin, Terminal } from 'lucide-react';
 
@@ -89,13 +88,13 @@ const Hero = () => {
             </button>
           </Link>
           <div className="flex gap-2">
-             <a href="https://github.com/ayushjhaa1187-spec" target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
+             <a aria-label="GitHub Profile" href="https://github.com/ayushjhaa1187-spec" target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
                 <Github size={20} />
              </a>
-             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
+             <a aria-label="LinkedIn Profile" href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
                 <Linkedin size={20} />
              </a>
-             <Link href="/contact" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
+             <Link aria-label="Contact via Terminal" href="/contact" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
                 <Terminal size={20} />
              </Link>
           </div>

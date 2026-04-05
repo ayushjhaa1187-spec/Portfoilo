@@ -1,0 +1,3 @@
+## 2025-05-18 - Optimized Array Filtering and Object Recreation
+**Learning:** Found that static arrays and derived data filtering (O(n)) inside React components without memoization trigger unnecessary recalculations and object re-allocations on every render, which becomes a bottleneck in list-heavy components.
+**Action:** Always move static arrays outside the component body and wrap derived dataset calculations in `useMemo` so that they only re-run when their dependency state changes.

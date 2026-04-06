@@ -43,11 +43,15 @@ const AIAssistant = () => {
             {/* Header */}
             <div className="p-4 bg-amber-400 text-black flex justify-between items-center">
               <div className="flex items-center gap-2">
-                <Sparkles size={18} />
-                <span className="font-black uppercase tracking-tighter text-sm">Ayush's Core_Intelligence</span>
+                <Sparkles size={18} aria-hidden="true" />
+                <span className="font-black uppercase tracking-tighter text-sm">Ayush&apos;s Core_Intelligence</span>
               </div>
-              <button onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors">
-                <X size={18} />
+              <button
+                onClick={toggleChat}
+                className="hover:bg-black/10 p-1 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+                aria-label="Close chat"
+              >
+                <X size={18} aria-hidden="true" />
               </button>
             </div>
 
@@ -77,13 +81,15 @@ const AIAssistant = () => {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                 placeholder="Ask about my RAG engines or IIT life..."
-                className="flex-grow bg-slate-100 dark:bg-white/5 border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-amber-400 outline-none font-medium"
+                className="flex-grow bg-slate-100 dark:bg-white/5 border-none rounded-full px-4 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 font-medium"
+                aria-label="Chat input"
               />
               <button 
                 onClick={handleSend}
-                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20"
+                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950"
+                aria-label="Send message"
               >
-                <Send size={18} />
+                <Send size={18} aria-hidden="true" />
               </button>
             </div>
           </motion.div>
@@ -94,11 +100,16 @@ const AIAssistant = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}
-        className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center shadow-2xl hover:shadow-amber-400/40 transition-all border-4 border-black group"
+        className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center shadow-2xl hover:shadow-amber-400/40 transition-all border-4 border-black group focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-400 focus-visible:ring-offset-4 focus-visible:ring-offset-black"
+        aria-label={isOpen ? "Close AI assistant" : "Open AI assistant"}
+        aria-expanded={isOpen}
       >
-        <MessageSquare size={26} />
-        <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 border-4 border-black rounded-full animate-pulse" />
-        <span className="absolute right-full mr-4 bg-amber-400 text-black px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-[0.2em] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-2xl pointer-events-none">
+        <MessageSquare size={26} aria-hidden="true" />
+        <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 border-4 border-black rounded-full animate-pulse" aria-hidden="true" />
+        <span
+          className="absolute right-full mr-4 bg-amber-400 text-black px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-[0.2em] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-2xl pointer-events-none"
+          aria-hidden="true"
+        >
           SYSTEM_ACCESS
         </span>
       </motion.button>

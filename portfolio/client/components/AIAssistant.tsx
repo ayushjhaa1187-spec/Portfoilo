@@ -44,7 +44,7 @@ const AIAssistant = () => {
             <div className="p-4 bg-amber-400 text-black flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <Sparkles size={18} />
-                <span className="font-black uppercase tracking-tighter text-sm">Ayush's Core_Intelligence</span>
+                <span className="font-black uppercase tracking-tighter text-sm">Ayush&apos;s Core_Intelligence</span>
               </div>
               <button onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors">
                 <X size={18} />

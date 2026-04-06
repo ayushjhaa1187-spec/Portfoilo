@@ -7,11 +7,27 @@ const Contact = require('../models/Contact');
 // @access  Public
 router.post('/', async (req, res) => {
   try {
-    const newContact = new Contact(req.body);
+    const { name, email, subject, message } = req.body;
+
+    // Basic input validation
+    if (!name || !email || !message) {
+      return res.status(400).json({ msg: 'Please provide name, email, and message' });
+    }
+
+    // Prevent mass assignment by explicitly defining fields
+    const newContact = new Contact({
+      name,
+      email,
+      subject,
+      message
+    });
+
     const contact = await newContact.save();
+
+    // Don't leak the full internal object back to the client unnecessarily, but keeping response consistent
     res.json({ msg: 'Message sent successfully', contact });
   } catch (err) {
-    console.error(err.message);
+    console.error('Error saving contact:', err.message);
     res.status(500).send('Server Error');
   }
 });

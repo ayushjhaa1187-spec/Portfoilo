@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/Button';
 import Link from 'next/link';
@@ -38,25 +38,7 @@ const RollingNumber = ({ target, suffix = '' }: { target: number, suffix?: strin
 };
 
 const Hero = () => {
-  const [greeting, setGreeting] = useState("Initializing System...");
   const name = "AYUSH KUMAR JHA";
-
-  useEffect(() => {
-     const hour = new Date().getHours();
-     let timeGreeting = "Good Evening";
-     if (hour < 12) timeGreeting = "Good Morning";
-     else if (hour < 18) timeGreeting = "Good Afternoon";
-
-     if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition((pos) => {
-           setGreeting(`${timeGreeting}, Operative. [LOCATED_SECURE_NODE]`);
-        }, () => {
-           setGreeting(`${timeGreeting}, Operative. [NODE_ANONYMIZED]`);
-        });
-     } else {
-        setGreeting(`${timeGreeting}, Operative.`);
-     }
-  }, []);
   
   return (
     <section className="min-h-screen relative flex items-center justify-center bg-[#0a0a0a] overflow-hidden pt-20">
@@ -72,13 +54,10 @@ const Hero = () => {
         <motion.div
            initial={{ opacity: 0, scale: 0.8 }}
            animate={{ opacity: 1, scale: 1 }}
-           className="mb-8 px-4 py-1.5 rounded-full border border-amber-400/20 bg-amber-400/5 flex flex-col items-center gap-1 group"
+           className="mb-8 px-4 py-1.5 rounded-full border border-amber-400/20 bg-amber-400/5 flex items-center gap-2"
         >
-           <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-              <span className="text-[10px] font-black tracking-widest text-amber-400 uppercase">Available for scale-up partnerships</span>
-           </div>
-           <p className="text-[8px] font-bold text-slate-500 group-hover:text-white transition-colors">{greeting}</p>
+           <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+           <span className="text-[10px] font-bold tracking-widest text-amber-400 uppercase">Available for scale-up partnerships</span>
         </motion.div>
 
         {/* Typed Name Effect */}
@@ -100,10 +79,10 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.8 }}
-          className="text-xl md:text-2xl text-slate-400 font-light mb-10 max-w-2xl text-center leading-relaxed"
+          className="text-xl md:text-2xl text-slate-400 font-light mb-10 max-w-3xl text-center leading-relaxed"
         >
-          AI Engineer & Full-Stack Developer <span className="text-amber-400 font-medium">@ IIT Madras</span>. <br className="hidden md:block" />
-          Building autonomous agents and high-performance data ecosystems.
+          IIT Madras Data Scientist & Entrepreneurial Innovator <br className="hidden md:block" />
+          Building <span className="text-amber-400 font-medium">high-performance data ecosystems</span> and autonomous AI architecture.
         </motion.p>
 
         <motion.div 
@@ -114,14 +93,14 @@ const Hero = () => {
         >
           <Link href="/projects">
             <button className="px-8 py-4 bg-amber-400 text-black font-black uppercase tracking-widest text-xs rounded-lg hover:bg-white hover:scale-105 transition-all shadow-xl shadow-amber-400/10 flex items-center gap-2 group">
-              Exploit Projects <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              Explore Portfolio <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </Link>
           <div className="flex gap-2">
              <a href="https://github.com/ayushjhaa1187-spec" target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
                 <Github size={20} />
              </a>
-             <a href="https://www.linkedin.com/in/ayush-kumar-jha-5960a3362/" target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
+             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
                 <Linkedin size={20} />
              </a>
              <Link href="/contact" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
@@ -130,7 +109,13 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-20 w-full max-w-4xl">
+        {/* Rolling Stats */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1 }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-20 w-full max-w-4xl"
+        >
           {[
             { label: 'GitHub Repos', value: 46, suffix: '+', icon: Github },
             { label: 'IIT Hackathons', value: 8, suffix: '+', icon: Trophy },
@@ -153,9 +138,9 @@ const Hero = () => {
                  )}
               </div>
               <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500 mt-1">{stat.label}</div>
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>

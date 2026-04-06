@@ -5,25 +5,48 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 export const FeaturedProjects = () => {
-  const featured = projects.filter(p => p.featured);
+  const [activeTab, setActiveTab] = React.useState('ALL');
+  const categories = ['ALL', 'ML/AI', 'BUSINESS', 'LABS'];
+
+  const filtered = projects.filter(p => {
+    if (activeTab === 'ALL') return p.featured;
+    return p.category.toUpperCase().includes(activeTab) && p.featured;
+  });
 
   return (
-    <section id="projects" className="py-[var(--section-gap)] px-[var(--section-px)] bg-[#0a0a0a] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-           initial={{ opacity: 0, x: -20 }}
-           whileInView={{ opacity: 1, x: 0 }}
-           viewport={{ once: true }}
-           className="mb-16"
-        >
-           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
-             SELECTED <span className="text-amber-400">WORKS</span>
-           </h2>
-           <p className="text-slate-500 mt-4 max-w-lg font-medium uppercase tracking-[0.3em] text-[10px]">PRODUCTION SHIPS & LAB EXPERIMENTS</p>
-        </motion.div>
+    <section className="py-32 bg-[#0a0a0a] relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+          <motion.div
+             initial={{ opacity: 0, x: -20 }}
+             whileInView={{ opacity: 1, x: 0 }}
+             viewport={{ once: true }}
+          >
+             <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
+               SELECTED <span className="text-amber-400">WORKS</span>
+             </h2>
+             <p className="text-slate-500 mt-4 max-w-lg font-medium uppercase tracking-[0.3em] text-[10px]">PRODUCTION SHIPS & LAB EXPERIMENTS</p>
+          </motion.div>
+
+          <div className="flex flex-wrap gap-2">
+            {categories.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-6 py-2 text-[10px] font-black tracking-widest rounded-full transition-all border ${
+                  activeTab === tab 
+                    ? 'bg-amber-400 border-amber-400 text-black shadow-lg shadow-amber-400/20' 
+                    : 'bg-white/5 border-white/10 text-slate-500 hover:border-white/20'
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featured.map((project, i) => (
+          {filtered.map((project, i) => (
             <motion.div
               key={project.slug}
               initial={{ opacity: 0, y: 30 }}

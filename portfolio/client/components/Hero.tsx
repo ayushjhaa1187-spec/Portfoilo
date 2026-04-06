@@ -4,42 +4,37 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/Button';
 import Link from 'next/link';
-import { Sparkles, ArrowRight, Github, Linkedin, Terminal } from 'lucide-react';
+import { Sparkles, ArrowRight, Github, Linkedin, Terminal, Trophy } from 'lucide-react';
 
-const RollingNumber = ({ value, suffix = "" }: { value: string, suffix?: string }) => {
-    const [displayValue, setDisplayValue] = useState(0);
-    const [hasStarted, setHasStarted] = useState(false);
-    const targetValue = parseInt(value.replace(/,/g, ''));
-    const ref = useRef(null);
+const RollingNumber = ({ target, suffix = '' }: { target: number, suffix?: string }) => {
+  const [display, setDisplay] = useState(0);
+  const [started, setStarted] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => { if (entry.isIntersecting) setHasStarted(true); },
-            { threshold: 0.5 }
-        );
-        if (ref.current) observer.observe(ref.current);
-        return () => observer.disconnect();
-    }, []);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting && !started) setStarted(true); },
+      { threshold: 0.5 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [started]);
 
-    useEffect(() => {
-        if (!hasStarted) return;
-        
-        let start = 0;
-        const duration = 2000;
-        const increment = targetValue / (duration / 16);
-        const timer = setInterval(() => {
-            start += increment;
-            if (start >= targetValue) {
-                setDisplayValue(targetValue);
-                clearInterval(timer);
-            } else {
-                setDisplayValue(Math.floor(start));
-            }
-        }, 16);
-        return () => clearInterval(timer);
-    }, [hasStarted, targetValue]);
+  useEffect(() => {
+    if (!started) return;
+    const duration = 1800;
+    const steps = 60;
+    const increment = target / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+      current = Math.min(current + increment, target);
+      setDisplay(Math.floor(current));
+      if (current >= target) clearInterval(timer);
+    }, duration / steps);
+    return () => clearInterval(timer);
+  }, [started, target]);
 
-    return <span ref={ref}>{displayValue.toLocaleString()}{suffix}</span>;
+  return <span ref={ref}>{display.toLocaleString()}{suffix}</span>;
 };
 
 const Hero = () => {
@@ -137,10 +132,10 @@ const Hero = () => {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-20 w-full max-w-4xl">
           {[
-            { label: 'Verified Commits', value: '2845', icon: <Terminal size={14} /> },
-            { label: 'Active Repos', value: '46', icon: <Github size={14} /> },
-            { label: 'Stars Earned', value: '1', icon: <Sparkles size={14} /> },
-            { label: 'IITM Credentials', value: 'BS DS', icon: <ArrowRight size={14} /> }
+            { label: 'GitHub Repos', value: 46, suffix: '+', icon: Github },
+            { label: 'IIT Hackathons', value: 8, suffix: '+', icon: Trophy },
+            { label: 'AI Projects Live', value: 12, suffix: '+', icon: Sparkles },
+            { label: 'Current Degree', value: 'BS DS', suffix: '', icon: ArrowRight }
           ].map((stat, i) => (
             <motion.div 
               key={i}
@@ -149,9 +144,13 @@ const Hero = () => {
               transition={{ delay: 1.5 + i * 0.1, duration: 0.6 }}
               className="bg-white/5 border border-white/10 p-6 flex flex-col items-center glass-card"
             >
-              <div className="text-amber-400 mb-2">{stat.icon}</div>
+              <div className="text-amber-400 mb-2"><stat.icon size={14} /></div>
               <div className="text-3xl font-black text-white">
-                 {typeof parseInt(stat.value) === 'number' && !isNaN(parseInt(stat.value)) ? <RollingNumber value={stat.value} /> : stat.value}
+                 {typeof stat.value === 'number' ? (
+                   <RollingNumber target={stat.value} suffix={stat.suffix} />
+                 ) : (
+                   <span>{stat.value}{stat.suffix}</span>
+                 )}
               </div>
               <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500 mt-1">{stat.label}</div>
             </motion.div>

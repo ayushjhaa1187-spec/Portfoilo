@@ -69,11 +69,25 @@ const Navbar = () => {
         <div className="absolute top-0 left-0 h-0.5 bg-amber-400" style={{ width: `${scrollProgress}%` }} />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          <Link href="/" className="group flex items-center gap-2">
-            <div className="w-10 h-10 bg-amber-400 rounded-lg flex items-center justify-center font-bold text-black group-hover:rotate-12 transition-transform">
-              AKJ
-            </div>
-            <span className="text-xl font-bold tracking-tighter text-white group-hover:text-amber-400 transition-colors uppercase">
+          <Link href="/" className="group flex items-center gap-3">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" 
+                 xmlns="http://www.w3.org/2000/svg"
+                 className="group-hover:scale-110 transition-transform duration-300">
+              {/* Geometric AKJ monogram — hexagonal border with initials */}
+              <polygon points="20,2 36,11 36,29 20,38 4,29 4,11" 
+                       stroke="#FBBF24" strokeWidth="1.5" fill="none"/>
+              <text x="20" y="25" textAnchor="middle" 
+                    fontFamily="monospace" fontWeight="900" 
+                    fontSize="13" fill="#FBBF24" letterSpacing="0">
+                AKJ
+              </text>
+              {/* Corner accent dots */}
+              <circle cx="20" cy="2" r="1.5" fill="#FBBF24"/>
+              <circle cx="36" cy="20" r="1.5" fill="#FBBF24"/>
+              <circle cx="4" cy="20" r="1.5" fill="#FBBF24"/>
+            </svg>
+            <span className="text-xl font-black tracking-tighter text-white 
+                             group-hover:text-amber-400 transition-colors uppercase">
               Portfolio
             </span>
           </Link>

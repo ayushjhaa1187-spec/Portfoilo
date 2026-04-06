@@ -3,36 +3,29 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { projects } from '@/data/projects';
 import { Search, Filter, ExternalLink, Github, ArrowRight, Zap, Target, Users, Clock } from 'lucide-react';
+import { searchProjects } from '@/lib/projectSearch';
+import { fadeUp, scaleIn, staggerContainer, VIEWPORT } from '@/lib/animations';
 
 const ProjectsPage = () => {
   const [filter, setFilter] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState<'recent' | 'accuracy' | 'complexity' | 'featured'>('featured');
   
-  const categories = ['ALL', 'AI/ML', 'FULL-STACK', 'HACKATHON', 'TOOLS', 'DATA'];
+  const categories = ['ALL', 'ML/AI', 'FULL-STACK-LABS', 'BUSINESS', 'UX-LABS', 'EXPERIMENTAL'];
 
-  const filteredProjects = useMemo(() => {
-    return projects.filter(p => {
-      const pCat = p.category.toUpperCase().replace(' ', '-');
-      const matchesFilter = filter === 'ALL' || pCat === filter || (filter === 'DATA' && pCat === 'DATA-SCIENCE') || (filter === 'AI/ML' && pCat === 'ML/AI');
-      const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                            p.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            p.techStack.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
-      return matchesFilter && matchesSearch;
-    });
-  }, [filter, searchQuery]);
+  const filteredProjects = useMemo(() => searchProjects(projects, {
+    query: searchQuery,
+    category: filter,
+    sortBy
+  }), [filter, searchQuery, sortBy]);
 
   return (
     <div className="min-h-screen pt-40 px-6 max-w-7xl mx-auto pb-48">
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-24 text-center"
-      >
+      <motion.div variants={fadeUp} initial="hidden" animate="visible" className="mb-24 text-center">
         <h1 className="text-6xl md:text-8xl font-black mb-8 text-white tracking-tighter uppercase">
           PROJECT <span className="text-amber-400 font-serif italic lowercase">LAB</span>
         </h1>
@@ -70,6 +63,17 @@ const ProjectsPage = () => {
             </button>
           ))}
         </div>
+
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value as 'recent' | 'accuracy' | 'complexity' | 'featured')}
+          className="bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-amber-400"
+        >
+          <option value="featured">Sort: Featured</option>
+          <option value="recent">Sort: Recent</option>
+          <option value="accuracy">Sort: Accuracy</option>
+          <option value="complexity">Sort: Complexity</option>
+        </select>
       </div>
 
       {/* Results Count */}
@@ -79,16 +83,14 @@ const ProjectsPage = () => {
       </div>
 
       {/* Grid */}
-      <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={VIEWPORT} layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project) => (
             <motion.div
               key={project.slug}
               layout
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              variants={scaleIn}
+              custom={0}
             >
               <Card className="h-full flex flex-col glass-card group overflow-hidden">
                 {/* Visual Thumbnail */}
@@ -193,11 +195,7 @@ const ProjectsPage = () => {
 
       {/* Empty State */}
       {filteredProjects.length === 0 && (
-        <motion.div 
-           initial={{ opacity: 0 }}
-           animate={{ opacity: 1 }}
-           className="mt-20 py-20 text-center border-t border-white/5"
-        >
+        <motion.div variants={fadeUp} initial="hidden" animate="visible" className="mt-20 py-20 text-center border-t border-white/5">
            <Target className="mx-auto text-slate-800 mb-4" size={48} />
            <p className="text-slate-500 font-black tracking-widest uppercase">No projects matching your search criteria</p>
         </motion.div>

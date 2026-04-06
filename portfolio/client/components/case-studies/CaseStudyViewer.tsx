@@ -1,0 +1,47 @@
+'use client';
+
+import { useState } from 'react';
+import Image from 'next/image';
+import { CaseStudy } from '@/data/projects';
+
+const CaseStudyViewer = ({ study }: { study: CaseStudy }) => {
+  const [mode, setMode] = useState<'preview' | 'full'>('preview');
+
+  return (
+    <div className="glass-card rounded-2xl overflow-hidden group border border-white/10">
+      {mode === 'preview' ? (
+        <div className="relative aspect-video">
+          <Image src={study.thumbnail} alt={study.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+          <div className="absolute left-4 bottom-4 max-w-[75%]">
+            <p className="text-[10px] tracking-[0.25em] uppercase font-black text-amber-400">{study.domain}</p>
+            <p className="text-sm font-bold text-white leading-tight">{study.outcome}</p>
+          </div>
+          <button
+            onClick={() => setMode('full')}
+            className="absolute bottom-4 right-4 px-4 py-2 bg-amber-400 text-black text-xs font-black rounded-lg uppercase tracking-widest"
+          >
+            View Deck ↗
+          </button>
+        </div>
+      ) : (
+        <div>
+          <iframe
+            src={study.embedUrl}
+            className="w-full aspect-[16/9]"
+            allow="autoplay"
+            title={study.title}
+          />
+          <button
+            onClick={() => setMode('preview')}
+            className="w-full py-3 text-xs font-black uppercase tracking-[0.3em] text-slate-400 hover:text-amber-400 transition-colors border-t border-white/10"
+          >
+            Close Deck
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default CaseStudyViewer;

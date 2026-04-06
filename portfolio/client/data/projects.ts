@@ -22,6 +22,29 @@ export interface Project {
   learning?: string[];
 }
 
+
+
+export type CaseStudyDomain = 'AI' | 'Business' | 'Full-Stack' | 'Research' | 'Space';
+
+export interface CaseStudy {
+  id: string;
+  slug: string;
+  projectSlug: string;
+  title: string;
+  problem: string;
+  outcome: string;
+  solution: string;
+  domain: CaseStudyDomain;
+  tools: string[];
+  driveFileId: string;
+  embedUrl: string;
+  thumbnail: string;
+  relatedProject?: string;
+  date: string;
+  features: string[];
+  results: string[];
+}
+
 export const projects: Project[] = [
   {
     slug: 'enron-insights',
@@ -204,13 +227,22 @@ export const projects: Project[] = [
   }
 ];
 
-export const caseStudies = [
+export const caseStudies: CaseStudy[] = [
   {
+    id: 'cs-enron-001',
     slug: 'enron-insights-forensics',
     projectSlug: 'enron-insights',
     title: 'Decoding Corporate Scandals with AI: The Enron Case Study',
     problem: 'Analyzing 600,000 internal emails for forensic patterns was impossible for manual audit teams within mission-critical timelines.',
+    outcome: 'Reduced legal discovery workload and accelerated executive reporting by automating retrieval and evidence clustering.',
     solution: 'Built a vectorized RAG pipeline with sub-second retrieval, leveraging LangChain and Pinecone for high-dimensional semantic search.',
+    domain: 'Research',
+    tools: ['LangChain', 'Pinecone', 'OpenAI', 'FastAPI'],
+    driveFileId: '1a2b3c4d5e6f7g8h9i0j',
+    embedUrl: 'https://drive.google.com/file/d/1a2b3c4d5e6f7g8h9i0j/preview',
+    thumbnail: 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=1600&q=80',
+    relatedProject: 'enron-insights',
+    date: '2026-01-18',
     features: [
       'Autonomous transformer-based ingestion pipeline',
       'Sub-second RAG retrieval across 600k+ nodes',

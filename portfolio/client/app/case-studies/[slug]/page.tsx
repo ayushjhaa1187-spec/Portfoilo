@@ -3,8 +3,9 @@
 import React from 'react';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { fadeUp, fadeLeft, VIEWPORT } from '@/lib/animations';
 import { projects, caseStudies } from '@/data/projects';
-import { ArrowLeft, ExternalLink, Github, Terminal, Database, Target, Cpu, Clock, Users, Zap, CheckCircle, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, Terminal, Database, Target, Cpu, Users, Zap, CheckCircle, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 
 const CaseStudyPage = () => {
@@ -36,7 +37,7 @@ const CaseStudyPage = () => {
 
   return (
     <div className="min-h-screen pt-40 px-6 max-w-7xl mx-auto pb-48 bg-black">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-24">
+      <motion.div variants={fadeUp} initial="hidden" animate="visible" className="mb-24">
          <Link href="/projects" className="text-slate-500 hover:text-amber-400 text-xs font-black tracking-[0.4em] uppercase flex items-center gap-2 mb-12 transition-colors group">
             <ArrowLeft className="group-hover:-translate-x-2 transition-transform" size={16} /> LABORATORY_ROOT
          </Link>
@@ -109,7 +110,7 @@ const CaseStudyPage = () => {
       {/* Main Content Sections */}
       <div className="grid lg:grid-cols-12 gap-20">
          <div className="lg:col-span-8 space-y-24">
-            <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+            <motion.section variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT}>
                <h2 className="text-4xl font-black text-white uppercase tracking-tighter mb-8 flex items-center gap-4">
                   <Terminal size={24} className="text-amber-400" /> MISSION_STATEMENT
                </h2>
@@ -118,7 +119,7 @@ const CaseStudyPage = () => {
                </div>
             </motion.section>
 
-            <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+            <motion.section variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT}>
                <h2 className="text-4xl font-black text-white uppercase tracking-tighter mb-8 flex items-center gap-4">
                   <Database size={24} className="text-amber-400" /> SOLUTION_ARCHITECTURE
                </h2>
@@ -127,7 +128,7 @@ const CaseStudyPage = () => {
                </div>
             </motion.section>
 
-            <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+            <motion.section variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT}>
                <h2 className="text-4xl font-black text-white uppercase tracking-tighter mb-8 flex items-center gap-4">
                   <Cpu size={24} className="text-amber-400" /> CORE_PROTOCOL_ENGINE
                </h2>
@@ -144,7 +145,7 @@ const CaseStudyPage = () => {
 
          <div className="lg:col-span-4 space-y-12">
             <div className="sticky top-40 space-y-10">
-               <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="p-10 glass-panel rounded-[3rem] border border-white/5 bg-gradient-to-br from-amber-400/5 to-transparent">
+               <motion.div variants={fadeLeft} initial="hidden" animate="visible" className="p-10 glass-panel rounded-[3rem] border border-white/5 bg-gradient-to-br from-amber-400/5 to-transparent">
                   <h3 className="text-3xl font-black text-white uppercase tracking-tighter mb-6 leading-none">IMPACT_ANALYTICS</h3>
                   <div className="space-y-8">
                      {caseStudy.results.map((res, i) => (

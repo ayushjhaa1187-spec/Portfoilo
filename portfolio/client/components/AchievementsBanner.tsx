@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Trophy, Star, Target, CheckCircle, Award } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/Button';
@@ -14,18 +14,14 @@ const quickAchievements = [
 ];
 
 export const AchievementsBanner = () => {
-  const { scrollYProgress } = useScroll();
-  const x = useTransform(scrollYProgress, [0.3, 0.7], [0, -100]);
-
   return (
     <section className="py-[var(--section-gap)] bg-white/[0.02] border-y border-white/5 relative overflow-hidden group">
       <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-transparent to-[#0a0a0a] z-10 pointer-events-none" />
       
-      <motion.div 
-        style={{ x }}
-        className="flex whitespace-nowrap gap-12 items-center px-4"
+      <div 
+        className="flex animate-marquee-slow whitespace-nowrap gap-12 items-center"
       >
-        {[...quickAchievements, ...quickAchievements, ...quickAchievements].map((ach, idx) => (
+        {[...quickAchievements, ...quickAchievements, ...quickAchievements, ...quickAchievements].map((ach, idx) => (
           <div key={`${ach.title}-${idx}`} className="flex items-center gap-6 glass-card p-4 group/card hover:bg-white/5 transition-all">
              <div className={`w-12 h-12 bg-black/40 rounded-xl flex items-center justify-center ${ach.color} group-hover/card:scale-110 transition-transform`}>
                 <ach.icon size={24} />
@@ -37,7 +33,7 @@ export const AchievementsBanner = () => {
              <div className="w-2 h-2 rounded-full bg-white/5" />
           </div>
         ))}
-      </motion.div>
+      </div>
       
       <div className="mt-16 text-center relative z-20">
          <Link href="/achievements">

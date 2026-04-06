@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/Button';
 import Link from 'next/link';
@@ -37,8 +37,15 @@ const RollingNumber = ({ target, suffix = '' }: { target: number, suffix?: strin
   return <span ref={ref}>{display.toLocaleString()}{suffix}</span>;
 };
 
-const Hero = () => {
+const Hero = ({ githubStats }: { githubStats?: any }) => {
   const name = "AYUSH KUMAR JHA";
+
+  const stats = [
+    { label: 'GitHub Repos', value: githubStats?.publicRepos || 46, suffix: '+', icon: Github },
+    { label: 'Total Stars', value: githubStats?.totalStars || 12, suffix: '', icon: Sparkles },
+    { label: 'Followers', value: githubStats?.followers || 8, suffix: '+', icon: Trophy },
+    { label: 'User Since', value: githubStats?.joinYear || 2024, suffix: '', icon: ArrowRight }
+  ];
   
   return (
     <section className="min-h-screen relative flex items-center justify-center bg-[#0a0a0a] overflow-hidden pt-20">
@@ -116,12 +123,7 @@ const Hero = () => {
           transition={{ delay: 1.5, duration: 1 }}
           className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-20 w-full max-w-4xl"
         >
-          {[
-            { label: 'GitHub Repos', value: 46, suffix: '+', icon: Github },
-            { label: 'IIT Hackathons', value: 8, suffix: '+', icon: Trophy },
-            { label: 'AI Projects Live', value: 12, suffix: '+', icon: Sparkles },
-            { label: 'Current Degree', value: 'BS DS', suffix: '', icon: ArrowRight }
-          ].map((stat, i) => (
+          {stats.map((stat, i) => (
             <motion.div 
               key={i}
               initial={{ opacity: 0, y: 30 }}
@@ -138,7 +140,7 @@ const Hero = () => {
                  )}
               </div>
               <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500 mt-1">{stat.label}</div>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
 

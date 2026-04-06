@@ -49,10 +49,15 @@ const Navbar = () => {
 
   const [moreOpen, setMoreOpen] = useState(false);
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+  const isActive = (path: string) => {
+    if (path.startsWith('/#')) return pathname === '/';
+    return pathname === path || pathname.startsWith(path + '/');
+  };
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
     if (path.startsWith('/#') && pathname === '/') {
       e.preventDefault();
-      const id = path.substring(2);
+      const id = path.replace('/#', '');
       const element = document.getElementById(id);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
@@ -98,10 +103,11 @@ const Navbar = () => {
               <Link 
                 key={link.name} 
                 href={link.path}
-                onClick={(e) => handleLinkClick(e, link.path)}
-                className={`text-[10px] font-black tracking-[0.2em] uppercase transition-all hover:text-amber-400 ${
-                  pathname === link.realPath || (pathname === '/' && link.path.startsWith('/#')) ? 'text-white' : 'text-slate-500'
-                }`}
+                onClick={(e) => handleNavClick(e, link.path)}
+                className={`text-[10px] font-black tracking-[0.2em] uppercase transition-all hover:text-amber-400 relative
+                  ${isActive(link.path) 
+                    ? 'text-amber-400 after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-amber-400' 
+                    : 'text-slate-500'}`}
               >
                 {link.name}
               </Link>
@@ -122,7 +128,7 @@ const Navbar = () => {
                       key={link.name}
                       href={link.path}
                       onClick={(e) => {
-                        handleLinkClick(e, link.path);
+                        handleNavClick(e, link.path);
                         setMoreOpen(false);
                       }}
                       className="block px-6 py-3 text-[9px] font-black tracking-widest text-slate-400 hover:text-amber-400 hover:bg-white/5 transition-all uppercase"
@@ -165,7 +171,7 @@ const Navbar = () => {
                 <Link 
                   href={link.path}
                   onClick={(e) => {
-                    handleLinkClick(e, link.path);
+                    handleNavClick(e, link.path);
                     if (!link.path.startsWith('/#') || pathname !== '/') setIsOpen(false);
                   }}
                   className={`text-4xl font-black tracking-tighter flex items-center justify-between group ${

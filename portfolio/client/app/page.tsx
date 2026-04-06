@@ -6,11 +6,14 @@ import { SkillsSection } from '@/components/SkillsSection';
 import { AchievementsBanner } from '@/components/AchievementsBanner';
 import { TimelinePreview } from '@/components/TimelinePreview';
 import { CollaborationCTA } from '@/components/CollaborationCTA';
+import { getGitHubStats } from '@/lib/githubStats';
 
-export default function Home() {
+export default async function Home() {
+  const githubStats = await getGitHubStats('ayushjhaa1187-spec');
+
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden pt-10">
-      <Hero />
+      <Hero githubStats={githubStats} />
       <Marquee />
       <div className="space-y-[var(--section-gap)]">
          <FeaturedProjects />

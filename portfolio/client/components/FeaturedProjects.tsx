@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { projects } from '@/data/projects';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 export const FeaturedProjects = () => {
@@ -10,7 +10,8 @@ export const FeaturedProjects = () => {
 
   const filtered = projects.filter(p => {
     if (activeTab === 'ALL') return p.featured;
-    return p.category.toUpperCase().includes(activeTab) && p.featured;
+    if (activeTab === 'LABS') return p.category.toUpperCase().includes('LABS') && p.featured;
+    return p.category.toUpperCase() === activeTab && p.featured;
   });
 
   return (
@@ -46,15 +47,18 @@ export const FeaturedProjects = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filtered.map((project, i) => (
-            <motion.div
-              key={project.slug}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="glass-card group"
-            >
+          <AnimatePresence mode="popLayout">
+            {filtered.map((project, i) => (
+              <motion.div
+                key={project.slug}
+                layout
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="glass-card group"
+              >
               <div className="p-8 h-full flex flex-col">
                 <div className="mb-6 flex justify-between items-start">
                   <span className="text-[10px] font-black tracking-widest text-[#0a0a0a] uppercase py-1 px-3 bg-amber-400 rounded-full">
@@ -98,7 +102,8 @@ export const FeaturedProjects = () => {
                 </div>
               </div>
             </motion.div>
-          ))}
+            ))}
+          </AnimatePresence>
         </div>
       </div>
     </section>

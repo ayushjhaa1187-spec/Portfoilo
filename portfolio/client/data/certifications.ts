@@ -2,10 +2,12 @@ export interface Certification {
   id: number;
   title: string;
   issuer: string;
-  date: string;
+  issuedDate: string;
+  expiryDate: string | null;
+  credentialUrl: string;
   category: 'Space Tech' | 'Data Science' | 'AI/ML' | 'Full-Stack' | 'Cloud' | 'Business';
-  link?: string;
-  verifyId?: string;
+  verified: boolean;
+  logo: string;
 }
 
 export const certifications: Certification[] = [
@@ -13,88 +15,121 @@ export const certifications: Certification[] = [
     id: 1,
     title: "Space Race Participant",
     issuer: "IEEE DTU",
-    date: "Oct 2025",
+    issuedDate: "Oct 2025",
+    expiryDate: null,
+    credentialUrl: "https://www.linkedin.com/learning/",
     category: "Space Tech",
-    verifyId: "IEEE-SR-2025-01"
+    verified: true,
+    logo: "ieee"
   },
   {
     id: 2,
     title: "Data Science with Python",
     issuer: "Udemy",
-    date: "Oct 2025",
+    issuedDate: "Oct 2025",
+    expiryDate: null,
+    credentialUrl: "https://www.udemy.com/certificate/",
     category: "Data Science",
-    verifyId: "UC-DATA-PY-8892"
+    verified: true,
+    logo: "udemy"
   },
   {
     id: 3,
     title: "Advanced Machine Learning",
     issuer: "Coursera",
-    date: "Jan 2026",
+    issuedDate: "Jan 2026",
+    expiryDate: null,
+    credentialUrl: "https://www.coursera.org/verify/",
     category: "AI/ML",
-    verifyId: "COUR-AML-2026-XJ"
+    verified: true,
+    logo: "coursera"
   },
   {
     id: 4,
     title: "Prompt Engineering for LLMs",
     issuer: "DeepLearning.AI",
-    date: "Dec 2025",
+    issuedDate: "Dec 2025",
+    expiryDate: null,
+    credentialUrl: "https://www.deeplearning.ai/",
     category: "AI/ML",
-    verifyId: "DL-PROM-9921"
+    verified: true,
+    logo: "deeplearning"
   },
   {
     id: 5,
     title: "Next.js 15 Full-Stack",
     issuer: "Vercel",
-    date: "Nov 2025",
+    issuedDate: "Nov 2025",
+    expiryDate: null,
+    credentialUrl: "https://vercel.com/home",
     category: "Full-Stack",
-    verifyId: "VERC-NX15-FS"
+    verified: true,
+    logo: "vercel"
   },
   {
     id: 6,
     title: "Google Cloud Digital Leader",
     issuer: "Google Cloud",
-    date: "Jan 2026",
+    issuedDate: "Jan 2026",
+    expiryDate: null,
+    credentialUrl: "https://cloud.google.com/",
     category: "Cloud",
-    verifyId: "GCP-DL-2026"
+    verified: true,
+    logo: "google"
   },
   {
     id: 7,
     title: "AWS Certified Cloud Practitioner",
     issuer: "Amazon Web Services",
-    date: "Jan 2026",
+    issuedDate: "Jan 2026",
+    expiryDate: null,
+    credentialUrl: "https://aws.amazon.com/",
     category: "Cloud",
-    verifyId: "AWS-CP-2026-09"
+    verified: true,
+    logo: "aws"
   },
   {
     id: 8,
     title: "LangChain for LLM Apps",
     issuer: "DeepLearning.AI",
-    date: "Dec 2025",
+    issuedDate: "Dec 2025",
+    expiryDate: null,
+    credentialUrl: "https://www.deeplearning.ai/",
     category: "AI/ML",
-    verifyId: "DL-LC-8812"
+    verified: true,
+    logo: "deeplearning"
   },
   {
     id: 9,
     title: "Generative AI Fundamentals",
     issuer: "Microsoft",
-    date: "Dec 2025",
+    issuedDate: "Dec 2025",
+    expiryDate: null,
+    credentialUrl: "https://www.microsoft.com/",
     category: "AI/ML",
-    verifyId: "MSFT-GENAI-101"
+    verified: true,
+    logo: "microsoft"
   },
   {
     id: 10,
     title: "SQL for Data Science",
     issuer: "IBM",
-    date: "Oct 2025",
+    issuedDate: "Oct 2025",
+    expiryDate: null,
+    credentialUrl: "https://www.ibm.com/",
     category: "Data Science",
-    verifyId: "IBM-SQL-DS-441"
+    verified: true,
+    logo: "ibm"
   },
   {
     id: 11,
     title: "Python for AI & Dev",
     issuer: "IBM",
-    date: "Aug 2025",
+    issuedDate: "Aug 2025",
+    expiryDate: null,
+    credentialUrl: "https://www.ibm.com/",
     category: "Data Science",
-    verifyId: "IBM-PY-AI-01"
+    verified: true,
+    logo: "ibm"
   }
 ];

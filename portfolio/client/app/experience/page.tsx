@@ -1,101 +1,136 @@
 'use client';
-
 import React from 'react';
 import { motion } from 'framer-motion';
+import { PageShell } from '@/components/PageShell';
 import { experiences } from '@/data/experience';
-import { Briefcase, Calendar, MapPin, CheckCircle, ChevronRight } from 'lucide-react';
+import { Briefcase, GraduationCap, Trophy, Users, Calendar, MapPin } from 'lucide-react';
+
+const typeColors: Record<string, string> = {
+  work: 'border-amber-400 text-amber-400 bg-amber-400/5 shadow-amber-400/20',
+  education: 'border-blue-400 text-blue-400 bg-blue-400/5 shadow-blue-400/20',
+  achievement: 'border-emerald-400 text-emerald-400 bg-emerald-400/5 shadow-emerald-400/20',
+  campus: 'border-purple-400 text-purple-400 bg-purple-400/5 shadow-purple-400/20',
+};
 
 const ExperiencePage = () => {
+  const stats = {
+    months: 18, 
+    roles: experiences.length,
+    iits: new Set(experiences.filter(e => e.org.includes('IIT')).map(e => e.org)).size,
+  };
+
   return (
-    <div className="min-h-screen pt-40 px-6 max-w-5xl mx-auto pb-48">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-24 text-center"
-      >
-        <h1 className="text-6xl md:text-8xl font-black mb-8 text-white tracking-tighter uppercase">
-          PROFESSIONAL <span className="text-amber-400 font-serif italic lowercase">Timeline</span>
-        </h1>
-        <p className="text-2xl text-slate-400 max-w-3xl mx-auto font-light leading-relaxed tracking-wide">
-          A career architecture focused on Data Science, AI Agents, and scalable engineering.
-        </p>
-      </motion.div>
-
-      <div className="relative ml-4 md:ml-0 overflow-hidden">
-        {/* SVG Drawing Line */}
-        <div className="absolute left-[9px] md:left-1/2 top-0 bottom-0 w-[2px] -translate-x-1/2 z-0">
-           <svg className="w-full h-full" preserveAspectRatio="none">
-              <line x1="1" y1="0" x2="1" y2="100%" className="stroke-white/5 stroke-2" />
-              <motion.line 
-                x1="1" 
-                y1="0" 
-                x2="1" 
-                y2="100%" 
-                className="stroke-amber-400 stroke-2"
-                initial={{ pathLength: 0 }}
-                whileInView={{ pathLength: 1 }}
-                viewport={{ once: false, amount: 0.1 }}
-                transition={{ duration: 2, ease: "easeInOut" }}
-              />
-           </svg>
-        </div>
-
-        {experiences.map((exp, idx) => (
+    <PageShell title="CAREER" subtitle="timeline">
+      {/* Summary Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+        {[
+          { label: 'Active Professional Experience', value: `${stats.months} Months`, detail: 'Across AI, Data & Dev', color: 'text-amber-400' },
+          { label: 'Total Verified Roles', value: stats.roles, detail: 'Internships & Leadership', color: 'text-blue-400' },
+          { label: 'IIT Ecosystem Presence', value: `${stats.iits} Institutes`, detail: 'Madras, Kharagpur, Delhi', color: 'text-emerald-400' },
+        ].map((stat, i) => (
           <motion.div
-            key={exp.id}
-            initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className={`relative mb-32 md:w-1/2 flex ${idx % 2 === 0 ? 'md:justify-end md:pr-16 text-right' : 'md:justify-start md:pl-16 md:ml-auto text-left'}`}
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.1 }}
+            className="glass-card p-10 border-white/5 hover:border-white/20 transition-all text-center relative group overflow-hidden"
           >
-            {/* Center Dot */}
-            <div className="absolute top-8 w-5 h-5 bg-black border-4 border-amber-400 rounded-full left-[-26px] md:left-auto md:right-auto z-10 shadow-[0_0_15px_rgba(251,191,36,0.5)]" 
-                 style={{ 
-                    left: idx % 2 === 0 ? 'auto' : '-10px', 
-                    right: idx % 2 === 0 ? '-10px' : 'auto' 
-                 }} />
-
-            <div className="glass-card p-10 group hover:border-amber-400/50 transition-all w-full max-w-xl relative">
-              <div className={`flex items-center gap-6 mb-6 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center text-amber-400 group-hover:rotate-6 group-hover:scale-110 transition-all shadow-xl shadow-amber-400/10">
-                  <Briefcase size={32} />
-                </div>
-                <div>
-                   <h3 className="text-3xl font-black text-white group-hover:text-amber-400 transition-colors uppercase tracking-tight leading-none mb-2">{exp.role}</h3>
-                   <p className="text-slate-400 font-black uppercase text-[10px] tracking-[0.3em]">{exp.org} • {exp.type}</p>
-                </div>
-              </div>
-
-              <div className={`flex flex-wrap gap-4 mb-8 text-slate-500 text-[10px] font-black tracking-widest uppercase ${idx % 2 === 0 ? 'md:justify-end' : ''}`}>
-                 <span className="flex items-center gap-2 bg-white/5 px-4 py-1.5 rounded-full"><Calendar size={12} /> {exp.start} — {exp.end}</span>
-                 {exp.verified && <span className="flex items-center gap-2 text-emerald-400 bg-emerald-400/5 px-4 py-1.5 rounded-full"><CheckCircle size={12} /> VERIFIED_NODE</span>}
-              </div>
-
-              <p className="text-slate-400 text-base leading-relaxed mb-10 font-light">
-                {exp.description}
-              </p>
-
-              <div className={`flex flex-wrap gap-2 ${idx % 2 === 0 ? 'md:justify-end' : ''}`}>
-                {exp.skills.map(skill => (
-                  <span key={skill} className="px-4 py-1.5 bg-white/5 rounded-full text-[9px] font-black tracking-widest uppercase text-slate-500 border border-white/5 group-hover:border-amber-400/20 group-hover:text-amber-400 transition-all">
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
+            <div className={`absolute inset-0 bg-gradient-to-br transition-opacity opacity-0 group-hover:opacity-5 ${stat.color.replace('text-', 'from-')}`} />
+            <p className="text-sm font-black text-slate-500 uppercase tracking-widest mb-4">{stat.label}</p>
+            <h2 className="text-4xl font-black text-white uppercase tracking-tighter mb-2">{stat.value}</h2>
+            <p className={`text-[10px] font-black uppercase tracking-[0.4em] ${stat.color}`}>{stat.detail}</p>
           </motion.div>
         ))}
       </div>
 
-      <div className="mt-32 text-center">
-         <a href="https://www.linkedin.com/in/ayush-kumar-jha-5960a3362/" target="_blank" rel="noopener noreferrer">
-           <button className="px-12 py-5 bg-transparent border-2 border-white/10 hover:border-amber-400 text-white font-black uppercase text-xs tracking-[0.3em] rounded-full transition-all hover:bg-amber-400 hover:text-black">
-              SYNC VIA LINKEDIN ↗
-           </button>
-         </a>
+      {/* Timeline Section */}
+      <div className="relative max-w-5xl mx-auto pl-12 md:pl-0">
+        {/* Vertical Line */}
+        <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-amber-400 via-white/10 to-transparent" />
+
+        {/* Experience Nodes */}
+        {experiences.map((exp, i) => {
+          const isLeft = i % 2 === 0;
+          const colorClass = typeColors[exp.type as keyof typeof typeColors] || typeColors.work;
+          const dotColor = colorClass.split(' ')[1].replace('text-', 'bg-');
+
+          return (
+            <div key={exp.id} className="relative mb-32">
+              {/* Connector Dot */}
+              <motion.div 
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                className={`absolute left-6 md:left-1/2 -translate-x-[50%] top-6 w-5 h-5 rounded-full border-4 border-black z-20 
+                           ${dotColor} shadow-[0_0_15px_rgba(0,0,0,0.5)] animate-pulse`}
+              />
+
+              <div className={`flex flex-col md:flex-row items-start justify-between w-full 
+                              ${isLeft ? 'md:flex-row-reverse' : ''}`}>
+                
+                {/* Date Chip */}
+                <div className={`w-full md:w-[45%] flex md:justify-${isLeft ? 'start' : 'end'} md:px-12 mb-8 md:mb-0`}>
+                  <motion.div 
+                    initial={{ opacity: 0, x: isLeft ? 20 : -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    className={`px-4 py-2 mt-4 rounded-full border text-[9px] font-black tracking-widest uppercase ${colorClass}`}
+                  >
+                    {exp.period}
+                  </motion.div>
+                </div>
+
+                {/* Content Card */}
+                <div className="w-full md:w-[45%] md:px-12">
+                  <motion.div 
+                    initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    className="glass-card p-10 hover:border-white/20 transition-all border-white/5 relative group cursor-default"
+                  >
+                    <div className="flex items-center gap-4 mb-8">
+                       <span className={`p-4 rounded-2xl border transition-all ${colorClass}`}>
+                          {exp.type === 'work' && <Briefcase size={24} />}
+                          {exp.type === 'education' && <GraduationCap size={24} />}
+                          {exp.type === 'achievement' && <Trophy size={24} />}
+                          {exp.type === 'campus' && <Users size={24} />}
+                       </span>
+                       <div>
+                          <h3 className="text-2xl font-black text-white uppercase tracking-tight leading-none mb-2">{exp.role}</h3>
+                          <p className="text-xs font-black text-slate-500 uppercase tracking-[0.2em]">{exp.org}</p>
+                       </div>
+                    </div>
+                    
+                    <p className="text-slate-400 text-base font-light leading-relaxed mb-10">
+                       {exp.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2">
+                       {exp.skills.map(skill => (
+                          <span key={skill} className="px-3 py-1.5 bg-white/5 rounded-lg text-[9px] font-black text-slate-500 uppercase tracking-widest border border-white/5 hover:text-white transition-colors">
+                             {skill}
+                          </span>
+                       ))}
+                    </div>
+
+                    <div className="mt-8 pt-8 border-t border-white/5 flex justify-between items-center opacity-30 group-hover:opacity-100 transition-opacity">
+                       <div className="flex items-center gap-3">
+                          <MapPin size={14} className="text-amber-400" />
+                          <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Node_Verified</span>
+                       </div>
+                       <div className="flex items-center gap-3">
+                          <Calendar size={14} className="text-amber-400" />
+                          <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">{exp.period}</span>
+                       </div>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
-    </div>
+    </PageShell>
   );
 };
 

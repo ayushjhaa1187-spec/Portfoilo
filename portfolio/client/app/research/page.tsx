@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Microscope, Target, Database, Terminal, ShieldCheck, Zap, ArrowUpRight, BarChart } from 'lucide-react';
+import { PageShell } from '@/components/PageShell';
 
 const researchProjects = [
   {
@@ -36,22 +37,15 @@ const researchProjects = [
 
 const ResearchPage = () => {
     return (
-        <div className="min-h-screen pt-40 px-6 max-w-7xl mx-auto pb-48">
-            <motion.div
-                initial={{ opacity: 0, y: -20 }}
+        <PageShell title="ENGINEERING" subtitle="hypothesis">
+            <motion.p
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-24 text-center"
+                transition={{ delay: 0.2 }}
+                className="text-2xl text-slate-400 max-w-3xl mb-24 font-light leading-relaxed tracking-wide"
             >
-                <div className="inline-flex items-center gap-4 px-6 py-2 bg-amber-400 text-black text-xs font-black tracking-[0.4em] uppercase rounded-full mb-8">
-                    <Microscope size={16} /> LABORATORY_RESEARCH_v1.0
-                </div>
-                <h1 className="text-6xl md:text-8xl font-black mb-10 text-white tracking-tighter uppercase leading-none">
-                    ENGINEERING <span className="text-amber-400 font-serif italic lowercase">Hypothesis</span>
-                </h1>
-                <p className="text-2xl text-slate-400 max-w-3xl mx-auto font-light leading-relaxed tracking-wide">
-                    Exploring the frontiers of autonomous intelligence, satellite computer vision, and decentralized knowledge ecosystems.
-                </p>
-            </motion.div>
+                Exploring the frontiers of autonomous intelligence, satellite computer vision, and decentralized knowledge ecosystems.
+            </motion.p>
 
             <div className="grid lg:grid-cols-2 gap-10">
                 {researchProjects.map((project, idx) => (
@@ -113,8 +107,8 @@ const ResearchPage = () => {
                     {[1,2,3,4,5,6,7,8].map(i => <div key={i} className="h-1 w-6 bg-white/5 rounded-full hover:bg-amber-400/50 transition-all" />)}
                 </div>
             </div>
-        </div>
-    );
+    </PageShell>
+  );
 };
 
 export default ResearchPage;

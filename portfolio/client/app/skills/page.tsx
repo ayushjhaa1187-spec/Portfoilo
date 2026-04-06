@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { skills } from '@/data/skills';
 import { Code, Database, Cpu, Layout, Terminal, Radio, Shield, Globe } from 'lucide-react';
+import { PageShell } from '@/components/PageShell';
 
 const categoryIcons: Record<string, any> = {
   Languages: Terminal,
@@ -17,19 +18,15 @@ const SkillsPage = () => {
   const categories = Array.from(new Set(skills.map(s => s.category)));
 
   return (
-    <div className="min-h-screen pt-40 px-6 max-w-7xl mx-auto pb-48">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
+    <PageShell title="TECHNICAL" subtitle="arsenal">
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-24 text-center"
+        transition={{ delay: 0.2 }}
+        className="text-2xl text-slate-400 max-w-3xl mb-24 font-light leading-relaxed tracking-wide"
       >
-        <h1 className="text-6xl md:text-8xl font-black mb-8 text-white tracking-tighter uppercase">
-          TECHNICAL <span className="text-amber-400 font-serif italic lowercase">Arsenal</span>
-        </h1>
-        <p className="text-2xl text-slate-400 max-w-3xl mx-auto font-light leading-relaxed tracking-wide">
-          A high-fidelity stack optimized for AI engineering, agentic workflows, and resilient full-stack systems.
-        </p>
-      </motion.div>
+        A high-fidelity stack optimized for AI engineering, agentic workflows, and resilient full-stack systems.
+      </motion.p>
 
       <div className="grid lg:grid-cols-2 gap-20">
         {categories.map((cat, catIdx) => {
@@ -98,7 +95,7 @@ const SkillsPage = () => {
             </p>
          </div>
       </div>
-    </div>
+    </PageShell>
   );
 };
 

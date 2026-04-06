@@ -5,10 +5,11 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { Brain, Code, Target, Zap, Rocket, Terminal, Database, Users } from 'lucide-react';
+import { PageShell } from '@/components/PageShell';
 
 const AboutPage = () => {
   return (
-    <div className="min-h-screen pt-40 px-6 max-w-7xl mx-auto pb-48">
+    <PageShell title="ENGINEERING" subtitle="the epoch">
       <div className="grid lg:grid-cols-2 gap-20 items-center mb-40">
         <motion.div
            initial={{ opacity: 0, x: -50 }}
@@ -18,9 +19,6 @@ const AboutPage = () => {
           <p className="text-amber-400 font-black tracking-[0.5em] uppercase mb-6 flex items-center gap-4">
              <Terminal size={14} /> SYSTEM_PROFILE_v2.0
           </p>
-          <h1 className="text-6xl md:text-8xl font-black mb-10 text-white tracking-tighter uppercase leading-none">
-            ENGINEERING <span className="text-amber-400 font-serif italic lowercase">the epoch</span>
-          </h1>
           <p className="text-2xl text-slate-400 font-light leading-relaxed mb-12 tracking-wide">
              I am Ayush Kumar Jha, an AI Engineer and Full-Stack Architect currently pursuing a BS in Data Science at IIT Madras.
           </p>
@@ -177,7 +175,7 @@ const AboutPage = () => {
             <Users size={32} />
          </div>
       </div>
-    </div>
+    </PageShell>
   );
 };
 

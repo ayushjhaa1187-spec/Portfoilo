@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { achievements } from '@/data/achievements';
 import { Trophy, Star, Target, CheckCircle, Award, Layout, Briefcase, Zap } from 'lucide-react';
+import { PageShell } from '@/components/PageShell';
 
 const achievementsIcons: Record<string, any> = {
   Recognition: Trophy,
@@ -13,19 +14,15 @@ const achievementsIcons: Record<string, any> = {
 
 const AchievementsPage = () => {
   return (
-    <div className="min-h-screen pt-40 px-6 max-w-7xl mx-auto pb-48">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
+    <PageShell title="RECOGNITION" subtitle="archives">
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-24 text-center"
+        transition={{ delay: 0.2 }}
+        className="text-2xl text-slate-400 max-w-3xl mb-24 font-light leading-relaxed tracking-wide"
       >
-        <h1 className="text-6xl md:text-8xl font-black mb-8 text-white tracking-tighter uppercase">
-          RECOGNITION <span className="text-amber-400 font-serif italic lowercase">Archives</span>
-        </h1>
-        <p className="text-2xl text-slate-400 max-w-3xl mx-auto font-light leading-relaxed tracking-wide">
-          A showcase of hackathon victories, leadership roles, and technical honors across premier institutes.
-        </p>
-      </motion.div>
+        A showcase of hackathon victories, leadership roles, and technical honors across premier institutes.
+      </motion.p>
 
         {/* Dynamic Achievements Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-[var(--card-gap)] mb-32">
@@ -108,7 +105,7 @@ const AchievementsPage = () => {
          </div>
          <p className="mt-16 text-slate-600 text-xs font-black tracking-widest uppercase">Verified via LinkedIn & Institutional Credentials</p>
       </div>
-    </div>
+    </PageShell>
   );
 };
 

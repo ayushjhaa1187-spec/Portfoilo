@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { projects } from '@/data/projects';
 import { Search, Filter, ExternalLink, Github, ArrowRight, Zap, Target, Users, Clock } from 'lucide-react';
+import { PageShell } from '@/components/PageShell';
 
 const ProjectsPage = () => {
   const [filter, setFilter] = useState('ALL');
@@ -26,21 +27,16 @@ const ProjectsPage = () => {
   }, [filter, searchQuery]);
 
   return (
-    <div className="min-h-screen pt-40 px-6 max-w-7xl mx-auto pb-48">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
+    <PageShell title="PROJECT" subtitle="lab">
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-24 text-center"
+        transition={{ delay: 0.2 }}
+        className="text-2xl text-slate-400 max-w-3xl mb-24 font-light leading-relaxed tracking-wide"
       >
-        <h1 className="text-6xl md:text-8xl font-black mb-8 text-white tracking-tighter uppercase">
-          PROJECT <span className="text-amber-400 font-serif italic lowercase">LAB</span>
-        </h1>
-        <p className="text-2xl text-slate-400 max-w-3xl mx-auto font-light leading-relaxed tracking-wide">
-          From autonomous agents to full-scale production engines. <br className="hidden md:block" />
-          Engineering the next epoch of digital infrastructure.
-        </p>
-      </motion.div>
+        From autonomous agents to full-scale production engines. <br className="hidden md:block" />
+        Engineering the next epoch of digital infrastructure.
+      </motion.p>
 
       {/* Controls */}
       <div className="mb-12 flex flex-col md:flex-row gap-6 items-center justify-between sticky top-24 z-40 py-4 glass-panel px-6 rounded-2xl border-white/5">
@@ -212,7 +208,7 @@ const ProjectsPage = () => {
            </button>
         </a>
       </div>
-    </div>
+    </PageShell>
   );
 };
 

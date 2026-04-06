@@ -1,177 +1,213 @@
+export type CertCategory = 'hackathon' | 'competition' | 'jury' | 'program' | 'course';
+
 export interface Certification {
-  id: number;
+  id: string;
   title: string;
   issuer: string;
-  category: 'Space Tech' | 'Data Science' | 'AI/ML' | 'Full-Stack' | 'Cloud' | 'Business';
-  issuedDate: string;
-  expiryDate?: string | null;
-  dateLabel: string;
-  credentialUrl: string;
-  verifyId?: string;
-  featured?: boolean;
-  inProgress?: boolean;
-  verified: boolean;
-  logo: string;
+  date: string;
+  month: number;
+  year: number;
+  category: CertCategory;
+  institution?: string;
+  description: string;
+  keyLearnings: string[];
+  linkedinPostUrl?: string;
+  linkedinImpressions?: number;
+  certificateImagePath?: string;
+  hasPPTDeck?: boolean;
+  pptDeckUrl?: string;
+  featured: boolean;
 }
 
 export const certifications: Certification[] = [
   {
-    id: 1,
-    title: "Space Race Participant",
-    issuer: "IEEE DTU",
-    category: "Space Tech",
-    issuedDate: "2025-10-12",
-    dateLabel: "Oct 2025",
-    expiryDate: null,
-    credentialUrl: "https://www.linkedin.com/learning/",
-    verifyId: "IEEE-SR-2025-01",
-    featured: true,
-    verified: true,
-    logo: "ieee"
+    id: 'enable-ideathon-finalist-2026',
+    title: 'Enable Ideathon Finalist',
+    issuer: 'E-Cell IIT Madras × Shaastra 2026',
+    date: '2026-02-03',
+    month: 2,
+    year: 2026,
+    category: 'hackathon',
+    institution: 'IIT Madras',
+    description:
+      'Finalist recognition for presenting an accessible banking concept focused on inclusive fintech UX and trust-first onboarding for underserved users.',
+    keyLearnings: [
+      'Accessibility must be designed from the first screen, not patched later.',
+      'Compliance constraints can become product differentiators in fintech.',
+      'Judge feedback is strongest when tied to measurable user outcomes.',
+      'Prototype clarity mattered more than flashy demos.'
+    ],
+    linkedinImpressions: 501,
+    linkedinPostUrl: 'https://www.linkedin.com/',
+    certificateImagePath: '/certificates/enable-ideathon-finalist.jpg',
+    hasPPTDeck: true,
+    featured: true
   },
   {
-    id: 2,
-    title: "Data Science with Python",
-    issuer: "Udemy",
-    category: "Data Science",
-    issuedDate: "2025-10-18",
-    dateLabel: "Oct 2025",
-    expiryDate: null,
-    credentialUrl: "https://www.udemy.com/certificate/",
-    verifyId: "UC-DATA-PY-8892",
-    verified: true,
-    logo: "udemy"
+    id: 'cofounder-catalyst-iitd-2026',
+    title: 'Co-Founder Catalyst',
+    issuer: 'BECon 2026',
+    date: '2026-02-16',
+    month: 2,
+    year: 2026,
+    category: 'competition',
+    institution: 'IIT Delhi',
+    description:
+      'Recognized in the Co-Founder Catalyst track for validating startup assumptions under investor-style questioning and market sizing constraints.',
+    keyLearnings: [
+      'Founder-market fit needs stronger proof than product excitement.',
+      'Distribution strategy is often the most fragile part of early startups.',
+      'Simple economics models build confidence during fast jury rounds.'
+    ],
+    linkedinPostUrl: 'https://www.linkedin.com/',
+    certificateImagePath: '/certificates/cofounder-catalyst-becon.jpg',
+    featured: true
   },
   {
-    id: 3,
-    title: "Advanced Machine Learning",
-    issuer: "Coursera",
-    category: "AI/ML",
-    issuedDate: "2026-01-07",
-    dateLabel: "Jan 2026",
-    expiryDate: "2028-01-07",
-    credentialUrl: "https://www.coursera.org/verify/",
-    verifyId: "COUR-AML-2026-XJ",
-    featured: true,
-    verified: true,
-    logo: "coursera"
+    id: 'changethon-iitr-2026',
+    title: 'Changethon Participant',
+    issuer: 'NSS National Social Summit',
+    date: '2026-03-11',
+    month: 3,
+    year: 2026,
+    category: 'hackathon',
+    institution: 'IIT Roorkee',
+    description:
+      'Participated in a social innovation sprint and stress-tested ideas through repeated mentor critiques, user reality checks, and execution constraints.',
+    keyLearnings: [
+      'Fast failure cycles improved idea quality dramatically.',
+      'A demo can work while the deployment plan still fails.',
+      'Social impact ideas require deep last-mile context.'
+    ],
+    linkedinImpressions: 1133,
+    linkedinPostUrl: 'https://www.linkedin.com/',
+    certificateImagePath: '/certificates/changethon-iit-roorkee.jpg',
+    hasPPTDeck: true,
+    featured: true
   },
   {
-    id: 4,
-    title: "Prompt Engineering for LLMs",
-    issuer: "DeepLearning.AI",
-    category: "AI/ML",
-    issuedDate: "2025-12-09",
-    dateLabel: "Dec 2025",
-    expiryDate: null,
-    credentialUrl: "https://www.deeplearning.ai/",
-    verifyId: "DL-PROM-9921",
-    verified: true,
-    logo: "deeplearning"
+    id: 'bize-quiz-4-iitd-2026',
+    title: 'Biz-E Quiz 4.0',
+    issuer: 'BECon 2026',
+    date: '2026-02-18',
+    month: 2,
+    year: 2026,
+    category: 'competition',
+    institution: 'IIT Delhi',
+    description:
+      'Participated in business strategy quiz rounds focused on startup finance, market signals, and scenario-based decision making.',
+    keyLearnings: [
+      'Speed under uncertainty is a core founder skill.',
+      'Business frameworks are only useful when contextualized quickly.',
+      'Pattern recognition from case studies boosts strategic clarity.'
+    ],
+    linkedinPostUrl: 'https://www.linkedin.com/',
+    certificateImagePath: '/certificates/bize-quiz-4.jpg',
+    featured: false
   },
   {
-    id: 5,
-    title: "Next.js 15 Full-Stack",
-    issuer: "Vercel",
-    category: "Full-Stack",
-    issuedDate: "2025-11-21",
-    dateLabel: "Nov 2025",
-    expiryDate: null,
-    credentialUrl: "https://vercel.com/home",
-    verifyId: "VERC-NX15-FS",
-    verified: true,
-    logo: "vercel"
+    id: 'startup-auction-iitd-2026',
+    title: 'Startup Auction 2.0',
+    issuer: 'BECon 2026',
+    date: '2026-02-19',
+    month: 2,
+    year: 2026,
+    category: 'competition',
+    institution: 'IIT Delhi',
+    description:
+      'Completed a VC simulation format where teams evaluated startup opportunities and defended pricing and risk assumptions in real-time.',
+    keyLearnings: [
+      'Narrative quality influences perceived startup value.',
+      'Unit economics discipline creates stronger pitch confidence.',
+      'Investor Q&A exposes weak assumptions immediately.'
+    ],
+    linkedinImpressions: 386,
+    linkedinPostUrl: 'https://www.linkedin.com/',
+    certificateImagePath: '/certificates/startup-auction-2.jpg',
+    featured: true
   },
   {
-    id: 6,
-    title: "Google Cloud Digital Leader",
-    issuer: "Google Cloud",
-    category: "Cloud",
-    issuedDate: "2026-01-15",
-    dateLabel: "Jan 2026",
-    expiryDate: "2029-01-15",
-    credentialUrl: "https://cloud.google.com/",
-    verifyId: "GCP-DL-2026",
-    featured: true,
-    verified: true,
-    logo: "google"
+    id: 'aivolution-jury-iitkgp-2026',
+    title: 'AI-volution Jury Member',
+    issuer: 'GES 2026',
+    date: '2026-01-28',
+    month: 1,
+    year: 2026,
+    category: 'jury',
+    institution: 'IIT Kharagpur',
+    description:
+      'Invited as a jury member for evaluating AI-focused startup and product submissions across innovation, technical depth, and execution readiness.',
+    keyLearnings: [
+      'Strong teams connect model design with business viability.',
+      'Judging sharpens evaluation of clarity, feasibility, and impact.',
+      'The best teams anticipate failure modes before being asked.'
+    ],
+    linkedinPostUrl: 'https://www.linkedin.com/',
+    certificateImagePath: '/certificates/aivolution-jury.jpg',
+    featured: true
   },
   {
-    id: 7,
-    title: "AWS Certified Cloud Practitioner",
-    issuer: "Amazon Web Services",
-    category: "Cloud",
-    issuedDate: "2026-01-21",
-    dateLabel: "Jan 2026",
-    expiryDate: "2029-01-21",
-    credentialUrl: "https://aws.amazon.com/",
-    verifyId: "AWS-CP-2026-09",
-    verified: true,
-    logo: "aws"
+    id: 'prompt-engineering-llms',
+    title: 'Prompt Engineering for LLMs',
+    issuer: 'DeepLearning.AI',
+    date: '2025-12-09',
+    month: 12,
+    year: 2025,
+    category: 'course',
+    description: 'Completed coursework on prompt decomposition, evaluation loops, and practical patterns for reliable LLM output quality.',
+    keyLearnings: [
+      'Structured prompts reduce ambiguity in model responses.',
+      'Evaluation criteria should be explicit and testable.',
+      'Prompt chaining improves complex multi-step tasks.'
+    ],
+    featured: false
   },
   {
-    id: 8,
-    title: "LangChain for LLM Apps",
-    issuer: "DeepLearning.AI",
-    category: "AI/ML",
-    issuedDate: "2025-12-20",
-    dateLabel: "Dec 2025",
-    expiryDate: null,
-    credentialUrl: "https://www.deeplearning.ai/",
-    verifyId: "DL-LC-8812",
-    verified: true,
-    logo: "deeplearning"
+    id: 'langchain-llm-apps',
+    title: 'LangChain for LLM Applications',
+    issuer: 'DeepLearning.AI',
+    date: '2025-12-20',
+    month: 12,
+    year: 2025,
+    category: 'course',
+    description: 'Hands-on course focused on retrieval pipelines, tool use, and robust orchestration of LLM workflows in production-like contexts.',
+    keyLearnings: [
+      'Context retrieval quality defines downstream response quality.',
+      'Tool orchestration should include explicit fallbacks.',
+      'Observability is mandatory for debugging agent behavior.'
+    ],
+    featured: false
   },
   {
-    id: 9,
-    title: "Generative AI Fundamentals",
-    issuer: "Microsoft",
-    category: "AI/ML",
-    issuedDate: "2025-12-04",
-    dateLabel: "Dec 2025",
-    expiryDate: null,
-    credentialUrl: "https://www.microsoft.com/",
-    verifyId: "MSFT-GENAI-101",
-    verified: true,
-    logo: "microsoft"
+    id: 'aws-cloud-practitioner',
+    title: 'AWS Certified Cloud Practitioner',
+    issuer: 'Amazon Web Services',
+    date: '2026-01-21',
+    month: 1,
+    year: 2026,
+    category: 'course',
+    description: 'Foundational cloud certification covering architecture basics, pricing models, reliability, and operational best practices.',
+    keyLearnings: [
+      'Cloud cost awareness must be part of design decisions.',
+      'Shared responsibility model affects security planning.',
+      'Service selection should match workload patterns.'
+    ],
+    featured: false
   },
   {
-    id: 10,
-    title: "SQL for Data Science",
-    issuer: "IBM",
-    category: "Data Science",
-    issuedDate: "2025-10-02",
-    dateLabel: "Oct 2025",
-    expiryDate: null,
-    credentialUrl: "https://www.ibm.com/",
-    verifyId: "IBM-SQL-DS-441",
-    verified: true,
-    logo: "ibm"
-  },
-  {
-    id: 11,
-    title: "Python for AI & Dev",
-    issuer: "IBM",
-    category: "Data Science",
-    issuedDate: "2025-08-11",
-    dateLabel: "Aug 2025",
-    expiryDate: null,
-    credentialUrl: "https://www.ibm.com/",
-    verifyId: "IBM-PY-AI-01",
-    verified: true,
-    logo: "ibm"
-  },
-  {
-    id: 12,
-    title: "Salesforce AI Associate",
-    issuer: "Salesforce",
-    category: "Business",
-    issuedDate: "2026-03-01",
-    dateLabel: "In Progress",
-    credentialUrl: "https://www.salesforce.com/services/university/",
-    verifyId: "SF-AI-ASYNC",
-    inProgress: true,
-    verified: false,
-    logo: "salesforce"
+    id: 'google-cloud-digital-leader',
+    title: 'Google Cloud Digital Leader',
+    issuer: 'Google Cloud',
+    date: '2026-01-15',
+    month: 1,
+    year: 2026,
+    category: 'course',
+    description: 'Credential focused on cloud transformation, value framing, and architecture tradeoffs for data and AI workloads.',
+    keyLearnings: [
+      'Business outcomes should guide technical architecture choices.',
+      'Cloud maturity is organizational, not purely technical.',
+      'AI initiatives need strong data governance foundations.'
+    ],
+    featured: false
   }
 ];

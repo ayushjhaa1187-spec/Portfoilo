@@ -2,10 +2,10 @@
 
 /* globals.css — Spacing tokens */
 :root {
-  --section-gap: 6rem;       /* 96px vertical padding */
-  --section-px: 2rem;        /* 32px horizontal padding */
-  --card-gap: 1.5rem;        /* 24px card grid gap */
-  --background: #0a0a0a;     /* single declaration */
+  --section-gap: 8rem;       /* 128px vertical padding */
+  --section-px: 2.5rem;      /* 40px horizontal padding */
+  --card-gap: 2.5rem;        /* 40px card grid gap */
+  --background: #0a0a0a;
   --foreground: #f5f5f5;
   --surface: #121212;
   --surface-hover: #1a1a1a;
@@ -13,21 +13,21 @@
   --secondary: #a3a3a3;
   --border: #262626;
   --grid-size: 8px;
-  --max-width: 1200px;
-  --content-max: 1280px;
+  --max-width: 1400px;
+  --content-max: 1360px;
 }
 
 @media (min-width: 768px) {
   :root {
-    --section-gap: 8rem;
-    --section-px: 3rem;
+    --section-gap: 12rem;
+    --section-px: 4rem;
   }
 }
 
 @media (min-width: 1024px) {
   :root {
-    --section-gap: 10rem;
-    --section-px: 4rem;
+    --section-gap: 16rem;
+    --section-px: 6rem;
   }
 }
 
@@ -61,9 +61,10 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   min-height: 100dvh;
-  line-height: 1.6;
+  line-height: 1.8;
   max-width: 100vw;
   overflow-x: hidden;
+  letter-spacing: 0.015em;
 }
 
 /* Marquee animation — used by Marquee.tsx */

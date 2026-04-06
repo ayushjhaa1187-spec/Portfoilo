@@ -73,7 +73,7 @@ const Navbar = () => {
       }`}>
         <div className="absolute top-0 left-0 h-0.5 bg-amber-400" style={{ width: `${scrollProgress}%` }} />
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <div className="max-w-[var(--max-width)] mx-auto px-[var(--section-px)] flex justify-between items-center">
           <Link href="/" className="group flex items-center gap-3">
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" 
                  xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +98,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
+          <div className="hidden md:flex items-center space-x-10 lg:space-x-12">
             {mainLinks.map((link) => (
               <Link 
                 key={link.name} 

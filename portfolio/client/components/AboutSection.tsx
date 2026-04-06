@@ -6,17 +6,17 @@ export const AboutSection = () => {
     return (
         <section id="about" className="py-[var(--section-gap)] px-[var(--section-px)] bg-[#0a0a0a] border-t border-white/5">
             <div className="max-w-7xl mx-auto">
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
+                <div className="grid lg:grid-cols-2 gap-32 items-center">
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-8 leading-tight">
+                        <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-12 leading-tight">
                             ENGINEERING THE <span className="text-amber-400">INTERFACE</span> OF SCIENCE & BIZ
                         </h2>
-                        <div className="space-y-6 text-slate-400 leading-relaxed text-lg font-light">
+                        <div className="space-y-8 text-slate-400 leading-relaxed text-lg font-light">
                             <p>
                                 I am an <span className="text-white font-bold">IIT Madras Data Science scholar</span> specializing in building autonomous AI systems that don&apos;t just predict, but act. My work bridges the gap between raw data analysis and high-performance engineering.
                             </p>
@@ -27,18 +27,18 @@ export const AboutSection = () => {
                                 My engineering philosophy: <span className="italic text-slate-500 underline decoration-amber-400/30 font-serif">"Systems should be self-repairing, agents should be autonomous, and insights should be actionable."</span>
                             </p>
                         </div>
-                        <div className="grid grid-cols-3 gap-8 mt-12 py-12 border-y border-white/5">
+                        <div className="grid grid-cols-3 gap-12 mt-20 py-16 border-y border-white/5">
                              <div>
                                  <h4 className="text-3xl font-black text-white">5+</h4>
-                                 <p className="text-[9px] text-slate-500 font-bold tracking-[0.3em] uppercase mt-2">Research Leads</p>
+                                 <p className="text-[10px] text-slate-500 font-bold tracking-[0.3em] uppercase mt-3">Research Leads</p>
                              </div>
                              <div>
                                  <h4 className="text-3xl font-black text-white">46+</h4>
-                                 <p className="text-[9px] text-slate-500 font-bold tracking-[0.3em] uppercase mt-2">GitHub Repos</p>
+                                 <p className="text-[10px] text-slate-500 font-bold tracking-[0.3em] uppercase mt-3">GitHub Repos</p>
                              </div>
                              <div>
                                  <h4 className="text-3xl font-black text-white">3+</h4>
-                                 <p className="text-[9px] text-slate-500 font-bold tracking-[0.3em] uppercase mt-2">Venture Ideas</p>
+                                 <p className="text-[10px] text-slate-500 font-bold tracking-[0.3em] uppercase mt-3">Venture Ideas</p>
                              </div>
                         </div>
                     </motion.div>

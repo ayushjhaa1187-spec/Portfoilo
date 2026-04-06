@@ -60,10 +60,10 @@ const Hero = ({ githubStats }: { githubStats?: any }) => {
         <motion.div
            initial={{ opacity: 0, scale: 0.8 }}
            animate={{ opacity: 1, scale: 1 }}
-           className="mb-8 px-4 py-1.5 rounded-full border border-amber-400/20 bg-amber-400/5 flex items-center gap-2"
+           className="mb-12 px-6 py-2 rounded-full border border-amber-400/20 bg-amber-400/5 flex items-center gap-2"
         >
            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-           <span className="text-[10px] font-bold tracking-widest text-amber-400 uppercase">Available for scale-up partnerships</span>
+           <span className="text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase">Available for scale-up partnerships</span>
         </motion.div>
 
         {/* Typed Name Effect */}
@@ -74,7 +74,7 @@ const Hero = ({ githubStats }: { githubStats?: any }) => {
                initial={{ opacity: 0, y: 20 }}
                animate={{ opacity: 1, y: 0 }}
                transition={{ delay: i * 0.05, duration: 0.4 }}
-               className={`text-5xl md:text-8xl font-black tracking-tighter ${char === " " ? "mx-4" : "text-white"}`}
+               className={`text-5xl md:text-8xl font-black tracking-tight ${char === " " ? "mx-6" : "text-white"}`}
              >
                {char}
              </motion.span>
@@ -85,7 +85,7 @@ const Hero = ({ githubStats }: { githubStats?: any }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.8 }}
-          className="text-xl md:text-2xl text-slate-400 font-light mb-10 max-w-3xl text-center leading-relaxed"
+          className="text-xl md:text-2xl text-slate-400 font-light mb-16 max-w-4xl text-center leading-relaxed tracking-wide"
         >
           IIT Madras Data Scientist & Entrepreneurial Innovator <br className="hidden md:block" />
           Building <span className="text-amber-400 font-medium">high-performance data ecosystems</span> and autonomous AI architecture.
@@ -120,7 +120,7 @@ const Hero = ({ githubStats }: { githubStats?: any }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-20 w-full max-w-4xl"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-32 w-full max-w-5xl"
         >
           {stats.map((stat, i) => (
             <motion.div 

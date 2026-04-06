@@ -15,21 +15,21 @@ export const FeaturedProjects = () => {
   });
 
   return (
-    <section className="py-32 bg-[#0a0a0a] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+    <section className="py-[var(--section-gap)] bg-[#0a0a0a] relative overflow-hidden">
+      <div className="max-w-[var(--max-width)] mx-auto px-[var(--section-px)]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-32 gap-12">
           <motion.div
              initial={{ opacity: 0, x: -20 }}
              whileInView={{ opacity: 1, x: 0 }}
              viewport={{ once: true }}
           >
-             <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
+             <h2 className="text-4xl md:text-6xl font-black text-white tracking-normal">
                SELECTED <span className="text-amber-400">WORKS</span>
              </h2>
-             <p className="text-slate-500 mt-4 max-w-lg font-medium uppercase tracking-[0.3em] text-[10px]">PRODUCTION SHIPS & LAB EXPERIMENTS</p>
+             <p className="text-slate-500 mt-4 max-w-lg font-medium uppercase tracking-[0.2em] text-[10px]">PRODUCTION SHIPS & LAB EXPERIMENTS</p>
           </motion.div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-3">
             {categories.map((tab) => (
               <button
                 key={tab}
@@ -46,7 +46,7 @@ export const FeaturedProjects = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
               <motion.div
@@ -59,7 +59,7 @@ export const FeaturedProjects = () => {
                 transition={{ duration: 0.5 }}
                 className="glass-card group"
               >
-              <div className="p-8 h-full flex flex-col">
+              <div className="p-10 lg:p-12 h-full flex flex-col">
                 <div className="mb-6 flex justify-between items-start">
                   <span className="text-[10px] font-black tracking-widest text-[#0a0a0a] uppercase py-1 px-3 bg-amber-400 rounded-full">
                     {project.category}
@@ -71,7 +71,7 @@ export const FeaturedProjects = () => {
                   )}
                 </div>
 
-                <h3 className="text-2xl font-bold text-white group-hover:text-amber-400 transition-colors tracking-tight">
+                <h3 className="text-2xl font-bold text-white group-hover:text-amber-400 transition-colors tracking-normal">
                   {project.title}
                 </h3>
                 
@@ -79,7 +79,7 @@ export const FeaturedProjects = () => {
                   {project.shortDescription}
                 </p>
 
-                <div className="flex flex-wrap gap-1.5 mt-8">
+                <div className="flex flex-wrap gap-2 mt-8">
                   {project.techStack.slice(0, 5).map(tech => (
                     <span
                       key={tech}

@@ -40,10 +40,10 @@ const Hero = ({ githubStats }: { githubStats?: any }) => {
   const name = "AYUSH KUMAR JHA";
 
   const stats = [
-    { label: 'GitHub Repos', value: githubStats?.publicRepos || 46, suffix: '+', icon: Github },
-    { label: 'Total Stars', value: githubStats?.totalStars || 12, suffix: '', icon: Sparkles },
-    { label: 'Followers', value: githubStats?.followers || 8, suffix: '+', icon: Trophy },
-    { label: 'User Since', value: githubStats?.joinYear || 2024, suffix: '', icon: ArrowRight }
+    { label: 'Technical Repos', value: githubStats?.publicRepos || 46, suffix: '+', icon: Github },
+    { label: 'Predictive Precision', value: 94, suffix: '%', icon: Sparkles },
+    { label: 'Discovery Efficiency', value: 75, suffix: '%', icon: Trophy },
+    { label: 'Systems Infrastructure', value: 99, suffix: '%', icon: Terminal }
   ];
   
   return (

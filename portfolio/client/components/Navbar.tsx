@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronRight } from 'lucide-react';
+import { SignatureLogo } from './SignatureLogo';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,26 +76,7 @@ const Navbar = () => {
         
         <div className="max-w-[var(--max-width)] mx-auto px-[var(--section-px)] flex justify-between items-center">
           <Link href="/" className="group flex items-center gap-3">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" 
-                 xmlns="http://www.w3.org/2000/svg"
-                 className="group-hover:scale-110 transition-transform duration-300">
-              {/* Geometric AKJ monogram — hexagonal border with initials */}
-              <polygon points="20,2 36,11 36,29 20,38 4,29 4,11" 
-                       stroke="#FBBF24" strokeWidth="1.5" fill="none"/>
-              <text x="20" y="25" textAnchor="middle" 
-                    fontFamily="monospace" fontWeight="900" 
-                    fontSize="13" fill="#FBBF24" letterSpacing="0">
-                AKJ
-              </text>
-              {/* Corner accent dots */}
-              <circle cx="20" cy="2" r="1.5" fill="#FBBF24"/>
-              <circle cx="36" cy="20" r="1.5" fill="#FBBF24"/>
-              <circle cx="4" cy="20" r="1.5" fill="#FBBF24"/>
-            </svg>
-            <span className="text-xl font-black tracking-tighter text-white 
-                             group-hover:text-amber-400 transition-colors uppercase">
-              Portfolio
-            </span>
+             <SignatureLogo size={50} showText />
           </Link>
 
           {/* Desktop Nav */}
@@ -161,6 +143,14 @@ const Navbar = () => {
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             className="fixed inset-0 z-[90] bg-[#0a0a0a]/95 backdrop-blur-3xl pt-40 px-8 flex flex-col space-y-6 overflow-y-auto"
           >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="relative z-10 mb-8"
+            >
+              <SignatureLogo size={140} />
+            </motion.div>
             {[...mainLinks, ...moreLinks].map((link, i) => (
               <motion.div
                 key={link.name}

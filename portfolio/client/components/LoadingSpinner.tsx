@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { SignatureLogo } from './SignatureLogo';
 
 export const LoadingSpinner = () => {
   return (
@@ -21,46 +22,14 @@ export const LoadingSpinner = () => {
            className="absolute inset-0 bg-amber-400/20 blur-[60px] rounded-full"
         />
 
-        {/* Signature Logo (A stylized for Ayush) */}
+        {/* Signature Logo */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="relative z-10"
         >
-          <svg width="120" height="120" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Outer Circle Ring */}
-            <motion.circle 
-              cx="50" cy="50" r="48" 
-              stroke="#fbbf24" strokeWidth="0.5" 
-              strokeDasharray="4 4"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            />
-            
-            {/* Core Stylized 'A' */}
-            <motion.path 
-              d="M50 20L80 80H70L65 70H35L30 80H20L50 20ZM50 35L38 60H62L50 35Z" 
-              fill="#fbbf24"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
-            />
-            
-            {/* Pulsing Core Dot */}
-            <motion.circle 
-              cx="50" cy="52" r="3" 
-              fill="#fbbf24"
-              animate={{ opacity: [1, 0, 1] }}
-              transition={{ duration: 1, repeat: Infinity }}
-            />
-
-            {/* Geometric accents */}
-            <rect x="48" y="10" width="4" height="4" fill="#fbbf24" opacity="0.4" />
-            <rect x="48" y="86" width="4" height="4" fill="#fbbf24" opacity="0.4" />
-            <rect x="10" y="48" width="4" height="4" fill="#fbbf24" opacity="0.4" />
-            <rect x="86" y="48" width="4" height="4" fill="#fbbf24" opacity="0.4" />
-          </svg>
+          <SignatureLogo size={140} />
         </motion.div>
       </div>
 

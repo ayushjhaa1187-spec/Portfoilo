@@ -3,16 +3,17 @@
 import React from 'react';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { projects } from '@/data/projects';
-import { ArrowLeft, ExternalLink, Github, Terminal, Database, Target, Cpu, Clock, Users, Zap, CheckCircle } from 'lucide-react';
+import { projects, caseStudies } from '@/data/projects';
+import { ArrowLeft, ExternalLink, Github, Terminal, Database, Target, Cpu, Clock, Users, Zap, CheckCircle, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 
 const CaseStudyPage = () => {
   const { slug } = useParams();
   const project = projects.find(p => p.slug === slug);
+  const caseStudy = caseStudies.find(cs => cs.projectSlug === slug);
 
   if (!project) return (
-    <div className="min-h-screen pt-40 px-6 text-center">
+    <div className="min-h-screen pt-40 px-6 text-center bg-black">
       <h1 className="text-4xl font-black text-white uppercase tracking-widest mb-8">CASE_STUDY_NOT_FOUND</h1>
       <Link href="/projects" className="text-amber-400 font-black tracking-widest uppercase hover:underline flex items-center justify-center gap-2">
          <ArrowLeft size={16} /> RETURN_TO_LAB
@@ -20,10 +21,21 @@ const CaseStudyPage = () => {
     </div>
   );
 
-  const { caseStudy } = project;
+  if (!caseStudy) return (
+    <div className="min-h-screen pt-40 px-6 max-w-7xl mx-auto pb-48 bg-black">
+      <Link href="/projects" className="text-slate-500 hover:text-amber-400 text-xs font-black tracking-[0.4em] uppercase flex items-center gap-2 mb-12 transition-colors group">
+         <ArrowLeft className="group-hover:-translate-x-2 transition-transform" size={16} /> LABORATORY_ROOT
+      </Link>
+      <div className="glass-panel p-20 text-center border-amber-400/20">
+         <AlertTriangle size={64} className="mx-auto text-amber-400 mb-8" />
+         <h1 className="text-4xl font-black text-white uppercase tracking-widest mb-4">Case Study in Development</h1>
+         <p className="text-slate-400 max-w-md mx-auto">Detailed forensic analysis and technical benchmarking for this project are currently being finalized by the engineering team.</p>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="min-h-screen pt-40 px-6 max-w-7xl mx-auto pb-48">
+    <div className="min-h-screen pt-40 px-6 max-w-7xl mx-auto pb-48 bg-black">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-24">
          <Link href="/projects" className="text-slate-500 hover:text-amber-400 text-xs font-black tracking-[0.4em] uppercase flex items-center gap-2 mb-12 transition-colors group">
             <ArrowLeft className="group-hover:-translate-x-2 transition-transform" size={16} /> LABORATORY_ROOT
@@ -44,7 +56,7 @@ const CaseStudyPage = () => {
                   <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="px-10 py-5 bg-white text-black font-black uppercase text-xs tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2">
                      <Github size={20} /> SOURCE_CODE
                   </a>
-                  {project.liveUrl && (
+                  {project.liveUrl && project.liveUrl !== '#' && (
                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="px-10 py-5 bg-amber-400 text-black font-black uppercase text-xs tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2">
                         <ExternalLink size={20} /> LIVE_DEPLOYMENT
                      </a>
@@ -52,7 +64,7 @@ const CaseStudyPage = () => {
                </div>
             </div>
 
-            <div className="glass-panel p-8 w-full md:w-80 rounded-[2.5rem] border border-white/5 space-y-8 mt-12 md:mt-0">
+            <div className="glass-panel p-8 w-full md:w-80 rounded-[3rem] border border-white/5 space-y-8 mt-12 md:mt-0">
                <div>
                   <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Tech_Stack_Array</p>
                   <div className="flex flex-wrap gap-2">
@@ -62,7 +74,7 @@ const CaseStudyPage = () => {
                   </div>
                </div>
                <div className="pt-8 border-t border-white/5 space-y-4">
-                  {project.metrics.accuracy && (
+                  {project.metrics?.accuracy && (
                     <div className="flex items-center gap-4">
                        <Target className="text-emerald-400" size={16} />
                        <div>
@@ -71,7 +83,7 @@ const CaseStudyPage = () => {
                        </div>
                     </div>
                   )}
-                  {project.metrics.speed && (
+                  {project.metrics?.speed && (
                     <div className="flex items-center gap-4">
                        <Zap className="text-amber-400" size={16} />
                        <div>
@@ -80,7 +92,7 @@ const CaseStudyPage = () => {
                        </div>
                     </div>
                   )}
-                  {project.metrics.users && (
+                  {project.metrics?.users && (
                     <div className="flex items-center gap-4">
                        <Users className="text-blue-400" size={16} />
                        <div>
@@ -102,7 +114,7 @@ const CaseStudyPage = () => {
                   <Terminal size={24} className="text-amber-400" /> MISSION_STATEMENT
                </h2>
                <div className="text-slate-400 text-lg font-light leading-relaxed space-y-6">
-                  {caseStudy.problem.split('\n').map((para: string, i: number) => <p key={i}>{para}</p>)}
+                  <p>{caseStudy.problem}</p>
                </div>
             </motion.section>
 
@@ -111,7 +123,7 @@ const CaseStudyPage = () => {
                   <Database size={24} className="text-amber-400" /> SOLUTION_ARCHITECTURE
                </h2>
                <div className="text-slate-400 text-lg font-light leading-relaxed space-y-6">
-                  {caseStudy.solution.split('\n').map((para: string, i: number) => <p key={i}>{para}</p>)}
+                  <p>{caseStudy.solution}</p>
                </div>
             </motion.section>
 
@@ -120,7 +132,7 @@ const CaseStudyPage = () => {
                   <Cpu size={24} className="text-amber-400" /> CORE_PROTOCOL_ENGINE
                </h2>
                <div className="text-slate-400 text-lg font-light leading-relaxed space-y-6">
-                  {caseStudy.features.map((feature: string, i: number) => (
+                  {caseStudy.features.map((feature, i) => (
                     <div key={i} className="flex gap-6 items-start p-8 glass-panel border-white/5 group hover:bg-white/[0.05] transition-all">
                        <span className="text-amber-400 font-bold text-xl italic font-serif opacity-50 group-hover:opacity-100 transition-opacity">0{i+1}</span>
                        <p className="text-slate-300 font-medium leading-normal">{feature}</p>
@@ -135,7 +147,7 @@ const CaseStudyPage = () => {
                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="p-10 glass-panel rounded-[3rem] border border-white/5 bg-gradient-to-br from-amber-400/5 to-transparent">
                   <h3 className="text-3xl font-black text-white uppercase tracking-tighter mb-6 leading-none">IMPACT_ANALYTICS</h3>
                   <div className="space-y-8">
-                     {caseStudy.results.map((res: string, i: number) => (
+                     {caseStudy.results.map((res, i) => (
                        <div key={i} className="flex gap-4">
                           <CheckCircle className="text-emerald-400 shrink-0" size={20} />
                           <p className="text-slate-400 text-sm font-light leading-snug">{res}</p>

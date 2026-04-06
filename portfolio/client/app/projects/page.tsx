@@ -3,28 +3,24 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { projects } from '@/data/projects';
 import { Search, Filter, ExternalLink, Github, ArrowRight, Zap, Target, Users, Clock } from 'lucide-react';
 import { PageShell } from '@/components/PageShell';
+import { searchProjects } from '@/lib/projectSearch';
 
 const ProjectsPage = () => {
   const [filter, setFilter] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState<'recent' | 'accuracy' | 'complexity' | 'featured'>('featured');
   
-  const categories = ['ALL', 'AI/ML', 'FULL-STACK', 'HACKATHON', 'TOOLS', 'DATA'];
+  const categories = ['ALL', 'ML/AI', 'FULL-STACK-LABS', 'BUSINESS', 'UX-LABS', 'EXPERIMENTAL'];
 
-  const filteredProjects = useMemo(() => {
-    return projects.filter(p => {
-      const pCat = p.category.toUpperCase().replace(' ', '-');
-      const matchesFilter = filter === 'ALL' || pCat === filter || (filter === 'DATA' && pCat === 'DATA-SCIENCE') || (filter === 'AI/ML' && pCat === 'ML/AI');
-      const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                            p.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            p.techStack.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
-      return matchesFilter && matchesSearch;
-    });
-  }, [filter, searchQuery]);
+  const filteredProjects = useMemo(() => searchProjects(projects, {
+    query: searchQuery,
+    category: filter,
+    sortBy
+  }), [filter, searchQuery, sortBy]);
 
   return (
     <PageShell title="PROJECT" subtitle="lab">
@@ -66,6 +62,17 @@ const ProjectsPage = () => {
             </button>
           ))}
         </div>
+
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value as 'recent' | 'accuracy' | 'complexity' | 'featured')}
+          className="bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-amber-400"
+        >
+          <option value="featured">Sort: Featured</option>
+          <option value="recent">Sort: Recent</option>
+          <option value="accuracy">Sort: Accuracy</option>
+          <option value="complexity">Sort: Complexity</option>
+        </select>
       </div>
 
       {/* Results Count */}
@@ -75,16 +82,16 @@ const ProjectsPage = () => {
       </div>
 
       {/* Grid */}
-      <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project) => (
             <motion.div
               key={project.slug}
               layout
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.4 }}
             >
               <Card className="h-full flex flex-col glass-card group overflow-hidden">
                 {/* Visual Thumbnail */}
@@ -185,21 +192,17 @@ const ProjectsPage = () => {
             </motion.div>
           ))}
         </AnimatePresence>
-      </motion.div>
+      </div>
 
       {/* Empty State */}
       {filteredProjects.length === 0 && (
-        <motion.div 
-           initial={{ opacity: 0 }}
-           animate={{ opacity: 1 }}
-           className="mt-20 py-20 text-center border-t border-white/5"
-        >
+        <div className="mt-20 py-20 text-center border-t border-white/5">
            <Target className="mx-auto text-slate-800 mb-4" size={48} />
            <p className="text-slate-500 font-black tracking-widest uppercase">No projects matching your search criteria</p>
-        </motion.div>
+        </div>
       )}
 
-      {/* Footer Stat - ADDING PERSONAL SPACE */}
+      {/* Footer Stat */}
       <div className="mt-64 text-center py-32 border-t border-white/5 bg-gradient-to-b from-transparent to-amber-400/5">
         <p className="text-slate-600 text-base mb-12 tracking-[0.3em] font-black uppercase">Curating a legacy of 50+ Technical Repositories</p>
         <a href="https://github.com/ayushjhaa1187-spec" target="_blank" rel="noopener noreferrer">

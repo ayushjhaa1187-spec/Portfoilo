@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from './ui/Button';
 import Link from 'next/link';
 import { Sparkles, ArrowRight, Github, Linkedin, Terminal, Trophy } from 'lucide-react';
 

@@ -22,6 +22,29 @@ export interface Project {
   learning?: string[];
 }
 
+
+
+export type CaseStudyDomain = 'AI' | 'Business' | 'Full-Stack' | 'Research' | 'Space';
+
+export interface CaseStudy {
+  id: string;
+  slug: string;
+  projectSlug: string;
+  title: string;
+  problem: string;
+  outcome: string;
+  solution: string;
+  domain: CaseStudyDomain;
+  tools: string[];
+  driveFileId: string;
+  embedUrl: string;
+  thumbnail: string;
+  relatedProject?: string;
+  date: string;
+  features: string[];
+  results: string[];
+}
+
 export const projects: Project[] = [
   {
     slug: 'enron-insights',
@@ -204,13 +227,22 @@ export const projects: Project[] = [
   }
 ];
 
-export const caseStudies = [
+export const caseStudies: CaseStudy[] = [
   {
+    id: 'cs-enron-001',
     slug: 'enron-insights-forensics',
     projectSlug: 'enron-insights',
     title: 'Decoding Corporate Scandals with AI: The Enron Case Study',
     problem: 'Analyzing 600,000 internal emails for forensic patterns was impossible for manual audit teams within mission-critical timelines.',
+    outcome: 'Reduced legal discovery workload and accelerated executive reporting by automating retrieval and evidence clustering.',
     solution: 'Built a vectorized RAG pipeline with sub-second retrieval, leveraging LangChain and Pinecone for high-dimensional semantic search.',
+    domain: 'Research',
+    tools: ['LangChain', 'Pinecone', 'OpenAI', 'FastAPI'],
+    driveFileId: '1a2b3c4d5e6f7g8h9i0j',
+    embedUrl: 'https://docs.google.com/presentation/d/e/2PACX-1vT5v7zY7-5B9u-k7u-f8-7-5B9u-k7u-f8-7/pub?start=false&loop=false&delayms=3000',
+    thumbnail: 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=1600&q=80',
+    relatedProject: 'enron-insights',
+    date: '2026-01-18',
     features: [
       'Autonomous transformer-based ingestion pipeline',
       'Sub-second RAG retrieval across 600k+ nodes',
@@ -220,6 +252,84 @@ export const caseStudies = [
       'Automated 90% of the identification phase',
       'Reduced discovery costs by 75%',
       'Achieved sub-second latency on 100GB+ datasets'
+    ]
+  },
+  {
+    id: 'cs-retail-002',
+    slug: 'retail-ai-forecasting',
+    projectSlug: 'stocksense-agent',
+    title: 'AI-Driven Demand Forecasting for Retail Resilience',
+    problem: 'Supply chain volatility and demand unpredictability causing significant inventory waste for global retailers.',
+    outcome: 'Achieved 94% forecast accuracy, drastically reducing stock-out events and over-provisioning.',
+    solution: 'Integrated predictive demand modeling using GNNs and market sentiment analysis into a cohesive agentic framework.',
+    domain: 'Business',
+    tools: ['TensorFlow', 'LLMs', 'Pandas', 'scikit-learn'],
+    driveFileId: '2b3c4d5e6f7g8h9i0j1a',
+    embedUrl: 'https://docs.google.com/presentation/d/e/2PACX-1vT5v7zY7-5B9u-k7u-f8-7-5B9u-k7u-f8-7/pub',
+    thumbnail: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=80',
+    relatedProject: 'stocksense-agent',
+    date: '2025-12-05',
+    features: [
+      'Multi-modal sentiment integration',
+      'Predictive inventory rebalancing',
+      'Real-time supply chain monitoring'
+    ],
+    results: [
+      '94% Forecast Accuracy',
+      '22% Reduction in Inventory Waste',
+      'Unified Supply Chain Visibility'
+    ]
+  },
+  {
+    id: 'cs-legal-003',
+    slug: 'legal-insights-weaver-analysis',
+    projectSlug: 'meeting-insights-weaver',
+    title: 'Automated Forensic Analysis of High-Volume Legal Data',
+    problem: 'Contract compliance and risk extraction from massive documentation volumes were slow and prone to human error.',
+    outcome: '91% Extraction precision achieved, allowing legal firms to process contracts 10x faster.',
+    solution: 'Leveraged advanced NLP and semantic extraction to identify critical clauses and risk factors in shared documents.',
+    domain: 'AI',
+    tools: ['OpenAI', 'Supabase', 'TypeScript', 'Vector DBs'],
+    driveFileId: '3c4d5e6f7g8h9i0j1a2b',
+    embedUrl: 'https://docs.google.com/presentation/d/e/2PACX-1vT5v7zY7-5B9u-k7u-f8-7-5B9u-k7u-f8-7/pub',
+    thumbnail: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1600&q=80',
+    relatedProject: 'meeting-insights-weaver',
+    date: '2026-02-14',
+    features: [
+      'Recursive clause extraction',
+      'Automated risk grading',
+      'Compliance cross-referencing'
+    ],
+    results: [
+      '91% Precision in extraction',
+      '10x Faster contract auditing',
+      'Zero oversight on critical clauses'
+    ]
+  },
+  {
+    id: 'cs-campus-004',
+    slug: 'campus-maintenance-hub-spec',
+    projectSlug: 'hostel-issue-tracker-2026',
+    title: 'Scaling Campus Infrastructure with Digital Service Desks',
+    problem: 'Inefficient facility management and grievance tracking in large-scale university hostels.',
+    outcome: 'Maintained 99% Uptime SLA and reduced issue resolution time by 60%.',
+    solution: 'Built a scalable, glassmorphic administrative hub with real-time status tracking and multi-role access.',
+    domain: 'Full-Stack',
+    tools: ['React', 'Supabase', 'GSAP', 'Next.js'],
+    driveFileId: '4d5e6f7g8h9i0j1a2b3c',
+    embedUrl: 'https://docs.google.com/presentation/d/e/2PACX-1vT5v7zY7-5B9u-k7u-f8-7-5B9u-k7u-f8-7/pub',
+    thumbnail: 'https://images.unsplash.com/photo-1541339907198-e08756ebafe3?auto=format&fit=crop&w=1600&q=80',
+    relatedProject: 'hostel-issue-tracker-2026',
+    date: '2026-03-20',
+    features: [
+      'Real-time grievance lifecycle tracking',
+      'Multi-role administrative oversight',
+      'Automated escalation protocols'
+    ],
+    results: [
+      '99% Service Level Uptime',
+      '60% Faster Issue Resolution',
+      'Improved Student Satisfaction Score'
     ]
   }
 ];

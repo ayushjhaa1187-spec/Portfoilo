@@ -70,6 +70,8 @@ const Navbar = () => {
           <button 
             className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle mobile menu"
+            aria-expanded={isOpen}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

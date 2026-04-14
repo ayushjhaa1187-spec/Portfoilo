@@ -4,14 +4,19 @@ import { projects } from '@/data/projects';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
+// ⚡ Bolt: Extract static array outside component to prevent recreation on every render
+const CATEGORIES = ['ALL', 'ML/AI', 'BUSINESS', 'LABS'];
+
 export const FeaturedProjects = () => {
   const [activeTab, setActiveTab] = React.useState('ALL');
-  const categories = ['ALL', 'ML/AI', 'BUSINESS', 'LABS'];
 
-  const filtered = projects.filter(p => {
-    if (activeTab === 'ALL') return p.featured;
-    return p.category.toUpperCase().includes(activeTab) && p.featured;
-  });
+  // ⚡ Bolt: Memoize filter to prevent O(n) recalculation on every render
+  const filtered = React.useMemo(() => {
+    return projects.filter(p => {
+      if (activeTab === 'ALL') return p.featured;
+      return p.category.toUpperCase().includes(activeTab) && p.featured;
+    });
+  }, [activeTab]);
 
   return (
     <section className="py-32 bg-[#0a0a0a] relative overflow-hidden">
@@ -29,7 +34,7 @@ export const FeaturedProjects = () => {
           </motion.div>
 
           <div className="flex flex-wrap gap-2">
-            {categories.map((tab) => (
+            {CATEGORIES.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -60,9 +65,9 @@ export const FeaturedProjects = () => {
                   <span className="text-[10px] font-black tracking-widest text-[#0a0a0a] uppercase py-1 px-3 bg-amber-400 rounded-full">
                     {project.category}
                   </span>
-                  {project.metrics.accuracy && project.metrics.accuracy !== 'N/A' && (
+                  {project.metrics?.accuracy && project.metrics.accuracy !== 'N/A' && (
                     <span className="text-[10px] font-mono text-emerald-400 bg-emerald-400/5 px-2 py-0.5 rounded border border-emerald-400/10">
-                      ACC: {project.metrics.accuracy}
+                      ACC: {project.metrics?.accuracy}
                     </span>
                   )}
                 </div>
@@ -90,7 +95,7 @@ export const FeaturedProjects = () => {
                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] font-black text-amber-400 hover:text-white transition-colors tracking-widest flex items-center gap-1.5">
                       GITHUB <ArrowRight size={12} />
                    </a>
-                   {project.liveUrl && (
+                   {'liveUrl' in project && typeof project.liveUrl === 'string' && (
                       <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] font-black text-slate-500 hover:text-white transition-colors tracking-widest">
                         LIVE DEMO ↗
                       </a>

@@ -24,7 +24,7 @@ export const AboutSection = () => {
                                 From designing <span className="text-amber-400 font-medium">satellite environmental monitoring</span> pipelines to scaling predictive analytics for startups, I focus on building tools that solve real bottlenecks in complex ecosystems.
                             </p>
                             <p>
-                                My engineering philosophy: <span className="italic text-slate-500 underline decoration-amber-400/30 font-serif">"Systems should be self-repairing, agents should be autonomous, and insights should be actionable."</span>
+                                My engineering philosophy: <span className="italic text-slate-500 underline decoration-amber-400/30 font-serif">&quot;Systems should be self-repairing, agents should be autonomous, and insights should be actionable.&quot;</span>
                             </p>
                         </div>
                         <div className="grid grid-cols-3 gap-8 mt-12 py-12 border-y border-white/5">
@@ -63,7 +63,7 @@ export const AboutSection = () => {
                            </div>
                            <div className="absolute z-10 p-10 glass-card border-amber-400/20 shadow-2xl shadow-amber-400/5 hover:-translate-y-4 transition-transform duration-500 bg-[#121212]">
                                <p className="text-[10px] font-black tracking-widest text-emerald-400 mb-4 uppercase">SYSTEM_STABLE_v2.0.4</p>
-                               <h3 className="text-2xl font-bold text-white mb-6 italic tracking-tight leading-snug">"Optimizing for maximum impact with minimum latency."</h3>
+                               <h3 className="text-2xl font-bold text-white mb-6 italic tracking-tight leading-snug">&quot;Optimizing for maximum impact with minimum latency.&quot;</h3>
                                <div className="flex gap-1">
                                   {[1,2,3,4,5].map(i => <div key={i} className="h-1 w-8 bg-amber-400 rounded-full" />)}
                                </div>

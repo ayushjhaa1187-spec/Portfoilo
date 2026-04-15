@@ -1,0 +1,3 @@
+## 2024-05-24 - Unmemoized filters and static arrays
+**Learning:** In this Next.js app, static configuration arrays (like filter categories) and unmemoized array filtering inside component bodies are a recurring anti-pattern that leads to unnecessary object recreation and O(n) recalculations during layout re-renders.
+**Action:** Always move static arrays outside component bodies and wrap expensive operations like array filtering in `useMemo`.

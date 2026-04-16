@@ -3,13 +3,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Marquee = () => {
-    const skills = [
-        "LLMs", "LANGGRAPH", "COMPUTER VISION", "AUTONOMOUS AGENTS", "NEXT.JS", 
-        "TENSORFLOW", "POSTGRESQL", "PANDAS", "FASTAPI", "SCIKIT-LEARN",
-        "NLP", "REINFORCEMENT LEARNING", "MULTIMODAL AI", "KUBERNETES"
-    ];
+// Optimization: Move static array outside component to prevent recreation on every render
+const skills = [
+    "LLMs", "LANGGRAPH", "COMPUTER VISION", "AUTONOMOUS AGENTS", "NEXT.JS",
+    "TENSORFLOW", "POSTGRESQL", "PANDAS", "FASTAPI", "SCIKIT-LEARN",
+    "NLP", "REINFORCEMENT LEARNING", "MULTIMODAL AI", "KUBERNETES"
+];
 
+// Optimization: Pre-calculate the infinitely repeated array
+const repeatedSkills = [...skills, ...skills, ...skills];
+
+const Marquee = () => {
     return (
         <div className="py-12 bg-[#0a0a0a] border-y border-white/5 relative overflow-hidden group">
             {/* Gradient masks */}
@@ -27,7 +31,7 @@ const Marquee = () => {
                 whileHover={{ animationPlayState: "paused" }}
             >
                 {/* Duplicate for infinite loop */}
-                {[...skills, ...skills, ...skills].map((skill, i) => (
+                {repeatedSkills.map((skill, i) => (
                     <div key={i} className="flex items-center gap-6">
                         <span className="text-4xl md:text-6xl font-black text-slate-800 tracking-tighter hover:text-amber-400 transition-colors cursor-default">
                             {skill}

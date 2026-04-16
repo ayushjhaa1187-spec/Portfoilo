@@ -7,13 +7,18 @@ import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { projects } from '@/data/projects';
 
+// Optimization: Move static array outside component to prevent recreation on every render
+const categories = ['All', 'ML/AI', 'Business'];
+
 const ProjectsPage = () => {
   const [filter, setFilter] = useState('All');
-  const categories = ['All', 'ML/AI', 'Business'];
 
-  const filteredProjects = filter === 'All'
-    ? projects
-    : projects.filter(p => p.category === filter);
+  // Optimization: Memoize filtered projects to prevent recalculation on every render
+  const filteredProjects = React.useMemo(() => {
+    return filter === 'All'
+      ? projects
+      : projects.filter(p => p.category === filter);
+  }, [filter]);
 
   return (
     <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16">
@@ -80,7 +85,7 @@ const ProjectsPage = () => {
                       <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-gray-400 hover:text-blue-600 transition-colors">
                         GITHUB REPO ↗
                       </a>
-                      {project.liveUrl && (
+                      {'liveUrl' in project && typeof project.liveUrl === 'string' && (
                         <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-blue-600 hover:underline">
                           LIVE DEMO ↗
                         </a>

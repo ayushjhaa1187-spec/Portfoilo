@@ -1,0 +1,3 @@
+## 2024-04-16 - Handling Next.js JSX Linting and TypeScript Strictness
+**Learning:** The Next.js setup in `portfolio/client` enforces strict JSX character escaping (e.g., HTML entities like `&apos;` for quotes) and strict TypeScript checking for optional properties (e.g., `metrics?.accuracy` and `'liveUrl' in project`). Failing to address these will cause `pnpm run build` to fail, even if the primary goal is a simple UX/accessibility improvement.
+**Action:** Always verify changes with `pnpm run lint && pnpm run build` after making UX modifications in React components, and address any unescaped entity or TypeScript null-check errors concurrently to ensure the application builds successfully.

@@ -3,13 +3,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Marquee = () => {
-    const skills = [
-        "LLMs", "LANGGRAPH", "COMPUTER VISION", "AUTONOMOUS AGENTS", "NEXT.JS", 
-        "TENSORFLOW", "POSTGRESQL", "PANDAS", "FASTAPI", "SCIKIT-LEARN",
-        "NLP", "REINFORCEMENT LEARNING", "MULTIMODAL AI", "KUBERNETES"
-    ];
+// Performance Optimization: Moved static `skills` array outside the component body
+// to prevent unnecessary object recreation on every render, saving memory and CPU cycles.
+const skills = [
+    "LLMs", "LANGGRAPH", "COMPUTER VISION", "AUTONOMOUS AGENTS", "NEXT.JS",
+    "TENSORFLOW", "POSTGRESQL", "PANDAS", "FASTAPI", "SCIKIT-LEARN",
+    "NLP", "REINFORCEMENT LEARNING", "MULTIMODAL AI", "KUBERNETES"
+];
 
+const Marquee = () => {
     return (
         <div className="py-12 bg-[#0a0a0a] border-y border-white/5 relative overflow-hidden group">
             {/* Gradient masks */}

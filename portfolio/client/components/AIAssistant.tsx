@@ -6,6 +6,7 @@ import { MessageSquare, X, Send, Sparkles } from 'lucide-react';
 
 const AIAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState([
     { role: 'assistant', content: 'Hi! I am Ayush\'s AI assistant. Ask me anything about his projects, skills, or experience!' }
   ]);
@@ -14,15 +15,17 @@ const AIAssistant = () => {
   const toggleChat = () => setIsOpen(!isOpen);
 
   const handleSend = () => {
-    if (!input.trim()) return;
+    if (!input.trim() || isTyping) return;
     
     // Add user message
     const userMsg = { role: 'user', content: input };
     setMessages([...messages, userMsg]);
     setInput('');
+    setIsTyping(true);
 
     // Simulate AI response
     setTimeout(() => {
+      setIsTyping(false);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
         content: 'I am currently in "offline" mode as Ayush is upgrading my neural links. You can reach him directly at ayushjhaa1187@gmail.com for faster response!' 
@@ -44,9 +47,9 @@ const AIAssistant = () => {
             <div className="p-4 bg-amber-400 text-black flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <Sparkles size={18} />
-                <span className="font-black uppercase tracking-tighter text-sm">Ayush's Core_Intelligence</span>
+                <span className="font-black uppercase tracking-tighter text-sm">Ayush&apos;s Core_Intelligence</span>
               </div>
-              <button onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors">
+              <button aria-label="Close chat" onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-black">
                 <X size={18} />
               </button>
             </div>
@@ -67,6 +70,15 @@ const AIAssistant = () => {
                   </div>
                 </div>
               ))}
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 rounded-2xl rounded-tl-none p-4 flex gap-1 items-center shadow-sm h-11">
+                    <motion.div className="w-1.5 h-1.5 bg-slate-400 rounded-full" animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.6, ease: "easeInOut" }} />
+                    <motion.div className="w-1.5 h-1.5 bg-slate-400 rounded-full" animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.6, ease: "easeInOut", delay: 0.2 }} />
+                    <motion.div className="w-1.5 h-1.5 bg-slate-400 rounded-full" animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.6, ease: "easeInOut", delay: 0.4 }} />
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Input */}
@@ -74,14 +86,17 @@ const AIAssistant = () => {
               <input 
                 type="text" 
                 value={input}
+                disabled={isTyping}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                 placeholder="Ask about my RAG engines or IIT life..."
-                className="flex-grow bg-slate-100 dark:bg-white/5 border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-amber-400 outline-none font-medium"
+                className="flex-grow bg-slate-100 dark:bg-white/5 border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-amber-400 outline-none font-medium disabled:opacity-50"
               />
               <button 
+                aria-label="Send message"
                 onClick={handleSend}
-                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20"
+                disabled={isTyping || !input.trim()}
+                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20 disabled:opacity-50 disabled:hover:bg-amber-400 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950"
               >
                 <Send size={18} />
               </button>
@@ -91,10 +106,11 @@ const AIAssistant = () => {
       </AnimatePresence>
 
       <motion.button
+        aria-label="Toggle AI Assistant"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}
-        className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center shadow-2xl hover:shadow-amber-400/40 transition-all border-4 border-black group"
+        className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center shadow-2xl hover:shadow-amber-400/40 transition-all border-4 border-black group focus-visible:ring-4 focus-visible:ring-amber-400 focus-visible:outline-none"
       >
         <MessageSquare size={26} />
         <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 border-4 border-black rounded-full animate-pulse" />

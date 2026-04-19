@@ -60,9 +60,9 @@ export const FeaturedProjects = () => {
                   <span className="text-[10px] font-black tracking-widest text-[#0a0a0a] uppercase py-1 px-3 bg-amber-400 rounded-full">
                     {project.category}
                   </span>
-                  {project.metrics.accuracy && project.metrics.accuracy !== 'N/A' && (
+                  {project.metrics?.accuracy && project.metrics?.accuracy !== 'N/A' && (
                     <span className="text-[10px] font-mono text-emerald-400 bg-emerald-400/5 px-2 py-0.5 rounded border border-emerald-400/10">
-                      ACC: {project.metrics.accuracy}
+                      ACC: {project.metrics?.accuracy}
                     </span>
                   )}
                 </div>
@@ -90,7 +90,7 @@ export const FeaturedProjects = () => {
                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] font-black text-amber-400 hover:text-white transition-colors tracking-widest flex items-center gap-1.5">
                       GITHUB <ArrowRight size={12} />
                    </a>
-                   {project.liveUrl && (
+                   {'liveUrl' in project && typeof project.liveUrl === 'string' && (
                       <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] font-black text-slate-500 hover:text-white transition-colors tracking-widest">
                         LIVE DEMO ↗
                       </a>

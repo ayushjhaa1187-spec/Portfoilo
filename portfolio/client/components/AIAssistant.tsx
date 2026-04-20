@@ -10,16 +10,18 @@ const AIAssistant = () => {
     { role: 'assistant', content: 'Hi! I am Ayush\'s AI assistant. Ask me anything about his projects, skills, or experience!' }
   ]);
   const [input, setInput] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
 
   const toggleChat = () => setIsOpen(!isOpen);
 
   const handleSend = () => {
-    if (!input.trim()) return;
+    if (!input.trim() || isTyping) return;
     
     // Add user message
     const userMsg = { role: 'user', content: input };
     setMessages([...messages, userMsg]);
     setInput('');
+    setIsTyping(true);
 
     // Simulate AI response
     setTimeout(() => {
@@ -27,6 +29,7 @@ const AIAssistant = () => {
         role: 'assistant', 
         content: 'I am currently in "offline" mode as Ayush is upgrading my neural links. You can reach him directly at ayushjhaa1187@gmail.com for faster response!' 
       }]);
+      setIsTyping(false);
     }, 1000);
   };
 
@@ -44,9 +47,9 @@ const AIAssistant = () => {
             <div className="p-4 bg-amber-400 text-black flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <Sparkles size={18} />
-                <span className="font-black uppercase tracking-tighter text-sm">Ayush's Core_Intelligence</span>
+                <span className="font-black uppercase tracking-tighter text-sm">Ayush&apos;s Core_Intelligence</span>
               </div>
-              <button onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors">
+              <button aria-label="Close chat" onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors">
                 <X size={18} />
               </button>
             </div>
@@ -67,21 +70,34 @@ const AIAssistant = () => {
                   </div>
                 </div>
               ))}
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="max-w-[85%] p-4 rounded-2xl text-[13px] leading-relaxed shadow-sm bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-100 dark:border-white/5 rounded-tl-none flex gap-1 items-center">
+                    <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                    <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                    <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Input */}
             <div className="p-4 border-t border-slate-100 dark:border-white/5 flex gap-2 bg-white dark:bg-slate-950">
               <input 
+                aria-label="Chat input"
                 type="text" 
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Ask about my RAG engines or IIT life..."
-                className="flex-grow bg-slate-100 dark:bg-white/5 border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-amber-400 outline-none font-medium"
+                placeholder={isTyping ? "AI is typing..." : "Ask about my RAG engines or IIT life..."}
+                disabled={isTyping}
+                className="flex-grow bg-slate-100 dark:bg-white/5 border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-amber-400 outline-none font-medium disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <button 
+                aria-label="Send message"
                 onClick={handleSend}
-                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20"
+                disabled={isTyping}
+                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send size={18} />
               </button>
@@ -91,6 +107,7 @@ const AIAssistant = () => {
       </AnimatePresence>
 
       <motion.button
+        aria-label="Toggle AI Assistant chat"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}

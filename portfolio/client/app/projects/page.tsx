@@ -80,11 +80,11 @@ const ProjectsPage = () => {
                       <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-gray-400 hover:text-blue-600 transition-colors">
                         GITHUB REPO ↗
                       </a>
-                      {project.liveUrl && (
-                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-blue-600 hover:underline">
+                      {('liveUrl' in project ? project.liveUrl : false) ? (
+                        <a href={('liveUrl' in project ? project.liveUrl : '') as string} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-blue-600 hover:underline">
                           LIVE DEMO ↗
                         </a>
-                      )}
+                      ) : null}
                    </div>
                    <Link href={`/projects/${project.slug}`} className="text-[11px] font-mono text-center py-2 bg-slate-900 text-white rounded hover:bg-blue-600 transition-colors">
                       VIEW FULL CASE STUDY

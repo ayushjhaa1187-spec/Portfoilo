@@ -1,4 +1,17 @@
-export const projects = [
+export type Project = {
+  slug: string;
+  title: string;
+  category: string;
+  shortDescription: string;
+  fullDescription?: string;
+  techStack: string[];
+  metrics?: { accuracy: string; impact: string };
+  githubUrl: string;
+  liveUrl?: string;
+  featured: boolean;
+};
+
+export const projects: Project[] = [
   {
     slug: 'enron-insights',
     title: 'Enron Forensic Intelligence',

@@ -80,8 +80,8 @@ const ProjectsPage = () => {
                       <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-gray-400 hover:text-blue-600 transition-colors">
                         GITHUB REPO ↗
                       </a>
-                      {project.liveUrl && (
-                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-blue-600 hover:underline">
+                      {'liveUrl' in project && Boolean(project.liveUrl) && (
+                        <a href={project.liveUrl as string} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-blue-600 hover:underline">
                           LIVE DEMO ↗
                         </a>
                       )}

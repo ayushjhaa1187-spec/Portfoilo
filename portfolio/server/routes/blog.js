@@ -7,7 +7,9 @@ const BlogPost = require('../models/BlogPost');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const posts = await BlogPost.find();
+    // ⚡ Bolt Optimization: Use .lean() to bypass Mongoose document hydration.
+    // Impact: Returns plain JS objects, drastically reducing memory overhead and execution time for read-only routes.
+    const posts = await BlogPost.find().lean();
     res.json(posts);
   } catch (err) {
     console.error(err.message);
@@ -20,7 +22,8 @@ router.get('/', async (req, res) => {
 // @access  Public
 router.get('/:slug', async (req, res) => {
   try {
-    const post = await BlogPost.findOne({ slug: req.params.slug });
+    // ⚡ Bolt Optimization: Use .lean() to bypass Mongoose document hydration for faster reads.
+    const post = await BlogPost.findOne({ slug: req.params.slug }).lean();
     if (!post) {
       return res.status(404).json({ msg: 'Post not found' });
     }

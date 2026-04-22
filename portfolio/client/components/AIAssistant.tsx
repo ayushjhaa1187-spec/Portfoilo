@@ -6,6 +6,7 @@ import { MessageSquare, X, Send, Sparkles } from 'lucide-react';
 
 const AIAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState([
     { role: 'assistant', content: 'Hi! I am Ayush\'s AI assistant. Ask me anything about his projects, skills, or experience!' }
   ]);
@@ -20,14 +21,16 @@ const AIAssistant = () => {
     const userMsg = { role: 'user', content: input };
     setMessages([...messages, userMsg]);
     setInput('');
+    setIsTyping(true);
 
     // Simulate AI response
     setTimeout(() => {
+      setIsTyping(false);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
         content: 'I am currently in "offline" mode as Ayush is upgrading my neural links. You can reach him directly at ayushjhaa1187@gmail.com for faster response!' 
       }]);
-    }, 1000);
+    }, 1500);
   };
 
   return (
@@ -44,9 +47,9 @@ const AIAssistant = () => {
             <div className="p-4 bg-amber-400 text-black flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <Sparkles size={18} />
-                <span className="font-black uppercase tracking-tighter text-sm">Ayush's Core_Intelligence</span>
+                <span className="font-black uppercase tracking-tighter text-sm">Ayush&apos;s Core_Intelligence</span>
               </div>
-              <button onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors">
+              <button onClick={toggleChat} aria-label="Close AI Assistant" className="hover:bg-black/10 p-1 rounded-full transition-colors">
                 <X size={18} />
               </button>
             </div>
@@ -67,6 +70,16 @@ const AIAssistant = () => {
                   </div>
                 </div>
               ))}
+
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 p-4 rounded-2xl rounded-tl-none flex gap-1 items-center">
+                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Input */}
@@ -81,7 +94,9 @@ const AIAssistant = () => {
               />
               <button 
                 onClick={handleSend}
-                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20"
+                aria-label="Send message"
+                disabled={isTyping}
+                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send size={18} />
               </button>
@@ -94,6 +109,8 @@ const AIAssistant = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}
+        aria-label={isOpen ? "Close AI Assistant" : "Open AI Assistant"}
+        aria-expanded={isOpen}
         className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center shadow-2xl hover:shadow-amber-400/40 transition-all border-4 border-black group"
       >
         <MessageSquare size={26} />

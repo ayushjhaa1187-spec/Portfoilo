@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Sparkles, ArrowRight, Github, Linkedin, Terminal } from 'lucide-react';
+import { Sparkles, ArrowRight, Linkedin, Terminal } from 'lucide-react';
+import { GithubIcon } from './icons/GithubIcon';
 import { stats as statsConfig } from '@/data/stats';
 import { contact } from '@/data/contact';
 
@@ -104,7 +105,7 @@ const Hero = () => {
           </Link>
           <div className="flex gap-2">
              <a href={contact.socials.github} target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
-                <Github size={20} />
+                <GithubIcon size={20} />
              </a>
              <a href={contact.socials.linkedin} target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
                 <Linkedin size={20} />
@@ -125,7 +126,7 @@ const Hero = () => {
           {[
             { label: 'GitHub Repositories', value: stats.repos, suffix: `/${statsConfig.fallbackStats.repos}`, icon: <Terminal size={14} /> },
             { label: 'GitHub Stars', value: stats.stars, icon: <Sparkles size={14} /> },
-            { label: 'Network Followers', value: stats.followers, icon: <Github size={14} /> },
+            { label: 'Network Followers', value: stats.followers, icon: <GithubIcon size={14} /> },
             { label: 'IIT Madras Focus', value: 'BS DS', icon: <ArrowRight size={14} /> }
           ].map((stat, i) => (
             <div key={i} className="bg-white/5 border border-white/10 p-6 flex flex-col items-center group hover:bg-amber-400/5 transition-colors">

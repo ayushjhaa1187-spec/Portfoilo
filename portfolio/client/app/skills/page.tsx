@@ -36,13 +36,13 @@ const SkillsPage = () => {
                 <div key={skillIdx} className="group">
                   <div className="flex justify-between mb-2">
                     <span className="text-sm font-bold text-gray-700 group-hover:text-blue-600 transition-colors">{skill.name}</span>
-                    <span className="text-[10px] font-black text-gray-400 group-hover:text-blue-400 transition-colors">{skill.level}%</span>
+                    <span className="text-[10px] font-black text-gray-400 group-hover:text-blue-400 transition-colors">{skill.proficiency}%</span>
                   </div>
                   <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
                     <motion.div
                       className="h-full rounded-full bg-gradient-to-r from-blue-600 to-indigo-400"
                       initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
+                      whileInView={{ width: `${skill.proficiency}%` }}
                       viewport={{ once: true }}
                       transition={{ duration: 1.5, ease: "easeOut" }}
                     ></motion.div>

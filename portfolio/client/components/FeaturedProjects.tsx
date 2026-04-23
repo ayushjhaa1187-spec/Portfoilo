@@ -60,9 +60,10 @@ export const FeaturedProjects = () => {
                   <span className="text-[10px] font-black tracking-widest text-[#0a0a0a] uppercase py-1 px-3 bg-amber-400 rounded-full">
                     {project.category}
                   </span>
-                  {project.metrics.accuracy && project.metrics.accuracy !== 'N/A' && (
+                  {!!project.metrics?.['accuracy'] && project.metrics?.['accuracy'] !== 'N/A' && (
                     <span className="text-[10px] font-mono text-emerald-400 bg-emerald-400/5 px-2 py-0.5 rounded border border-emerald-400/10">
-                      ACC: {project.metrics.accuracy}
+                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                      ACC: {project.metrics!['accuracy'] as any}
                     </span>
                   )}
                 </div>

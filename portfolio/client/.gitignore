@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# contentlayer (generated, do not commit cache)
+.contentlayer/.cache/
+
+# misc artifacts
+lint_output.txt

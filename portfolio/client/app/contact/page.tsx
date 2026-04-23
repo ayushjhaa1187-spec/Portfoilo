@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/Button';
-import { Mail, Linkedin, Github, Send, Loader2 } from 'lucide-react';
+import { Mail, Linkedin, Send, Loader2 } from 'lucide-react';
+import { GithubIcon } from '@/components/icons/GithubIcon';
 import { contact } from '@/data/contact';
 
 const ContactPage = () => {
@@ -12,213 +12,219 @@ const ContactPage = () => {
     email: '',
     subject: '',
     message: '',
-    honeypot: '' // Anti-spam
+    honeypot: '', // Honeypot field for spam protection
   });
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('sending');
+    
+    // Check honeypot
+    if (formData.honeypot) {
+      console.log('Spam detected');
+      setStatus('success'); // Silently reject
+      return;
+    }
+
+    setStatus('loading');
+    
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
       });
 
-      if (!res.ok) throw new Error('Failed to send');
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || 'Failed to send message');
+      }
 
       setStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '', honeypot: '' });
-      setTimeout(() => setStatus('idle'), 5000);
-    } catch (error) {
-      console.error(error);
+    } catch (err: unknown) {
       setStatus('error');
-      setTimeout(() => setStatus('idle'), 5000);
+      const message = err instanceof Error ? err.message : 'Something went wrong. Please try again.';
+      setErrorMessage(message);
     }
   };
 
   return (
-    <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-12"
-      >
-        <h1 className="text-4xl font-bold mb-4 text-blue-900">Get In Touch</h1>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          Interested in AI collaboration, research, or startup opportunities? Drop a message below.
-        </p>
-      </motion.div>
-
-      <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1 }}
-          className="space-y-8"
-        >
+    <div className="min-h-screen pt-24 pb-20 bg-[#f8fafc]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          
+          {/* Left Side: Contact Info */}
           <div>
-            <h2 className="text-2xl font-bold mb-4 text-gray-800">Contact Information</h2>
-            <p className="text-gray-600 mb-6">
-              I usually respond within 24 hours. Feel free to reach out via email or LinkedIn.
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            <div className="flex items-center space-x-4 p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
-              <div className="p-3 bg-blue-50 rounded-lg">
-                <Mail className="text-blue-600 w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 uppercase font-bold tracking-wider">Email</p>
-                <p className="text-gray-800 font-medium">{contact.email}</p>
-              </div>
-            </div>
-
-            <a href={contact.socials.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-4 p-4 bg-white rounded-xl border border-gray-100 shadow-sm hover:border-blue-200 transition-colors">
-              <div className="p-3 bg-blue-50 rounded-lg">
-                <Linkedin className="text-blue-600 w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 uppercase font-bold tracking-wider">LinkedIn</p>
-                <p className="text-gray-800 font-medium">Ayush Kumar Jha</p>
-              </div>
-            </a>
-
-            <a href={contact.socials.github} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-4 p-4 bg-white rounded-xl border border-gray-100 shadow-sm hover:border-blue-200 transition-colors">
-              <div className="p-3 bg-slate-50 rounded-lg">
-                <Github className="text-slate-900 w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 uppercase font-bold tracking-wider">GitHub</p>
-                <p className="text-gray-800 font-medium">ayushjhaa1187-spec</p>
-              </div>
-            </a>
-          </div>
-
-          <div className="pt-8">
-            <Button
-              onClick={() => window.open(contact.calendlyLink, '_blank')}
-              variant="outline"
-              className="w-full py-6 text-lg font-bold border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all"
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter mb-8"
             >
-              Book a Strategy Call
-            </Button>
-          </div>
-        </motion.div>
+              Let&apos;s <span className="text-amber-500 underline decoration-4 underline-offset-8">Connect.</span>
+            </motion.h1>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-xl text-slate-500 mb-12 max-w-md leading-relaxed"
+            >
+              Interested in collaboration, scale-up opportunities, or technical consulting? Reach out directly.
+            </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 relative overflow-hidden"
-        >
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Honeypot field - hidden from users */}
-            <input
-              type="text"
-              name="honeypot"
-              style={{ display: 'none' }}
-              tabIndex={-1}
-              autoComplete="off"
-              value={formData.honeypot}
-              onChange={handleChange}
-            />
+            <div className="space-y-6">
+              <a href={`mailto:${contact.email}`} className="flex items-center gap-4 p-6 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-amber-200 transition-all group">
+                <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 group-hover:scale-110 transition-transform">
+                  <Mail size={24} />
+                </div>
+                <div>
+                  <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">Direct Email</div>
+                  <div className="text-lg font-bold text-slate-900">{contact.email}</div>
+                </div>
+              </a>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gray-500 uppercase ml-1">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-50 border border-transparent rounded-xl focus:bg-white focus:border-blue-500 outline-none transition-all"
-                  placeholder="John Doe"
-                />
+              <div className="flex gap-4">
+                <a href={contact.socials.linkedin} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center gap-4 p-6 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all group">
+                  <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform">
+                    <Linkedin size={24} />
+                  </div>
+                  <div className="hidden sm:block text-xs font-black uppercase tracking-widest text-slate-900">LinkedIn</div>
+                </a>
+                <a href={contact.socials.github} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center gap-4 p-6 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-slate-300 transition-all group">
+                  <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-900 group-hover:scale-110 transition-transform">
+                    <GithubIcon size={24} />
+                  </div>
+                  <div className="hidden sm:block text-xs font-black uppercase tracking-widest text-slate-900">GitHub</div>
+                </a>
               </div>
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gray-500 uppercase ml-1">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-50 border border-transparent rounded-xl focus:bg-white focus:border-blue-500 outline-none transition-all"
-                  placeholder="john@example.com"
-                />
-              </div>
+              
+              {/* Calendly CTA */}
+              <a href={contact.calendlyLink} target="_blank" rel="noopener noreferrer" className="block p-8 bg-slate-900 rounded-3xl text-white shadow-2xl shadow-slate-200 hover:scale-[1.02] transition-all group">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-xl font-bold mb-1 group-hover:text-amber-400 transition-colors">Book a Strategy Call</h3>
+                    <p className="text-slate-400 text-sm">30-min deep dive into your technical roadmap.</p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-amber-400 group-hover:text-slate-900 transition-all">
+                    →
+                  </div>
+                </div>
+              </a>
             </div>
+          </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-gray-500 uppercase ml-1">Subject</label>
-              <input
-                type="text"
-                name="subject"
-                required
-                value={formData.subject}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-50 border border-transparent rounded-xl focus:bg-white focus:border-blue-500 outline-none transition-all"
-                placeholder="Collaboration Inquiry"
+          {/* Right Side: Contact Form */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="bg-white rounded-[3rem] p-10 md:p-12 shadow-2xl border border-slate-100"
+          >
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Honeypot field (hidden) */}
+              <input 
+                type="text" 
+                name="honeypot" 
+                value={formData.honeypot} 
+                onChange={(e) => setFormData({...formData, honeypot: e.target.value})}
+                className="hidden" 
+                tabIndex={-1} 
+                autoComplete="off"
               />
-            </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-gray-500 uppercase ml-1">Message</label>
-              <textarea
-                name="message"
-                rows={5}
-                required
-                value={formData.message}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-50 border border-transparent rounded-xl focus:bg-white focus:border-blue-500 outline-none transition-all resize-none"
-                placeholder="Tell me about your project..."
-              ></textarea>
-            </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Your Name</label>
+                  <input 
+                    required
+                    type="text" 
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    placeholder="Enter your name"
+                    className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-amber-400 outline-none transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Email Address</label>
+                  <input 
+                    required
+                    type="email" 
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    placeholder="name@company.com"
+                    className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-amber-400 outline-none transition-all"
+                  />
+                </div>
+              </div>
 
-            <Button
-              type="submit"
-              className="w-full py-6 text-lg font-bold bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200"
-              disabled={status === 'sending'}
-            >
-              {status === 'sending' ? (
-                <span className="flex items-center justify-center gap-2">
-                  <Loader2 className="w-5 h-5 animate-spin" /> SENDING...
-                </span>
-              ) : (
-                <span className="flex items-center justify-center gap-2">
-                  <Send className="w-5 h-5" /> SEND MESSAGE
-                </span>
+              <div>
+                <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Subject</label>
+                <input 
+                  required
+                  type="text" 
+                  value={formData.subject}
+                  onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                  placeholder="What are you working on?"
+                  className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-amber-400 outline-none transition-all"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Message</label>
+                <textarea 
+                  required
+                  rows={5}
+                  value={formData.message}
+                  onChange={(e) => setFormData({...formData, message: e.target.value})}
+                  placeholder="Tell me about your project or inquiry..."
+                  className="w-full bg-slate-50 border-none rounded-2xl px-6 py-6 text-slate-900 placeholder:text-slate-300 focus:ring-2 focus:ring-amber-400 outline-none transition-all resize-none"
+                />
+              </div>
+
+              <button 
+                type="submit"
+                disabled={status === 'loading'}
+                className="w-full bg-slate-900 text-white font-black uppercase tracking-[0.2em] py-6 rounded-2xl hover:bg-amber-400 hover:text-slate-900 transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group shadow-xl shadow-slate-200"
+              >
+                {status === 'loading' ? (
+                  <Loader2 className="animate-spin" />
+                ) : (
+                  <>
+                    Initialize Connection <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </>
+                )}
+              </button>
+
+              {status === 'success' && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-6 bg-green-50 border border-green-100 rounded-2xl text-green-700 text-sm text-center font-medium"
+                >
+                  Message sent successfully! I&apos;ll get back to you shortly.
+                </motion.div>
               )}
-            </Button>
 
-            {status === 'success' && (
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-emerald-600 font-bold text-center mt-4"
-              >
-                ✨ Message received! I&apos;ll get back to you soon.
-              </motion.p>
-            )}
-            {status === 'error' && (
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-rose-600 font-bold text-center mt-4"
-              >
-                ❌ Something went wrong. Please try again later.
-              </motion.p>
-            )}
-          </form>
-        </motion.div>
+              {status === 'error' && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-6 bg-red-50 border border-red-100 rounded-2xl text-red-700 text-sm text-center font-medium"
+                >
+                  {errorMessage}
+                </motion.div>
+              )}
+            </form>
+          </motion.div>
+
+        </div>
       </div>
     </div>
   );

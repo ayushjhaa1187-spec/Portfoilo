@@ -1,0 +1,28 @@
+[
+  {
+    "title": "Hello World",
+    "date": "2026-04-23T00:00:00.000Z",
+    "description": "Welcome to my new portfolio blog!",
+    "tags": [
+      "nextjs",
+      "portfolio",
+      "ai"
+    ],
+    "author": "Ayush Kumar Jha",
+    "body": {
+      "raw": "\n# Hello World\n\nWelcome to my new portfolio. This blog is built with **Next.js 16**, **Tailwind 4**, and **Contentlayer**.\n\n```typescript\nconst hello = \"world\";\nconsole.log(hello);\n```\n\nI'll be sharing insights on ML, AI, and startup engineering here.\n",
+      "code": "var Component=(()=>{var h=Object.create;var t=Object.defineProperty;var p=Object.getOwnPropertyDescriptor;var g=Object.getOwnPropertyNames;var y=Object.getPrototypeOf,m=Object.prototype.hasOwnProperty;var u=(o,e)=>()=>(e||o((e={exports:{}}).exports,e),e.exports),B=(o,e)=>{for(var l in e)t(o,l,{get:e[l],enumerable:!0})},a=(o,e,l,s)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let r of g(e))!m.call(o,r)&&r!==l&&t(o,r,{get:()=>e[r],enumerable:!(s=p(e,r))||s.enumerable});return o};var f=(o,e,l)=>(l=o!=null?h(y(o)):{},a(e||!o||!o.__esModule?t(l,\"default\",{value:o,enumerable:!0}):l,o)),x=o=>a(t({},\"__esModule\",{value:!0}),o);var i=u((_,c)=>{c.exports=_jsx_runtime});var w={};B(w,{default:()=>j,frontmatter:()=>b});var n=f(i()),b={title:\"Hello World\",date:new Date(17769024e5),description:\"Welcome to my new portfolio blog!\",tags:[\"nextjs\",\"portfolio\",\"ai\"]};function d(o){let e=Object.assign({h1:\"h1\",a:\"a\",span:\"span\",p:\"p\",strong:\"strong\",figure:\"figure\",pre:\"pre\",code:\"code\"},o.components);return(0,n.jsxs)(n.Fragment,{children:[(0,n.jsxs)(e.h1,{id:\"hello-world\",children:[(0,n.jsx)(e.a,{className:\"anchor\",href:\"#hello-world\",children:(0,n.jsx)(e.span,{className:\"icon icon-link\"})}),\"Hello World\"]}),`\n`,(0,n.jsxs)(e.p,{children:[\"Welcome to my new portfolio. This blog is built with \",(0,n.jsx)(e.strong,{children:\"Next.js 16\"}),\", \",(0,n.jsx)(e.strong,{children:\"Tailwind 4\"}),\", and \",(0,n.jsx)(e.strong,{children:\"Contentlayer\"}),\".\"]}),`\n`,(0,n.jsx)(e.figure,{\"data-rehype-pretty-code-figure\":\"\",children:(0,n.jsx)(e.pre,{style:{backgroundColor:\"#282c34\",color:\"#abb2bf\"},tabIndex:\"0\",\"data-language\":\"typescript\",\"data-theme\":\"one-dark-pro\",children:(0,n.jsxs)(e.code,{\"data-language\":\"typescript\",\"data-theme\":\"one-dark-pro\",style:{display:\"grid\"},children:[(0,n.jsxs)(e.span,{\"data-line\":\"\",children:[(0,n.jsx)(e.span,{style:{color:\"#C678DD\"},children:\"const\"}),(0,n.jsx)(e.span,{style:{color:\"#E5C07B\"},children:\" hello\"}),(0,n.jsx)(e.span,{style:{color:\"#56B6C2\"},children:\" =\"}),(0,n.jsx)(e.span,{style:{color:\"#98C379\"},children:' \"world\"'}),(0,n.jsx)(e.span,{style:{color:\"#ABB2BF\"},children:\";\"})]}),`\n`,(0,n.jsxs)(e.span,{\"data-line\":\"\",children:[(0,n.jsx)(e.span,{style:{color:\"#E5C07B\"},children:\"console\"}),(0,n.jsx)(e.span,{style:{color:\"#ABB2BF\"},children:\".\"}),(0,n.jsx)(e.span,{style:{color:\"#61AFEF\"},children:\"log\"}),(0,n.jsx)(e.span,{style:{color:\"#ABB2BF\"},children:\"(\"}),(0,n.jsx)(e.span,{style:{color:\"#E06C75\"},children:\"hello\"}),(0,n.jsx)(e.span,{style:{color:\"#ABB2BF\"},children:\");\"})]})]})})}),`\n`,(0,n.jsx)(e.p,{children:\"I'll be sharing insights on ML, AI, and startup engineering here.\"})]})}function C(o={}){let{wrapper:e}=o.components||{};return e?(0,n.jsx)(e,Object.assign({},o,{children:(0,n.jsx)(d,o)})):d(o)}var j=C;return x(w);})();\n;return Component;"
+    },
+    "_id": "blog/hello-world.mdx",
+    "_raw": {
+      "sourceFilePath": "blog/hello-world.mdx",
+      "sourceFileName": "hello-world.mdx",
+      "sourceFileDir": "blog",
+      "contentType": "mdx",
+      "flattenedPath": "blog/hello-world"
+    },
+    "type": "Post",
+    "slug": "hello-world",
+    "url": "/blog/hello-world"
+  }
+]

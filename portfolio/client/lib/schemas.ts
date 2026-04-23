@@ -9,8 +9,10 @@ export const ProjectSchema = z.object({
   techStack: z.array(z.string()),
   githubUrl: z.string().url(),
   liveUrl: z.string().url().optional(),
+  image: z.string().optional(),
   featured: z.boolean().default(false),
-  metrics: z.record(z.string()).optional(),
+  metrics: z.record(z.string(), z.string()).optional(),
+  hasCaseStudy: z.boolean().default(false),
 });
 
 export const AchievementSchema = z.object({
@@ -19,6 +21,7 @@ export const AchievementSchema = z.object({
   desc: z.string(),
   icon: z.string(),
   color: z.enum(['blue', 'orange', 'green', 'slate']).default('blue'),
+  date: z.string().optional(),
   link: z.string().url().optional(),
 });
 
@@ -28,6 +31,7 @@ export const ExperienceSchema = z.object({
   period: z.string(),
   description: z.array(z.string()),
   technologies: z.array(z.string()),
+  location: z.string().optional(),
   logo: z.string().optional(),
 });
 
@@ -37,6 +41,8 @@ export const EducationSchema = z.object({
   period: z.string(),
   focus: z.array(z.string()),
   coursework: z.array(z.string()).optional(),
+  location: z.string().optional(),
+  achievements: z.array(z.string()).optional(),
   color: z.string().optional(),
 });
 

@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: Request) {
+  const resend = new Resend(process.env.RESEND_API_KEY || 're_stub');
+  
   try {
     const { name, email, subject, message, honeypot } = await req.json();
 
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
       from: 'Portfolio Contact <onboarding@resend.dev>',
       to: process.env.CONTACT_EMAIL || 'ayushjhaa1187@gmail.com',
       subject: `[Portfolio Contact] ${subject || 'New Message'}`,
-      reply_to: email,
+      replyTo: email,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
       html: `
         <h2>New Message from Portfolio</h2>

@@ -1,142 +1,138 @@
 'use client';
+/* eslint-disable react-hooks/static-components */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { allCaseStudies } from 'contentlayer/generated';
+import { allCaseStudies } from '@/.contentlayer/generated';
 import { notFound } from 'next/navigation';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { format, parseISO } from 'date-fns';
-import { ChevronLeft, Github, ExternalLink, Code, Database, Layout } from 'lucide-react';
+import { ChevronLeft, ExternalLink, Code, Database } from 'lucide-react';
+import { GithubIcon } from '@/components/icons/GithubIcon';
 import Link from 'next/link';
-import { projects } from '@/data/projects';
-import React from 'react';
-
-interface MDXComponentProps {
-  children?: React.ReactNode;
-  [key: string]: unknown;
-}
+import React, { use } from 'react';
+import Image from 'next/image';
 
 const mdxComponents = {
-  h1: ({ children, ...props }: MDXComponentProps) => <h1 className="text-4xl font-black mt-8 mb-4 text-blue-900" {...props}>{children}</h1>,
-  h2: ({ children, ...props }: MDXComponentProps) => <h2 className="text-2xl font-bold mt-8 mb-4 text-slate-800 border-b pb-2" {...props}>{children}</h2>,
-  p: ({ children, ...props }: MDXComponentProps) => <p className="text-lg leading-relaxed text-slate-700 mb-6" {...props}>{children}</p>,
-  pre: ({ children, ...props }: MDXComponentProps) => <pre className="p-0 mb-8 rounded-xl overflow-hidden shadow-lg" {...props}>{children}</pre>,
+  h1: (props: any) => <h1 className="text-3xl font-bold mt-8 mb-4 text-gray-900" {...props} />,
+  h2: (props: any) => <h2 className="text-2xl font-bold mt-8 mb-4 text-gray-800" {...props} />,
+  p: (props: any) => <p className="text-gray-600 leading-relaxed mb-4" {...props} />,
+  ul: (props: any) => <ul className="list-disc pl-6 mb-4 space-y-2 text-gray-600" {...props} />,
+  li: (props: any) => <li {...props} />,
+  code: (props: any) => <code className="bg-gray-100 rounded px-1 py-0.5 font-mono text-sm" {...props} />,
 };
 
-const CaseStudyPage = ({ params }: { params: { slug: string } }) => {
-  const caseStudy = allCaseStudies.find((cs) => cs.slug === params.slug);
-  const projectData = projects.find((p) => p.slug === params.slug || p.slug === caseStudy?.projectSlug);
+const MDXContent = ({ code }: { code: string }) => {
+  const Component = useMDXComponent(code);
+  return <Component components={mdxComponents} />;
+};
 
-  // Call the hook at the top level of the component
-  const MDXContent = useMDXComponent(caseStudy?.body.code || '');
+export default function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
+  const study = allCaseStudies.find((s) => s.slug === slug);
 
-  if (!caseStudy) {
-    if (!projectData) notFound();
-    
-    return (
-      <div className="min-h-screen pt-32 pb-24 px-4 max-w-4xl mx-auto text-center">
-         <h1 className="text-4xl font-black mb-4">{projectData.title}</h1>
-         <p className="text-gray-500 mb-8">Case study content is currently being migrated to MDX.</p>
-         <Link href="/projects" className="text-blue-600 font-bold">Back to Projects</Link>
-      </div>
-    );
+  if (!study) {
+    notFound();
   }
 
   return (
-    <div className="min-h-screen pt-32 pb-24">
-      <div className="max-w-5xl mx-auto px-4">
+    <article className="min-h-screen bg-white pt-24 pb-20">
+      <div className="max-w-4xl mx-auto px-4">
         <Link 
-          href="/projects" 
-          className="inline-flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-blue-600 mb-12 transition-colors uppercase tracking-widest"
+          href="/projects"
+          className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-blue-600 mb-8 transition-colors"
         >
-          <ChevronLeft size={16} /> Back to Ecosystem
+          <ChevronLeft size={16} /> Back to Projects
         </Link>
 
-        <header className="mb-16">
-          <div className="flex flex-wrap items-center gap-4 mb-8">
-            <span className="bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
-              Project Case Study
+        <header className="mb-12">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-black uppercase tracking-widest rounded-full">
+              Case Study
             </span>
-            <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">
-              {format(parseISO(caseStudy.date), 'MMMM yyyy')}
-            </span>
+            <time className="text-sm text-gray-400">
+              {format(parseISO(study.date), 'MMMM yyyy')}
+            </time>
           </div>
-
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] tracking-tighter mb-8">
-            {caseStudy.title}
+          
+          <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight leading-tight">
+            {study.title}
           </h1>
 
-          <div className="flex flex-wrap gap-4 mb-12">
-            {projectData?.githubUrl && (
-              <a href={projectData.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-blue-600 transition-colors">
-                <Github size={20} /> View Source Code
+          <div className="flex flex-wrap gap-3 mb-10">
+            {study.techStack?.map((tech: string) => (
+              <span key={tech} className="px-3 py-1.5 bg-gray-50 border border-gray-100 text-gray-600 text-[10px] font-bold uppercase tracking-wider rounded-lg">
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap gap-4">
+            {study.githubUrl && (
+              <a 
+                href={study.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white text-sm font-bold rounded-xl hover:bg-gray-800 transition-all"
+              >
+                <GithubIcon size={20} /> View Source Code
               </a>
             )}
-            {projectData?.liveUrl && (
-              <a href={projectData.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 bg-blue-50 text-blue-600 rounded-xl font-bold hover:bg-blue-100 transition-colors border border-blue-100">
-                <ExternalLink size={20} /> Live Production ↗
+            {study.liveUrl && (
+              <a 
+                href={study.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white text-sm font-bold rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-200"
+              >
+                <ExternalLink size={20} /> Live Demo
               </a>
             )}
           </div>
         </header>
 
-        <div className="grid lg:grid-cols-3 gap-12">
-          <div className="lg:col-span-2">
-            <div className="prose prose-slate prose-lg max-w-none">
-              {React.createElement(MDXContent, { components: mdxComponents })}
-            </div>
+        {study.image && (
+          <div className="relative aspect-video rounded-3xl overflow-hidden mb-16 border border-gray-100 shadow-2xl">
+            <Image 
+              src={study.image} 
+              alt={study.title}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+        )}
+
+        <div className="grid lg:grid-cols-3 gap-12 mb-16">
+          <div className="lg:col-span-2 prose prose-slate max-w-none">
+            <MDXContent code={study.body.code} />
           </div>
 
           <aside className="space-y-8">
-            <div className="p-8 bg-slate-50 rounded-3xl border border-gray-100 sticky top-32">
-              <h3 className="text-lg font-black text-slate-900 mb-6 uppercase tracking-widest border-b pb-4">Architectural Stack</h3>
-              
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="p-2 bg-white rounded-lg shadow-sm h-fit">
-                    <Code className="text-blue-600" size={20} />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Frontend</h4>
-                    <p className="text-slate-700 font-bold">React / Next.js / Tailwind</p>
-                  </div>
-                </div>
+            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <h3 className="text-sm font-black text-gray-900 uppercase tracking-widest mb-4 flex items-center gap-2">
+                <Code size={16} className="text-blue-600" /> Core Tech
+              </h3>
+              <ul className="space-y-2">
+                {study.techStack?.slice(0, 5).map((tech: string) => (
+                  <li key={tech} className="text-sm text-gray-600 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full" />
+                    {tech}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-                <div className="flex gap-4">
-                  <div className="p-2 bg-white rounded-lg shadow-sm h-fit">
-                    <Database className="text-blue-600" size={20} />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Backend & AI</h4>
-                    <p className="text-slate-700 font-bold">Python / PyTorch / Gemini</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="p-2 bg-white rounded-lg shadow-sm h-fit">
-                    <Layout className="text-blue-600" size={20} />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Deployment</h4>
-                    <p className="text-slate-700 font-bold">Vercel / Supabase / GCP</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-10">
-                <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-4">Core Technologies</h3>
-                <div className="flex flex-wrap gap-2">
-                  {caseStudy.techStack.map(tech => (
-                    <span key={tech} className="px-3 py-1 bg-white border border-gray-100 rounded-lg text-xs font-bold text-gray-600 shadow-sm">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
+            <div className="bg-blue-900 rounded-2xl p-6 text-white shadow-xl shadow-blue-100">
+              <h3 className="text-sm font-black uppercase tracking-widest mb-4 flex items-center gap-2">
+                <Database size={16} className="text-blue-300" /> Key Outcome
+              </h3>
+              <p className="text-blue-100 text-sm leading-relaxed italic">
+                &quot;{study.description}&quot;
+              </p>
             </div>
           </aside>
         </div>
       </div>
-    </div>
+    </article>
   );
-};
-
-export default CaseStudyPage;
+}

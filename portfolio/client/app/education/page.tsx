@@ -26,7 +26,7 @@ const EducationPage = () => {
           >
             <Card className="p-8 h-full border-t-4 border-blue-600 shadow-xl bg-white relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                <span className="text-6xl font-black">{edu.duration.split('-')[1] || edu.duration}</span>
+                <span className="text-6xl font-black">{edu.period.split('-')[1] || edu.period}</span>
               </div>
               
               <div className="relative z-10">
@@ -35,19 +35,21 @@ const EducationPage = () => {
                 
                 <div className="flex items-center gap-4 mb-6">
                   <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
-                    {edu.duration}
+                    {edu.period}
                   </span>
-                  <span className="text-gray-400 text-xs font-medium uppercase tracking-tighter">
-                    {edu.location}
-                  </span>
+                  {edu.location && (
+                    <span className="text-gray-400 text-xs font-medium uppercase tracking-tighter">
+                      {edu.location}
+                    </span>
+                  )}
                 </div>
 
                 <div className="space-y-6">
-                  {edu.focusAreas && (
+                  {edu.focus && (
                     <div>
                       <h3 className="font-bold text-sm uppercase tracking-widest text-gray-400 mb-3">Focus Areas</h3>
                       <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        {edu.focusAreas.map((area, i) => (
+                        {edu.focus.map((area, i) => (
                           <li key={i} className="flex items-center gap-2 text-gray-600 text-sm">
                             <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
                             {area}

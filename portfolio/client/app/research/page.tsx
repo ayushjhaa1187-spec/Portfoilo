@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/Card';
-import { research } from '@/data/research';
+import { researchAreas } from '@/data/research';
 
 const ResearchPage = () => {
   return (
@@ -17,7 +17,7 @@ const ResearchPage = () => {
       </motion.h1>
 
       <div className="grid md:grid-cols-2 gap-8 mb-16">
-        {research.map((area, idx) => (
+        {researchAreas.map((area, idx) => (
           <motion.div
             key={idx}
             initial={{ opacity: 0, y: 20 }}

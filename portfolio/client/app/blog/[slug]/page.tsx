@@ -1,13 +1,14 @@
 'use client';
+/* eslint-disable react-hooks/static-components */
 
-import { allPosts } from 'contentlayer/generated';
+import { allPosts } from '@/.contentlayer/generated';
 import { notFound } from 'next/navigation';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { format, parseISO } from 'date-fns';
 import { ChevronLeft, Calendar, Tag, Clock } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import React from 'react';
+import React, { use } from 'react';
 
 interface MDXComponentProps {
   children?: React.ReactNode;
@@ -22,14 +23,18 @@ const mdxComponents = {
   pre: ({ children, ...props }: MDXComponentProps) => <pre className="p-0 mb-8 rounded-xl overflow-hidden" {...props}>{children}</pre>,
 };
 
-const PostPage = ({ params }: { params: { slug: string } }) => {
-  const post = allPosts.find((p) => p.slug === params.slug);
+const MDXContent = ({ code }: { code: string }) => {
+  const Component = useMDXComponent(code);
+  return <Component components={mdxComponents} />;
+};
+
+export default function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
+  const post = allPosts.find((p) => p.slug === slug);
 
   if (!post) notFound();
 
   // Call the hook at the top level of the component
-  const MDXContent = useMDXComponent(post.body.code);
-
   return (
     <article className="min-h-screen pt-32 pb-24 px-4 max-w-4xl mx-auto">
       <Link 
@@ -62,7 +67,7 @@ const PostPage = ({ params }: { params: { slug: string } }) => {
         </h1>
         
         <p className="text-xl text-slate-500 font-medium italic border-l-4 border-blue-100 pl-6 py-2">
-          {post.description}
+          &quot;{post.description}&quot;
         </p>
       </header>
 
@@ -79,7 +84,7 @@ const PostPage = ({ params }: { params: { slug: string } }) => {
       )}
 
       <div className="prose prose-slate prose-lg max-w-none">
-        {React.createElement(MDXContent, { components: mdxComponents })}
+        <MDXContent code={post.body.code} />
       </div>
 
       <footer className="mt-20 pt-12 border-t border-gray-100">
@@ -99,6 +104,4 @@ const PostPage = ({ params }: { params: { slug: string } }) => {
       </footer>
     </article>
   );
-};
-
-export default PostPage;
+}

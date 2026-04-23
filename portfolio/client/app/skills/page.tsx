@@ -2,45 +2,9 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { skills } from '@/data/skills';
 
 const SkillsPage = () => {
-  const skillCategories = [
-    {
-      title: 'Machine Learning & AI',
-      skills: [
-        { name: 'Supervised Learning', level: 85 },
-        { name: 'Deep Learning', level: 75 },
-        { name: 'Computer Vision', level: 80 },
-        { name: 'Satellite Data Analysis', level: 75 },
-        { name: 'Statistical Modeling', level: 85 },
-        { name: 'NLP', level: 65 },
-      ],
-      color: 'blue'
-    },
-    {
-      title: 'Programming & Tools',
-      skills: [
-        { name: 'Python', level: 90 },
-        { name: 'NumPy, Pandas', level: 85 },
-        { name: 'TensorFlow, PyTorch', level: 75 },
-        { name: 'Scikit-learn', level: 85 },
-        { name: 'Jupyter, Colab', level: 90 },
-        { name: 'SQL', level: 80 },
-      ],
-      color: 'green'
-    },
-    {
-      title: 'Business & Strategy',
-      skills: [
-        { name: 'Startup Ideation', level: 85 },
-        { name: 'Market Analysis', level: 75 },
-        { name: 'Product Strategy', level: 70 },
-        { name: 'Business Modeling', level: 80 },
-      ],
-      color: 'orange'
-    }
-  ];
-
   return (
     <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16">
       <motion.h1
@@ -51,31 +15,36 @@ const SkillsPage = () => {
         Technical & Business Skills
       </motion.h1>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-        {skillCategories.map((category, idx) => (
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {skills.map((category, idx) => (
           <motion.div
             key={idx}
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: idx * 0.1 }}
-            className="bg-white rounded-lg shadow-md p-6 border-t-4"
-            style={{ borderColor: category.color === 'blue' ? '#1E40AF' : category.color === 'green' ? '#10B981' : '#F97316' }}
+            className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all"
           >
-            <h2 className="text-xl font-bold mb-6 text-gray-800">{category.title}</h2>
-            <div className="space-y-6">
-              {category.skills.map((skill, skillIdx) => (
-                <div key={skillIdx}>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-700">{skill.name}</span>
-                    <span className="text-sm text-gray-500">{skill.level}%</span>
+            <h2 className="text-xl font-black mb-8 text-gray-900 border-b pb-4 flex items-center justify-between">
+              {category.category}
+              <span className="text-blue-600 text-xs font-bold uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">
+                {category.items.length} Skills
+              </span>
+            </h2>
+            
+            <div className="space-y-7">
+              {category.items.map((skill, skillIdx) => (
+                <div key={skillIdx} className="group">
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm font-bold text-gray-700 group-hover:text-blue-600 transition-colors">{skill.name}</span>
+                    <span className="text-[10px] font-black text-gray-400 group-hover:text-blue-400 transition-colors">{skill.level}%</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                  <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
                     <motion.div
-                      className="h-2.5 rounded-full"
+                      className="h-full rounded-full bg-gradient-to-r from-blue-600 to-indigo-400"
                       initial={{ width: 0 }}
                       whileInView={{ width: `${skill.level}%` }}
-                      transition={{ duration: 1, delay: 0.2 }}
-                      style={{ backgroundColor: category.color === 'blue' ? '#1E40AF' : category.color === 'green' ? '#10B981' : '#F97316' }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.5, ease: "easeOut" }}
                     ></motion.div>
                   </div>
                 </div>
@@ -83,6 +52,10 @@ const SkillsPage = () => {
             </div>
           </motion.div>
         ))}
+      </div>
+
+      <div className="mt-16 text-center text-gray-400 text-sm font-medium tracking-widest uppercase italic">
+        * Continuously evolving in the latent space of AI & Data Science
       </div>
     </div>
   );

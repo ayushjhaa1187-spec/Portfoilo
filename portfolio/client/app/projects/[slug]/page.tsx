@@ -1,136 +1,142 @@
-import React from 'react';
+'use client';
+
+import { allCaseStudies } from 'contentlayer/generated';
 import { notFound } from 'next/navigation';
+import { useMDXComponent } from 'next-contentlayer/hooks';
+import { format, parseISO } from 'date-fns';
+import { ChevronLeft, Github, ExternalLink, Code, Database, Layout } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
+import { projects } from '@/data/projects';
+import React from 'react';
 
-// Mock data
-const projectsData = [
-  {
-    slug: 'satellite-data-analysis',
-    title: 'Satellite Data Analysis System',
-    category: 'ML/AI',
-    shortDescription: 'ML models to classify satellite imagery for environmental monitoring.',
-    fullDescription: 'Developed a comprehensive system using computer vision to analyze satellite imagery. The system detects environmental changes, deforestation patterns, and urban expansion with high accuracy.',
-    techStack: ['Python', 'TensorFlow', 'OpenCV', 'Satellite APIs', 'PostgreSQL'],
-    metrics: { accuracy: '92%', impact: 'Automated monitoring' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: true
-  },
-  {
-    slug: 'predictive-analytics-dashboard',
-    title: 'Predictive Analytics Dashboard',
-    category: 'ML/AI',
-    shortDescription: 'End-to-end ML pipeline with business insights and interactive visualizations.',
-    fullDescription: 'Built a predictive analytics platform that processes historical data to forecast trends. integrated with a user-friendly dashboard for stakeholders.',
-    techStack: ['Python', 'Scikit-learn', 'Streamlit', 'PostgreSQL'],
-    metrics: { accuracy: '89%', impact: 'Improved decision making' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: true
-  },
-  {
-    slug: 'startup-idea-validator',
-    title: 'Startup Idea Validator',
-    category: 'Business',
-    shortDescription: 'Validated startup ideas using data-driven market research.',
-    fullDescription: 'A tool and methodology developed during IREU internship to validate business hypotheses using real-world data and market signals.',
-    techStack: ['Python', 'Pandas', 'Market Research', 'Business Modeling'],
-    metrics: { accuracy: 'N/A', impact: 'Validated 3 ideas' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: true
-  },
-  {
-    slug: 'market-analysis-tool',
-    title: 'Market Analysis Tool',
-    category: 'Business',
-    shortDescription: 'Data-driven business intelligence solution combining ML with strategy.',
-    fullDescription: 'Automated tool for scraping and analyzing market data to identify gaps and opportunities.',
-    techStack: ['Python', 'BeautifulSoup', 'NLP', 'Tableau'],
-    metrics: { accuracy: 'N/A', impact: 'Strategic insights' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: false
-  },
-  {
-    slug: 'healthcare-prediction',
-    title: 'Healthcare Prediction Model',
-    category: 'ML/AI',
-    shortDescription: 'Disease prediction using patient data and ML classification.',
-    fullDescription: 'Machine learning model to predict disease likelihood based on patient history and symptoms.',
-    techStack: ['Python', 'Scikit-learn', 'Pandas'],
-    metrics: { accuracy: '94%', impact: 'Early detection' },
-    githubUrl: 'https://github.com/ayushjhaa1187-spec',
-    featured: false
-  }
-];
-
-export async function generateStaticParams() {
-  return projectsData.map((project) => ({
-    slug: project.slug,
-  }));
+interface MDXComponentProps {
+  children?: React.ReactNode;
+  [key: string]: unknown;
 }
 
-export default async function ProjectDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const project = projectsData.find((p) => p.slug === slug);
+const mdxComponents = {
+  h1: ({ children, ...props }: MDXComponentProps) => <h1 className="text-4xl font-black mt-8 mb-4 text-blue-900" {...props}>{children}</h1>,
+  h2: ({ children, ...props }: MDXComponentProps) => <h2 className="text-2xl font-bold mt-8 mb-4 text-slate-800 border-b pb-2" {...props}>{children}</h2>,
+  p: ({ children, ...props }: MDXComponentProps) => <p className="text-lg leading-relaxed text-slate-700 mb-6" {...props}>{children}</p>,
+  pre: ({ children, ...props }: MDXComponentProps) => <pre className="p-0 mb-8 rounded-xl overflow-hidden shadow-lg" {...props}>{children}</pre>,
+};
 
-  if (!project) {
-    notFound();
+const CaseStudyPage = ({ params }: { params: { slug: string } }) => {
+  const caseStudy = allCaseStudies.find((cs) => cs.slug === params.slug);
+  const projectData = projects.find((p) => p.slug === params.slug || p.slug === caseStudy?.projectSlug);
+
+  // Call the hook at the top level of the component
+  const MDXContent = useMDXComponent(caseStudy?.body.code || '');
+
+  if (!caseStudy) {
+    if (!projectData) notFound();
+    
+    return (
+      <div className="min-h-screen pt-32 pb-24 px-4 max-w-4xl mx-auto text-center">
+         <h1 className="text-4xl font-black mb-4">{projectData.title}</h1>
+         <p className="text-gray-500 mb-8">Case study content is currently being migrated to MDX.</p>
+         <Link href="/projects" className="text-blue-600 font-bold">Back to Projects</Link>
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen pt-24 px-4 max-w-4xl mx-auto pb-16">
-      <Link href="/projects" className="text-blue-600 hover:text-blue-800 mb-8 inline-block">
-        ← Back to Projects
-      </Link>
+    <div className="min-h-screen pt-32 pb-24">
+      <div className="max-w-5xl mx-auto px-4">
+        <Link 
+          href="/projects" 
+          className="inline-flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-blue-600 mb-12 transition-colors uppercase tracking-widest"
+        >
+          <ChevronLeft size={16} /> Back to Ecosystem
+        </Link>
 
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
-        <div className="p-8">
-          <div className="flex justify-between items-start mb-6">
-            <h1 className="text-3xl font-bold text-gray-900">{project.title}</h1>
-            <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-              {project.category}
+        <header className="mb-16">
+          <div className="flex flex-wrap items-center gap-4 mb-8">
+            <span className="bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
+              Project Case Study
+            </span>
+            <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">
+              {format(parseISO(caseStudy.date), 'MMMM yyyy')}
             </span>
           </div>
 
-          <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-            {project.fullDescription}
-          </p>
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] tracking-tighter mb-8">
+            {caseStudy.title}
+          </h1>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
-            <div>
-              <h2 className="text-lg font-bold mb-4 text-gray-900">Tech Stack</h2>
-              <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech) => (
-                  <span key={tech} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-md text-sm">
-                    {tech}
-                  </span>
-                ))}
-              </div>
+          <div className="flex flex-wrap gap-4 mb-12">
+            {projectData?.githubUrl && (
+              <a href={projectData.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-blue-600 transition-colors">
+                <Github size={20} /> View Source Code
+              </a>
+            )}
+            {projectData?.liveUrl && (
+              <a href={projectData.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 bg-blue-50 text-blue-600 rounded-xl font-bold hover:bg-blue-100 transition-colors border border-blue-100">
+                <ExternalLink size={20} /> Live Production ↗
+              </a>
+            )}
+          </div>
+        </header>
+
+        <div className="grid lg:grid-cols-3 gap-12">
+          <div className="lg:col-span-2">
+            <div className="prose prose-slate prose-lg max-w-none">
+              {React.createElement(MDXContent, { components: mdxComponents })}
             </div>
+          </div>
 
-            <div>
-              <h2 className="text-lg font-bold mb-4 text-gray-900">Key Metrics</h2>
-              <div className="space-y-2">
-                {project.metrics.accuracy !== 'N/A' && (
-                  <div className="flex justify-between border-b pb-2">
-                    <span className="text-gray-600">Accuracy</span>
-                    <span className="font-bold text-green-600">{project.metrics.accuracy}</span>
+          <aside className="space-y-8">
+            <div className="p-8 bg-slate-50 rounded-3xl border border-gray-100 sticky top-32">
+              <h3 className="text-lg font-black text-slate-900 mb-6 uppercase tracking-widest border-b pb-4">Architectural Stack</h3>
+              
+              <div className="space-y-6">
+                <div className="flex gap-4">
+                  <div className="p-2 bg-white rounded-lg shadow-sm h-fit">
+                    <Code className="text-blue-600" size={20} />
                   </div>
-                )}
-                <div className="flex justify-between border-b pb-2">
-                  <span className="text-gray-600">Business Impact</span>
-                  <span className="font-bold text-blue-600 text-right">{project.metrics.impact}</span>
+                  <div>
+                    <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Frontend</h4>
+                    <p className="text-slate-700 font-bold">React / Next.js / Tailwind</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="p-2 bg-white rounded-lg shadow-sm h-fit">
+                    <Database className="text-blue-600" size={20} />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Backend & AI</h4>
+                    <p className="text-slate-700 font-bold">Python / PyTorch / Gemini</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="p-2 bg-white rounded-lg shadow-sm h-fit">
+                    <Layout className="text-blue-600" size={20} />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Deployment</h4>
+                    <p className="text-slate-700 font-bold">Vercel / Supabase / GCP</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-10">
+                <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-4">Core Technologies</h3>
+                <div className="flex flex-wrap gap-2">
+                  {caseStudy.techStack.map(tech => (
+                    <span key={tech} className="px-3 py-1 bg-white border border-gray-100 rounded-lg text-xs font-bold text-gray-600 shadow-sm">
+                      {tech}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="flex gap-4 mt-8">
-            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-              <Button>View Code on GitHub</Button>
-            </a>
-          </div>
+          </aside>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default CaseStudyPage;

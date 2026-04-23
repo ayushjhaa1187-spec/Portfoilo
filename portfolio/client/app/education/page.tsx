@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/Card';
+import { education } from '@/data/education';
 
 const EducationPage = () => {
   return (
@@ -15,76 +16,78 @@ const EducationPage = () => {
         Education & Learning
       </motion.h1>
 
-      <div className="grid md:grid-cols-2 gap-12">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1 }}
-        >
-          <Card className="p-8 h-full border-l-4 border-blue-600 shadow-lg">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Indian Institute of Technology Madras</h2>
-            <p className="text-xl font-medium text-blue-700 mb-4">BS in Data Science & Applications</p>
-            <p className="text-gray-500 mb-6">2025 - 2029</p>
-
-            <h3 className="font-semibold text-lg mb-3 text-gray-800">Focus Areas:</h3>
-            <ul className="list-disc list-inside space-y-2 text-gray-600 mb-6">
-              <li>Machine Learning & AI</li>
-              <li>Satellite Data Analysis</li>
-              <li>Statistical Modeling</li>
-              <li>Business Applications of DS</li>
-            </ul>
-
-            <h3 className="font-semibold text-lg mb-3 text-gray-800">Key Coursework:</h3>
-            <div className="flex flex-wrap gap-2">
-              {['ML Foundations', 'Deep Learning', 'Neural Networks', 'Statistical Methods', 'Data Structures', 'Business Analytics'].map((course) => (
-                <span key={course} className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
-                  {course}
-                </span>
-              ))}
-            </div>
-          </Card>
-        </motion.div>
-
-        <div className="space-y-8">
+      <div className="grid lg:grid-cols-2 gap-8">
+        {education.map((edu, idx) => (
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
+            key={idx}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: idx * 0.1 }}
           >
-            <Card className="p-8 border-l-4 border-orange-500 shadow-md">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">IREU School for Startups</h2>
-              <p className="text-xl font-medium text-orange-600 mb-4">Entrepreneurship Intern</p>
-              <p className="text-gray-500 mb-6">Startup Ideation Track</p>
+            <Card className="p-8 h-full border-t-4 border-blue-600 shadow-xl bg-white relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                <span className="text-6xl font-black">{edu.duration.split('-')[1] || edu.duration}</span>
+              </div>
+              
+              <div className="relative z-10">
+                <h2 className="text-2xl font-bold text-gray-900 mb-1">{edu.institution}</h2>
+                <p className="text-xl font-medium text-blue-700 mb-4">{edu.degree}</p>
+                
+                <div className="flex items-center gap-4 mb-6">
+                  <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                    {edu.duration}
+                  </span>
+                  <span className="text-gray-400 text-xs font-medium uppercase tracking-tighter">
+                    {edu.location}
+                  </span>
+                </div>
 
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-start">
-                  <span className="mr-2 text-orange-500">✓</span> Validated 3+ startup ideas with data-driven research
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-2 text-orange-500">✓</span> Developed detailed business models and pitch decks
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-2 text-orange-500">✓</span> Gained hands-on experience in market analysis
-                </li>
-              </ul>
+                <div className="space-y-6">
+                  {edu.focusAreas && (
+                    <div>
+                      <h3 className="font-bold text-sm uppercase tracking-widest text-gray-400 mb-3">Focus Areas</h3>
+                      <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        {edu.focusAreas.map((area, i) => (
+                          <li key={i} className="flex items-center gap-2 text-gray-600 text-sm">
+                            <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                            {area}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {edu.coursework && (
+                    <div>
+                      <h3 className="font-bold text-sm uppercase tracking-widest text-gray-400 mb-3">Key Coursework</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {edu.coursework.map((course, i) => (
+                          <span key={i} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-lg text-xs font-medium border border-gray-200">
+                            {course}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {edu.achievements && (
+                    <div>
+                      <h3 className="font-bold text-sm uppercase tracking-widest text-gray-400 mb-3">Highlights</h3>
+                      <ul className="space-y-2">
+                        {edu.achievements.map((ach, i) => (
+                          <li key={i} className="flex items-start gap-2 text-gray-600 text-sm">
+                            <span className="mt-1.5 text-blue-600 text-[8px]">●</span>
+                            {ach}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
             </Card>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <Card className="p-8 border-l-4 border-green-500 shadow-sm bg-gray-50">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Additional Learning</h2>
-              <ul className="space-y-2 text-gray-600">
-                <li>• Self-taught Python & Data Science stack</li>
-                <li>• Online certifications in Deep Learning</li>
-                <li>• Research papers on Remote Sensing applications</li>
-              </ul>
-            </Card>
-          </motion.div>
-        </div>
+        ))}
       </div>
     </div>
   );

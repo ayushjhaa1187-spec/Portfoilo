@@ -2,15 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from './ui/Button';
 import Link from 'next/link';
 import { Sparkles, ArrowRight, Github, Linkedin, Terminal } from 'lucide-react';
+import { stats as statsConfig } from '@/data/stats';
+import { contact } from '@/data/contact';
 
-const RollingNumber = ({ value, suffix = "" }: { value: string, suffix?: string }) => {
+const RollingNumber = ({ value, suffix = "" }: { value: number | string, suffix?: string }) => {
     const [displayValue, setDisplayValue] = useState(0);
-    const targetValue = parseInt(value.replace(/,/g, ''));
+    const targetValue = typeof value === 'string' ? parseInt(value.replace(/,/g, '')) : value;
 
     useEffect(() => {
+        if (isNaN(targetValue)) return;
         let start = 0;
         const duration = 2000;
         const increment = targetValue / (duration / 16);
@@ -26,11 +28,23 @@ const RollingNumber = ({ value, suffix = "" }: { value: string, suffix?: string 
         return () => clearInterval(timer);
     }, [targetValue]);
 
+    if (isNaN(targetValue)) return <span>{value}{suffix}</span>;
     return <span>{displayValue.toLocaleString()}{suffix}</span>;
 };
 
 const Hero = () => {
   const name = "AYUSH KUMAR JHA";
+  const [stats, setStats] = useState(statsConfig.fallbackStats);
+
+  useEffect(() => {
+    fetch('/api/stats/github')
+      .then(res => res.json())
+      .then(data => setStats(data))
+      .catch(err => {
+        console.error('Failed to fetch github stats:', err);
+        setStats(statsConfig.fallbackStats);
+      });
+  }, []);
   
   return (
     <section className="min-h-screen relative flex items-center justify-center bg-[#0a0a0a] overflow-hidden pt-20">
@@ -53,7 +67,7 @@ const Hero = () => {
         </motion.div>
 
         {/* Typed Name Effect */}
-        <div className="flex flex-wrap justify-center mb-6">
+        <div className="flex flex-wrap justify-center mb-6 text-center">
            {name.split("").map((char, i) => (
              <motion.span
                key={i}
@@ -89,10 +103,10 @@ const Hero = () => {
             </button>
           </Link>
           <div className="flex gap-2">
-             <a href="https://github.com/ayushjhaa1187-spec" target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
+             <a href={contact.socials.github} target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
                 <Github size={20} />
              </a>
-             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
+             <a href={contact.socials.linkedin} target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
                 <Linkedin size={20} />
              </a>
              <Link href="/contact" className="p-4 bg-white/5 border border-white/10 rounded-lg hover:text-amber-400 transition-colors">
@@ -109,22 +123,22 @@ const Hero = () => {
           className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-20 w-full max-w-4xl"
         >
           {[
-            { label: 'Repo Audit Complete', value: '39', suffix: "/46", icon: <Terminal size={14} /> },
-            { label: 'Production Ships', value: '12', icon: <Github size={14} /> },
-            { label: 'Market Metrics', value: '94%', icon: <Sparkles size={14} /> },
-            { label: 'IIT Madras', value: 'BS DS', icon: <ArrowRight size={14} /> }
+            { label: 'GitHub Repositories', value: stats.repos, suffix: `/${statsConfig.fallbackStats.repos}`, icon: <Terminal size={14} /> },
+            { label: 'GitHub Stars', value: stats.stars, icon: <Sparkles size={14} /> },
+            { label: 'Network Followers', value: stats.followers, icon: <Github size={14} /> },
+            { label: 'IIT Madras Focus', value: 'BS DS', icon: <ArrowRight size={14} /> }
           ].map((stat, i) => (
             <div key={i} className="bg-white/5 border border-white/10 p-6 flex flex-col items-center group hover:bg-amber-400/5 transition-colors">
               <div className="text-amber-400 mb-2 group-hover:scale-110 transition-transform">{stat.icon}</div>
               <div className="text-3xl font-black text-white">
-                 {typeof parseInt(stat.value) === 'number' && !isNaN(parseInt(stat.value)) ? (
+                 {typeof stat.value === 'number' ? (
                    <div className="flex items-baseline gap-1">
                      <RollingNumber value={stat.value} />
                      {stat.suffix && <span className="text-xs text-slate-500 font-mono">{stat.suffix}</span>}
                    </div>
                  ) : stat.value}
               </div>
-              <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500 mt-1">{stat.label}</div>
+              <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500 mt-1 text-center">{stat.label}</div>
             </div>
           ))}
         </motion.div>

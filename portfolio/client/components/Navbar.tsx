@@ -27,11 +27,15 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
+    { name: 'About', path: '/about' },
     { name: 'Projects', path: '/projects' },
     { name: 'Experience', path: '/experience' },
-    { name: 'Achievements', path: '/achievements' },
+    { name: 'Skills', path: '/skills' },
     { name: 'Education', path: '/education' },
-    { name: 'HACK ME', path: '/contact' }
+    { name: 'Research', path: '/research' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Resume', path: '/resume' },
+    { name: 'Contact', path: '/contact' }
   ];
 
   return (

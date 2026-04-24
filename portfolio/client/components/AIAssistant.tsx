@@ -46,7 +46,7 @@ const AIAssistant = () => {
                 <Sparkles size={18} />
                 <span className="font-black uppercase tracking-tighter text-sm">Ayush&apos;s Core_Intelligence</span>
               </div>
-              <button onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors">
+              <button onClick={toggleChat} aria-label="Close AI Assistant" className="hover:bg-black/10 p-1 rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-black">
                 <X size={18} />
               </button>
             </div>
@@ -73,6 +73,7 @@ const AIAssistant = () => {
             <div className="p-4 border-t border-slate-100 dark:border-white/5 flex gap-2 bg-white dark:bg-slate-950">
               <input 
                 type="text" 
+                aria-label="Ask a question"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
@@ -81,7 +82,9 @@ const AIAssistant = () => {
               />
               <button 
                 onClick={handleSend}
-                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20"
+                disabled={!input.trim()}
+                aria-label="Send message"
+                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-amber-400"
               >
                 <Send size={18} />
               </button>
@@ -94,7 +97,9 @@ const AIAssistant = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}
-        className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center shadow-2xl hover:shadow-amber-400/40 transition-all border-4 border-black group"
+        aria-label="Toggle AI Assistant"
+        aria-expanded={isOpen}
+        className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center shadow-2xl hover:shadow-amber-400/40 transition-all border-4 border-black group focus-visible:ring-4 focus-visible:ring-amber-400"
       >
         <MessageSquare size={26} />
         <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 border-4 border-black rounded-full animate-pulse" />

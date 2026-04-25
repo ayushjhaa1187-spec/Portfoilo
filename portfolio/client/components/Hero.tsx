@@ -15,17 +15,31 @@ const RollingNumber = ({ value, suffix = "" }: { value: number | string, suffix?
         if (isNaN(targetValue)) return;
         let start = 0;
         const duration = 2000;
-        const increment = targetValue / (duration / 16);
-        const timer = setInterval(() => {
+        let lastTime = performance.now();
+        let animationFrameId: number;
+
+        // ⚡ Bolt: Replaced setInterval with requestAnimationFrame for smoother, unblocked animations.
+        // requestAnimationFrame naturally synchronizes with the display refresh rate (typically ~60fps/16ms),
+        // preventing main thread blocking, jank, and unnecessary battery drain when the tab is inactive.
+        const updateNumber = (currentTime: number) => {
+            const deltaTime = currentTime - lastTime;
+            lastTime = currentTime;
+
+            // Calculate increment based on actual time passed (approx 16ms, but varies)
+            const increment = targetValue / (duration / deltaTime);
             start += increment;
+
             if (start >= targetValue) {
                 setDisplayValue(targetValue);
-                clearInterval(timer);
             } else {
                 setDisplayValue(Math.floor(start));
+                animationFrameId = requestAnimationFrame(updateNumber);
             }
-        }, 16);
-        return () => clearInterval(timer);
+        };
+
+        animationFrameId = requestAnimationFrame(updateNumber);
+
+        return () => cancelAnimationFrame(animationFrameId);
     }, [targetValue]);
 
     if (isNaN(targetValue)) return <span>{value}{suffix}</span>;

@@ -1,0 +1,3 @@
+## 2024-11-20 - Navbar Scroll Performance Bottleneck
+**Learning:** Found a performance bottleneck in the React application where tracking `window.scrollY` and manually computing scroll progress triggers excessive re-renders on every scroll event using `useState` (`setScrolled` and `setScrollProgress`).
+**Action:** Replace `useState` scroll event listeners with Framer Motion's `useScroll` and `useSpring` hooks, which handle scroll progress animations natively via CSS/transforms without triggering React component re-renders.

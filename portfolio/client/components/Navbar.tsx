@@ -1,30 +1,29 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring, useMotionValueEvent } from 'framer-motion';
 import { Menu, X, ChevronRight } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      setScrolled(isScrolled);
-      
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      setScrollProgress((winScroll / height) * 100);
-    };
+  // ⚡ Bolt: Optimize scroll tracking using Framer Motion
+  // Replaces React state (which causes re-renders on every scroll tick)
+  // with highly optimized useScroll and useSpring that run outside React's render loop
+  const { scrollYProgress, scrollY } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setScrolled(latest > 20);
+  });
 
   const navLinks = [
     { name: 'About', path: '/about' },
@@ -43,7 +42,10 @@ const Navbar = () => {
       <nav className={`fixed top-0 w-full z-[100] transition-all duration-300 ${
         scrolled ? 'glass-panel py-3 shadow-2xl' : 'bg-transparent py-6'
       }`}>
-        <div className="absolute top-0 left-0 h-0.5 bg-amber-400" style={{ width: `${scrollProgress}%` }} />
+        <motion.div
+          className="absolute top-0 left-0 h-0.5 bg-amber-400 origin-left w-full"
+          style={{ scaleX }}
+        />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <Link href="/" className="group flex items-center gap-2">

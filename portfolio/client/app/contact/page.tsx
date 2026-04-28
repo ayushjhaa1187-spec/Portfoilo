@@ -132,8 +132,11 @@ const ContactPage = () => {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gray-500 uppercase ml-1">Name</label>
+                <label htmlFor="name" className="text-xs font-bold text-gray-500 uppercase ml-1">
+                  Name<span className="text-red-500" aria-hidden="true"> *</span><span className="sr-only"> (required)</span>
+                </label>
                 <input
+                  id="name"
                   type="text"
                   name="name"
                   required
@@ -144,8 +147,11 @@ const ContactPage = () => {
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gray-500 uppercase ml-1">Email</label>
+                <label htmlFor="email" className="text-xs font-bold text-gray-500 uppercase ml-1">
+                  Email<span className="text-red-500" aria-hidden="true"> *</span><span className="sr-only"> (required)</span>
+                </label>
                 <input
+                  id="email"
                   type="email"
                   name="email"
                   required
@@ -158,8 +164,11 @@ const ContactPage = () => {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-gray-500 uppercase ml-1">Subject</label>
+              <label htmlFor="subject" className="text-xs font-bold text-gray-500 uppercase ml-1">
+                Subject<span className="text-red-500" aria-hidden="true"> *</span><span className="sr-only"> (required)</span>
+              </label>
               <input
+                id="subject"
                 type="text"
                 name="subject"
                 required
@@ -171,8 +180,11 @@ const ContactPage = () => {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-gray-500 uppercase ml-1">Message</label>
+              <label htmlFor="message" className="text-xs font-bold text-gray-500 uppercase ml-1">
+                Message<span className="text-red-500" aria-hidden="true"> *</span><span className="sr-only"> (required)</span>
+              </label>
               <textarea
+                id="message"
                 name="message"
                 rows={5}
                 required

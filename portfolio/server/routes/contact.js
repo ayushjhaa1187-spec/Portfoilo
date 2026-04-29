@@ -7,7 +7,16 @@ const Contact = require('../models/Contact');
 // @access  Public
 router.post('/', async (req, res) => {
   try {
-    const newContact = new Contact(req.body);
+    // 🛡️ Sentinel: Prevent Mass Assignment Vulnerability
+    // Explicitly destructure only allowed fields to prevent malicious users
+    // from injecting restricted fields (e.g., 'status', 'admin', 'role') into the database model.
+    const { name, email, subject, message } = req.body;
+    const newContact = new Contact({
+      name,
+      email,
+      subject,
+      message
+    });
     const contact = await newContact.save();
     res.json({ msg: 'Message sent successfully', contact });
   } catch (err) {

@@ -2,3 +2,7 @@
 **Vulnerability:** The POST `/api/projects` endpoint lacked authentication and directly passed `req.body` to the Mongoose `Project` model. Also, string comparison for API keys needs to be timing-safe.
 **Learning:** Endpoints meant to be private need explicit authentication middleware. Directly using `req.body` without destructuring exposes the application to mass assignment vulnerabilities where users can modify fields they shouldn't. Regular string equality checks for secrets can lead to timing attacks.
 **Prevention:** Use an authentication middleware for all protected routes, employ `crypto.timingSafeEqual` with normalized buffer lengths for comparing secrets, and always explicitly destructure inputs before passing them to the database model.
+## 2024-04-29 - [Mass Assignment Vulnerability in Mongoose Models]
+**Vulnerability:** The POST `/api/contact` endpoint directly passed `req.body` to the Mongoose `Contact` model constructor (`new Contact(req.body)`). This allowed malicious users to inject restricted fields (e.g., `status`) into the database.
+**Learning:** Even though Mongoose schemas define allowed fields, they do not inherently prevent mass assignment of those fields if they are included in the request body. Explicitly destructuring and picking allowed fields is necessary to prevent users from modifying fields they shouldn't have access to.
+**Prevention:** Always explicitly destructure and pick allowed fields from the request body before passing them to the database model to prevent mass assignment vulnerabilities.

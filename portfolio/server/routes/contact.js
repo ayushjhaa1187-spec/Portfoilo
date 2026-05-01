@@ -7,7 +7,10 @@ const Contact = require('../models/Contact');
 // @access  Public
 router.post('/', async (req, res) => {
   try {
-    const newContact = new Contact(req.body);
+    // Explicitly destructure fields to prevent mass assignment vulnerability
+    // (e.g., users maliciously setting the 'status' field to 'read' or 'replied')
+    const { name, email, subject, message } = req.body;
+    const newContact = new Contact({ name, email, subject, message });
     const contact = await newContact.save();
     res.json({ msg: 'Message sent successfully', contact });
   } catch (err) {

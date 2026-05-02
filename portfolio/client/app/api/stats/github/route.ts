@@ -19,12 +19,14 @@ export async function GET() {
       Accept: 'application/vnd.github.v3+json',
     };
 
-    // Fetch user data for followers
-    const userRes = await fetch(`https://api.github.com/users/${username}`, { headers, next: { revalidate: 3600 } });
-    const userData = await userRes.json();
+    // Parallelize independent external API requests using Promise.all to fetch data concurrently.
+    // This reduces the overall latency by waiting for both requests simultaneously instead of sequentially.
+    const [userRes, reposRes] = await Promise.all([
+      fetch(`https://api.github.com/users/${username}`, { headers, next: { revalidate: 3600 } }),
+      fetch(`https://api.github.com/users/${username}/repos?per_page=100`, { headers, next: { revalidate: 3600 } })
+    ]);
 
-    // Fetch repos for stars and count
-    const reposRes = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`, { headers, next: { revalidate: 3600 } });
+    const userData = await userRes.json();
     const reposData = await reposRes.json();
 
     if (!userRes.ok || !reposRes.ok) {

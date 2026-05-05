@@ -7,7 +7,8 @@ const Achievement = require('../models/Achievement');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const achievements = await Achievement.find();
+    // ⚡ Bolt: Appended .lean() to Mongoose query to return plain JS objects, bypassing Mongoose document instantiation. Expected performance impact: Faster query execution and reduced memory footprint.
+    const achievements = await Achievement.find().lean();
     res.json(achievements);
   } catch (err) {
     console.error(err.message);

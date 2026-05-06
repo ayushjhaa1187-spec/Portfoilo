@@ -46,7 +46,7 @@ const AIAssistant = () => {
                 <Sparkles size={18} />
                 <span className="font-black uppercase tracking-tighter text-sm">Ayush&apos;s Core_Intelligence</span>
               </div>
-              <button onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors">
+              <button aria-label="Close AI Assistant chat" onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors">
                 <X size={18} />
               </button>
             </div>
@@ -80,6 +80,7 @@ const AIAssistant = () => {
                 className="flex-grow bg-slate-100 dark:bg-white/5 border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-amber-400 outline-none font-medium"
               />
               <button 
+                aria-label="Send message"
                 onClick={handleSend}
                 className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20"
               >
@@ -91,6 +92,7 @@ const AIAssistant = () => {
       </AnimatePresence>
 
       <motion.button
+        aria-label="Open AI Assistant chat"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}

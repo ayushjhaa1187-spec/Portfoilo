@@ -10,16 +10,18 @@ const AIAssistant = () => {
     { role: 'assistant', content: "Hi! I am Ayush's AI assistant. Ask me anything about his projects, skills, or experience!" }
   ]);
   const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleChat = () => setIsOpen(!isOpen);
 
   const handleSend = () => {
-    if (!input.trim()) return;
+    if (!input.trim() || isLoading) return;
     
     // Add user message
     const userMsg = { role: 'user', content: input };
     setMessages([...messages, userMsg]);
     setInput('');
+    setIsLoading(true);
 
     // Simulate AI response
     setTimeout(() => {
@@ -27,7 +29,8 @@ const AIAssistant = () => {
         role: 'assistant', 
         content: 'I am currently in "offline" mode as Ayush is upgrading my neural links. You can reach him directly at ayushjhaa1187@gmail.com for faster response!' 
       }]);
-    }, 1000);
+      setIsLoading(false);
+    }, 1500);
   };
 
   return (
@@ -46,7 +49,11 @@ const AIAssistant = () => {
                 <Sparkles size={18} />
                 <span className="font-black uppercase tracking-tighter text-sm">Ayush&apos;s Core_Intelligence</span>
               </div>
-              <button onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors">
+              <button
+                onClick={toggleChat}
+                className="hover:bg-black/10 p-1 rounded-full transition-colors"
+                aria-label="Close AI Assistant"
+              >
                 <X size={18} />
               </button>
             </div>
@@ -67,21 +74,37 @@ const AIAssistant = () => {
                   </div>
                 </div>
               ))}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="max-w-[85%] p-4 rounded-2xl text-[13px] leading-relaxed shadow-sm bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-100 dark:border-white/5 rounded-tl-none flex items-center gap-1.5">
+                    <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1.4, delay: 0 }} className="w-1.5 h-1.5 bg-slate-400 rounded-full" />
+                    <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1.4, delay: 0.2 }} className="w-1.5 h-1.5 bg-slate-400 rounded-full" />
+                    <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1.4, delay: 0.4 }} className="w-1.5 h-1.5 bg-slate-400 rounded-full" />
+                    <span className="sr-only">AI is typing...</span>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Input */}
             <div className="p-4 border-t border-slate-100 dark:border-white/5 flex gap-2 bg-white dark:bg-slate-950">
+              <label htmlFor="ai-chat-input" className="sr-only">Type a message</label>
               <input 
+                id="ai-chat-input"
                 type="text" 
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                 placeholder="Ask about my RAG engines or IIT life..."
-                className="flex-grow bg-slate-100 dark:bg-white/5 border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-amber-400 outline-none font-medium"
+                disabled={isLoading}
+                aria-disabled={isLoading}
+                className="flex-grow bg-slate-100 dark:bg-white/5 border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-amber-400 outline-none font-medium disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <button 
                 onClick={handleSend}
-                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20"
+                disabled={isLoading || !input.trim()}
+                aria-label="Send message"
+                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-amber-400 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-amber-400"
               >
                 <Send size={18} />
               </button>
@@ -94,7 +117,10 @@ const AIAssistant = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}
-        className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center shadow-2xl hover:shadow-amber-400/40 transition-all border-4 border-black group"
+        aria-label={isOpen ? "Close AI Assistant" : "Open AI Assistant"}
+        aria-expanded={isOpen}
+        aria-controls="ai-assistant-panel"
+        className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center shadow-2xl hover:shadow-amber-400/40 transition-all border-4 border-black group focus-visible:ring-4 focus-visible:ring-amber-400"
       >
         <MessageSquare size={26} />
         <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 border-4 border-black rounded-full animate-pulse" />

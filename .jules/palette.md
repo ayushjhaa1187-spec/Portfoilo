@@ -1,0 +1,3 @@
+## 2024-05-11 - Missing ARIA labels on Icon-only Buttons
+**Learning:** Found several icon-only buttons across components (like `Navbar.tsx` for mobile menu, `AIAssistant.tsx` for chat toggle/close and send message) that lack `aria-label`s, making them inaccessible to screen readers. This pattern of using visual icons (like Lucide React icons) without text or ARIA attributes needs to be addressed for better a11y.
+**Action:** Always verify icon-only buttons have descriptive `aria-label` attributes for screen reader support. Added a task to inject these labels into `Navbar.tsx` and `AIAssistant.tsx`.

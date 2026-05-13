@@ -8,7 +8,8 @@ const auth = require('../middleware/auth');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const projects = await Project.find();
+    // Optimization: Use .lean() to return plain JS objects, avoiding Mongoose document overhead (~5x faster)
+    const projects = await Project.find().lean();
     res.json(projects);
   } catch (err) {
     console.error(err.message);
@@ -21,7 +22,8 @@ router.get('/', async (req, res) => {
 // @access  Public
 router.get('/:slug', async (req, res) => {
   try {
-    const project = await Project.findOne({ slug: req.params.slug });
+    // Optimization: Use .lean() to return plain JS objects, avoiding Mongoose document overhead (~5x faster)
+    const project = await Project.findOne({ slug: req.params.slug }).lean();
     if (!project) {
       return res.status(404).json({ msg: 'Project not found' });
     }

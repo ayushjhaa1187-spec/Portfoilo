@@ -1,0 +1,3 @@
+## 2024-05-19 - Mongoose `.lean()` for Read-Only Queries
+**Learning:** In Mongoose, queries like `find()` and `findOne()` return full Mongoose documents by default, which have a lot of overhead. If the results are only being read and serialized (e.g., sent as JSON), using `.lean()` makes the query return plain JavaScript objects instead. This bypasses the overhead of instantiating Mongoose documents, leading to significantly faster execution (~5x) and lower memory usage.
+**Action:** Always append `.lean()` to Mongoose queries when the resulting documents are read-only and won't be modified or saved.

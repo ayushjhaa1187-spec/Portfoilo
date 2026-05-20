@@ -72,6 +72,7 @@ const Navbar = () => {
 
           {/* Mobile Toggle */}
           <button 
+            aria-label="Toggle mobile menu"
             className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
             onClick={() => setIsOpen(!isOpen)}
           >

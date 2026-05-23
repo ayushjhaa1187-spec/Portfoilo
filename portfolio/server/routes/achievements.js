@@ -7,7 +7,7 @@ const Achievement = require('../models/Achievement');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const achievements = await Achievement.find();
+    const achievements = await Achievement.find().lean(); // Optimization: use .lean() for ~5x faster read-only queries
     res.json(achievements);
   } catch (err) {
     console.error(err.message);

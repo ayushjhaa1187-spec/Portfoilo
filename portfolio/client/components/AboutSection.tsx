@@ -1,77 +1,145 @@
 'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
+import { GraduationCap, MapPin, Code2, Zap, Brain, Globe, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { profile } from '@/data/profile';
+
+const focusIcons = [Brain, Code2, Zap, Globe];
 
 export const AboutSection = () => {
-    return (
-        <section className="py-32 bg-[#0a0a0a] border-t border-white/5">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
-                    <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-8 leading-tight">
-                            ENGINEERING THE <span className="text-amber-400">INTERFACE</span> OF SCIENCE & BIZ
-                        </h2>
-                        <div className="space-y-6 text-slate-400 leading-relaxed text-lg font-light">
-                            <p>
-                                I am an <span className="text-white font-bold">IIT Madras Data Science scholar</span> specializing in building autonomous AI systems that don&apos;t just predict, but act. My work bridges the gap between raw data analysis and high-performance engineering.
-                            </p>
-                            <p>
-                                From designing <span className="text-amber-400 font-medium">satellite environmental monitoring</span> pipelines to scaling predictive analytics for startups, I focus on building tools that solve real bottlenecks in complex ecosystems.
-                            </p>
-                            <p>
-                                My engineering philosophy: <span className="italic text-slate-500 underline decoration-amber-400/30 font-serif">&quot;Systems should be self-repairing, agents should be autonomous, and insights should be actionable.&quot;</span>
-                            </p>
-                        </div>
-                        <div className="grid grid-cols-3 gap-8 mt-12 py-12 border-y border-white/5">
-                             <div>
-                                 <h4 className="text-3xl font-black text-white">5+</h4>
-                                 <p className="text-[9px] text-slate-500 font-bold tracking-[0.3em] uppercase mt-2">Research Leads</p>
-                             </div>
-                             <div>
-                                 <h4 className="text-3xl font-black text-white">46+</h4>
-                                 <p className="text-[9px] text-slate-500 font-bold tracking-[0.3em] uppercase mt-2">GitHub Repos</p>
-                             </div>
-                             <div>
-                                 <h4 className="text-3xl font-black text-white">3+</h4>
-                                 <p className="text-[9px] text-slate-500 font-bold tracking-[0.3em] uppercase mt-2">Venture Ideas</p>
-                             </div>
-                        </div>
-                    </motion.div>
-                    <motion.div
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="relative hidden lg:block"
-                    >
-                        <div className="aspect-square glass-card rounded-3xl p-12 flex items-center justify-center relative overflow-hidden group">
-                           {/* Background decorative elements */}
-                           <div className="absolute inset-0 bg-gradient-to-br from-amber-400/5 to-blue-500/5 opacity-50 transition-all group-hover:scale-110 duration-700" />
-                           <div className="text-xs font-mono text-amber-400/10 leading-relaxed tracking-tighter select-none break-words pointer-events-none">
-                              {`while(coding) {
-  eat();
-  sleep();
-  innovate();
-  repeat();
-}
-// 01010011 01000011 01001001 01000101 01001110 01000011 01000101`}
-                           </div>
-                           <div className="absolute z-10 p-10 glass-card border-amber-400/20 shadow-2xl shadow-amber-400/5 hover:-translate-y-4 transition-transform duration-500 bg-[#121212]">
-                               <p className="text-[10px] font-black tracking-widest text-emerald-400 mb-4 uppercase">SYSTEM_STABLE_v2.0.4</p>
-                               <h3 className="text-2xl font-bold text-white mb-6 italic tracking-tight leading-snug">&quot;Optimizing for maximum impact with minimum latency.&quot;</h3>
-                               <div className="flex gap-1">
-                                  {[1,2,3,4,5].map(i => <div key={i} className="h-1 w-8 bg-amber-400 rounded-full" />)}
-                               </div>
-                           </div>
-                        </div>
-                    </motion.div>
-                </div>
+  return (
+    <section
+      id="about"
+      aria-label="About Ayush Kumar Jha"
+      className="py-[var(--section-gap)] px-4 sm:px-6 lg:px-8 bg-[#0a0a0a] border-t border-white/5"
+    >
+      <div className="max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+          {/* Left: Text */}
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <p className="text-amber-400 text-xs font-bold tracking-[0.3em] uppercase mb-4">
+              About Me
+            </p>
+            <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-6 leading-tight">
+              Building AI that{' '}
+              <span className="bg-gradient-to-r from-amber-400 to-orange-300 bg-clip-text text-transparent">
+                actually works
+              </span>
+            </h2>
+
+            <div className="space-y-5 text-slate-400 leading-relaxed text-base mb-10">
+              <p>
+                I'm{' '}
+                <span className="text-white font-semibold">Ayush Kumar Jha</span>, an AI and
+                full-stack developer currently pursuing Data Science through{' '}
+                <span className="text-amber-400 font-semibold">IIT Madras</span>. I enjoy
+                building practical AI products, experimenting with LLM systems, and turning ideas
+                into working web applications.
+              </p>
+              <p>
+                My current focus areas include multi-agent systems, retrieval-augmented
+                generation (RAG), AI-assisted automation, and full-stack product development.
+                I've participated in hackathons, contributed to open-source projects, and built
+                real tools across AI, data analysis, and web development.
+              </p>
+              <p>
+                I believe good engineering means shipping something real — not just prototyping
+                in isolation.
+              </p>
             </div>
-        </section>
-    );
+
+            {/* Education highlight */}
+            <div className="p-5 glass-card border border-amber-400/20 rounded-2xl mb-8">
+              <div className="flex items-start gap-4">
+                <div className="w-11 h-11 rounded-xl bg-amber-400/10 flex items-center justify-center flex-shrink-0">
+                  <GraduationCap size={20} className="text-amber-400" />
+                </div>
+                <div>
+                  <p className="text-white font-bold text-sm">IIT Madras</p>
+                  <p className="text-slate-400 text-sm">BS in Data Science & Applications</p>
+                  <p className="text-slate-600 text-xs mt-1">Jan 2025 – May 2029 (Expected)</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Location + CTA */}
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="flex items-center gap-1.5 text-slate-500 text-sm">
+                <MapPin size={14} />
+                India
+              </div>
+              <Link href="/about">
+                <button className="group inline-flex items-center gap-2 text-amber-400 font-bold text-sm hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded">
+                  Full Story
+                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Right: Focus areas + stats */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="space-y-5"
+          >
+            {/* Current Focus areas */}
+            <div>
+              <p className="text-xs font-bold tracking-[0.2em] text-slate-600 uppercase mb-4">
+                Current Focus Areas
+              </p>
+              <div className="space-y-3">
+                {profile.focusAreas.map((area, i) => {
+                  const Icon = focusIcons[i % focusIcons.length];
+                  return (
+                    <motion.div
+                      key={area}
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.08 }}
+                      className="flex items-center gap-4 p-4 glass-card rounded-xl hover:border-amber-400/20 transition-all group"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-amber-400/10 flex items-center justify-center flex-shrink-0 group-hover:bg-amber-400/20 transition-colors">
+                        <Icon size={16} className="text-amber-400" />
+                      </div>
+                      <span className="text-white font-medium text-sm">{area}</span>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Verified stats */}
+            <div className="grid grid-cols-3 gap-3 pt-4">
+              {[
+                { value: `${profile.stats.publicRepos}+`, label: 'GitHub Repos' },
+                { value: `${profile.stats.liveProjects}+`, label: 'Projects Built' },
+                { value: `${profile.stats.hackathons}+`, label: 'Hackathons' },
+              ].map((stat) => (
+                <div
+                  key={stat.label}
+                  className="text-center p-4 glass-card rounded-xl"
+                >
+                  <div className="text-2xl font-black text-amber-400">{stat.value}</div>
+                  <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wide mt-1">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
 };

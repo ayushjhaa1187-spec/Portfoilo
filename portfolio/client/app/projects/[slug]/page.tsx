@@ -1,138 +1,222 @@
 'use client';
-/* eslint-disable react-hooks/static-components */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { allCaseStudies } from '@/.contentlayer/generated';
-import { notFound } from 'next/navigation';
-import { useMDXComponent } from 'next-contentlayer/hooks';
-import { format, parseISO } from 'date-fns';
-import { ChevronLeft, ExternalLink, Code, Database } from 'lucide-react';
-import { GithubIcon } from '@/components/icons/GithubIcon';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { useParams, notFound } from 'next/navigation';
+import { projects, caseStudies } from '@/data/projects';
+import { ArrowLeft, Github, ExternalLink, Target, Cpu, Lightbulb, BarChart, Lock } from 'lucide-react';
 import Link from 'next/link';
-import React, { use } from 'react';
-import Image from 'next/image';
 
-const mdxComponents = {
-  h1: (props: any) => <h1 className="text-3xl font-bold mt-8 mb-4 text-gray-900" {...props} />,
-  h2: (props: any) => <h2 className="text-2xl font-bold mt-8 mb-4 text-gray-800" {...props} />,
-  p: (props: any) => <p className="text-gray-600 leading-relaxed mb-4" {...props} />,
-  ul: (props: any) => <ul className="list-disc pl-6 mb-4 space-y-2 text-gray-600" {...props} />,
-  li: (props: any) => <li {...props} />,
-  code: (props: any) => <code className="bg-gray-100 rounded px-1 py-0.5 font-mono text-sm" {...props} />,
-};
+const ProjectDetail = () => {
+  const { slug } = useParams();
+  const project = projects.find((p) => p.slug === slug);
+  const caseStudy = caseStudies.find((cs) => cs.projectSlug === slug);
 
-const MDXContent = ({ code }: { code: string }) => {
-  const Component = useMDXComponent(code);
-  return <Component components={mdxComponents} />;
-};
-
-export default function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
-  const study = allCaseStudies.find((s) => s.slug === slug);
-
-  if (!study) {
-    notFound();
-  }
+  if (!project) return notFound();
 
   return (
-    <article className="min-h-screen bg-white pt-24 pb-20">
-      <div className="max-w-4xl mx-auto px-4">
-        <Link 
+    <div className="min-h-screen bg-[#0a0a0a] pt-32 pb-24 text-white">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+
+        {/* Back Button */}
+        <Link
           href="/projects"
-          className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-blue-600 mb-8 transition-colors"
+          className="flex items-center gap-2 text-slate-500 hover:text-amber-400 mb-12 transition-colors group"
+          aria-label="Back to all projects"
         >
-          <ChevronLeft size={16} /> Back to Projects
+          <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+          <span className="text-xs font-bold tracking-wide">Back to Projects</span>
         </Link>
 
-        <header className="mb-12">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-black uppercase tracking-widest rounded-full">
-              Case Study
+        {/* Hero Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-16"
+        >
+          <div className="flex items-center gap-3 mb-5 flex-wrap">
+            <span className="px-3 py-1 bg-amber-400 text-black text-[10px] font-bold tracking-wide uppercase rounded">
+              {project.category}
             </span>
-            <time className="text-sm text-gray-400">
-              {format(parseISO(study.date), 'MMMM yyyy')}
-            </time>
-          </div>
-          
-          <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight leading-tight">
-            {study.title}
-          </h1>
-
-          <div className="flex flex-wrap gap-3 mb-10">
-            {study.techStack?.map((tech: string) => (
-              <span key={tech} className="px-3 py-1.5 bg-gray-50 border border-gray-100 text-gray-600 text-[10px] font-bold uppercase tracking-wider rounded-lg">
-                {tech}
+            <span className={`text-[10px] font-bold px-3 py-1 rounded-full ${
+              project.status === 'Live' ? 'bg-emerald-400/10 text-emerald-400' :
+              project.status === 'Hackathon Build' ? 'bg-amber-400/10 text-amber-400' :
+              project.status === 'In Development' ? 'bg-blue-400/10 text-blue-400' :
+              'bg-violet-400/10 text-violet-400'
+            }`}>
+              {project.status}
+            </span>
+            {project.featured && (
+              <span className="text-amber-400 text-[10px] font-bold tracking-wide flex items-center gap-1">
+                ★ Featured
               </span>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap gap-4">
-            {study.githubUrl && (
-              <a 
-                href={study.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white text-sm font-bold rounded-xl hover:bg-gray-800 transition-all"
-              >
-                <GithubIcon size={20} /> View Source Code
-              </a>
             )}
-            {study.liveUrl && (
-              <a 
-                href={study.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white text-sm font-bold rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-200"
+            {caseStudy && (
+              <Link
+                href={`/case-studies/${project.slug}`}
+                className="px-3 py-1 bg-white/8 text-white text-[10px] font-bold tracking-wide uppercase rounded hover:bg-white/15 transition-colors"
               >
-                <ExternalLink size={20} /> Live Demo
-              </a>
+                Case Study Available
+              </Link>
             )}
           </div>
-        </header>
 
-        {study.image && (
-          <div className="relative aspect-video rounded-3xl overflow-hidden mb-16 border border-gray-100 shadow-2xl">
-            <Image 
-              src={study.image} 
-              alt={study.title}
-              fill
-              className="object-cover"
-              priority
-            />
+          <h1 className="text-4xl md:text-7xl font-black mb-6 tracking-tighter leading-tight">
+            {project.title}
+          </h1>
+          <p className="text-lg md:text-xl text-slate-400 font-light max-w-2xl leading-relaxed">
+            {project.shortDescription}
+          </p>
+
+          {/* Action buttons */}
+          <div className="flex flex-wrap gap-4 mt-10">
+            {project.githubUrl ? (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View ${project.title} on GitHub`}
+                className="flex items-center gap-2.5 px-8 py-4 bg-white/5 border border-white/10 rounded-full font-bold text-xs tracking-wide uppercase hover:border-amber-400 transition-all hover:scale-105"
+              >
+                <Github size={18} /> View on GitHub
+              </a>
+            ) : (
+              <span className="flex items-center gap-2.5 px-8 py-4 bg-white/5 border border-white/10 rounded-full font-bold text-xs tracking-wide uppercase text-slate-600 cursor-not-allowed">
+                <Lock size={18} /> Private Repository
+              </span>
+            )}
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View ${project.title} live demo`}
+                className="flex items-center gap-2.5 px-8 py-4 bg-amber-400 text-black rounded-full font-bold text-xs tracking-wide uppercase hover:scale-105 transition-all shadow-lg shadow-amber-400/25"
+              >
+                <ExternalLink size={18} /> Live Demo ↗
+              </a>
+            )}
           </div>
-        )}
+        </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-12 mb-16">
-          <div className="lg:col-span-2 prose prose-slate max-w-none">
-            <MDXContent code={study.body.code} />
-          </div>
+        {/* Content sections */}
+        <div className="space-y-16">
 
-          <aside className="space-y-8">
-            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
-              <h3 className="text-sm font-black text-gray-900 uppercase tracking-widest mb-4 flex items-center gap-2">
-                <Code size={16} className="text-blue-600" /> Core Tech
-              </h3>
-              <ul className="space-y-2">
-                {study.techStack?.slice(0, 5).map((tech: string) => (
-                  <li key={tech} className="text-sm text-gray-600 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full" />
-                    {tech}
+          {/* Problem & Solution */}
+          {(project.problem || project.solution || caseStudy) && (
+            <section className="grid lg:grid-cols-2 gap-10">
+              <motion.div
+                initial={{ opacity: 0, x: -16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className="flex items-center gap-2.5 text-amber-400 mb-5 border-b border-white/5 pb-3">
+                  <Target size={20} />
+                  <h2 className="text-lg font-black tracking-tight uppercase">Problem</h2>
+                </div>
+                <p className="text-slate-400 leading-relaxed">
+                  {caseStudy?.problem ?? project.problem ?? 'Documentation in progress.'}
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className="flex items-center gap-2.5 text-emerald-400 mb-5 border-b border-white/5 pb-3">
+                  <Lightbulb size={20} />
+                  <h2 className="text-lg font-black tracking-tight uppercase">Solution</h2>
+                </div>
+                <p className="text-slate-400 leading-relaxed">
+                  {caseStudy?.solution ?? project.solution ?? 'Documentation in progress.'}
+                </p>
+              </motion.div>
+            </section>
+          )}
+
+          {/* Architecture & Tech Stack */}
+          <section>
+            <div className="flex items-center gap-2.5 text-blue-400 mb-8 border-b border-white/5 pb-3">
+              <Cpu size={20} />
+              <h2 className="text-lg font-black tracking-tight uppercase">Architecture & Tech Stack</h2>
+            </div>
+
+            {project.architecture && project.architecture.length > 0 && (
+              <div className="grid md:grid-cols-3 gap-5 mb-8">
+                {project.architecture.map((step, i) => (
+                  <div key={i} className="glass-panel p-6 relative border border-white/5 rounded-2xl hover:border-white/10 transition-all">
+                    <div className="absolute -top-3 -left-3 w-8 h-8 bg-[#0a0a0a] border border-amber-400/30 rounded-full flex items-center justify-center font-black text-amber-400 text-xs">
+                      {i + 1}
+                    </div>
+                    <p className="text-white font-medium text-sm">{step}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="flex flex-wrap gap-2">
+              {project.techStack.map((tech) => (
+                <span
+                  key={tech}
+                  className="px-4 py-1.5 bg-white/5 border border-white/5 rounded-full text-xs font-medium text-slate-400 uppercase tracking-wide hover:text-white transition-colors"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </section>
+
+          {/* Metrics (if any) */}
+          {project.metrics && project.metrics.length > 0 && (
+            <section>
+              <div className="flex items-center gap-2.5 text-emerald-400 mb-8 border-b border-white/5 pb-3">
+                <BarChart size={20} />
+                <h2 className="text-lg font-black tracking-tight uppercase">Project Metrics</h2>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                {project.metrics.map((m) => (
+                  <div key={m.label} className="glass-card p-5 text-center">
+                    <p className="text-2xl font-black text-amber-400">{m.value}</p>
+                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">{m.label}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Case study results */}
+          {caseStudy && caseStudy.results && caseStudy.results.length > 0 && (
+            <section className="glass-card p-8 rounded-2xl">
+              <h3 className="text-base font-black text-white uppercase tracking-tight mb-5">Results</h3>
+              <ul className="space-y-3">
+                {caseStudy.results.map((r, i) => (
+                  <li key={i} className="flex items-start gap-3 text-slate-400 text-sm leading-relaxed">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0 mt-1.5" />
+                    {r}
                   </li>
                 ))}
               </ul>
-            </div>
+            </section>
+          )}
 
-            <div className="bg-blue-900 rounded-2xl p-6 text-white shadow-xl shadow-blue-100">
-              <h3 className="text-sm font-black uppercase tracking-widest mb-4 flex items-center gap-2">
-                <Database size={16} className="text-blue-300" /> Key Outcome
-              </h3>
-              <p className="text-blue-100 text-sm leading-relaxed italic">
-                &quot;{study.description}&quot;
-              </p>
+          {/* Tags */}
+          {project.tags && project.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 pt-4 border-t border-white/5">
+              {project.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-[10px] text-slate-600 font-bold uppercase tracking-widest"
+                >
+                  #{tag}
+                </span>
+              ))}
             </div>
-          </aside>
+          )}
+
         </div>
       </div>
-    </article>
+    </div>
   );
-}
+};
+
+export default ProjectDetail;

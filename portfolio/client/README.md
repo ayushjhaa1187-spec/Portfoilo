@@ -1,56 +1,36 @@
-# Ayush Kumar Jha | Portfolio
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-A premium, production-grade portfolio website built with Next.js 16, TypeScript, and Contentlayer. Featuring high-performance animations, adaptive dark mode, and industrial-grade data architectures.
+## Getting Started
 
-## 🚀 Key Features
-- **Next.js 16 (Webpack)**: Optimized for the latest React features and stable production builds.
-- **Contentlayer**: Type-safe MDX processing for blog posts and case studies.
-- **Command Palette (Cmd+K)**: Universal search across projects and articles.
-- **Adaptive Dark Mode**: Sleek, persistable UI with system preference detection.
-- **Framer Motion**: High-fidelity micro-interactions and page transitions.
+First, run the development server:
 
-## 🛠️ Development Workflow
-
-> [!IMPORTANT]
-> **Branch Protection Enabled**: The `main` branch is protected. Direct pushes are disabled.
-
-1. **Fork/Branch**: Create a new branch for any feature or fix (`feature/your-feature` or `fix/your-fix`).
-2. **Develop**: Ensure your code adheres to the project's styling and type safety standards.
-3. **Lint & Build**: Run `npm run lint` and `npm run build` locally before pushing.
-4. **Pull Request**: Open a PR against `main`. 
-5. **Review**: All PRs require at least one approval and a successful CI build (GitHub Actions).
-6. **Merge**: Changes are squash-merged into `main` to maintain a clean history.
-
-## 📦 Getting Started
-
-### Prerequisites
-- Node.js 20+
-- npm 10+
-
-### Installation
 ```bash
-git clone https://github.com/ayushjhaa1187-spec/Portfoilo.git
-cd Portfoilo
-npm install
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-### Environment Setup
-Create a `.env.local` file with the following keys:
-```env
-RESEND_API_KEY=your_resend_key
-GITHUB_TOKEN=your_github_token
-CONTACT_EMAIL=your_email@example.com
-```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Development
-```bash
-npm run dev -- --webpack
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-### Production Build
-```bash
-npm run build -- --webpack
-```
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## 📜 License
-Personal Portfolio © 2026 Ayush Kumar Jha
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

@@ -1,83 +1,163 @@
-import { Experience } from '@/lib/schemas';
+export interface Experience {
+  id: number;
+  role: string;
+  org: string;
+  company?: string; // Compatibility alias
+  type: 'work' | 'education' | 'training' | 'campus' | 'achievement' | 'Internship' | 'Volunteer' | 'Full-time' | 'Freelance';
+  start: string;
+  end: string;
+  period?: string; // Compatibility alias
+  current: boolean;
+  description: string;
+  skills: string[];
+  tags?: string[]; // Compatibility alias
+  verified: boolean;
+  icon: string;
+}
 
 export const experiences: Experience[] = [
   {
-    company: 'Indian Institute of Technology Madras',
-    role: 'Student @ BS in Data Science & Applications',
-    period: 'Jan 2026 – Present',
-    description: [
-      'Pursuing rigorous degree in Data Science and Applications.',
-      'Focusing on Machine Learning, Statistics, and AI systems engineering.',
-      'Actively building production-ready projects in the IITM ecosystem.'
-    ],
-    technologies: ['Machine Learning', 'Statistics', 'AI Engineering']
+    id: 7,
+    role: "Hackathon Participant",
+    org: "Advitiya × JPD Hub 2026",
+    company: "Advitiya & JPD Hub",
+    type: "achievement",
+    start: "Mar 2026",
+    end: "Mar 2026",
+    period: "Mar 2026",
+    current: false,
+    description: "Built an agri-tech solution to support farmer decision-making and agricultural workflows. Team project built under hackathon constraints.",
+    skills: ["React", "Python", "Node.js", "AgriTech"],
+    tags: ["Hackathon", "AgriTech", "Social Impact"],
+    verified: true,
+    icon: "🌱"
   },
   {
-    company: 'IIT Madras',
-    role: 'Member @ Nilgiri House',
-    period: 'Sep 2025 – Present',
-    description: [
-      'Active member of Nilgiri House, participating in technical and cultural initiatives within the IITM residential community.'
-    ],
-    technologies: ['Community Building', 'Technical Coordination']
+    id: 8,
+    role: "Hackathon Participant",
+    org: "HackOverflow 2026",
+    company: "HackOverflow",
+    type: "achievement",
+    start: "Feb 2026",
+    end: "Feb 2026",
+    period: "Feb 2026",
+    current: false,
+    description: "Built the Campus Maintenance Hub — a multi-role administrative platform for hostel issue tracking and facility management. Full working prototype delivered in 24 hours.",
+    skills: ["Vite", "React", "Supabase", "GSAP"],
+    tags: ["Hackathon", "Full-Stack", "Dashboard"],
+    verified: true,
+    icon: "⚡"
   },
   {
-    company: 'Spaceborn',
-    role: 'Spaceborn Intern',
-    period: 'Oct 2025 – Dec 2025',
-    description: [
-      'Explored the intersection of aerospace data and machine learning.',
-      'Developed insights for environmental monitoring using specialized datasets.'
-    ],
-    technologies: ['Aerospace Data', 'Machine Learning', 'Environmental Monitoring']
+    id: 9,
+    role: "Hackathon Participant",
+    org: "HackIndia 2026",
+    company: "HackIndia",
+    type: "achievement",
+    start: "Jan 2026",
+    end: "Jan 2026",
+    period: "Jan 2026",
+    current: false,
+    description: "Participated in HackIndia 2026. Built OpenClaw v1.0 — a social impact platform prototype addressing community-level challenges.",
+    skills: ["React", "Node.js", "Supabase"],
+    tags: ["Hackathon", "Social Impact", "Full-Stack"],
+    verified: true,
+    icon: "🏆"
   },
   {
-    company: 'Spacelance',
-    role: 'Spacelance Intern',
-    period: 'Dec 2025',
-    description: [
-      'Intensive one-month project focusing on digital service architecture and client-facing solutions.'
-    ],
-    technologies: ['Architecture', 'Digital Solutions']
+    id: 1,
+    role: "BS in Data Science",
+    org: "IIT Madras",
+    company: "IIT Madras",
+    type: "education",
+    start: "Jul 2025",
+    end: "Sep 2029",
+    period: "Jul 2025 – Sep 2029",
+    current: true,
+    description: "Pursuing foundational and applied data science curriculum with focus on ML, statistics, and programming.",
+    skills: ["Python", "Statistics", "ML", "Linear Algebra"],
+    tags: ["Python", "Statistics", "ML", "Linear Algebra"],
+    verified: true,
+    icon: "🎓"
   },
   {
-    company: 'Yuva Intern (by Henry Harvin)',
-    role: 'Junior Data Analyst Intern',
-    period: 'Oct 2025 – Jan 2026',
-    description: [
-      'Performed exploratory data analysis and visualization for business datasets.',
-      'Automated reporting workflows using Python and Pandas.'
-    ],
-    technologies: ['Python', 'Pandas', 'EDA', 'Data Visualization']
+    id: 2,
+    role: "Junior Data Analyst Intern",
+    org: "Yuva Intern (Henry Harvin)",
+    company: "Yuva Intern",
+    type: "work",
+    start: "Oct 2025",
+    end: "Jan 2026",
+    period: "Oct 2025 – Jan 2026",
+    current: false,
+    description: "Performed data cleaning, exploratory analysis, and visualization for business datasets.",
+    skills: ["Python", "Pandas", "Matplotlib", "SQL"],
+    tags: ["Python", "Pandas", "Matplotlib", "SQL"],
+    verified: true,
+    icon: "📊"
   },
   {
-    company: 'Yuva Intern (by Henry Harvin)',
-    role: 'Frontend Web Developer Intern',
-    period: 'Sep 2025 – Jan 2026',
-    description: [
-      'Built interactive UI components using modern JavaScript frameworks.',
-      'Optimized web performance and ensured cross-browser compatibility.'
-    ],
-    technologies: ['JavaScript', 'React', 'Performance Optimization']
+    id: 3,
+    role: "Frontend Web Developer Intern",
+    org: "Yuva Intern",
+    company: "Yuva Intern",
+    type: "work",
+    start: "Sep 2025",
+    end: "Jan 2026",
+    period: "Sep 2025 – Jan 2026",
+    current: false,
+    description: "Built responsive UI components and landing pages using React and Tailwind CSS.",
+    skills: ["React", "Tailwind", "HTML/CSS", "JavaScript"],
+    tags: ["React", "Tailwind", "HTML/CSS", "JavaScript"],
+    verified: true,
+    icon: "💻"
   },
   {
-    company: 'Yuva Intern (by Henry Harvin)',
-    role: 'Data Science with Python Intern',
-    period: 'Sep 2025 – Jan 2026',
-    description: [
-      'Implemented predictive models and statistical analysis pipelines.',
-      'Cleaned and pre-processed complex datasets for model training.'
-    ],
-    technologies: ['Python', 'scikit-learn', 'Predictive Modeling']
+    id: 4,
+    role: "MTF Alumni Trainee",
+    org: "MTF Institute",
+    company: "MTF Institute",
+    type: "training",
+    start: "Oct 2025",
+    end: "Jan 2026",
+    period: "Oct 2025 – Jan 2026",
+    current: false,
+    description: "Completed structured training program on business strategy and product management.",
+    skills: ["Strategy", "Product", "Business"],
+    tags: ["Strategy", "Product", "Business"],
+    verified: true,
+    icon: "🏆"
   },
   {
-    company: 'Delhi Technological University',
-    role: 'E-Cell Campus Ambassador @ DTU',
-    period: 'Oct 2025 – Jan 2026',
-    description: [
-      'Represented DTU\'s Entrepreneurship Cell, managing outreach and fostering startup culture.',
-      'Coordinated between student body and flagship events.'
-    ],
-    technologies: ['Entrepreneurship', 'Outreach', 'Event Coordination']
+    id: 5,
+    role: "Campus Ambassador",
+    org: "E-Cell DTU",
+    company: "E-Cell DTU",
+    type: "campus",
+    start: "Oct 2025",
+    end: "Jan 2026",
+    period: "Oct 2025 – Jan 2026",
+    current: false,
+    description: "Represented E-Cell DTU on IIT Madras campus, coordinated event outreach and student engagement.",
+    skills: ["Leadership", "Outreach", "Entrepreneurship"],
+    tags: ["Leadership", "Outreach", "Entrepreneurship"],
+    verified: true,
+    icon: "🚀"
+  },
+  {
+    id: 6,
+    role: "Jury Member",
+    org: "AI-volution, GES 2026 — IIT Kharagpur",
+    company: "IIT Kharagpur",
+    type: "achievement",
+    start: "Jan 2026",
+    end: "Jan 2026",
+    period: "Jan 2026",
+    current: false,
+    description: "Evaluated AI startup pitches at the Global Entrepreneurship Summit hosted by E-Cell IIT Kharagpur.",
+    skills: ["AI", "Judging", "Startups", "IIT KGP"],
+    tags: ["AI", "Judging", "Startups", "IIT KGP"],
+    verified: true,
+    icon: "⚖️"
   }
 ];

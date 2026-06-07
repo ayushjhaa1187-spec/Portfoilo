@@ -37,7 +37,7 @@ export default function NotFound() {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button
               onClick={() => window.history.back()}
-              variant="outline"
+              variant="secondary"
               className="flex items-center gap-2 px-8 py-6 rounded-2xl border-2"
             >
               <ArrowLeft size={18} /> Go Back

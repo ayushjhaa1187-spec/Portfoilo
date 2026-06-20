@@ -1,0 +1,3 @@
+## 2024-03-24 - [Scroll Event Performance]
+**Learning:** Found an unoptimized scroll event listener in the `Navbar.tsx` component that triggers synchronous state updates. High-frequency events like scroll can block the main thread and cause jank if not properly optimized or throttled.
+**Action:** When adding scroll, resize, or similar high-frequency event listeners in React, always wrap state updates in `requestAnimationFrame` and mark the listener with `{ passive: true }` to avoid blocking the main thread and ensure smoother scrolling.

@@ -13,16 +13,27 @@ const Navbar = () => {
   const pathname = usePathname();
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      setScrolled(isScrolled);
-      
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      setScrollProgress((winScroll / height) * 100);
+      if (!ticking) {
+        // Bolt: Wrapping high-frequency scroll event state updates in requestAnimationFrame.
+        // Expected impact: Decouples state calculation from the scroll event firing rate, reducing main thread blocking and ensuring smoother scrolling performance (fewer dropped frames).
+        window.requestAnimationFrame(() => {
+          const isScrolled = window.scrollY > 20;
+          setScrolled(isScrolled);
+
+          const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+          const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          setScrollProgress((winScroll / height) * 100);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // Bolt: Added passive: true to the scroll event listener.
+    // Expected impact: Informs the browser that the listener will not call preventDefault(), allowing the browser to optimize scrolling independently of JavaScript execution, leading to smoother scroll performance.
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 

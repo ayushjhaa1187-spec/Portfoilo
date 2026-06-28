@@ -132,8 +132,9 @@ const ContactPage = () => {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gray-500 uppercase ml-1">Name</label>
+                <label htmlFor="name" className="text-xs font-bold text-gray-500 uppercase ml-1">Name</label>
                 <input
+                  id="name"
                   type="text"
                   name="name"
                   required
@@ -144,8 +145,9 @@ const ContactPage = () => {
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gray-500 uppercase ml-1">Email</label>
+                <label htmlFor="email" className="text-xs font-bold text-gray-500 uppercase ml-1">Email</label>
                 <input
+                  id="email"
                   type="email"
                   name="email"
                   required
@@ -158,8 +160,9 @@ const ContactPage = () => {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-gray-500 uppercase ml-1">Subject</label>
+              <label htmlFor="subject" className="text-xs font-bold text-gray-500 uppercase ml-1">Subject</label>
               <input
+                id="subject"
                 type="text"
                 name="subject"
                 required
@@ -171,8 +174,9 @@ const ContactPage = () => {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-gray-500 uppercase ml-1">Message</label>
+              <label htmlFor="message" className="text-xs font-bold text-gray-500 uppercase ml-1">Message</label>
               <textarea
+                id="message"
                 name="message"
                 rows={5}
                 required

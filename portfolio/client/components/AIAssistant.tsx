@@ -35,6 +35,7 @@ const AIAssistant = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="ai-assistant-panel"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -46,7 +47,7 @@ const AIAssistant = () => {
                 <Sparkles size={18} />
                 <span className="font-black uppercase tracking-tighter text-sm">Ayush&apos;s Core_Intelligence</span>
               </div>
-              <button onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors">
+              <button onClick={toggleChat} aria-label="Close AI Assistant" className="hover:bg-black/10 p-1 rounded-full transition-colors">
                 <X size={18} />
               </button>
             </div>
@@ -81,6 +82,7 @@ const AIAssistant = () => {
               />
               <button 
                 onClick={handleSend}
+                aria-label="Send message"
                 className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20"
               >
                 <Send size={18} />
@@ -94,6 +96,9 @@ const AIAssistant = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}
+        aria-label={isOpen ? "Close AI Assistant" : "Open AI Assistant"}
+        aria-expanded={isOpen}
+        aria-controls="ai-assistant-panel"
         className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center shadow-2xl hover:shadow-amber-400/40 transition-all border-4 border-black group"
       >
         <MessageSquare size={26} />

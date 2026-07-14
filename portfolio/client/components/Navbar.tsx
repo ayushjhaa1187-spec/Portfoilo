@@ -13,16 +13,30 @@ const Navbar = () => {
   const pathname = usePathname();
 
   useEffect(() => {
+    // ⚡ Bolt: Using requestAnimationFrame for scroll events prevents layout thrashing
+    // and ensures we only process state updates once per frame.
+    // Impact: Reduces re-renders and main thread blocking during active scrolling.
+    let ticking = false;
+
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      setScrolled(isScrolled);
-      
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      setScrollProgress((winScroll / height) * 100);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const isScrolled = window.scrollY > 20;
+          setScrolled(isScrolled);
+
+          const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+          const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          setScrollProgress((winScroll / height) * 100);
+
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // ⚡ Bolt: Adding passive: true tells the browser we won't call preventDefault(),
+    // allowing it to scroll immediately without waiting for JavaScript execution.
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 

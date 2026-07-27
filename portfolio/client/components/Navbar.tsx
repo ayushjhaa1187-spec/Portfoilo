@@ -13,16 +13,27 @@ const Navbar = () => {
   const pathname = usePathname();
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      setScrolled(isScrolled);
-      
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      setScrollProgress((winScroll / height) * 100);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          // ⚡ Bolt Optimization: Use requestAnimationFrame to batch state updates on scroll
+          // and prevent unnecessary re-renders per frame, reducing main thread blocking.
+          const isScrolled = window.scrollY > 20;
+          setScrolled(isScrolled);
+
+          const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+          const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          setScrollProgress((winScroll / height) * 100);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // ⚡ Bolt Optimization: Use { passive: true } to tell the browser this listener won't call preventDefault,
+    // allowing for smoother scrolling performance.
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 

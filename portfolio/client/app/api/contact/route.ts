@@ -17,19 +17,39 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
+    const escapeHtml = (unsafe: string) => {
+      if (!unsafe) return '';
+      return unsafe.replace(/[&<"'>]/g, (m) => {
+        const map: Record<string, string> = {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#039;'
+        };
+        return map[m] || m;
+      });
+    };
+
+    // SECURITY: Sanitize user inputs to prevent HTML injection in email template
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeSubject = escapeHtml(subject || '');
+    const safeMessage = escapeHtml(message);
+
     const { data, error } = await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>',
       to: process.env.CONTACT_EMAIL || 'ayushjhaa1187@gmail.com',
-      subject: `[Portfolio Contact] ${subject || 'New Message'}`,
+      subject: `[Portfolio Contact] ${subject || 'New Message'}`, // Keep unescaped for plain text subject
       reply_to: email,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
       html: `
         <h2>New Message from Portfolio</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Name:</strong> ${safeName}</p>
+        <p><strong>Email:</strong> ${safeEmail}</p>
+        <p><strong>Subject:</strong> ${safeSubject}</p>
         <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
+        <p>${safeMessage.replace(/\n/g, '<br>')}</p>
       `,
     });
 

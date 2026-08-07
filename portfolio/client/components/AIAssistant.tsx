@@ -46,7 +46,7 @@ const AIAssistant = () => {
                 <Sparkles size={18} />
                 <span className="font-black uppercase tracking-tighter text-sm">Ayush&apos;s Core_Intelligence</span>
               </div>
-              <button onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors">
+              <button aria-label="Close assistant" onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-black focus-visible:outline-none">
                 <X size={18} />
               </button>
             </div>
@@ -72,16 +72,18 @@ const AIAssistant = () => {
             {/* Input */}
             <div className="p-4 border-t border-slate-100 dark:border-white/5 flex gap-2 bg-white dark:bg-slate-950">
               <input 
+                aria-label="Message AI assistant"
                 type="text" 
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                 placeholder="Ask about my RAG engines or IIT life..."
-                className="flex-grow bg-slate-100 dark:bg-white/5 border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-amber-400 outline-none font-medium"
+                className="flex-grow bg-slate-100 dark:bg-white/5 border-none rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-amber-400 outline-none font-medium"
               />
               <button 
+                aria-label="Send message"
                 onClick={handleSend}
-                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20"
+                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 focus-visible:outline-none"
               >
                 <Send size={18} />
               </button>
@@ -91,10 +93,11 @@ const AIAssistant = () => {
       </AnimatePresence>
 
       <motion.button
+        aria-label="Toggle AI Assistant"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}
-        className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center shadow-2xl hover:shadow-amber-400/40 transition-all border-4 border-black group"
+        className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center shadow-2xl hover:shadow-amber-400/40 transition-all border-4 border-black group focus-visible:ring-4 focus-visible:ring-amber-400 focus-visible:outline-none"
       >
         <MessageSquare size={26} />
         <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 border-4 border-black rounded-full animate-pulse" />

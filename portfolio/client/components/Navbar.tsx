@@ -13,16 +13,30 @@ const Navbar = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+
+    const updateScrollState = () => {
       const isScrolled = window.scrollY > 20;
       setScrolled(isScrolled);
       
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       setScrollProgress((winScroll / height) * 100);
+
+      ticking = false;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      // Optimization: Throttle scroll event using requestAnimationFrame to prevent layout thrashing and reduce main thread blocking
+      // Impact: Reduces scroll event callback execution frequency to match display refresh rate
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollState);
+        ticking = true;
+      }
+    };
+
+    // Optimization: Use passive event listener to improve scroll performance by telling browser we won't call preventDefault
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 

@@ -49,6 +49,38 @@ export const experiences: Experience[] = [
     icon: "⚖️"
   },
   {
+    id: 13,
+    role: "Lead Full-Stack & AI Engineer",
+    org: "DevFusion: The Developer Hackathon, IIT Bombay",
+    company: "IIT Bombay",
+    type: "achievement",
+    start: "Apr 2026",
+    end: "Apr 2026",
+    period: "Apr 2026",
+    current: false,
+    description: "Architected SkillBridge — an AI-first learning ecosystem featuring real-time multimodal doubt resolution, verified mentor booking, and credit monetization logic, finishing in the Top 10.",
+    skills: ["Next.js", "React", "OpenAI", "Supabase", "System Design"],
+    tags: ["IIT Bombay", "DevFusion", "Top 10 Finalist", "AI Systems"],
+    verified: true,
+    icon: "🏆"
+  },
+  {
+    id: 14,
+    role: "Campus Ambassador — TRYST '26",
+    org: "Indian Institute of Technology, Delhi",
+    company: "IIT Delhi",
+    type: "campus",
+    start: "Jan 2026",
+    end: "Mar 2026",
+    period: "Jan 2026 – Mar 2026",
+    current: false,
+    description: "Represented North India's largest science and technology festival, spearheading campus-wide outreach across 75+ technical competitions and workshops.",
+    skills: ["Leadership", "Outreach", "Community Management"],
+    tags: ["IIT Delhi", "TRYST'26", "Leadership"],
+    verified: true,
+    icon: "🏛️"
+  },
+  {
     id: 11,
     role: "Campus Ambassador — BECon '26",
     org: "eDC (Entrepreneurship Development Cell), IIT Delhi",
@@ -58,11 +90,11 @@ export const experiences: Experience[] = [
     end: "Feb 2026",
     period: "Dec 2025 – Feb 2026",
     current: false,
-    description: "Served as a key ambassador connecting student innovators with founders and VC masterclasses on B2B SaaS, GTM frameworks, and enterprise scaling.",
+    description: "Connected student innovators with founders and VC masterclasses on B2B SaaS, GTM frameworks, and enterprise scaling.",
     skills: ["B2B SaaS Strategy", "Ecosystem Building", "Community Leadership"],
     tags: ["IIT Delhi", "BECon'26", "Leadership"],
     verified: true,
-    icon: "🏛️"
+    icon: "🚀"
   },
   {
     id: 12,
@@ -97,38 +129,6 @@ export const experiences: Experience[] = [
     icon: "🎓"
   },
   {
-    id: 2,
-    role: "Junior Data Analyst Intern",
-    org: "Yuva Intern (Henry Harvin)",
-    company: "Yuva Intern",
-    type: "work",
-    start: "Oct 2025",
-    end: "Jan 2026",
-    period: "Oct 2025 – Jan 2026",
-    current: false,
-    description: "Performed data cleaning, exploratory data analysis (EDA), and business metric visualizations using Python, Pandas, and SQL.",
-    skills: ["Python", "Pandas", "Matplotlib", "SQL", "EDA"],
-    tags: ["Data Analysis", "Python", "SQL"],
-    verified: true,
-    icon: "📊"
-  },
-  {
-    id: 3,
-    role: "Frontend Web Developer Intern",
-    org: "Yuva Intern",
-    company: "Yuva Intern",
-    type: "work",
-    start: "Sep 2025",
-    end: "Jan 2026",
-    period: "Sep 2025 – Jan 2026",
-    current: false,
-    description: "Built responsive UI components and interactive dashboards using modern web technologies.",
-    skills: ["React", "Tailwind CSS", "JavaScript", "HTML5"],
-    tags: ["Frontend", "React", "Tailwind"],
-    verified: true,
-    icon: "💻"
-  },
-  {
     id: 4,
     role: "MTF Alumni Trainee",
     org: "MTF Institute",
@@ -142,7 +142,7 @@ export const experiences: Experience[] = [
     skills: ["Business Strategy", "Product Management", "Market Analysis"],
     tags: ["Training", "Business Strategy"],
     verified: true,
-    icon: "🏆"
+    icon: "📊"
   },
   {
     id: 5,
@@ -158,6 +158,6 @@ export const experiences: Experience[] = [
     skills: ["Leadership", "Outreach", "Entrepreneurship"],
     tags: ["DTU", "Leadership"],
     verified: true,
-    icon: "🚀"
+    icon: "🌟"
   }
 ];

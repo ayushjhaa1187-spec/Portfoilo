@@ -7,10 +7,12 @@ import Link from 'next/link';
 import { Button } from './ui/Button';
 
 const quickAchievements = [
-  { title: 'Jury @ GES 2026', org: 'IIT Kharagpur', icon: Trophy, color: 'text-amber-400' },
-  { title: 'Finalist @ Shaastra', org: 'IIT Madras', icon: Target, color: 'text-blue-400' },
-  { title: 'Co-Founder Catalyst', org: 'BECon IIT Delhi', icon: Star, color: 'text-emerald-400' },
-  { title: 'Data Analyst Role', org: 'Yuva Intern', icon: CheckCircle, color: 'text-purple-400' },
+  { title: 'Bharat Innovates (France)', org: 'Global Accelerator', icon: Award, color: 'text-amber-400' },
+  { title: 'Top 10 @ DevFusion', org: 'IIT Bombay', icon: Trophy, color: 'text-amber-400' },
+  { title: 'Top 10 @ Elite Hack 1.0', org: '7.4k+ Builders', icon: Trophy, color: 'text-cyan-400' },
+  { title: 'Solo Finalist @ HackFest 2.0', org: 'GDG Cloud Delhi', icon: Star, color: 'text-emerald-400' },
+  { title: 'Jury @ GES 2026', org: 'IIT Kharagpur', icon: Trophy, color: 'text-violet-400' },
+  { title: 'Grand Finale Qualifier', org: 'IIT Kanpur', icon: Target, color: 'text-blue-400' },
 ];
 
 export const AchievementsBanner = () => {

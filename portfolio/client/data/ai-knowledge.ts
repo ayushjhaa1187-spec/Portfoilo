@@ -43,10 +43,11 @@ export const aiKnowledge = {
   experience: [
     "Research & Education Design Intern @ Vicharanashala (Lab for Education Design / VLED), IIT Ropar",
     "Jury Member @ AI-volution, GES 2026 — IIT Kharagpur (with Ashoka Changemakers)",
+    "Lead Full-Stack & AI Engineer @ SkillBridge (Top 10 IIT Bombay DevFusion)",
+    "Campus Ambassador @ TRYST '26, IIT Delhi",
     "Campus Ambassador @ BECon '26, eDC IIT Delhi",
     "Campus Ambassador @ Cognizance 2026, IIT Roorkee",
-    "BS Data Science Scholar @ IIT Madras (2025–2029)",
-    "Junior Data Analyst & Frontend Developer @ Yuva Intern"
+    "BS Data Science Scholar @ IIT Madras (2025–2029)"
   ],
   achievements: [
     "Selected for Bharat Innovates 2026 in Nice, France (Global Deep-Tech Accelerator)",

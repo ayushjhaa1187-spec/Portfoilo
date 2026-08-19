@@ -7,7 +7,7 @@ export const about: About = {
   vision: "Engineering AI systems, long-term memory architectures, and scalable full-stack products that transform education, deep tech, and business operations at national and global scale.",
   timeline: [
     { year: '2025', title: 'IIT Madras Enrollment', desc: 'Accepted into BS Data Science & Applications program (Class of 2029).' },
-    { year: '2025', title: 'Data Analytics & Web Internships', desc: 'Conducted exploratory data analysis and built responsive frontend web architectures at Yuva Intern.' },
+    { year: '2025', title: 'Foundational AI & Full-Stack Prototyping', desc: 'Engineered responsive web applications and data analysis pipelines while competing across regional hackathon circuits.' },
     { year: '2026', title: 'Jury & National Finalist', desc: 'Served as Jury Member at IIT Kharagpur (GES AI-volution); Finalist at IIT Bombay (DevFusion Top 10), IIT Kanpur (Brahmastra), and Elite Hack 1.0 (Top 10/7.4k+).' },
     { year: '2026', title: 'Bharat Innovates (France)', desc: 'Selected for Bharat Innovates 2026 in Nice, France — connecting Indian deep-tech solutions with global accelerators.' },
     { year: '2026', title: 'IIT Ropar Internship', desc: 'Research & Education Design Intern at Vicharanashala (Lab for Education Design / VLED) under Prof. Sudarshan Iyengar.' },

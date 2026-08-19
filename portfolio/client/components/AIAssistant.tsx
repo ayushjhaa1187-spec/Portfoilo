@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { MessageSquare, X, Send } from 'lucide-react';
 import { certifications } from '@/data/certifications';
+import { getAIResponse } from '@/data/ai-knowledge';
 
 type ChatState = 'closed' | 'open' | 'thinking' | 'streaming' | 'error';
 
@@ -102,45 +103,24 @@ export const AIAssistant = () => {
     setChatState('thinking');
 
     try {
-      const key = process.env.NEXT_PUBLIC_GEMINI_KEY;
-      if (!key) {
-        throw new Error('Missing NEXT_PUBLIC_GEMINI_KEY');
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: content,
+          history: payloadContext.messages
+        })
+      });
+
+      let aiText = '';
+      if (res.ok) {
+        const data = await res.json();
+        aiText = data?.reply || '';
       }
 
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [
-              {
-                role: 'user',
-                parts: [
-                  {
-                    text: `${payloadContext.system}\n\nConversation:\n${payloadContext.messages
-                      .map((m) => `${m.role}: ${m.content}`)
-                      .join('\n')}\nuser: ${content}`
-                  }
-                ]
-              }
-            ],
-            generationConfig: {
-              temperature: 0.7,
-              maxOutputTokens: 220
-            }
-          })
-        }
-      );
-
-      if (!res.ok) {
-        throw new Error(`Gemini API failed: ${res.status}`);
+      if (!aiText) {
+        aiText = getAIResponse(content);
       }
-
-      const data = await res.json();
-      const aiText =
-        data?.candidates?.[0]?.content?.parts?.[0]?.text ??
-        'Thanks for the question. Reach Ayush directly at ayushjhaa1187@gmail.com for quick collaboration details.';
 
       setChatState('streaming');
       setMessages((prev) => [
@@ -154,14 +134,13 @@ export const AIAssistant = () => {
       ]);
       setChatState('open');
     } catch {
-      setChatState('error');
+      const fallbackText = getAIResponse(content);
       setMessages((prev) => [
         ...prev,
         {
           id: createId(),
           role: 'assistant',
-          content:
-            'I can still help quickly. For exact details, email ayushjhaa1187@gmail.com or use the contact page.',
+          content: fallbackText.trim(),
           timestamp: Date.now()
         }
       ]);

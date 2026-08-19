@@ -2,68 +2,180 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Card } from '@/components/ui/Card';
-import { about } from '@/data/about';
+import { Button } from '@/components/ui/Button';
+import Link from 'next/link';
+import { Brain, Code, Target, Zap, Rocket, Terminal, Database, Users } from 'lucide-react';
+import { PageShell } from '@/components/PageShell';
 
 const AboutPage = () => {
   return (
-    <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="text-4xl font-bold mb-8 text-blue-900">About Me</h1>
-
-        {/* Philosophy Section */}
-        <div className="bg-blue-50 border-l-4 border-blue-600 p-8 mb-12 rounded-r-lg shadow-sm">
-          <h2 className="text-2xl font-bold mb-4 text-blue-800">My Philosophy</h2>
-          <p className="text-xl italic text-gray-700">
-            &quot;{about.philosophy}&quot;
+    <PageShell title="ENGINEERING" subtitle="the epoch">
+      <div className="grid lg:grid-cols-2 gap-20 items-center mb-40">
+        <motion.div
+           initial={{ opacity: 0, x: -50 }}
+           animate={{ opacity: 1, x: 0 }}
+           transition={{ duration: 0.8 }}
+        >
+          <p className="text-amber-400 font-bold tracking-[0.3em] uppercase mb-6 flex items-center gap-2 text-xs">
+             <Terminal size={13} /> About Me
           </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-12 mb-16">
-          <div>
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">The Journey</h2>
-            <div className="space-y-8 relative border-l-2 border-blue-200 ml-3 pl-8 pb-4">
-              {about.timeline.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="relative"
-                >
-                  <span className="absolute -left-[41px] top-1 bg-blue-600 w-4 h-4 rounded-full border-4 border-white shadow-sm"></span>
-                  <h3 className="text-lg font-bold text-blue-900">{item.year}: {item.title}</h3>
-                  <p className="text-gray-600 mt-1">{item.desc}</p>
-                </motion.div>
-              ))}
-            </div>
+          <p className="text-2xl text-slate-400 font-light leading-relaxed mb-12 tracking-wide">
+             I am Ayush Kumar Jha, an AI Engineer and Full-Stack Architect currently pursuing a BS in Data Science at IIT Madras.
+          </p>
+          <div className="flex flex-wrap gap-4">
+             <Link href="/contact">
+                <Button className="px-10 py-5">Contact Me</Button>
+             </Link>
+             <Link href="/projects">
+                <Button variant="secondary" className="px-10 py-5">View Projects</Button>
+             </Link>
           </div>
+        </motion.div>
 
-          <div>
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">Current Focus</h2>
-            <div className="grid gap-4">
-              {about.currentFocus.map((focus, idx) => (
-                <Card key={idx} className="p-4 flex items-center bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                  <span className="text-lg font-medium text-gray-800">{focus}</span>
-                </Card>
-              ))}
-            </div>
+        <motion.div 
+           initial={{ opacity: 0, x: 50 }}
+           animate={{ opacity: 1, x: 0 }}
+           transition={{ duration: 0.8, delay: 0.2 }}
+           className="relative"
+        >
+           <div className="aspect-[4/5] glass-panel rounded-[3rem] overflow-hidden p-4 border border-white/10 relative group">
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-400/20 to-blue-500/20 mix-blend-overlay group-hover:scale-110 transition-transform duration-700" />
+              <div className="h-full w-full bg-slate-900 rounded-[2.5rem] flex items-center justify-center p-12 text-center">
+                 <div>
+                    <Brain size={120} className="mx-auto text-amber-400 mb-10 animate-pulse" />
+                    <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-2">Ayush Kumar Jha</p>
+                    <p className="text-[10px] font-bold text-amber-400 uppercase tracking-[0.3em] mb-8">AI & Full-Stack Engineer</p>
+                    <div className="grid grid-cols-2 gap-6 pt-8 border-t border-white/5">
+                       <div className="text-center">
+                          <p className="text-2xl font-black text-white">46+</p>
+                          <p className="text-[8px] font-bold text-slate-600 uppercase tracking-widest">Repositories</p>
+                       </div>
+                       <div className="text-center">
+                          <p className="text-2xl font-black text-white">3+</p>
+                          <p className="text-[8px] font-bold text-slate-600 uppercase tracking-widest">Hackathons</p>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </motion.div>
+      </div>
 
-            <div className="mt-8">
-              <h3 className="text-xl font-bold mb-4 text-gray-800">The Vision</h3>
-              <p className="text-gray-600 leading-relaxed">
-                {about.vision}
-              </p>
-            </div>
-          </div>
+      <div className="mb-40 grid md:grid-cols-3 gap-8">
+         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="glass-card p-12 hover:bg-white/[0.04] transition-all">
+            <Zap className="mb-8 text-amber-400" size={40} />
+            <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-4">AI Agent Systems</h3>
+            <p className="text-slate-500 text-sm font-light leading-relaxed">
+               I build autonomous agent systems that reason, execute workflows, and integrate with LLM backends to deliver practical AI automation.
+            </p>
+         </motion.div>
+         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="glass-card p-12 hover:bg-white/[0.04] transition-all border-amber-400/20">
+            <Code className="mb-8 text-amber-400" size={40} />
+            <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-4">Full-Stack Engineering</h3>
+            <p className="text-slate-500 text-sm font-light leading-relaxed">
+               Building end-to-end web applications from database design to UI, using React, Next.js, FastAPI, and Supabase.
+            </p>
+         </motion.div>
+         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="glass-card p-12 hover:bg-white/[0.04] transition-all">
+            <Database className="mb-8 text-amber-400" size={40} />
+            <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-4">Data Science</h3>
+            <p className="text-slate-500 text-sm font-light leading-relaxed">
+               IIT Madras Data Science Scholar applying ML, analytics, and statistical methods to real-world datasets and product decisions.
+            </p>
+         </motion.div>
+      </div>
+
+      {/* Skills Map Section — Phase 3.5 */}
+      <div id="skills" className="mb-40">
+        <motion.div 
+           initial={{ opacity: 0, y: 20 }} 
+           whileInView={{ opacity: 1, y: 0 }} 
+           viewport={{ once: true }}
+           className="text-center mb-24"
+        >
+           <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter mb-4">Skills Map</h2>
+           <p className="text-slate-500 uppercase tracking-[0.3em] text-xs font-bold">Languages, Frameworks & Tools</p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {[
+            { 
+              cat: 'Languages', 
+              skills: ['Python', 'JavaScript', 'TypeScript', 'SQL', 'C++'], 
+              icon: <Terminal size={24} />,
+              color: 'text-amber-400' 
+            },
+            { 
+              cat: 'Frameworks', 
+              skills: ['React', 'Next.js 15', 'FastAPI', 'Node.js', 'Express', 'Tailwind'], 
+              icon: <Rocket size={24} />,
+              color: 'text-blue-400' 
+            },
+            { 
+              cat: 'AI & Data', 
+              skills: ['LangChain', 'LangGraph', 'PyTorch', 'Pandas', 'NumPy', 'Scikit-learn'], 
+              icon: <Brain size={24} />,
+              color: 'text-emerald-400' 
+            },
+            { 
+              cat: 'Infrastructure', 
+              skills: ['PostgreSQL', 'MongoDB', 'Supabase', 'Redis', 'Vercel', 'AWS'], 
+              icon: <Database size={24} />,
+              color: 'text-orange-400' 
+            },
+            { 
+              cat: 'Professional', 
+              skills: ['Git/GitHub', 'SDLC', 'Product Sync', 'Agile', 'Figma', 'Postman'], 
+              icon: <Users size={24} />,
+              color: 'text-purple-400' 
+            },
+            { 
+              cat: 'Philosophy', 
+              skills: ['Autonomous Agents', 'Self-Repairing Systems', 'High-Fidelity UX'], 
+              icon: <Target size={24} />,
+              color: 'text-rose-400' 
+            }
+          ].map((sector, i) => (
+            <motion.div 
+              key={sector.cat}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="glass-card p-10 group hover:border-amber-400/30 transition-all border-white/5 h-full flex flex-col"
+            >
+               <div className={`mb-8 ${sector.color} flex items-center gap-4`}>
+                  {sector.icon}
+                  <h3 className="text-2xl font-black text-white uppercase tracking-tighter">{sector.cat}</h3>
+               </div>
+               <div className="flex flex-wrap gap-2 mt-auto">
+                  {sector.skills.map(skill => (
+                    <span 
+                      key={skill} 
+                      className="px-4 py-1.5 bg-white/5 rounded-full text-[10px] font-black tracking-widest uppercase text-slate-500 hover:text-white hover:bg-amber-400/20 transition-all border border-white/5"
+                    >
+                       {skill}
+                    </span>
+                  ))}
+               </div>
+            </motion.div>
+          ))}
         </div>
-      </motion.div>
-    </div>
+      </div>
+
+      <div className="p-20 glass-panel rounded-[4rem] text-center relative overflow-hidden border border-white/10">
+         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-amber-400/5 to-transparent pointer-events-none" />
+         <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-8 relative">Philosophy</h2>
+         <p className="text-xl md:text-3xl text-slate-300 font-light max-w-4xl mx-auto leading-relaxed italic relative">
+            "To engineer the digital autonomous future by merging high-fidelity user experiences with resilient, reasoning-based AI infrastructure."
+         </p>
+         <div className="mt-16 flex justify-center gap-12 relative opacity-20">
+            <Rocket size={32} />
+            <Target size={32} />
+            <Users size={32} />
+         </div>
+      </div>
+    </PageShell>
   );
 };
 

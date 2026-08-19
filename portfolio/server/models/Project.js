@@ -30,7 +30,7 @@ const ProjectSchema = new mongoose.Schema({
     default: false,
   },
   metrics: {
-    accuracy: Number,
+    accuracy: String,
     impact: String,
   },
   createdAt: {

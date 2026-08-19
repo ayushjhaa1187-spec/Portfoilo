@@ -2,225 +2,365 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/Button';
-import { Mail, Linkedin, Github, Send, Loader2 } from 'lucide-react';
-import { contact } from '@/data/contact';
+import {
+  Mail,
+  Linkedin,
+  Github,
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Briefcase,
+  Zap,
+  MessageSquare,
+  Users,
+  ArrowRight,
+  ExternalLink,
+} from 'lucide-react';
+import { profile } from '@/data/profile';
+
+type FormState = 'idle' | 'submitting' | 'success' | 'error';
+type Reason = 'hiring' | 'collaboration' | 'freelance' | 'hackathon' | 'general';
+
+interface FormData {
+  name: string;
+  email: string;
+  reason: Reason;
+  message: string;
+}
+
+const REASON_OPTIONS: { id: Reason; label: string; icon: React.ReactNode }[] = [
+  { id: 'hiring',        label: 'Internship / Hiring',      icon: <Briefcase size={15} /> },
+  { id: 'collaboration', label: 'Project Collaboration',    icon: <Users size={15} /> },
+  { id: 'freelance',     label: 'Freelance Work',           icon: <Zap size={15} /> },
+  { id: 'hackathon',     label: 'Hackathon / Team-up',      icon: <ArrowRight size={15} /> },
+  { id: 'general',       label: 'General Message',          icon: <MessageSquare size={15} /> },
+];
+
+function validate(data: FormData) {
+  const errors: Partial<Record<keyof FormData, string>> = {};
+  if (data.name.trim().length < 2) errors.name = 'Please enter your name.';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errors.email = 'Please enter a valid email.';
+  if (data.message.trim().length < 20) errors.message = 'Message should be at least 20 characters.';
+  return errors;
+}
 
 const ContactPage = () => {
-  const [formData, setFormData] = useState({
+  const [formState, setFormState] = useState<FormState>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof FormData, string>>>({});
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
-    subject: '',
+    reason: 'general',
     message: '',
-    honeypot: '' // Anti-spam
   });
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const update = (field: keyof FormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    // Clear individual field error on change
+    if (fieldErrors[field]) {
+      setFieldErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('sending');
+    const errors = validate(formData);
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      return;
+    }
+
+    setFormState('submitting');
+    setErrorMessage('');
+
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+      const endpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
+      if (endpoint) {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            reason: formData.reason,
+            message: formData.message,
+          }),
+        });
+        if (!response.ok) throw new Error('Submission failed');
+      }
 
-      if (!res.ok) throw new Error('Failed to send');
-
-      setStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '', honeypot: '' });
-      setTimeout(() => setStatus('idle'), 5000);
-    } catch (error) {
-      console.error(error);
-      setStatus('error');
-      setTimeout(() => setStatus('idle'), 5000);
+      setFormState('success');
+      setFormData({ name: '', email: '', reason: 'general', message: '' });
+    } catch {
+      setFormState('error');
+      setErrorMessage(
+        `Something went wrong. Please email me directly at ${profile.email}`
+      );
     }
   };
 
   return (
-    <div className="min-h-screen pt-24 px-4 max-w-7xl mx-auto pb-16">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-12"
-      >
-        <h1 className="text-4xl font-bold mb-4 text-blue-900">Get In Touch</h1>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          Interested in AI collaboration, research, or startup opportunities? Drop a message below.
-        </p>
-      </motion.div>
-
-      <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+    <main id="main-content" className="min-h-screen pt-32 pb-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Page header */}
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1 }}
-          className="space-y-8"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
         >
-          <div>
-            <h2 className="text-2xl font-bold mb-4 text-gray-800">Contact Information</h2>
-            <p className="text-gray-600 mb-6">
-              I usually respond within 24 hours. Feel free to reach out via email or LinkedIn.
-            </p>
-          </div>
+          <p className="text-amber-400 text-xs font-bold tracking-[0.3em] uppercase mb-3">
+            Get in Touch
+          </p>
+          <h1 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-4 leading-tight">
+            Let's{' '}
+            <span className="bg-gradient-to-r from-amber-400 to-orange-300 bg-clip-text text-transparent">
+              Build Together
+            </span>
+          </h1>
+          <p className="text-slate-400 text-lg max-w-xl leading-relaxed">
+            Whether you have a project in mind, want to collaborate on something, or just want
+            to say hi — I'd love to hear from you.
+          </p>
+        </motion.div>
 
-          <div className="space-y-4">
-            <div className="flex items-center space-x-4 p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
-              <div className="p-3 bg-blue-50 rounded-lg">
-                <Mail className="text-blue-600 w-5 h-5" />
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+          {/* ── LEFT: Contact info ── */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="space-y-6"
+          >
+            {/* Email */}
+            <a
+              href={`mailto:${profile.email}`}
+              className="flex items-center gap-5 p-5 glass-card rounded-2xl hover:border-amber-400/30 transition-all group"
+              aria-label={`Send email to ${profile.email}`}
+            >
+              <div className="w-12 h-12 bg-amber-400/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-amber-400/20 transition-colors">
+                <Mail size={20} className="text-amber-400" />
               </div>
               <div>
-                <p className="text-xs text-gray-500 uppercase font-bold tracking-wider">Email</p>
-                <p className="text-gray-800 font-medium">{contact.email}</p>
-              </div>
-            </div>
-
-            <a href={contact.socials.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-4 p-4 bg-white rounded-xl border border-gray-100 shadow-sm hover:border-blue-200 transition-colors">
-              <div className="p-3 bg-blue-50 rounded-lg">
-                <Linkedin className="text-blue-600 w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 uppercase font-bold tracking-wider">LinkedIn</p>
-                <p className="text-gray-800 font-medium">Ayush Kumar Jha</p>
+                <p className="text-xs text-slate-500 font-bold uppercase tracking-wide mb-0.5">Email</p>
+                <p className="text-white font-semibold text-sm">{profile.email}</p>
               </div>
             </a>
 
-            <a href={contact.socials.github} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-4 p-4 bg-white rounded-xl border border-gray-100 shadow-sm hover:border-blue-200 transition-colors">
-              <div className="p-3 bg-slate-50 rounded-lg">
-                <Github className="text-slate-900 w-5 h-5" />
+            {/* LinkedIn */}
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-5 p-5 glass-card rounded-2xl hover:border-amber-400/30 transition-all group"
+              aria-label="View LinkedIn Profile"
+            >
+              <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500/20 transition-colors">
+                <Linkedin size={20} className="text-blue-400" />
               </div>
               <div>
-                <p className="text-xs text-gray-500 uppercase font-bold tracking-wider">GitHub</p>
-                <p className="text-gray-800 font-medium">ayushjhaa1187-spec</p>
+                <p className="text-xs text-slate-500 font-bold uppercase tracking-wide mb-0.5">LinkedIn</p>
+                <p className="text-white font-semibold text-sm flex items-center gap-1.5">
+                  Ayush Kumar Jha
+                  <ExternalLink size={12} className="text-slate-500" />
+                </p>
               </div>
             </a>
-          </div>
 
-          <div className="pt-8">
-            <Button
-              onClick={() => window.open(contact.calendlyLink, '_blank')}
-              variant="outline"
-              className="w-full py-6 text-lg font-bold border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all"
+            {/* GitHub */}
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-5 p-5 glass-card rounded-2xl hover:border-amber-400/30 transition-all group"
+              aria-label="View GitHub Profile"
             >
-              Book a Strategy Call
-            </Button>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 relative overflow-hidden"
-        >
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Honeypot field - hidden from users */}
-            <input
-              type="text"
-              name="honeypot"
-              style={{ display: 'none' }}
-              tabIndex={-1}
-              autoComplete="off"
-              value={formData.honeypot}
-              onChange={handleChange}
-            />
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gray-500 uppercase ml-1">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-50 border border-transparent rounded-xl focus:bg-white focus:border-blue-500 outline-none transition-all"
-                  placeholder="John Doe"
-                />
+              <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-white/10 transition-colors">
+                <Github size={20} className="text-white" />
               </div>
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gray-500 uppercase ml-1">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-50 border border-transparent rounded-xl focus:bg-white focus:border-blue-500 outline-none transition-all"
-                  placeholder="john@example.com"
-                />
+              <div>
+                <p className="text-xs text-slate-500 font-bold uppercase tracking-wide mb-0.5">GitHub</p>
+                <p className="text-white font-semibold text-sm flex items-center gap-1.5">
+                  ayushjhaa1187-spec
+                  <ExternalLink size={12} className="text-slate-500" />
+                </p>
               </div>
+            </a>
+
+            {/* Response time note */}
+            <div className="p-4 rounded-xl bg-emerald-400/5 border border-emerald-400/15">
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <p className="text-emerald-400 text-xs font-bold uppercase tracking-wide">
+                  {profile.availability}
+                </p>
+              </div>
+              <p className="text-slate-500 text-xs leading-relaxed">
+                I typically respond within 24–48 hours. For urgent inquiries, email directly.
+              </p>
             </div>
+          </motion.div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-gray-500 uppercase ml-1">Subject</label>
-              <input
-                type="text"
-                name="subject"
-                required
-                value={formData.subject}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-50 border border-transparent rounded-xl focus:bg-white focus:border-blue-500 outline-none transition-all"
-                placeholder="Collaboration Inquiry"
-              />
-            </div>
+          {/* ── RIGHT: Contact form ── */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="glass-card p-8 md:p-10 rounded-3xl border border-white/8"
+          >
+            {formState === 'success' ? (
+              /* Success state */
+              <div className="flex flex-col items-center justify-center h-full text-center py-12">
+                <div className="w-20 h-20 bg-emerald-400/10 rounded-full flex items-center justify-center mb-6">
+                  <CheckCircle2 size={40} className="text-emerald-400" />
+                </div>
+                <h3 className="text-2xl font-black text-white mb-3">Message Sent!</h3>
+                <p className="text-slate-400 text-sm max-w-xs leading-relaxed mb-8">
+                  Thanks for reaching out. I'll get back to you soon.
+                </p>
+                <button
+                  onClick={() => setFormState('idle')}
+                  className="text-sm font-bold text-amber-400 hover:text-white transition-colors"
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
+              /* Form */
+              <form onSubmit={handleSubmit} noValidate className="space-y-6" aria-label="Contact form">
+                {/* Reason for Contact */}
+                <fieldset>
+                  <legend className="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase mb-3 block">
+                    Reason for Contact
+                  </legend>
+                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                    {REASON_OPTIONS.map((opt) => (
+                      <button
+                        key={opt.id}
+                        type="button"
+                        aria-pressed={formData.reason === opt.id}
+                        onClick={() => update('reason', opt.id)}
+                        className={`flex items-center gap-2 p-3 rounded-xl border text-left transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 text-xs font-medium ${
+                          formData.reason === opt.id
+                            ? 'border-amber-400/60 bg-amber-400/10 text-amber-400'
+                            : 'border-white/8 bg-white/4 text-slate-400 hover:border-white/15 hover:text-white'
+                        }`}
+                      >
+                        <span className="flex-shrink-0">{opt.icon}</span>
+                        <span className="leading-tight">{opt.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </fieldset>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-gray-500 uppercase ml-1">Message</label>
-              <textarea
-                name="message"
-                rows={5}
-                required
-                value={formData.message}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-50 border border-transparent rounded-xl focus:bg-white focus:border-blue-500 outline-none transition-all resize-none"
-                placeholder="Tell me about your project..."
-              ></textarea>
-            </div>
+                {/* Name */}
+                <div>
+                  <label htmlFor="contact-name" className="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase mb-2 block">
+                    Your Name <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    autoComplete="name"
+                    required
+                    value={formData.name}
+                    onChange={(e) => update('name', e.target.value)}
+                    placeholder="e.g. Priya Sharma"
+                    className={`w-full bg-white/4 border rounded-xl px-4 py-3 text-white placeholder-slate-600 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all ${
+                      fieldErrors.name ? 'border-red-400/60' : 'border-white/10 hover:border-white/20'
+                    }`}
+                  />
+                  {fieldErrors.name && (
+                    <p className="text-xs text-red-400 mt-1.5 flex items-center gap-1">
+                      <AlertCircle size={12} /> {fieldErrors.name}
+                    </p>
+                  )}
+                </div>
 
-            <Button
-              type="submit"
-              className="w-full py-6 text-lg font-bold bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200"
-              disabled={status === 'sending'}
-            >
-              {status === 'sending' ? (
-                <span className="flex items-center justify-center gap-2">
-                  <Loader2 className="w-5 h-5 animate-spin" /> SENDING...
-                </span>
-              ) : (
-                <span className="flex items-center justify-center gap-2">
-                  <Send className="w-5 h-5" /> SEND MESSAGE
-                </span>
-              )}
-            </Button>
+                {/* Email */}
+                <div>
+                  <label htmlFor="contact-email" className="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase mb-2 block">
+                    Email Address <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => update('email', e.target.value)}
+                    placeholder="you@example.com"
+                    className={`w-full bg-white/4 border rounded-xl px-4 py-3 text-white placeholder-slate-600 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all ${
+                      fieldErrors.email ? 'border-red-400/60' : 'border-white/10 hover:border-white/20'
+                    }`}
+                  />
+                  {fieldErrors.email && (
+                    <p className="text-xs text-red-400 mt-1.5 flex items-center gap-1">
+                      <AlertCircle size={12} /> {fieldErrors.email}
+                    </p>
+                  )}
+                </div>
 
-            {status === 'success' && (
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-emerald-600 font-bold text-center mt-4"
-              >
-                ✨ Message received! I&apos;ll get back to you soon.
-              </motion.p>
+                {/* Message */}
+                <div>
+                  <label htmlFor="contact-message" className="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase mb-2 block">
+                    Message <span className="text-red-400">*</span>
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    required
+                    rows={4}
+                    value={formData.message}
+                    onChange={(e) => update('message', e.target.value)}
+                    placeholder="Tell me about your project or idea..."
+                    className={`w-full bg-white/4 border rounded-xl px-4 py-3 text-white placeholder-slate-600 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all resize-none ${
+                      fieldErrors.message ? 'border-red-400/60' : 'border-white/10 hover:border-white/20'
+                    }`}
+                  />
+                  {fieldErrors.message && (
+                    <p className="text-xs text-red-400 mt-1.5 flex items-center gap-1">
+                      <AlertCircle size={12} /> {fieldErrors.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Honeypot (spam protection - hidden) */}
+                <input type="text" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+
+                {/* Submit error */}
+                {formState === 'error' && errorMessage && (
+                  <div className="flex items-start gap-2 p-3 rounded-xl bg-red-400/10 border border-red-400/20 text-red-400 text-xs">
+                    <AlertCircle size={14} className="flex-shrink-0 mt-0.5" />
+                    {errorMessage}
+                  </div>
+                )}
+
+                {/* Submit button */}
+                <button
+                  type="submit"
+                  disabled={formState === 'submitting'}
+                  aria-label="Send message"
+                  className="w-full py-4 bg-amber-400 text-black font-bold text-sm rounded-xl hover:bg-amber-300 hover:shadow-xl hover:shadow-amber-400/20 active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]"
+                >
+                  {formState === 'submitting' ? (
+                    <>
+                      <span className="animate-spin rounded-full h-4 w-4 border-2 border-black border-t-transparent" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <Send size={15} />
+                    </>
+                  )}
+                </button>
+              </form>
             )}
-            {status === 'error' && (
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-rose-600 font-bold text-center mt-4"
-              >
-                ❌ Something went wrong. Please try again later.
-              </motion.p>
-            )}
-          </form>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
-    </div>
+    </main>
   );
 };
 

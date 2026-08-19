@@ -1,8 +1,16 @@
-import { withContentlayer } from 'next-contentlayer';
+import type { NextConfig } from 'next';
+import path from 'path';
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  /* config options here */
+const nextConfig: NextConfig = {
+  outputFileTracingRoot: path.join(__dirname),
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
+  },
 };
 
-export default withContentlayer(nextConfig);
+export default nextConfig;

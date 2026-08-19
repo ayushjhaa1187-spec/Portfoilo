@@ -27,7 +27,7 @@ const ResumePage = () => {
         <div className="flex gap-4">
           <Button
             onClick={() => window.open(resumeUrl, '_blank')}
-            variant="outline"
+            variant="secondary"
             className="flex items-center gap-2 border-2"
           >
             <ExternalLink size={18} /> Open in New Tab
@@ -62,7 +62,7 @@ const ResumePage = () => {
           <p className="text-slate-500 max-w-xs mb-8">
             Your browser might not support inline PDF viewing. Please download the file to view it.
           </p>
-          <Button variant="outline" className="pointer-events-auto">
+          <Button variant="secondary" className="pointer-events-auto">
             View Original PDF
           </Button>
         </div>

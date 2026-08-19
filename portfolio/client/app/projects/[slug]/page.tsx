@@ -1,142 +1,222 @@
 'use client';
 
-import { allCaseStudies } from 'contentlayer/generated';
-import { notFound } from 'next/navigation';
-import { useMDXComponent } from 'next-contentlayer/hooks';
-import { format, parseISO } from 'date-fns';
-import { ChevronLeft, Github, ExternalLink, Code, Database, Layout } from 'lucide-react';
-import Link from 'next/link';
-import { projects } from '@/data/projects';
 import React from 'react';
+import { motion } from 'framer-motion';
+import { useParams, notFound } from 'next/navigation';
+import { projects, caseStudies } from '@/data/projects';
+import { ArrowLeft, Github, ExternalLink, Target, Cpu, Lightbulb, BarChart, Lock } from 'lucide-react';
+import Link from 'next/link';
 
-interface MDXComponentProps {
-  children?: React.ReactNode;
-  [key: string]: unknown;
-}
+const ProjectDetail = () => {
+  const { slug } = useParams();
+  const project = projects.find((p) => p.slug === slug);
+  const caseStudy = caseStudies.find((cs) => cs.projectSlug === slug);
 
-const mdxComponents = {
-  h1: ({ children, ...props }: MDXComponentProps) => <h1 className="text-4xl font-black mt-8 mb-4 text-blue-900" {...props}>{children}</h1>,
-  h2: ({ children, ...props }: MDXComponentProps) => <h2 className="text-2xl font-bold mt-8 mb-4 text-slate-800 border-b pb-2" {...props}>{children}</h2>,
-  p: ({ children, ...props }: MDXComponentProps) => <p className="text-lg leading-relaxed text-slate-700 mb-6" {...props}>{children}</p>,
-  pre: ({ children, ...props }: MDXComponentProps) => <pre className="p-0 mb-8 rounded-xl overflow-hidden shadow-lg" {...props}>{children}</pre>,
-};
-
-const CaseStudyPage = ({ params }: { params: { slug: string } }) => {
-  const caseStudy = allCaseStudies.find((cs) => cs.slug === params.slug);
-  const projectData = projects.find((p) => p.slug === params.slug || p.slug === caseStudy?.projectSlug);
-
-  // Call the hook at the top level of the component
-  const MDXContent = useMDXComponent(caseStudy?.body.code || '');
-
-  if (!caseStudy) {
-    if (!projectData) notFound();
-    
-    return (
-      <div className="min-h-screen pt-32 pb-24 px-4 max-w-4xl mx-auto text-center">
-         <h1 className="text-4xl font-black mb-4">{projectData.title}</h1>
-         <p className="text-gray-500 mb-8">Case study content is currently being migrated to MDX.</p>
-         <Link href="/projects" className="text-blue-600 font-bold">Back to Projects</Link>
-      </div>
-    );
-  }
+  if (!project) return notFound();
 
   return (
-    <div className="min-h-screen pt-32 pb-24">
-      <div className="max-w-5xl mx-auto px-4">
-        <Link 
-          href="/projects" 
-          className="inline-flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-blue-600 mb-12 transition-colors uppercase tracking-widest"
+    <div className="min-h-screen bg-[#0a0a0a] pt-32 pb-24 text-white">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+
+        {/* Back Button */}
+        <Link
+          href="/projects"
+          className="flex items-center gap-2 text-slate-500 hover:text-amber-400 mb-12 transition-colors group"
+          aria-label="Back to all projects"
         >
-          <ChevronLeft size={16} /> Back to Ecosystem
+          <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+          <span className="text-xs font-bold tracking-wide">Back to Projects</span>
         </Link>
 
-        <header className="mb-16">
-          <div className="flex flex-wrap items-center gap-4 mb-8">
-            <span className="bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
-              Project Case Study
+        {/* Hero Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-16"
+        >
+          <div className="flex items-center gap-3 mb-5 flex-wrap">
+            <span className="px-3 py-1 bg-amber-400 text-black text-[10px] font-bold tracking-wide uppercase rounded">
+              {project.category}
             </span>
-            <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">
-              {format(parseISO(caseStudy.date), 'MMMM yyyy')}
+            <span className={`text-[10px] font-bold px-3 py-1 rounded-full ${
+              project.status === 'Live' ? 'bg-emerald-400/10 text-emerald-400' :
+              project.status === 'Hackathon Build' ? 'bg-amber-400/10 text-amber-400' :
+              project.status === 'In Development' ? 'bg-blue-400/10 text-blue-400' :
+              'bg-violet-400/10 text-violet-400'
+            }`}>
+              {project.status}
             </span>
+            {project.featured && (
+              <span className="text-amber-400 text-[10px] font-bold tracking-wide flex items-center gap-1">
+                ★ Featured
+              </span>
+            )}
+            {caseStudy && (
+              <Link
+                href={`/case-studies/${project.slug}`}
+                className="px-3 py-1 bg-white/8 text-white text-[10px] font-bold tracking-wide uppercase rounded hover:bg-white/15 transition-colors"
+              >
+                Case Study Available
+              </Link>
+            )}
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] tracking-tighter mb-8">
-            {caseStudy.title}
+          <h1 className="text-4xl md:text-7xl font-black mb-6 tracking-tighter leading-tight">
+            {project.title}
           </h1>
+          <p className="text-lg md:text-xl text-slate-400 font-light max-w-2xl leading-relaxed">
+            {project.shortDescription}
+          </p>
 
-          <div className="flex flex-wrap gap-4 mb-12">
-            {projectData?.githubUrl && (
-              <a href={projectData.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-blue-600 transition-colors">
-                <Github size={20} /> View Source Code
+          {/* Action buttons */}
+          <div className="flex flex-wrap gap-4 mt-10">
+            {project.githubUrl ? (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View ${project.title} on GitHub`}
+                className="flex items-center gap-2.5 px-8 py-4 bg-white/5 border border-white/10 rounded-full font-bold text-xs tracking-wide uppercase hover:border-amber-400 transition-all hover:scale-105"
+              >
+                <Github size={18} /> View on GitHub
               </a>
+            ) : (
+              <span className="flex items-center gap-2.5 px-8 py-4 bg-white/5 border border-white/10 rounded-full font-bold text-xs tracking-wide uppercase text-slate-600 cursor-not-allowed">
+                <Lock size={18} /> Private Repository
+              </span>
             )}
-            {projectData?.liveUrl && (
-              <a href={projectData.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 bg-blue-50 text-blue-600 rounded-xl font-bold hover:bg-blue-100 transition-colors border border-blue-100">
-                <ExternalLink size={20} /> Live Production ↗
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View ${project.title} live demo`}
+                className="flex items-center gap-2.5 px-8 py-4 bg-amber-400 text-black rounded-full font-bold text-xs tracking-wide uppercase hover:scale-105 transition-all shadow-lg shadow-amber-400/25"
+              >
+                <ExternalLink size={18} /> Live Demo ↗
               </a>
             )}
           </div>
-        </header>
+        </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-12">
-          <div className="lg:col-span-2">
-            <div className="prose prose-slate prose-lg max-w-none">
-              {React.createElement(MDXContent, { components: mdxComponents })}
+        {/* Content sections */}
+        <div className="space-y-16">
+
+          {/* Problem & Solution */}
+          {(project.problem || project.solution || caseStudy) && (
+            <section className="grid lg:grid-cols-2 gap-10">
+              <motion.div
+                initial={{ opacity: 0, x: -16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className="flex items-center gap-2.5 text-amber-400 mb-5 border-b border-white/5 pb-3">
+                  <Target size={20} />
+                  <h2 className="text-lg font-black tracking-tight uppercase">Problem</h2>
+                </div>
+                <p className="text-slate-400 leading-relaxed">
+                  {caseStudy?.problem ?? project.problem ?? 'Documentation in progress.'}
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className="flex items-center gap-2.5 text-emerald-400 mb-5 border-b border-white/5 pb-3">
+                  <Lightbulb size={20} />
+                  <h2 className="text-lg font-black tracking-tight uppercase">Solution</h2>
+                </div>
+                <p className="text-slate-400 leading-relaxed">
+                  {caseStudy?.solution ?? project.solution ?? 'Documentation in progress.'}
+                </p>
+              </motion.div>
+            </section>
+          )}
+
+          {/* Architecture & Tech Stack */}
+          <section>
+            <div className="flex items-center gap-2.5 text-blue-400 mb-8 border-b border-white/5 pb-3">
+              <Cpu size={20} />
+              <h2 className="text-lg font-black tracking-tight uppercase">Architecture & Tech Stack</h2>
             </div>
-          </div>
 
-          <aside className="space-y-8">
-            <div className="p-8 bg-slate-50 rounded-3xl border border-gray-100 sticky top-32">
-              <h3 className="text-lg font-black text-slate-900 mb-6 uppercase tracking-widest border-b pb-4">Architectural Stack</h3>
-              
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="p-2 bg-white rounded-lg shadow-sm h-fit">
-                    <Code className="text-blue-600" size={20} />
+            {project.architecture && project.architecture.length > 0 && (
+              <div className="grid md:grid-cols-3 gap-5 mb-8">
+                {project.architecture.map((step, i) => (
+                  <div key={i} className="glass-panel p-6 relative border border-white/5 rounded-2xl hover:border-white/10 transition-all">
+                    <div className="absolute -top-3 -left-3 w-8 h-8 bg-[#0a0a0a] border border-amber-400/30 rounded-full flex items-center justify-center font-black text-amber-400 text-xs">
+                      {i + 1}
+                    </div>
+                    <p className="text-white font-medium text-sm">{step}</p>
                   </div>
-                  <div>
-                    <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Frontend</h4>
-                    <p className="text-slate-700 font-bold">React / Next.js / Tailwind</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="p-2 bg-white rounded-lg shadow-sm h-fit">
-                    <Database className="text-blue-600" size={20} />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Backend & AI</h4>
-                    <p className="text-slate-700 font-bold">Python / PyTorch / Gemini</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="p-2 bg-white rounded-lg shadow-sm h-fit">
-                    <Layout className="text-blue-600" size={20} />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Deployment</h4>
-                    <p className="text-slate-700 font-bold">Vercel / Supabase / GCP</p>
-                  </div>
-                </div>
+                ))}
               </div>
+            )}
 
-              <div className="mt-10">
-                <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-4">Core Technologies</h3>
-                <div className="flex flex-wrap gap-2">
-                  {caseStudy.techStack.map(tech => (
-                    <span key={tech} className="px-3 py-1 bg-white border border-gray-100 rounded-lg text-xs font-bold text-gray-600 shadow-sm">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
+            <div className="flex flex-wrap gap-2">
+              {project.techStack.map((tech) => (
+                <span
+                  key={tech}
+                  className="px-4 py-1.5 bg-white/5 border border-white/5 rounded-full text-xs font-medium text-slate-400 uppercase tracking-wide hover:text-white transition-colors"
+                >
+                  {tech}
+                </span>
+              ))}
             </div>
-          </aside>
+          </section>
+
+          {/* Metrics (if any) */}
+          {project.metrics && project.metrics.length > 0 && (
+            <section>
+              <div className="flex items-center gap-2.5 text-emerald-400 mb-8 border-b border-white/5 pb-3">
+                <BarChart size={20} />
+                <h2 className="text-lg font-black tracking-tight uppercase">Project Metrics</h2>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                {project.metrics.map((m) => (
+                  <div key={m.label} className="glass-card p-5 text-center">
+                    <p className="text-2xl font-black text-amber-400">{m.value}</p>
+                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">{m.label}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Case study results */}
+          {caseStudy && caseStudy.results && caseStudy.results.length > 0 && (
+            <section className="glass-card p-8 rounded-2xl">
+              <h3 className="text-base font-black text-white uppercase tracking-tight mb-5">Results</h3>
+              <ul className="space-y-3">
+                {caseStudy.results.map((r, i) => (
+                  <li key={i} className="flex items-start gap-3 text-slate-400 text-sm leading-relaxed">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0 mt-1.5" />
+                    {r}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Tags */}
+          {project.tags && project.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 pt-4 border-t border-white/5">
+              {project.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-[10px] text-slate-600 font-bold uppercase tracking-widest"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
+
         </div>
       </div>
     </div>
   );
 };
 
-export default CaseStudyPage;
+export default ProjectDetail;

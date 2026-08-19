@@ -1,108 +1,241 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, Sparkles } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { MessageSquare, X, Send } from 'lucide-react';
+import { certifications } from '@/data/certifications';
+import { getAIResponse } from '@/data/ai-knowledge';
 
-const AIAssistant = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { role: 'assistant', content: "Hi! I am Ayush's AI assistant. Ask me anything about his projects, skills, or experience!" }
-  ]);
+type ChatState = 'closed' | 'open' | 'thinking' | 'streaming' | 'error';
+
+interface Message {
+  id: string;
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  timestamp: number;
+}
+
+const SYSTEM_PROMPT = `
+You are AKJ-AI, portfolio assistant for Ayush Kumar Jha.
+
+IDENTITY:
+- BS Data Science & Applications, IIT Madras (2025–2029)
+- 46+ GitHub repos, 3,809+ LinkedIn followers
+- Research & Education Design Intern: Vicharanashala (Lab for Education Design / VLED), IIT Ropar
+- Selected for Bharat Innovates 2026 (Nice, France) - Global Deep-Tech Accelerator
+- Jury Member: AI-volution, GES 2026, IIT Kharagpur
+- Finalist: DevFusion (IIT Bombay Top 10), Elite Hack 1.0 (Top 10 / 7.4k+), GDG HackFest 2.0, IIT Kanpur Brahmastra, DMS IIT Delhi Deal Room
+- Certifications: ${certifications.map((c) => c.title).join(', ')}
+
+SKILLS: Multi-agent AI, Physics-Informed Neural Networks (PINNs), React/Next.js, FastAPI, PostgreSQL, Supabase
+
+PHILOSOPHY: "Building with product depth, system scalability, and execution humility."
+
+OPEN TO: High-impact AI/ML collaborations, research partnerships, and full-stack roles
+CONTACT: ayushjhaa1187@gmail.com
+
+Rules: Answer in <80 words unless asked for detail. Be direct. Never say "I don't know" — redirect to contact.
+`;
+
+const QUICK_QUESTIONS = [
+  'What are your best projects?',
+  'Open to collaborations?',
+  "What's your tech stack?",
+  'Tell me your IIT journey',
+  'How can we work together?'
+];
+
+const createId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+
+const initialAssistantMessage: Message = {
+  id: createId(),
+  role: 'assistant',
+  content: "Hi! I'm AKJ-AI. Ask me about projects, IIT journey, collaborations, or certifications.",
+  timestamp: Date.now()
+};
+
+export const AIAssistant = () => {
+  const [chatState, setChatState] = useState<ChatState>('closed');
+  const [messages, setMessages] = useState<Message[]>([initialAssistantMessage]);
   const [input, setInput] = useState('');
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const toggleChat = () => setIsOpen(!isOpen);
+  const isOpen = chatState !== 'closed';
+  const isThinking = chatState === 'thinking' || chatState === 'streaming';
 
-  const handleSend = () => {
-    if (!input.trim()) return;
-    
-    // Add user message
-    const userMsg = { role: 'user', content: input };
-    setMessages([...messages, userMsg]);
+  useEffect(() => {
+    if (isOpen) {
+      inputRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, chatState]);
+
+  useEffect(() => {
+    const openHandler = () => setChatState((prev) => (prev === 'closed' ? 'open' : prev));
+    document.addEventListener('open-ai-assistant', openHandler);
+    return () => document.removeEventListener('open-ai-assistant', openHandler);
+  }, []);
+
+  const payloadContext = useMemo(
+    () => ({
+      system: SYSTEM_PROMPT,
+      messages: messages.slice(-8).map((m) => ({ role: m.role, content: m.content }))
+    }),
+    [messages]
+  );
+
+  const sendMessage = async (forcedText?: string) => {
+    const content = (forcedText ?? input).trim();
+    if (!content || isThinking) return;
+
+    const userMessage: Message = {
+      id: createId(),
+      role: 'user',
+      content,
+      timestamp: Date.now()
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
     setInput('');
+    setChatState('thinking');
 
-    // Simulate AI response
-    setTimeout(() => {
-      setMessages(prev => [...prev, { 
-        role: 'assistant', 
-        content: 'I am currently in "offline" mode as Ayush is upgrading my neural links. You can reach him directly at ayushjhaa1187@gmail.com for faster response!' 
-      }]);
-    }, 1000);
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: content,
+          history: payloadContext.messages
+        })
+      });
+
+      let aiText = '';
+      if (res.ok) {
+        const data = await res.json();
+        aiText = data?.reply || '';
+      }
+
+      if (!aiText) {
+        aiText = getAIResponse(content);
+      }
+
+      setChatState('streaming');
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: createId(),
+          role: 'assistant',
+          content: aiText.trim(),
+          timestamp: Date.now()
+        }
+      ]);
+      setChatState('open');
+    } catch {
+      const fallbackText = getAIResponse(content);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: createId(),
+          role: 'assistant',
+          content: fallbackText.trim(),
+          timestamp: Date.now()
+        }
+      ]);
+      setChatState('open');
+    }
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[9999]">
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="mb-4 w-[350px] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden"
-          >
-            {/* Header */}
-            <div className="p-4 bg-amber-400 text-black flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <Sparkles size={18} />
-                <span className="font-black uppercase tracking-tighter text-sm">Ayush&apos;s Core_Intelligence</span>
-              </div>
-              <button onClick={toggleChat} className="hover:bg-black/10 p-1 rounded-full transition-colors">
-                <X size={18} />
-              </button>
+    <>
+      {isOpen && (
+        <div className="fixed bottom-24 right-6 z-[9998] w-[380px] max-h-[560px] glass-card border border-amber-400/20 rounded-2xl shadow-2xl shadow-amber-400/10 flex flex-col overflow-hidden bg-[#0d0d0d]">
+          <div className="p-5 border-b border-white/5 flex items-center justify-between bg-amber-400/5">
+            <div>
+              <p className="text-[10px] font-black tracking-widest text-emerald-400 uppercase">AKJ-AI Online</p>
+              <h4 className="text-white font-black tracking-tight">Ayush&apos;s AI Assistant</h4>
             </div>
+            <button onClick={() => setChatState('closed')} className="text-slate-500 hover:text-white transition-colors">
+              <X size={18} />
+            </button>
+          </div>
 
-            {/* Messages */}
-            <div className="h-[400px] overflow-y-auto p-4 space-y-4 bg-slate-50 dark:bg-[#0a0a0a]">
-              {messages.map((msg, idx) => (
-                <div 
-                  key={idx} 
-                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+          <div className="flex-1 overflow-y-auto p-5 space-y-4">
+            {messages.map((m) => (
+              <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div
+                  className={`max-w-[80%] px-4 py-3 rounded-xl text-sm leading-relaxed ${
+                    m.role === 'user'
+                      ? 'bg-amber-400 text-black font-bold'
+                      : 'bg-white/5 border border-white/10 text-slate-300'
+                  }`}
                 >
-                  <div className={`max-w-[85%] p-4 rounded-2xl text-[13px] leading-relaxed shadow-sm ${
-                    msg.role === 'user' 
-                      ? 'bg-amber-400 text-black font-medium rounded-tr-none' 
-                      : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-100 dark:border-white/5 rounded-tl-none font-mono whitespace-pre-wrap'
-                  }`}>
-                    {msg.content}
+                  {m.content}
+                </div>
+              </div>
+            ))}
+
+            {isThinking && (
+              <div className="flex justify-start">
+                <div className="max-w-[80%] px-4 py-3 rounded-xl text-sm leading-relaxed bg-white/5 border border-white/10 text-slate-300">
+                  <div className="flex gap-1 items-center">
+                    <span className="h-2 w-2 rounded-full bg-amber-300 animate-bounce" />
+                    <span className="h-2 w-2 rounded-full bg-amber-300 animate-bounce [animation-delay:0.12s]" />
+                    <span className="h-2 w-2 rounded-full bg-amber-300 animate-bounce [animation-delay:0.24s]" />
                   </div>
                 </div>
+              </div>
+            )}
+
+            <div ref={scrollRef} />
+          </div>
+
+          {messages.length <= 1 && (
+            <div className="px-5 pb-3 flex flex-wrap gap-2">
+              {QUICK_QUESTIONS.map((q) => (
+                <button
+                  key={q}
+                  onClick={() => sendMessage(q)}
+                  className="text-[9px] font-black tracking-widest uppercase px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-slate-400 hover:border-amber-400/50 hover:text-amber-400 transition-all"
+                >
+                  {q}
+                </button>
               ))}
             </div>
+          )}
 
-            {/* Input */}
-            <div className="p-4 border-t border-slate-100 dark:border-white/5 flex gap-2 bg-white dark:bg-slate-950">
-              <input 
-                type="text" 
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Ask about my RAG engines or IIT life..."
-                className="flex-grow bg-slate-100 dark:bg-white/5 border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-amber-400 outline-none font-medium"
-              />
-              <button 
-                onClick={handleSend}
-                className="bg-amber-400 text-black p-2.5 rounded-full hover:bg-white transition-colors shadow-lg shadow-amber-400/20"
-              >
-                <Send size={18} />
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          <div className="p-4 border-t border-white/5 flex gap-3">
+            <input
+              ref={inputRef}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+              placeholder="Ask anything..."
+              className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-amber-400/50 transition-colors"
+            />
+            <button
+              onClick={() => sendMessage()}
+              className="p-2.5 bg-amber-400 text-black rounded-lg hover:bg-white transition-colors disabled:opacity-50"
+              disabled={isThinking}
+            >
+              <Send size={16} />
+            </button>
+          </div>
+        </div>
+      )}
 
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={toggleChat}
-        className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center shadow-2xl hover:shadow-amber-400/40 transition-all border-4 border-black group"
-      >
-        <MessageSquare size={26} />
-        <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 border-4 border-black rounded-full animate-pulse" />
-        <span className="absolute right-full mr-4 bg-amber-400 text-black px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-[0.2em] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-2xl pointer-events-none">
-          SYSTEM_ACCESS
-        </span>
-      </motion.button>
-    </div>
+      <div className="fixed bottom-6 right-6 z-[9999]">
+        <button
+          onClick={() => setChatState((prev) => (prev === 'closed' ? 'open' : 'closed'))}
+          className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center shadow-2xl hover:shadow-amber-400/40 transition-all border-4 border-black group"
+        >
+          {isOpen ? <X size={24} /> : <MessageSquare size={26} />}
+          <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 border-4 border-black rounded-full animate-pulse" />
+        </button>
+      </div>
+    </>
   );
 };
 

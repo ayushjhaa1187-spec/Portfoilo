@@ -38,6 +38,8 @@ export const CaseStudy = defineDocumentType(() => ({
     date: { type: 'date', required: true },
     image: { type: 'string' },
     techStack: { type: 'list', of: { type: 'string' } },
+    githubUrl: { type: 'string' },
+    liveUrl: { type: 'string' },
   },
   computedFields: {
     slug: {
@@ -58,7 +60,8 @@ export default makeSource({
     rehypePlugins: [
       rehypeSlug,
       [
-        rehypePrettyCode,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        rehypePrettyCode as any,
         {
           theme: 'one-dark-pro',
         },

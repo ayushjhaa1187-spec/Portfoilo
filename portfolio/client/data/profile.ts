@@ -7,28 +7,28 @@ export const profile = {
   name: "Ayush Kumar Jha",
   title: "AI & Full-Stack Engineer",
   subtitle: "IIT Madras Data Science Scholar",
-  tagline: "AI & Full-Stack Engineer | IIT Madras Data Science Scholar",
-  location: "India",
+  tagline: "IIT MADRAS 29’ | JURY AT IIT KHARAGPUR | INTERN AT IIT ROPAR | FINALIST AT IITK/IITM/IITB/IITD/IITR | SELECTED FOR BHARAT INNOVATES (FRANCE)",
+  location: "Delhi, India",
   email: "ayushjhaa1187@gmail.com",
   github: "https://github.com/ayushjhaa1187-spec",
   linkedin: "https://www.linkedin.com/in/ayush-kumar-jha-5960a3362/",
-  resume: "/resume.pdf", // User will provide the actual PDF in public/resume.pdf
-  availability: "Open to Internships & Collaborations",
-  bio: "I'm an AI and full-stack developer currently pursuing Data Science through IIT Madras. I enjoy building practical AI products, experimenting with LLM systems, and turning ideas into working web applications. My focus areas include multi-agent systems, retrieval-augmented generation, AI-assisted automation, and full-stack product development.",
-  shortBio: "Building AI-powered web applications, multi-agent systems, and full-stack products with a focus on practical problem-solving, clean engineering, and real-world deployment.",
+  resume: "/resume.pdf",
+  availability: "Open to High-Impact AI/ML & Full-Stack Collaborations",
+  bio: "I'm an AI engineer and full-stack developer pursuing Data Science & Applications at IIT Madras (Class of 2029). Currently a Research & Education Design Intern at IIT Ropar (Vicharanashala / VLED) and Jury Member at IIT Kharagpur (GES AI-volution). Selected for Bharat Innovates 2026 in Nice, France, representing Indian deep-tech on a global accelerator stage. My focus spans multi-agent workflows, long-term memory for AI systems, physics-informed neural networks (PINNs), and high-performance full-stack web architectures.",
+  shortBio: "IIT Madras Data Science Scholar & AI Engineer. Intern at IIT Ropar (VLED), Jury at IIT Kharagpur, Finalist across 5+ premier IITs, and Global Innovator at Bharat Innovates (Nice, France).",
   stats: {
-    // All stats are verified — do not inflate
+    followers: 3809,       // Verified LinkedIn followers
     publicRepos: 46,       // Verified via GitHub API
-    liveProjects: 6,       // Conservative, verifiable count
-    hackathons: 3,         // HackIndia + HackOverflow + Advitiya
-    iitMadras: true,       // Enrolled BS Data Science
+    liveProjects: 12,      // Verified active and deployed projects
+    hackathons: 8,         // Verified hackathons across premier IITs
+    iitMadras: true,       // Enrolled BS Data Science (2025–2029)
   },
   focusAreas: [
-    "Multi-Agent Systems",
-    "RAG & LLM Systems",
-    "Full-Stack Development",
-    "AI Automation",
-    "Hackathon Builds",
+    "Multi-Agent AI Systems",
+    "Physics-Informed Neural Networks (PINNs)",
+    "Long-Term Memory AI Architectures",
+    "Full-Stack Web Engineering (Next.js / Supabase)",
+    "B2B SaaS & Venture Strategy",
   ],
 } as const;
 

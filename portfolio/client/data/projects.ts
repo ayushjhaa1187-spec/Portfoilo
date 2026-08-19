@@ -43,6 +43,110 @@ export interface Project {
 export const projects: Project[] = [
   // ── FEATURED PROJECTS ──────────────────────────────────────
   {
+    slug: "skillbridge",
+    title: "SkillBridge: AI-First Peer Learning Ecosystem",
+    category: "Full-Stack",
+    shortDescription:
+      "Full-stack learning platform shortlisted in the Top 10 at DevFusion (IIT Bombay) featuring instant AI doubt-solving, adaptive practice, and credit revenue architecture.",
+    fullDescription:
+      "Built for Problem Statement 2 at DevFusion Hackathon (IIT Bombay). We expanded beyond basic peer learning into an enterprise-grade AI learning ecosystem featuring real-time AI doubt resolution, verified mentor sessions, adaptive test generation, gamified reputation mechanics, subscription tiers, and credit monetization logic.",
+    techStack: ["Next.js", "React", "TypeScript", "Framer Motion", "OpenAI / LLMs", "Supabase", "Node.js"],
+    metrics: [
+      { label: "Recognition", value: "Top 10 @ IIT Bombay" },
+      { label: "Hackathon", value: "DevFusion" },
+    ],
+    githubUrl: "https://github.com/ayushjhaa1187-spec/SkillBridge",
+    featured: true,
+    status: "Hackathon Build",
+    tags: ["IIT Bombay", "AI Learning", "Full-Stack", "Top 10 Finalist", "EdTech"],
+    problem:
+      "Students struggle with fragmented doubt resolution, lack of vetted peer mentorship, and rigid practice workflows.",
+    solution:
+      "Engineered an integrated AI-first ecosystem with instant multimodal doubt resolution, gamified peer Q&A, verified mentor booking, and dynamic practice testing.",
+  },
+  {
+    slug: "elite-event-hub",
+    title: "CoCreate / Elite Event Management Platform",
+    category: "Full-Stack",
+    shortDescription:
+      "Live-deployed full-stack event and hackathon coordination hub that placed in the Top 10 out of 7,400+ builders at Elite Hack 1.0.",
+    fullDescription:
+      "An end-to-end production web application built and deployed live within 48 hours under high-pressure constraints. Features team formation, live submission portals, dynamic schedule management, and real-time announcements.",
+    techStack: ["Next.js", "React", "Tailwind CSS", "Vercel", "PostgreSQL / Supabase", "Framer Motion"],
+    metrics: [
+      { label: "Participants", value: "7,400+ Teams" },
+      { label: "Result", value: "Top 10 Finalist" },
+    ],
+    githubUrl: "https://github.com/ayushjhaa1187-spec/elite-hack-1-0",
+    liveUrl: "https://elite-hack-1-0.vercel.app",
+    featured: true,
+    status: "Live",
+    tags: ["Live Deployment", "Full-Stack", "Hackathon Finalist", "Vercel"],
+    problem:
+      "Organizing large-scale virtual hackathons requires low-latency team matching, real-time schedule syncing, and reliable submission tracking.",
+    solution:
+      "Shipped a resilient, responsive full-stack platform deployed on Vercel handling live participant workflows and event dashboards.",
+  },
+  {
+    slug: "neuromemory-agent",
+    title: "NeuroMemory: 1,000-Turn Conversational Persistence",
+    category: "ML/AI",
+    shortDescription:
+      "Long-term memory architecture for conversational AI agents surviving 1,000+ turns with low-latency inference injection (Smallest.ai × IIT Guwahati).",
+    fullDescription:
+      "Developed during the NeuroHack Challenge 2026 organized by Smallest.ai and IIT Guwahati (IITG.ai). Addresses agent memory degradation by extracting episodic and semantic memories, persisting them in structured vector stores, and retrieving only salient contextual tokens at sub-50ms inference time.",
+    techStack: ["Python", "Smallest.ai API", "FastAPI", "Vector DB", "PyTorch", "LLMs"],
+    metrics: [
+      { label: "Memory Turns", value: "1,000+ Turns" },
+      { label: "Latency", value: "Sub-50ms" },
+    ],
+    githubUrl: "https://github.com/ayushjhaa1187-spec/NeuroMemory-Agent",
+    featured: true,
+    status: "Prototype",
+    tags: ["AI Agents", "Long-Term Memory", "Smallest.ai", "IIT Guwahati", "LLM Infrastructure"],
+    problem:
+      "Most conversational AI agents lose contextual continuity or experience severe latency degradation after 20+ turns.",
+    solution:
+      "Architected a hierarchical memory tier that extracts, summarizes, and selectively injects relevant historical facts into prompt context dynamically.",
+  },
+  {
+    slug: "brd-generation-agent",
+    title: "Autonomous BRD Generation Agent",
+    category: "ML/AI",
+    shortDescription:
+      "Solo finalist build at HackFest 2.0 (GDG Cloud New Delhi × Turgon AI) transforming raw product notes into comprehensive Business Requirements Documents.",
+    fullDescription:
+      "An intelligent workflow automation system built during a 24-hour global hackathon. Cleared multiple elimination rounds into the Grand Finals by automating the tedious product documentation lifecycle with structured LLM reasoning chains.",
+    techStack: ["Python", "LangChain", "OpenAI", "FastAPI", "Streamlit"],
+    metrics: [
+      { label: "HackFest 2.0", value: "Solo Finalist" },
+      { label: "Generation Time", value: "< 2 mins" },
+    ],
+    githubUrl: "https://github.com/ayushjhaa1187-spec/BRD-Generation-Agent",
+    featured: true,
+    status: "Prototype",
+    tags: ["Agentic AI", "GDG Cloud", "Product Tech", "Workflow Automation", "Solo Finalist"],
+  },
+  {
+    slug: "nexas-sports",
+    title: "NEXAS: Urban Sports Infrastructure Platform",
+    category: "UX Labs",
+    shortDescription:
+      "Integrated sports discovery, court booking, and player community platform created for Artpark ProtoDash at IISc Bangalore.",
+    fullDescription:
+      "Addresses fragmented urban sports logistics across India. Combines real-time venue slot discovery, skill-based matchmaking, coach management, and community leagues into a unified interface.",
+    techStack: ["React", "TypeScript", "Tailwind CSS", "Figma", "UI/UX Ergonomics"],
+    metrics: [
+      { label: "Design Summit", value: "Artpark ProtoDash" },
+      { label: "Institution", value: "IISc Bangalore" },
+    ],
+    githubUrl: "https://github.com/ayushjhaa1187-spec/NEXAS",
+    liveUrl: "https://lnkd.in/gA3UzFRm",
+    featured: false,
+    status: "Prototype",
+    tags: ["SportsTech", "IISc Bangalore", "UI/UX", "Product Design", "Artpark"],
+  },
+  {
     slug: "enron-insights",
     title: "Enron Forensic Intelligence",
     category: "ML/AI",
@@ -56,7 +160,6 @@ export const projects: Project[] = [
       { label: "Retrieval", value: "Sub-second" },
     ],
     githubUrl: "https://github.com/ayushjhaa1187-spec/enron-insights",
-    liveUrl: undefined, // Deploy URL not verified
     featured: true,
     status: "In Development",
     tags: ["RAG", "NLP", "Data Analysis", "Forensics", "AI Search"],
@@ -79,8 +182,7 @@ export const projects: Project[] = [
       { label: "Roles", value: "Multi-role" },
     ],
     githubUrl: "https://github.com/ayushjhaa1187-spec/hostel-issue-tracker-2026",
-    liveUrl: undefined,
-    featured: true,
+    featured: false,
     status: "Hackathon Build",
     tags: ["Full-Stack", "Dashboard", "Issue Tracking", "Hackathon"],
     problem: "Inefficient facility management and grievance tracking in university hostels.",
@@ -98,13 +200,10 @@ export const projects: Project[] = [
     techStack: ["Python", "PyTorch", "Gradio"],
     metrics: [{ label: "Latency", value: "Low-latency" }],
     githubUrl: "https://github.com/ayushjhaa1187-spec/Voice-Assistant",
-    liveUrl: undefined,
-    featured: true,
+    featured: false,
     status: "Prototype",
     tags: ["Voice AI", "LLM", "Automation", "Experiment"],
   },
-
-  // ── SUPPORTING PROJECTS ────────────────────────────────────
   {
     slug: "shadow-crm",
     title: "Shadow CRM",
@@ -115,44 +214,6 @@ export const projects: Project[] = [
     featured: false,
     status: "Prototype",
     tags: ["CRM", "Full-Stack", "Backend"],
-  },
-  {
-    slug: "sign-up-enhancer",
-    title: "Sign-Up UX Accelerator",
-    category: "UX Labs",
-    shortDescription:
-      "Micro-interaction library and component set for high-conversion onboarding flows.",
-    techStack: ["React", "Framer Motion", "TypeScript"],
-    githubUrl: "https://github.com/ayushjhaa1187-spec/sign-up-enhancer",
-    featured: false,
-    status: "Prototype",
-    tags: ["UX", "React", "Micro-interactions"],
-  },
-  {
-    slug: "stocksense-agent",
-    title: "RetailDemand AI Agent",
-    category: "ML/AI",
-    shortDescription:
-      "Autonomous AI agent for retail demand forecasting using historical patterns and market data.",
-    techStack: ["Python", "TensorFlow", "LLMs", "Pandas", "scikit-learn"],
-    githubUrl: "https://github.com/ayushjhaa1187-spec/stocksense-agent",
-    // Note: retaildemand.ai was not a real domain — removed
-    featured: false,
-    status: "Research Experiment",
-    tags: ["AI", "ML", "Forecasting", "Supply Chain"],
-  },
-  {
-    slug: "meeting-insights-weaver",
-    title: "Legal Insights Weaver",
-    category: "ML/AI",
-    shortDescription:
-      "AI-powered contract analysis and clause extraction platform using NLP.",
-    techStack: ["TypeScript", "Vite", "Supabase", "OpenAI"],
-    githubUrl: "https://github.com/ayushjhaa1187-spec/meeting-insights-weaver",
-    // Note: legal-weaver.ai was not a real domain — removed
-    featured: false,
-    status: "In Development",
-    tags: ["AI", "Legal Tech", "NLP", "Full-Stack"],
   },
   {
     slug: "openclaw-hackindia",

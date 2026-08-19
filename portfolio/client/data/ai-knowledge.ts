@@ -1,102 +1,125 @@
 export const aiKnowledge = {
   profile: {
     name: "Ayush Kumar Jha",
-    role: "AI Engineer & Full-Stack Developer",
-    education: "BS in Data Science & Applications from IIT Madras",
-    location: "India / Remote",
-    motto: "Engineering the interface of science and business.",
-    availability: "Available for high-impact AI/ML projects and Full-Stack roles (Freelance/Full-time)."
+    role: "AI Engineer & IIT Madras Data Science Scholar",
+    education: "BS in Data Science & Applications from IIT Madras (Class of 2029)",
+    location: "Delhi, India / Remote",
+    headline: "IIT MADRAS 29’ | JURY AT IIT KHARAGPUR | INTERN AT IIT ROPAR | FINALIST AT IITK/IITM/IITB/IITD/IITR | SELECTED FOR BHARAT INNOVATES (FRANCE)",
+    motto: "Building with product depth, scalability, and execution humility.",
+    availability: "Available for high-impact AI/ML projects and Full-Stack collaborations."
   },
   skills: [
-    "Python", "TensorFlow", "PyTorch", "LangGraph", "LLMs", "Generative AI",
-    "Next.js", "React", "Node.js", "TypeScript", "PostgreSQL", "MongoDB",
-    "Computer Vision", "Satellite Data Analysis", "Fraken-stack development"
+    "Python", "Physics-Informed Neural Networks (PINNs)", "PyTorch", "LangChain", "LLMs", "Generative AI",
+    "Next.js", "React", "Node.js", "TypeScript", "PostgreSQL", "Supabase", "FastAPI",
+    "Agentic Workflows", "Long-Term Memory AI", "B2B SaaS Strategy"
   ],
   projects: [
     {
-      name: "StockSense Agent",
-      description: "Autonomous AI agent for stock analysis using LangGraph and LLMs.",
-      highlights: ["Real-time data feeds", "Predictive reasoning", "Agentic workflows"]
+      name: "SkillBridge",
+      description: "AI-first peer learning and doubt resolution ecosystem (Top 10 @ IIT Bombay DevFusion).",
+      highlights: ["Instant multimodal AI doubt solving", "Adaptive practice tests", "Credit monetization engine"]
     },
     {
-      name: "LLM_PEXPERIMENT",
-      description: "Benchmarking prompt engineering across 12+ models.",
-      highlights: ["96% accuracy benchmarks", "Weights & Biases integration"]
+      name: "Elite Event Platform",
+      description: "Deployed event management platform placing in Top 10 out of 7,400+ builders at Elite Hack 1.0.",
+      highlights: ["Live on Vercel", "High-throughput registration", "Real-time updates"]
     },
     {
-      name: "Satellite Analysis",
-      description: "Environmental monitoring using computer vision on satellite imagery.",
-      highlights: ["92% accuracy", "Automated detection of deforestation"]
+      name: "NeuroMemory Agent",
+      description: "1,000-turn conversational memory persistence system (Smallest.ai × IIT Guwahati NeuroHack).",
+      highlights: ["Sub-50ms token injection", "Hierarchical episodic extraction", "Zero-latency persistence"]
     },
     {
-      name: "Insight Weaver",
-      description: "Multi-modal data visualization and analysis tool.",
-      highlights: ["3x faster insights", "Graph theory application"]
+      name: "BRD Generation Agent",
+      description: "Solo finalist AI workflow tool at HackFest 2.0 (GDG Cloud New Delhi × Turgon AI).",
+      highlights: ["Automated BRD drafting in < 2 mins", "Structured reasoning chains"]
+    },
+    {
+      name: "NEXAS Sports Platform",
+      description: "Integrated urban sports discovery and logistics ecosystem built for Artpark ProtoDash (IISc Bangalore).",
+      highlights: ["Court discovery", "Matchmaking", "Community leagues"]
     }
   ],
   experience: [
-    "Student @ IIT Madras (Jan 2026 – Present)",
-    "Nilgiri House Member @ IITM",
-    "Multi-rotation Intern @ Yuva Intern (Data Science, Analytics, Frontend)",
-    "Intern @ Spaceborn & Spacelance (Space data ML)"
+    "Research & Education Design Intern @ Vicharanashala (Lab for Education Design / VLED), IIT Ropar",
+    "Jury Member @ AI-volution, GES 2026 — IIT Kharagpur (with Ashoka Changemakers)",
+    "Campus Ambassador @ BECon '26, eDC IIT Delhi",
+    "Campus Ambassador @ Cognizance 2026, IIT Roorkee",
+    "BS Data Science Scholar @ IIT Madras (2025–2029)",
+    "Junior Data Analyst & Frontend Developer @ Yuva Intern"
   ],
   achievements: [
-    "Jury Member @ AI-volution, IIT Kharagpur (GES 2026)",
-    "Finalist @ Shaastra (IITM), BECon (IITD), Roorkee fests",
-    "Campus Ambassador @ DTU & Premier IITs"
+    "Selected for Bharat Innovates 2026 in Nice, France (Global Deep-Tech Accelerator)",
+    "Top 10 Finalist @ DevFusion Hackathon, IIT Bombay (SkillBridge)",
+    "Top 10 Finalist @ Elite Hack 1.0 (out of 7,400+ participants)",
+    "Solo Finalist @ HackFest 2.0 (GDG Cloud New Delhi × Turgon AI)",
+    "Grand Finale Qualifier @ Brahmastra Policy Case Competition, IIT Kanpur",
+    "Top 30 Finalist @ The Deal Room Investment Challenge, DMS IIT Delhi",
+    "Rank 27 @ CaseQuest '26, DMS IIT Delhi",
+    "Invited for Physics-Informed Neural Networks (PINNs) at CDS IISc Bangalore (34.5k+ impressions)"
   ]
 };
 
 export const getAIResponse = (query: string, context?: string): string => {
   const q = query.toLowerCase();
   
+  // France / Bharat Innovates
+  if (q.includes('france') || q.includes('bharat innovates') || q.includes('global') || q.includes('nice')) {
+    return "Ayush was selected for Bharat Innovates 2026 in Nice, France — a premier global accelerator connecting 120 Indian deep-tech startups and 15 top institutions with international partners. Read the full story at /blog/bharat-innovates-france-deeptech.";
+  }
+
+  // IIT Ropar / Vicharanashala
+  if (q.includes('ropar') || q.includes('vicharanashala') || q.includes('vled') || q.includes('mentor')) {
+    return "Ayush is a Research & Education Design Intern at Vicharanashala (Lab for Education Design / VLED) at IIT Ropar, working under Prof. Sudarshan Iyengar and Dr. Pavani Ayinampudi on AI-assisted pedagogy and problem architecture. Explore details at /experience.";
+  }
+
+  // IISc / PINNs
+  if (q.includes('iisc') || q.includes('pinn') || q.includes('physics') || q.includes('porosity')) {
+    return "Ayush was invited to CDS (Computational and Data Sciences) at IISc Bangalore for a seminar on Adaptive PINNs for Dual-Porosity Flow by Prof. Kalyana Nakshatrala (University of Houston) — his writeup gained 34,490+ impressions on LinkedIn! Check /blog/physics-meets-neural-nets-iisc-pinns.";
+  }
+
   // Specific Project Contexts
-  if (context === 'nexus' || q.includes('nexus')) {
-    return "Nexus AI is an inter-campus knowledge network leveraging agentic RAG and decentralized karma. It bridges silos between students of different institutions with sub-200ms latency. Check /projects/nexus-ai for the full case study.";
+  if (context === 'skillbridge' || q.includes('skillbridge') || q.includes('devfusion') || q.includes('iit bombay')) {
+    return "SkillBridge is an AI-first peer learning ecosystem shortlisted in the Top 10 at IIT Bombay DevFusion. It features instant AI doubt solving, adaptive test generation, verified mentor sessions, and credit monetization logic. View it at /projects/skillbridge.";
   }
 
-  if (context === 'stocksense' || q.includes('stocksense')) {
-    return "StockSense uses LangGraph for multi-agent market reasoning. It eliminated 95% of standard LLM hallucinations in financial analysis by implementing state-aware orchestration. Verified 50ms processing latency.";
+  if (context === 'neuromemory' || q.includes('memory') || q.includes('neurohack') || q.includes('smallest')) {
+    return "NeuroMemory is a long-term conversational memory system for AI agents built during the Smallest.ai × IIT Guwahati NeuroHack Challenge. It maintains continuity across 1,000+ turns with sub-50ms token injection. Inspect /case-studies/neuromemory-conversational-persistence.";
   }
 
-  if (context === 'sentinel' || q.includes('sentinel')) {
-    return "Sentinel Auth is a high-integrity Node.js security layer with anomaly detection and Redis-backed rate limiting. It achieves 99% accuracy in blocking automated brute-force attempts with sub-ms overhead.";
+  if (context === 'dealroom' || q.includes('deal room') || q.includes('iit delhi') || q.includes('vc')) {
+    return "The Deal Room was a multi-round VC simulation by DMS IIT Delhi where Ayush placed in the Top 30 by defending capital allocation and unit economics in front of IIT Delhi faculty. Read more at /case-studies/the-deal-room-investment-pitch-iitd.";
   }
 
   // Educational Context
   if (q.includes('iit') || q.includes('madras') || q.includes('education') || q.includes('college')) {
-    return "Ayush is pursuing a BS in Data Science at IIT Madras (2025–2029). He focuses on Applied Machine Learning, Statistics, and High-Performance Computing while participating in the Nilgiri House technical community.";
+    return "Ayush is pursuing a BS in Data Science & Applications at IIT Madras (Class of 2029). He focuses on Applied Machine Learning, Statistics, PINNs, and High-Performance Computing while actively representing IIT Madras in national technical summits.";
   }
 
   // Professional / Experience
-  if (q.includes('intern') || q.includes('experience') || q.includes('work') || q.includes('yuva')) {
-    return "Ayush has completed high-impact internships at Yuva Intern (Data Analyst, Frontend dev) and MTF Institute (Alumni Trainee). He's currently a Jury Member for AI-volution at IIT Kharagpur's GES 2026. View the full timeline at /experience.";
+  if (q.includes('intern') || q.includes('experience') || q.includes('work') || q.includes('jury') || q.includes('kharagpur')) {
+    return "Ayush is a Research Intern at IIT Ropar (Vicharanashala), Jury Member for AI-volution at IIT Kharagpur (GES 2026), and former Campus Ambassador for BECon '26 (eDC IIT Delhi) and Cognizance 2026 (IIT Roorkee). View the full timeline at /experience.";
   }
 
   // Achievements / Recognition
-  if (q.includes('achievement') || q.includes('hackathon') || q.includes('award') || q.includes('winner')) {
-    return "Key achievements include: Jury Member at IIT Kharagpur GES 2026, Finalist at IIT Madras Shaastra Ideathon, Finalist at IIT Delhi BECon, and Campus Ambassador at Techfest IIT Bombay. View the badge grid at /achievements.";
-  }
-
-  // Certifications
-  if (q.includes('cert') || q.includes('certification') || q.includes('verify') || q.includes('credential')) {
-    return "Ayush holds 11+ verified credentials, including honors from IEEE DTU (Space Race), and professional certifications in Data Science, Cloud (GCP/AWS), and advanced LLM engineering from IBM and Vercel. Inspect them at /certifications.";
+  if (q.includes('achievement') || q.includes('hackathon') || q.includes('award') || q.includes('winner') || q.includes('finalist')) {
+    return "Key achievements: Selected for Bharat Innovates 2026 (Nice, France), Top 10 @ IIT Bombay DevFusion, Top 10 @ Elite Hack 1.0 (7.4k+ builders), Solo Finalist @ GDG HackFest 2.0, Grand Finalist @ IIT Kanpur Brahmastra, and Top 30 @ IIT Delhi Deal Room. View the full grid at /achievements.";
   }
 
   // Skills / Tech Stack
   if (q.includes('skill') || q.includes('tech') || q.includes('stack') || q.includes('language')) {
-    return "Core stack: Python (TensorFlow/PyTorch/LangGraph), TypeScript (React/Next.js/Node), and Cloud (Supabase/PostgreSQL/AWS). He specializes in merging high-fidelity UX with reasoning-based AI infrastructure.";
+    return "Core stack: Python (PINNs, PyTorch, LangChain, FastAPI), TypeScript (Next.js, React, Node.js), and Cloud Databases (Supabase, PostgreSQL, Vercel). He specializes in scalable AI architectures and high-fidelity web systems.";
   }
 
   // Contact / Availability
   if (q.includes('contact') || q.includes('hire') || q.includes('collab') || q.includes('email') || q.includes('linkedin')) {
-    return "Reach Ayush at ayushjhaa1187@gmail.com or via LinkedIn. He is currently looking for high-impact AI/ML collaborations and research partnerships. Protocol starts at /contact.";
+    return "Reach Ayush at ayushjhaa1187@gmail.com or connect on LinkedIn at https://www.linkedin.com/in/ayush-kumar-jha-5960a3362/ (3.8k+ followers). He is available for high-impact AI/ML collaborations and full-stack engineering roles at /contact.";
   }
 
   // General Project Query
   if (q.includes('project') || q.includes('build') || q.includes('repo')) {
-    return "Ayush has architected 46+ repositories ranging from satellite analysis systems to decentralized reputation ledgers. 9 priority projects feature deep-dive case studies at /projects.";
+    return "Ayush has architected 46+ public GitHub repositories and multiple hackathon-winning builds including SkillBridge, Elite Event Hub, NeuroMemory, and NEXAS. Explore them at /projects.";
   }
 
-  return "I am currently processing your request. You can ask about his IIT Madras background, specific AI projects like StockSense, his 11+ certifications, or his experience as a Jury Member at IIT Kharagpur. System Ready.";
+  return "Hello! I am Ayush's AI Assistant. You can ask about his IIT Madras Data Science background, his internship at IIT Ropar, his selection for Bharat Innovates (Nice, France), his PINNs research at IISc Bangalore, or his Top 10 finishes at IIT Bombay and Elite Hack 1.0. How can I help you?";
 };

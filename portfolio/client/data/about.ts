@@ -2,21 +2,22 @@ import { About } from '@/lib/schemas';
 
 export const about: About = {
   name: 'Ayush Kumar Jha',
-  tagline: 'Data Scientist & AI Architect',
-  philosophy: "I don't just build models - I build solutions that matter. My unique combination of IIT-level data science and entrepreneurial thinking lets me create AI systems that are both technically robust and commercially viable.",
-  vision: "Building AI solutions that solve real-world problems with business impact. Bridging the gap between cutting-edge data science and practical entrepreneurial innovation.",
+  tagline: 'AI Engineer & IIT Madras Data Science Scholar',
+  philosophy: "I don't build for just enough to demo. I build with product depth, system scalability, and real-world execution humility. The best solutions solve for the hardest edge cases first.",
+  vision: "Engineering AI systems, long-term memory architectures, and scalable full-stack products that transform education, deep tech, and business operations at national and global scale.",
   timeline: [
-    { year: '2020', title: 'Commerce Background', desc: 'Started with economics, discovered passion for data and technology.' },
-    { year: '2023', title: 'Self-Taught Journey', desc: 'Learned Python, ML fundamentals, statistics independently.' },
-    { year: '2025', title: 'IIT Madras Admission', desc: 'Accepted into BS Data Science & Applications program.' },
-    { year: '2025', title: 'IREU Entrepreneurship', desc: 'Startup Ideation Track - validated business ideas with data.' },
-    { year: '2026', title: 'IIT Competition Finalist', desc: 'Top 10 at [Competition] among 500+ teams.' },
-    { year: 'Present', title: 'Building & Learning', desc: 'Focusing on ML/AI for satellite data and business applications.' },
+    { year: '2025', title: 'IIT Madras Enrollment', desc: 'Accepted into BS Data Science & Applications program (Class of 2029).' },
+    { year: '2025', title: 'Data Analytics & Web Internships', desc: 'Conducted exploratory data analysis and built responsive frontend web architectures at Yuva Intern.' },
+    { year: '2026', title: 'Jury & National Finalist', desc: 'Served as Jury Member at IIT Kharagpur (GES AI-volution); Finalist at IIT Bombay (DevFusion Top 10), IIT Kanpur (Brahmastra), and Elite Hack 1.0 (Top 10/7.4k+).' },
+    { year: '2026', title: 'Bharat Innovates (France)', desc: 'Selected for Bharat Innovates 2026 in Nice, France — connecting Indian deep-tech solutions with global accelerators.' },
+    { year: '2026', title: 'IIT Ropar Internship', desc: 'Research & Education Design Intern at Vicharanashala (Lab for Education Design / VLED) under Prof. Sudarshan Iyengar.' },
+    { year: 'Present', title: 'AI for Science & PINNs', desc: 'Investigating Physics-Informed Neural Networks (PINNs) with IISc CDS and deploying real-time agent memory systems.' },
   ],
   currentFocus: [
-    '🛰️ ML Applications in Satellite Data',
-    '🧠 Deep Learning & Computer Vision',
-    '💼 Data-Driven Business Strategy',
-    '🚀 Building Startup-Ready AI Products'
+    '🧠 Long-Term Memory & Persistence for AI Agents',
+    '⚡ Physics-Informed Neural Networks (PINNs) & AI for Science',
+    '🌐 High-Performance Full-Stack Systems (Next.js, Supabase, Vercel)',
+    '🚀 Deep-Tech Scaling (Bharat Innovates 2026, Nice, France)',
+    '📚 AI in Education Design (IIT Ropar Vicharanashala / VLED)'
   ],
 };

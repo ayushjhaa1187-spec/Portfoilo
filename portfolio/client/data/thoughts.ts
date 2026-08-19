@@ -10,46 +10,57 @@ export interface Thought {
 
 export const thoughts: Thought[] = [
   {
-    id: 1,
-    quote: "Autonomous intelligence is not about replicating human intuition, but about engineering the architectural safeguards to scale it.",
+    id: 't-pinns',
+    quote: "Physics meets neural nets — not on slides, in real equations. When you embed conservation laws directly into deep learning, models stop hallucinating physical reality.",
     attribution: "AKJ",
-    context: "On Agentic Workflows",
+    context: "CDS, Indian Institute of Science (IISc Bangalore) · July 2026",
     category: 'AI',
+    linkedinImpressions: 34490,
     featured: true
   },
   {
-    id: 2,
-    quote: "The value of a system is proportional to the number of non-obvious insights it extracts from standard data streams.",
+    id: 't-france',
+    quote: "Not every passport is stamped at the airport. Some are stamped by effort. Ideas don't need visas — they need velocity. Built in India, meant for the world.",
     attribution: "AKJ",
-    context: "On Data Forensics",
-    category: 'tech',
-    featured: true
-  },
-  {
-    id: 't-01',
-    quote: "I don't compete at hackathons to win. I compete to watch my ideas die. Every weak assumption that collapses in a high-pressure room saves me from wrong execution later.",
-    attribution: "AKJ",
-    context: 'Changethon, IIT Roorkee · March 2026',
-    category: 'competition',
-    linkedinImpressions: 1133,
-    featured: true
-  },
-  {
-    id: 't-02',
-    quote: "Your startup idea sounds brilliant at 2 AM. It dies at 2 PM when a judge asks one sharp question on unit economics.",
-    attribution: "AKJ",
-    context: 'Startup Auction 2.0, IIT Delhi · February 2026',
+    context: "Bharat Innovates 2026, Nice, France · June 2026",
     category: 'founder',
-    linkedinImpressions: 386,
+    linkedinImpressions: 1369,
     featured: true
   },
   {
-    id: 't-06',
-    quote: "True inclusion means designing for the most excluded users first, not adding accessibility as a final sprint task.",
+    id: 't-ropar',
+    quote: "A guru doesn’t always stand at a blackboard. Sometimes, they change how you think. The best mentors don’t hand you answers — they make you capable of finding better questions.",
     attribution: "AKJ",
-    context: 'Enable Ideathon, IIT Madras · February 2026',
-    category: 'inclusion',
-    linkedinImpressions: 501,
+    context: "Vicharanashala (Lab for Education Design), IIT Ropar · July 2026",
+    category: 'learning',
+    linkedinImpressions: 1357,
+    featured: true
+  },
+  {
+    id: 't-skillbridge',
+    quote: "We didn’t stop at what was asked. We didn’t build for 'just enough to demo.' We built with product depth, scalability, and enterprise-ready thinking in mind.",
+    attribution: "AKJ",
+    context: "DevFusion, IIT Bombay · April 2026",
+    category: 'builder',
+    linkedinImpressions: 1601,
+    featured: true
+  },
+  {
+    id: 't-elitehack',
+    quote: "The code isn’t the hardest part of a hackathon. It’s the 24-hour decisions, trusting your teammate when things break at 3 AM, and building with someone, not just next to them.",
+    attribution: "AKJ",
+    context: "Elite Hack 1.0 (7.4k+ Builders) · April 2026",
+    category: 'competition',
+    linkedinImpressions: 1086,
+    featured: true
+  },
+  {
+    id: 't-dealroom',
+    quote: "Investing isn’t about 'liking' an idea. It’s about stress-testing assumptions and modeling worst-case downturns. You can’t allocate capital on gut feel when someone asks: 'Show me the math.'",
+    attribution: "AKJ",
+    context: "The Deal Room, DMS IIT Delhi · March 2026",
+    category: 'founder',
+    linkedinImpressions: 259,
     featured: true
   }
 ];

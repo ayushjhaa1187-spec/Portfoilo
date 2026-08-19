@@ -19,167 +19,193 @@ function calcReadTime(content: string): number {
   return Math.ceil(content.trim().split(/\s+/).length / 200);
 }
 
-const changethonContent = `## Intro
-I don't compete at hackathons to win. I compete to watch my ideas die, because every weak idea that collapses in a high-pressure room saves me months of wrong execution later. Changethon at IIT Roorkee gave me exactly that kind of brutal mirror. I entered with confidence, a polished framing, and a solution that sounded right in my head. Within hours, mentors and judges exposed assumptions I had not stress-tested deeply enough.
+const pinnsContent = `## Physics Meets Neural Nets — Not on Slides, in Real Equations
 
-The room was intense, but it was the right kind of intensity. Every team was trying to solve for real constraints, not just slide-deck perfection. I learned that a social impact solution is not valid because it is inspiring. It is valid only when the user at the far edge of the system can adopt it without friction, confusion, or trust barriers.
+Got an invite from Computational and Data Sciences (CDS), Indian Institute of Science (IISc Bangalore) for a talk on:
+**“Adaptive Physics-Informed Neural Network Modeling Framework for Dual-Porosity Flow”** by Prof. Kalyana Nakshatrala (University of Houston).
 
-My initial model looked elegant. The real-world scenario did not. Field-level constraints changed priorities quickly, and we had to rebuild core logic around access, not features.
+For a student builder in AI/ML, this isn’t just another seminar. It’s a front-row seat to how physics-informed neural networks (PINNs) are being used to solve complex flow problems that traditional models struggle with — dual-porosity, real-world constraints, and all the messy mathematical details.
 
-## Key Learnings
-The first learning was ruthless clarity: if you can't explain the failure mode in one sentence, you do not understand your own product yet. The second learning was execution humility. A working demo can hide serious deployment blind spots in operations, support, and onboarding.
+## Why This Matters for AI Builders
+I went in with one overarching goal: to understand how researchers at the intersection of numerical methods, fluid mechanics, and deep learning are thinking about modeling — and then pull those ideas back into the kind of AI agents and data systems I’m engineering.
 
-The third learning was about decision speed. Under time pressure, teams often overbuild. We instead started removing layers and asked, what is the smallest version that still creates measurable value? This question made our choices cleaner.
+Traditional deep learning is data-hungry and prone to physical unreality. PINNs bridge this gap by embedding conservation laws, differential equations, and boundary conditions directly into the loss function.
 
-Fourth, collaboration quality matters more than individual brilliance in fast cycles. The best moments came when someone challenged an assumption before we invested more effort.
+## Representing IIT Madras
+Happy to represent the IIT Madras BS in Data Science Programme across these research forums.
+Date: 13 July 2026 | Venue: CDS #102, Indian Institute of Science (IISc Bangalore) / Online Teams.
 
-## What This Means
-For my founder journey, Changethon reinforced one operating principle: test ideas where they can fail fast and publicly. That is how resilient products are born. I now treat competitions as compressed validation labs rather than trophy hunts. The scoreboard is useful, but the real metric is how many wrong assumptions you can eliminate per week.
+If you’re into applied math, fluid dynamics, AI for science, or PINNs, this is exactly the intersection you don’t skip. Still a student, but learning like a practitioner.`;
 
-This event also shaped how I evaluate product quality. I now ask three questions first: who gets excluded, what breaks at scale, and what cannot be maintained by a small team. If answers are weak, the concept is still immature.
+const franceContent = `## Not Every Passport is Stamped at the Airport — Some are Stamped by Effort
 
-## Closing Thought
-Hackathons are not just events for certificates. They are high-signal environments for founder training. If your idea survives criticism, constraints, and user reality, then maybe it deserves your next six months.`;
+Ideas don’t need visas. They need velocity.
+A screen. A student. A stubborn dream. Late nights turned into one passport moment.
+And this one feels bigger than travel — it feels like a signal.
 
-const startupAuctionContent = `## Intro
-Your startup idea sounds brilliant at 2 AM. It dies at 2 PM when a judge asks one sharp question on unit economics. That was the core lesson from Startup Auction 2.0 at IIT Delhi. The format simulated investor thinking under uncertainty. Teams had to evaluate opportunities, price conviction, and defend assumptions while data changed in real time.
+## Selected for Bharat Innovates 2026 (Nice, France)
+I’ve been selected for **Bharat Innovates** in Nice, France.
+This isn’t just a stage; it’s a global accelerator created to connect India’s deep-tech innovation ecosystem with world-class international collaborators.
 
-I enjoyed this challenge because it forced a blend of founder instinct and analytical discipline. In product competitions, teams can hide behind prototypes. In auction formats, logic is exposed quickly. If your valuation story is weak, confidence collapses.
+The first edition is bringing **120 Indian deep-tech startups and 15 premier institutions** into one global room. That means builders, researchers, students, and founders won’t just showcase ideas — we’ll build partnerships, pilots, research bridges, and sustainable ecosystems.
 
-Our team prepared with market narratives, risk framing, and quick scenario modeling. But once the round started, we realized that speed alone was not enough. Precision in communication determined whether our reasoning sounded credible.
+## Indian Solutions for Global Problems
+Proud to represent the Indian Institute of Technology, Madras spirit in this larger wave of innovation. From Indian classrooms to global conversations — yeh bas shuruaat hai. 🚀
 
-## Key Learnings
-First, valuation without a distribution thesis is fragile. Judges consistently pushed on customer acquisition pathways, not only product novelty. Second, storytelling is not decoration; it is a decision tool. A clean narrative helps others trust your prioritization under uncertainty.
+The world doesn’t just need Indian innovation right now. It needs Indian innovation in AI, education, climate, health, and deep-tech at scale. If this is where focused building can take me today, this is just one checkpoint in a very long race. Built in India. Meant for the world. 🌍`;
 
-Third, simple financial models outperform complicated ones in high-pressure rounds. We kept assumptions visible and adjustable so we could defend changes quickly. Fourth, competition formats that imitate investor behavior are excellent training for real founder conversations because they punish vague confidence.
+const vicharanashalaContent = `## A Guru Doesn’t Always Stand at a Blackboard — Sometimes, They Change How You Think
 
-## What This Means
-This experience changed how I build and pitch. I now frame products around value capture and execution feasibility from day one. Instead of saying, this feature is exciting, I ask, who pays, why now, and what adoption path is realistic in the first ninety days.
+Reflecting on what my internship at the **Indian Institute of Technology, Ropar** is teaching me beyond tasks, tools, and deliverables.
 
-It also improved my decision rhythm. When faced with limited time and incomplete information, I now prefer transparent assumptions and reversible bets. That balance keeps momentum while protecting downside.
+At **Vicharanashala (Lab for Education Design / VLED)**, the learning has been transformative:
+* How to listen before building.
+* How to break a problem into first principles before attempting to solve it.
+* How education can be designed — not just delivered.
 
-## Closing Thought
-Startup Auction taught me that founder credibility comes from disciplined thinking, not loud optimism. If you can defend your logic when the room pushes back, you are building more than a pitch. You are building judgment.`;
+## Mentorship in Practice
+The conversations, feedback, daily discipline, and people who challenge your assumptions quietly become the lessons you carry forward. For a student like me building in AI and technology, this matters deeply.
 
-const enableContent = `## Intro
-True inclusion means designing for the most excluded users first, not adding accessibility as a final sprint task. That was the spirit behind our Enable Ideathon journey at IIT Madras. We explored accessible banking workflows for users who face friction with digital-first products because of language barriers, trust deficits, and device limitations.
+The best mentors don’t hand you answers. They make you capable of finding better questions.
 
-At first, we focused on feature breadth. Then mentor feedback redirected us toward friction depth: where does a user drop off in minute one, and why? That single shift improved our solution dramatically. We simplified onboarding, reduced cognitive load, and aligned every flow with confidence-building cues.
+Special gratitude to Prof. Sudarshan Iyengar, Dr. Pavani Ayinampudi, Vaishali Kalotra ma'am, Prakash Hegade, Rohit Sharma, Meenakshi V, Sakshi Sharma, Jinal Gupta, Mukund Aditya BV, Jatin Kumar, and everyone at Vicharanashala for fostering a space where growth comes through inquiry and rigorous building.
 
-The best part of this challenge was seeing how interdisciplinary thinking improves product quality. Inclusion is not only a UX challenge. It is policy, communication, risk management, and behavioral design in one system.
+The right guidance does not make your journey easier. It makes you strong enough to walk it.`;
 
-## Key Learnings
-First, inclusive fintech starts with context mapping. You must understand user constraints before drawing interfaces. Second, trust signals matter as much as usability. Clear language, transparent prompts, and predictable actions reduce fear and confusion.
+const skillbridgeContent = `## We Didn’t Stop at What They Asked Us to Build
 
-Third, accessibility improvements can strengthen mainstream experience too. Simpler flows help everyone. Fourth, the gap between prototype success and operational success is large unless support and escalation pathways are designed early.
+We took one problem statement and stretched it as far as we could.
+Glad to share that our project **SkillBridge**, built by me and my teammate Jahnvi Chauhan, was shortlisted in the **Top 10 at DevFusion: The Developer Hackathon by IIT Bombay**.
 
-## What This Means
-Enable Ideathon shaped my product philosophy deeply. I now treat inclusion as a performance criterion, not a social add-on. If a solution excludes edge users, it is architecturally incomplete.
+## Going Far Beyond the Brief
+We chose Problem Statement 2, which asked for a peer learning doubt-resolution platform with AI help, mentor sessions, practice tests, reputation, and profiles.
 
-This event also pushed me toward measurable design decisions. Rather than saying the product is easier, I now ask how many fewer steps, how much less ambiguity, and how much faster trust is established for first-time users.
+Instead of covering just the 8-9 line requirement list, we pushed it to product-grade depth:
+* Instant multimodal AI doubt resolution.
+* Peer community Q&A with credit escrow logic.
+* Verified mentor scheduling and live sessions.
+* Dynamic, adaptive test generation.
+* Gamified reputation tiers and institutional monetization architecture.
 
-## Closing Thought
-Building for inclusion is not charity. It is good systems thinking. When you solve for the hardest user journey, you build products that are stronger, clearer, and more resilient for everyone.`;
+Jahnvi handled the frontend, UI/UX, and Framer Motion micro-interactions, while I engineered the full-stack system, AI orchestration, and backend architecture.
 
-const founderJourneyContent = `## Intro
-I'm still a second semester student, but the last four months felt like a compressed founder degree across eight IIT ecosystems. The headline is not the number of events. The real story is how repeated exposure to different judging styles, problem statements, and team dynamics changed how I think and build.
+We didn’t build for “just enough to demo.” We built with product depth, scalability, and industry-ready thinking. Representing IIT Madras and building far beyond the brief.`;
 
-Each campus had a distinct rhythm. Some prioritized social impact viability. Others emphasized venture readiness or technical rigor. Moving through these environments taught me that product truth is contextual. A pitch that works in one room can fail in another if assumptions are not explicit.
+const eliteHackContent = `## She Led. I Built. We Finaled. CoCreate > Everything
 
-This journey was physically intense and mentally stretching. Travel, deadlines, prototypes, and feedback loops stacked fast. But that density accelerated my learning curve.
+Thousands of coders. One question: Can you build under pressure and trust?
+Elite Coders threw us into the deep end with **Elite Hack 1.0** — 7,400+ participants across India.
 
-## Key Learnings
-First, networking is not collecting LinkedIn connections. It is building trust through consistent contribution and honest collaboration. The strongest relationships came from solving hard problems together, not exchanging cards.
+We finished in the **Top 10 teams** by building an end-to-end event management platform — live, functional, and deployed on Vercel at \`elite-hack-1-0.vercel.app\`.
 
-Second, the best founders are not people with perfect decks. They are people who can absorb criticism without losing execution speed. Third, knowledge expansion does not come from passive content consumption. It comes from active build-test-reflect cycles.
+## What Hackathons Actually Test
+The code isn’t the hardest part. It’s the 24-hour decisions. It’s trusting your teammate when things break at 3 AM. It’s the silent understanding between two builders who refuse to quit.
 
-Fourth, identity clarity matters. Competing often made me sharper about what kind of builder I want to become: someone who blends technical depth with real-world usability and business discipline.
+None of this happens without Jahnvi Chauhan — a leader who stayed sharp when debugging got intense and reminded me that building together beats building alone.
 
-## What This Means
-Going forward, I am doubling down on three tracks: AI systems that solve real workflow bottlenecks, accessible product design, and founder-grade communication. I want every project to demonstrate both technical rigor and operational awareness.
+To every college student: You don’t need to wait until you feel 'ready'. You need to register, show up, and build.`;
 
-This journey also reinforced a practical rule: compress feedback loops wherever possible. The faster you convert feedback into iteration, the faster your judgment compounds.
+const dealRoomContent = `## When You’re Handed Virtual Capital and One Question: Which Startup Gets Your Money?
 
-## Closing Thought
-Eight IITs in four months was not about collecting lines for a profile. It was about building founder reflexes early. I am still learning, but now I learn with more structure, more urgency, and more respect for real-world constraints.`;
+Competed in **The Deal Room: The Investment Pitch Challenge** at Building India Inc. 2026, organized by Finazards and Department of Management Studies (DMS), IIT Delhi (₹25,000 prize pool).
+
+## The Three Elimination Rounds
+1. **Finance Fundamentals Sprint:** 20 questions in 10 minutes — fast logical analysis under pressure. Placed in the Top 30.
+2. **Virtual Capital Allocation:** Given 3 detailed startup profiles. Deciding exact capital splits based on unit economics, burn rate, and competitive moats.
+3. **Defending Your Thesis to DMS IIT Delhi Faculty:** Cross-examination on downside protection, customer acquisition costs, and LTV multiples.
+
+## Core Takeaway
+Investing isn’t about 'liking' an idea. It’s about stress-testing assumptions and defending why this business model survives when the others collapse. You can't pitch on gut feel when the jury asks: *'Show me the math.'*`;
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: 'agentic-workflows-fintech',
-    title: 'The Future of Agentic Workflows in FinTech',
-    subtitle: 'Autonomous AI agents like StockSense in volatile markets.',
+    slug: 'physics-meets-neural-nets-iisc-pinns',
+    title: 'Physics Meets Neural Nets: Exploring PINNs at IISc CDS',
+    subtitle: 'Notes from the invited talk on Adaptive PINNs for Dual-Porosity Flow at IISc Bangalore.',
     category: 'AI',
-    publishedAt: '2026-03-15T10:00:00.000Z',
-    date: 'March 2015',
-    readTime: '6 min',
-    excerpt: 'Exploring how autonomous AI agents will revolutionize predictive reasoning in markets.',
-    content: `## The Shift to Autonomy
-Traditional financial analysis is static. Agentic workflows change this by being state-aware.
-
-### State-Aware Orchestration
-In StockSense, we use LangGraph to allow agents to 'reflect' on their reasoning. This reflection loop is critical to reducing hallucinations.`,
-    tags: ['AI', 'Fintech', 'LangGraph'],
-    impressions: 1204,
+    publishedAt: '2026-07-14T10:00:00.000Z',
+    date: 'July 2026',
+    readTime: calcReadTime(pinnsContent),
+    excerpt: 'Front-row insights on how Physics-Informed Neural Networks (PINNs) bridge conservation laws with deep learning to solve complex flow equations.',
+    content: pinnsContent,
+    tags: ['IISc Bangalore', 'PINNs', 'Physics-Informed ML', 'Dual-Porosity', 'AI for Science', 'IIT Madras'],
+    linkedinImpressions: 34490,
+    impressions: 34490,
     featured: true
   },
   {
-    slug: 'compete-to-fail-changethon',
-    title: 'Compete to Fail: Why Changethon Changed My Founder Lens',
-    subtitle: 'A high-pressure social innovation sprint that rewired my execution philosophy.',
-    category: 'competition',
-    publishedAt: '2026-03-11T10:30:00.000Z',
-    date: 'March 2026',
-    excerpt:
-      "I don't compete at hackathons to win. I compete to watch my ideas die, because weak assumptions are expensive outside the arena.",
-    content: changethonContent,
-    readTime: calcReadTime(changethonContent),
-    tags: ['IIT Roorkee', 'Changethon', 'Founder Mindset', 'Social Impact'],
-    linkedinImpressions: 1133,
+    slug: 'skillbridge-devfusion-iit-bombay-top-10',
+    title: 'Building SkillBridge: Pushing Past the Brief to Top 10 at IIT Bombay',
+    subtitle: 'How going beyond a 9-line hackathon requirement turned into an enterprise ed-tech system.',
+    category: 'Full-Stack',
+    publishedAt: '2026-04-12T11:00:00.000Z',
+    date: 'April 2026',
+    readTime: calcReadTime(skillbridgeContent),
+    excerpt: 'How we engineered SkillBridge — an AI-first peer learning platform with instant doubt solving and credit economics at IIT Bombay DevFusion.',
+    content: skillbridgeContent,
+    tags: ['IIT Bombay', 'DevFusion', 'Hackathon Top 10', 'AI EdTech', 'Full-Stack', 'Supabase'],
+    linkedinImpressions: 1601,
+    impressions: 1601,
     featured: true
   },
   {
-    slug: 'vc-simulation-startup-auction-iitd',
-    title: 'Inside a VC Simulation: Startup Auction 2.0 at IIT Delhi',
-    subtitle: 'What fast investor-style rounds taught me about clarity and conviction.',
-    category: 'case-study',
-    publishedAt: '2026-02-19T12:00:00.000Z',
-    date: 'Feb 2026',
-    excerpt:
-      'Your startup idea sounds brilliant at 2 AM. It dies at 2 PM when someone challenges your economics with one hard question.',
-    content: startupAuctionContent,
-    readTime: calcReadTime(startupAuctionContent),
-    tags: ['IIT Delhi', 'BECon', 'Startup Auction', 'Venture Thinking'],
-    linkedinImpressions: 386,
-    featured: true
-  },
-  {
-    slug: 'accessible-banking-enable-iitm',
-    title: 'Designing Accessible Banking at Enable Ideathon',
-    subtitle: 'Why inclusion-first design produced our strongest product decisions.',
-    category: 'tech',
-    publishedAt: '2026-02-03T09:00:00.000Z',
-    date: 'Feb 2026',
-    excerpt:
-      'True inclusion means designing for the most excluded users first, then scaling those decisions into mainstream product quality.',
-    content: enableContent,
-    readTime: calcReadTime(enableContent),
-    tags: ['IIT Madras', 'Fintech', 'Accessibility', 'Product Design'],
-    linkedinImpressions: 501,
-    featured: true
-  },
-  {
-    slug: '4-months-8-iits-founder-journey',
-    title: '4 Months, 8 IITs: Notes from an Early Founder Journey',
-    subtitle: 'What repeated competition cycles taught me about building under pressure.',
+    slug: 'bharat-innovates-france-deeptech',
+    title: 'Selected for Bharat Innovates (Nice, France): Indian Solutions for Global Problems',
+    subtitle: 'Representing IIT Madras deep-tech on a global accelerator stage in Europe.',
     category: 'founder',
-    publishedAt: '2026-03-20T14:30:00.000Z',
+    publishedAt: '2026-06-16T09:30:00.000Z',
+    date: 'June 2026',
+    readTime: calcReadTime(franceContent),
+    excerpt: 'Selected among top deep-tech builders across 15 premier Indian institutions for Bharat Innovates in Nice, France.',
+    content: franceContent,
+    tags: ['Bharat Innovates', 'Nice France', 'DeepTech', 'IIT Madras', 'Global Innovation', 'Founder Journey'],
+    linkedinImpressions: 1369,
+    impressions: 1369,
+    featured: true
+  },
+  {
+    slug: 'vicharanashala-iit-ropar-internship-learnings',
+    title: 'Reflections from Vicharanashala, IIT Ropar: Designing Education Through Questions',
+    subtitle: 'What research at the Lab for Education Design teaches you about listening before building.',
+    category: 'philosophy',
+    publishedAt: '2026-07-20T14:00:00.000Z',
+    date: 'July 2026',
+    readTime: calcReadTime(vicharanashalaContent),
+    excerpt: 'Reflecting on education design, AI pedagogy, and first-principles problem architecture under Prof. Sudarshan Iyengar at IIT Ropar.',
+    content: vicharanashalaContent,
+    tags: ['IIT Ropar', 'Vicharanashala', 'Education Design', 'Mentorship', 'Pedagogy', 'AI'],
+    linkedinImpressions: 1357,
+    impressions: 1357,
+    featured: true
+  },
+  {
+    slug: 'elite-hack-1-top-10-event-platform',
+    title: 'She Led, I Built: From 7.4k+ Builders to Top 10 at Elite Hack 1.0',
+    subtitle: 'Deploying a live full-stack event platform in 48 hours under high pressure.',
+    category: 'competition',
+    publishedAt: '2026-04-06T15:00:00.000Z',
+    date: 'April 2026',
+    readTime: calcReadTime(eliteHackContent),
+    excerpt: 'How we finished in the top 10 out of 7,400+ participants by shipping a production-ready hackathon platform live on Vercel.',
+    content: eliteHackContent,
+    tags: ['Elite Hack', 'Hackathon Top 10', 'Next.js', 'Vercel', 'Live Deployment', 'Teamwork'],
+    linkedinImpressions: 1086,
+    impressions: 1086,
+    featured: true
+  },
+  {
+    slug: 'the-deal-room-iit-delhi-vc-simulation',
+    title: 'Surviving The Deal Room at IIT Delhi: What Happens When You’re the VC',
+    subtitle: 'Analyzing burn rates, moats, and capital allocation in front of DMS IIT Delhi faculty.',
+    category: 'case-study',
+    publishedAt: '2026-03-22T12:00:00.000Z',
     date: 'March 2026',
-    excerpt:
-      "I'm still a second semester student, but this run across IIT ecosystems gave me practical founder lessons no classroom can compress as quickly.",
-    content: founderJourneyContent,
-    readTime: calcReadTime(founderJourneyContent),
-    tags: ['Founder Journey', 'IIT Ecosystem', 'Learning in Public', 'Execution'],
-    linkedinImpressions: 382,
+    readTime: calcReadTime(dealRoomContent),
+    excerpt: 'Defending startup valuation theses and unit economics under jury cross-examination at DMS IIT Delhi.',
+    content: dealRoomContent,
+    tags: ['IIT Delhi', 'DMS', 'VC Thinking', 'Unit Economics', 'Capital Allocation', 'Case Competition'],
+    linkedinImpressions: 259,
+    impressions: 259,
     featured: false
   }
 ];

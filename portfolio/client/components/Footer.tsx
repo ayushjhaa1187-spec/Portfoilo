@@ -103,7 +103,8 @@ export default function Footer() {
             {profile.resume ? (
               <a
                 href={profile.resume}
-                download
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-6 inline-flex items-center gap-2 px-4 py-2 border border-amber-400/30 text-amber-400 text-xs font-bold rounded-full hover:bg-amber-400/10 transition-all"
               >
                 <Download size={12} />

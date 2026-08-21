@@ -115,7 +115,8 @@ const Navbar = () => {
             {profile.resume ? (
               <a
                 href={profile.resume}
-                download
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Download Resume"
                 className="flex items-center gap-1.5 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.15em] border border-amber-400/40 text-amber-400 rounded-full hover:bg-amber-400 hover:text-black transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
               >
@@ -204,7 +205,8 @@ const Navbar = () => {
               {profile.resume ? (
                 <a
                   href={profile.resume}
-                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setIsOpen(false)}
                   className="flex items-center justify-center gap-2 w-full py-4 bg-amber-400 text-black font-bold text-sm rounded-full hover:bg-amber-300 transition-all"
                 >

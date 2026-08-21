@@ -244,10 +244,14 @@ const Hero = () => {
               </Link>
 
               {profile.resume ? (
-                <a href={profile.resume} download>
+                <a
+                  href={profile.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Download Resume"
+                >
                   <button
                     className="group px-7 py-3.5 bg-white/5 border border-white/10 text-white font-bold text-sm rounded-full hover:bg-white/10 hover:border-white/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2"
-                    aria-label="Download Resume"
                   >
                     <Download size={15} />
                     Resume

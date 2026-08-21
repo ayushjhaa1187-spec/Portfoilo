@@ -4,10 +4,14 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { Download, ExternalLink, FileText, Calendar } from 'lucide-react';
+import { profile } from '@/data/profile';
 
 const ResumePage = () => {
-  const lastUpdated = 'April 2026'; // Pull from data later if needed
-  const resumeUrl = '/resume.pdf'; // Path to your PDF in /public
+  const lastUpdated = 'April 2026';
+  const resumeUrl = profile.resume || 'https://drive.google.com/file/d/1C5iHObv14AM47zHpbjuvk65IzglabZEP/view?usp=sharing';
+  const embedUrl = resumeUrl.includes('drive.google.com')
+    ? resumeUrl.replace(/\/view(\?.*)?$/, '/preview')
+    : `${resumeUrl}#toolbar=0`;
 
   return (
     <div className="min-h-screen pt-24 px-4 max-w-5xl mx-auto pb-16">
@@ -32,15 +36,15 @@ const ResumePage = () => {
           >
             <ExternalLink size={18} /> Open in New Tab
           </Button>
-          <a href={resumeUrl} download="Ayush_Kumar_Jha_Resume.pdf">
+          <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
             <Button className="flex items-center gap-2 bg-blue-600">
-              <Download size={18} /> Download PDF
+              <Download size={18} /> Download / View Resume
             </Button>
           </a>
         </div>
       </motion.div>
 
-      {/* PDF Viewer Placeholder */}
+      {/* PDF Viewer */}
       <motion.div
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -48,9 +52,10 @@ const ResumePage = () => {
         className="w-full aspect-[1/1.414] bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden relative group"
       >
         <iframe
-          src={`${resumeUrl}#toolbar=0`}
+          src={embedUrl}
           className="w-full h-full border-none"
           title="Resume Viewer"
+          allow="autoplay"
         />
         
         {/* Fallback overlay if PDF fails to load or for mobile */}
@@ -60,9 +65,13 @@ const ResumePage = () => {
           </div>
           <h3 className="text-xl font-bold text-slate-800 mb-2">Interactive Resume Viewer</h3>
           <p className="text-slate-500 max-w-xs mb-8">
-            Your browser might not support inline PDF viewing. Please download the file to view it.
+            Your browser might not support inline PDF viewing. Please open the file to view it.
           </p>
-          <Button variant="secondary" className="pointer-events-auto">
+          <Button
+            variant="secondary"
+            className="pointer-events-auto"
+            onClick={() => window.open(resumeUrl, '_blank')}
+          >
             View Original PDF
           </Button>
         </div>

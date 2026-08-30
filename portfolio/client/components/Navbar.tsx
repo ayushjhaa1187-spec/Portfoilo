@@ -143,6 +143,8 @@ const Navbar = () => {
             aria-controls="mobile-menu"
             className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
             onClick={() => setIsOpen(!isOpen)}
+            aria-expanded={isOpen}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
           >
             {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>

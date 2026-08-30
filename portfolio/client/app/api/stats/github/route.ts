@@ -19,17 +19,18 @@ export async function GET() {
       Accept: 'application/vnd.github.v3+json',
     };
 
-    // Fetch user data for followers
-    const userRes = await fetch(`https://api.github.com/users/${username}`, { headers, next: { revalidate: 3600 } });
-    const userData = await userRes.json();
-
-    // Fetch repos for stars and count
-    const reposRes = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`, { headers, next: { revalidate: 3600 } });
-    const reposData = await reposRes.json();
+    // Fetch user and repos data concurrently to reduce response time
+    const [userRes, reposRes] = await Promise.all([
+      fetch(`https://api.github.com/users/${username}`, { headers, next: { revalidate: 3600 } }),
+      fetch(`https://api.github.com/users/${username}/repos?per_page=100`, { headers, next: { revalidate: 3600 } })
+    ]);
 
     if (!userRes.ok || !reposRes.ok) {
       throw new Error('GitHub API responded with error');
     }
+
+    const userData = await userRes.json();
+    const reposData = await reposRes.json();
 
     const stars = reposData.reduce((acc: number, repo: { stargazers_count: number }) => acc + repo.stargazers_count, 0);
     const repos = reposData.length;

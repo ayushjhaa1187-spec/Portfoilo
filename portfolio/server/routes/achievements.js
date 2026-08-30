@@ -7,7 +7,8 @@ const Achievement = require('../models/Achievement');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const achievements = await Achievement.find();
+    // ⚡ Bolt: Optimize read-only query with .lean() to bypass document instantiation overhead
+    const achievements = await Achievement.find().lean();
     res.json(achievements);
   } catch (err) {
     console.error(err.message);

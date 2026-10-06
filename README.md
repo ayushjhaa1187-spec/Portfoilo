@@ -7,5 +7,3 @@ The personal portfolio and technical laboratory of Ayush Kumar Jha, an AI Engine
 - React
 - Tailwind CSS
 - Framer Motion
-- TypeScript
-
